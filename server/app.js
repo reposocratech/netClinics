@@ -8,6 +8,7 @@ var logger = require('morgan');
 var usersRouter = require('./routes/users');
 var medicsRouter = require('./routes/medic');
 var adminRouter = require('./routes/admin');
+var patientRouter = require('./routes/patient');
 
 var app = express();
 
@@ -22,9 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/users', usersRouter);
-app.use('/medics', medicsRouter);
+app.use('/user', usersRouter);
+app.use('/medic', medicsRouter);
 app.use('/admin', adminRouter);
+app.use('/patient', patientRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
