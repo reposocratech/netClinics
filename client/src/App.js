@@ -1,5 +1,4 @@
 
-
 function App() {
   return (
     <h1>NetClinics</h1>
