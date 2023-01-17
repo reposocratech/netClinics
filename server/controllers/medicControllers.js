@@ -15,7 +15,7 @@ class medicControllers {
         let saltRounds = 8;
         bcrypt.genSalt(saltRounds, function (err, saltRounds){
             bcrypt.hash(password, saltRounds, function (err, hash){
-                
+            
             })
         })
 
