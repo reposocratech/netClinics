@@ -105,4 +105,4 @@ editPatient = (req, res) => {
 
 }
 
-module.exports = new userController();
+module.exports = new patientController();
