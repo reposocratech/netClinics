@@ -31,7 +31,7 @@ class patientController {
   
   
   //---------------------------------------------------
-  //3.- Trae la información de un paciente
+  //2.- Trae la información de un paciente
   //localhost:4000/patient/onePatient/:user_id  
   
   selectOnePatient = (req, res) => {
@@ -52,8 +52,8 @@ class patientController {
     });
   };
   //---------------------------------------------------
-  // 4.- Trae todos los pacientes de la tabla user
-  //localhost:4000/patient/all 
+  // 3.- Trae todos los medicos de la tabla user
+  //localhost:4000/patient/getMedics 
   getAllMedics = (req, res) => {
     
     console.log("headerrresssdasdasda",req.headers.authorization);
@@ -69,9 +69,22 @@ class patientController {
     });
   };
 
+  //-----------------------------------------------
+  // 4.- Trae la info de un paciente para editarlo
+  //localhost:4000/patient/getEditPatient/:user_id
+
+  getEditPatient = (req, res) => {
+    console.log(req);
+    let user_id = req.params.user_id;
+    let sql = `SELECT * FROM user WHERE user_id = "${user_id}"`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    });
+  };
+
 //-----------------------------------------------------
 /// 5.- Editar un usuario
-//localhost:4000/users/editUser/:userId
+//localhost:4000/patient/editUser/:userId
 editPatient = (req, res) => {
   let user_id = req.params.user_id;
   console.log("esteeee eeesss ellll user_id", user_id) ;
