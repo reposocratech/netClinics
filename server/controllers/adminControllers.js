@@ -20,11 +20,11 @@ getAllMedics = (req, res) => {
 
 getAllPatients = (req, res) => {
     let sql = "SELECT * FROM user WHERE type = 3"
-    connection.query(sql, (error, res) => {
+    connection.query(sql, (error, result) => {
         if(error){
             res.status(400).json({error});
         }
-        res.status(200).json(res);
+        res.status(200).json(result);
     })
 }
 
@@ -39,12 +39,12 @@ desableUser = (req, res) => {
     let sql = `UPDATE user SET is_deleted user_id = "${id}"`;
     let sql2 = 'SELECT * FROM user';
 
-    connection.query(sql, (error, res) => {
+    connection.query(sql, (error, result) => {
         if(error) throw error;
         console.log(error);
     });
 
-    connection.query(sql2, (error, res) => {
+    connection.query(sql2, (error, resultUser) => {
         error ? res.status(400).json({ error }) : res.status(200).json(resultUser);
     });    
 }
@@ -60,12 +60,12 @@ enableUser = (req, res) => {
     let sql = `UPDATE user SET is_deleted = 0 WHERE user_id = "${id}"`;
     let sql2 = 'SELECT * FROM user';
 
-    connection.query(sql, (error, res) => {
+    connection.query(sql, (error, result) => {
         if(error) throw error;
         console.log(error);
     });
 
-    connection.query(sql2, (error, resUser) => {
+    connection.query(sql2, (error, resultUser) => {
         error ? res.status(400).json({ error }) : res.status(200).json(resultUser);
     })
 }
