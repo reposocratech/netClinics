@@ -9,7 +9,7 @@ class userControllers {
     let { email, password } = req.body;
     let sql = `SELECT * FROM user WHERE email = '${email}'`;
 
-    RTCPeerConnection.query(sql, (error, result) => {
+    connection.query(sql, (error, result) => {
       //En caso de error en la consulta
       if (error) return res.status(400).json(error);
 
@@ -26,7 +26,9 @@ class userControllers {
 
         //comparamos las contraseñas
         bcrypt.compare(password, hash, (error, response) => {
-          if (error) throw error;
+          if (error){
+            console.log(error);
+          };
           //si las contraseñas coinciden
           if (response === true) {
             const token = jwt.sign(
