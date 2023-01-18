@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken");
 
 class userControllers {
   //1.-login
-  //localhost:4000/users/login
+  //localhost:4000/user/login
   login = (req, res) => {
     let { email, password } = req.body;
     let sql = `SELECT * FROM user WHERE email = '${email}'`;
+
+    console.log(sql);
 
     connection.query(sql, (error, result) => {
       //En caso de error en la consulta
@@ -34,6 +36,7 @@ class userControllers {
             const token = jwt.sign(
               {
                 user: {
+                  user_id: user_id,
                   email: user.email,
                   name: user.name,
                   lastname: user.lastname,
