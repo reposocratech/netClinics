@@ -4,9 +4,10 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 class medicControllers {
+  
   //1.- createMedic
   //localhost:4000/medic/createMedic
-
+  
   createMedic = (req, res) => {
     //table user, table medic_data, table title
     let {
@@ -28,9 +29,6 @@ class medicControllers {
     postal_code = parseInt(postal_code);
 
     let documents = [""];
-
-    //console.log(req.body);
-    //console.log("este es req.files",req.files);
 
     if (req.files != undefined) {
       documents = req.files;
@@ -58,6 +56,7 @@ class medicControllers {
                   res.status(500).json("Ha habido un error");
                 } else {
                   documents.forEach((document) => {
+                    //hago una insert de cada documento
                     let sql = `INSERT INTO title (document, user_id) VALUES ('${document.filename}', ${id_user})`;
 
                     connection.query(sql, (error, result) => {
@@ -79,32 +78,32 @@ class medicControllers {
   };
 
   //------------------------------------------------------
-  //3.-Trae la información de un medico
+  //2.-Trae la información de un medico
   //localhost:4000/medic/oneMedic/:user_id
 
   selectOneMedic = (req, res) => {};
 
-  //4.-Trae la informacion de su  disponibilidad
+  //3.-Trae la informacion de su  disponibilidad
   //localhost:4000/medic/getAvailability/:user_id
 
   getAvailability = (req, res) => {};
 
-  //5.-Editar un medico
+  //4.-Editar un medico
   //localhost:4000/medic/editMedic/:user_id
 
   editMedic = (req, res) => {};
 
-  //6.-Borrado lógico de un medico
+  //5.-Borrado lógico de un medico
   //localhost:4000/medic/deleteMedic/:user_id
 
   deleteMedic = (req, res) => {};
 
-  //7.-Trae la información de un usuario para modificarla
+  //6.-Trae la información de un usuario para modificarla
   //localhost:4000/medic/getEditMedic/:user_id
 
   getEditOneMedic = (req, res) => {};
 
-  //8.- Trae todas las citas realizadas de un medico
+  //7.- Trae todas las citas realizadas de un medico
   //localhost:4000/medic/getAppointmentHistory/:user_id
 
   getAppointmentHistory = (req, res) => {};
@@ -115,7 +114,7 @@ class medicControllers {
 
   getPendingAppointments = (req, res) => {};
 
-  //8.- Trae todas las citas proximas (solo confirmadas) de un medico
+  //9.- Trae todas las citas proximas (solo confirmadas) de un medico
   //localhost:4000/medic/getConfirmedAppointments/:user_id
 
   getConfirmedAppointments = (req, res) => {};
