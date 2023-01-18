@@ -1,4 +1,4 @@
-const multer = require("multer");
+const multer = require('multer');
 function uploadImage(a) {
   const storage = multer.diskStorage({
     
@@ -6,6 +6,7 @@ function uploadImage(a) {
     //destination: `./public/images/${a}`,
 
     filename: function (req, file, callback) {
+     
       callback(null, "Id-" + Date.now() + "-" + file.originalname);
     },
   });
