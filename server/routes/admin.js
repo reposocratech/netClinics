@@ -23,12 +23,4 @@ router.put("/desableUser/:user_id", adminControllers.desableUser);
 router.put("/enableUser/:user_id", adminControllers.enableUser);
 
 
-
-
-
-
-
-
-
-
 module.exports = router;
