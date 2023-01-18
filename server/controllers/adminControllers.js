@@ -2,73 +2,81 @@ const connection = require('../config/db')
 
 class adminControllers {
 
-// 1.- Trae todos los datos de todos los médicos
-// localhost:4000/admin/getAllMedics
+    // 1.- Trae todos los datos de todos los médicos
+    // localhost:4000/admin/getAllMedics
+    getAllMedics = (req, res) => {
 
-getAllMedics = (req, res) => {
-    let sql = "SELECT * FROM user WHERE type = 2"
-    connection.query(sql, (error, result) => {
-        if(error){
-            res.status(400).json({error});
-        }
-        res.status(200).json(result);
-    })
-}
+        let sql = "SELECT * FROM user WHERE type = 2"
+        connection.query(sql, (error, result) => {
+            if(error){
+                res.status(400).json({error});
+            }
+            res.status(200).json(result);
+        })
+    }
 
-// 2.- Trae los datos de todos los pacientes
-// localhost:4000/admin/getAllPatients
+    // 2.- Trae los datos de todos los pacientes
+    // localhost:4000/admin/getAllPatients
+    getAllPatients = (req, res) => {
 
-getAllPatients = (req, res) => {
-    let sql = "SELECT * FROM user WHERE type = 3"
-    connection.query(sql, (error, result) => {
-        if(error){
-            res.status(400).json({error});
-        }
-        res.status(200).json(result);
-    })
-}
+        let sql = "SELECT * FROM user WHERE type = 3";
+        connection.query(sql, (error, result) => {
+            if(error){
+                res.status(400).json({error});
+            }
+            res.status(200).json(result);
+        })
+    }
 
-// 3.- Deshabilita un usuario
-// localhost:4000/admin/desableUser/:user_id
+    // 3.- Habilita un usuario
+    // localhost:4000/admin/enableUser/:user_id
+    enableUser = (req, res) => {
 
-desableUser = (req, res) => {
-    console.log(req.params);
-    
-    let {id} = req.params;
-    console.log("Este es el ID del User:", id);
-    let sql = `UPDATE user SET is_deleted user_id = "${id}"`;
-    let sql2 = 'SELECT * FROM user';
+        let {user_id} = req.params;
 
-    connection.query(sql, (error, result) => {
-        if(error) throw error;
-        console.log(error);
-    });
+        let sql = `UPDATE user SET is_deleted = 0 WHERE user_id = ${user_id}`;
 
-    connection.query(sql2, (error, resultUser) => {
-        error ? res.status(400).json({ error }) : res.status(200).json(resultUser);
-    });    
-}
+        connection.query(sql, (error, result) => {
+            error ? res.status(400).json({ error }) : res.status(200).json(result);
+        });
+    }
 
-// 4.- Habilita un usuario
-// localhost:4000/admin/enableUser/:user_id
+    //4.- Activa un médico
+    //localhost:4000/admin/enableMedic/:user_id
+    enableMedic = (req, res) => {
+        let {user_id} = req.params;
 
-enableUser = (req, res) => {
-    console.log("Esto es el controlador de Habilitar:", req.params);
+        let sql = `UPDATE medic_data SET medic_enabled = 1 WHERE user_id = ${user_id}`;
 
-    let {id} = req.params;
-    console.log(id);
-    let sql = `UPDATE user SET is_deleted = 0 WHERE user_id = "${id}"`;
-    let sql2 = 'SELECT * FROM user';
+        connection.query(sql, (error, result) => {
+            error ? res.status(400).json({ error }) : res.status(200).json(result);
+        });
+    }
 
-    connection.query(sql, (error, result) => {
-        if(error) throw error;
-        console.log(error);
-    });
+    //5.-Desactiva un médico
+    //localhost:4000/admin/disableMedic/:user_id
+    disableMedic = (req, res) => {
+        let {user_id} = req.params;
 
-    connection.query(sql2, (error, resultUser) => {
-        error ? res.status(400).json({ error }) : res.status(200).json(resultUser);
-    })
-}
+        let sql = `UPDATE medic_data SET medic_enabled = 0 WHERE user_id = ${user_id}`;
+
+        connection.query(sql, (error, result) => {
+            error ? res.status(400).json({ error }) : res.status(200).json(result);
+        });
+    }
+
+    // 6.- Trae los médicos que están pendiente de validar
+    // localhost:4000/admin/getAllMedicsValidation
+    getAllMedicsValidation = (req, res) => {
+        let sql = "SELECT * FROM user left join medic_data on user.user_id = medic_data.user_id WHERE user.type = 2 and medic_data.medic_enabled = 0";
+
+        connection.query(sql, (error, result) => {
+            if(error){
+                res.status(400).json({error});
+            }
+            res.status(200).json(result);
+        })
+    }
 }
 
 module.exports = new adminControllers();
