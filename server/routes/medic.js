@@ -29,12 +29,6 @@ router.get("/getAvailability/:user_id", medicControllers.getAvailability);
 router.put("/editMedic/:user_id", multerSingleImage("medic"), medicControllers.editMedic);
 
 
-//-----------------------------------------------------
-//6.-Borrado lógico de un medico
-//localhost:4000/medic/deleteMedic/:user_id       
-router.delete("/deleteMedic/:user_id", medicControllers.deleteMedic);
-
-
 //----------------------------------------------------------------
 //7.-Trae la información de un usuario para modificarla
 //localhost:4000/medic/getEditMedic/:user_id  
