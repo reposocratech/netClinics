@@ -81,7 +81,62 @@ class medicControllers {
   //2.-Trae la información de un medico
   //localhost:4000/medic/oneMedic/:user_id
 
-  selectOneMedic = (req, res) => {};
+  selectOneMedic = (req, res) => {
+    let {user_id} = req.params;
+
+    let sql = `SELECT * FROM user left join medic_data on user.user_id = medic_data.user_id left join title on user.user_id = title.user_id WHERE user.user_id=${user_id}`;
+
+    console.log("esta es la sql", sql);
+
+    connection.query(sql, (error, result) => {
+      if(error){
+        res.status(400).json(error);
+      }
+      else{
+        let finalResult = {};
+        let groupTitles = [];
+        let title = {};
+
+        result.forEach(x =>{
+          title = {
+              title_id: x.title_id,
+              text: x.text,
+              university: x.university,
+              document: x.document,
+              start_date: x.start_date,
+              end_date: x.end_date,
+          };
+
+          if(title.title_id != null){
+              groupTitles.push(title); 
+          }
+        });
+
+        finalResult = {
+          user_id: user_id,
+          name: result[0].name,
+          lastname: result[0].lastname,
+          address: result[0].address,
+          phone_number: result[0].phone_number,
+          dni: result[0].dni,
+          email: result[0].email,
+          postal_code: result[0].postal_code,
+          avatar: result[0].avatar,
+          city_id: result[0].city_id,
+          province_id: result[0].province_id,
+          medic_description: result[0].medic_description,
+          medic_membership_number: result[0].medic_membership_number,
+          medic_price: result[0].medic_price,
+          titles: groupTitles
+        };
+        
+        //console.log(finalResult);
+        res.status(200).json(finalResult);
+      }
+
+    });
+
+  };
 
   //3.-Trae la informacion de su  disponibilidad
   //localhost:4000/medic/getAvailability/:user_id

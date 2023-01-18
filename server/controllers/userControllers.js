@@ -55,15 +55,16 @@ class userControllers {
   };
 
   //2.-Borrado lógico de un usuario
-  //localhost:4000/users/deleteUser/:userId
+  //localhost:4000/user/deleteUser/:userId
   deleteUser = (req, res) => {
 
     let user_id = req.params.user_id;
-    let sql = `UPDATE user SET is_deleted = true WHERE user_id = "${user_id}"`;
+    let sql = `UPDATE user SET is_deleted = 1 WHERE user_id = ${user_id}`;
     
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
-    });
+    }); 
+
   };
 }
 
