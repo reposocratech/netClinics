@@ -34,6 +34,7 @@ class medicControllers {
       documents = req.files;
 
       let saltRounds = 8;
+      
       bcrypt.genSalt(saltRounds, function (err, saltRounds) {
         bcrypt.hash(password, saltRounds, function (err, hash) {
           //insert en la tabla user
@@ -86,8 +87,6 @@ class medicControllers {
 
     let sql = `SELECT * FROM user left join medic_data on user.user_id = medic_data.user_id left join title on user.user_id = title.user_id WHERE user.user_id=${user_id}`;
 
-    console.log("esta es la sql", sql);
-
     connection.query(sql, (error, result) => {
       if(error){
         res.status(400).json(error);
@@ -129,8 +128,7 @@ class medicControllers {
           medic_price: result[0].medic_price,
           titles: groupTitles
         };
-        
-        //console.log(finalResult);
+
         res.status(200).json(finalResult);
       }
 
@@ -148,10 +146,6 @@ class medicControllers {
 
   editMedic = (req, res) => {};
 
-  //5.-Borrado lógico de un medico
-  //localhost:4000/medic/deleteMedic/:user_id
-
-  deleteMedic = (req, res) => {};
 
   //6.-Trae la información de un usuario para modificarla
   //localhost:4000/medic/getEditMedic/:user_id
