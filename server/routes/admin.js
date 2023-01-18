@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var adminControllers = require("../controllers/adminControllers");
 
-//1.- trae los datos de todos los medicos
+//1.- trae los datos de todos los médicos
 //localhost:4000/admin/getAllMedics
 //------------------------------------------
 router.get("/getAllMedics", adminControllers.getAllMedics);
