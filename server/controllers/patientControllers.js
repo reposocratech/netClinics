@@ -3,18 +3,22 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-class patientController {
+class patientControllers {
 
   //1.Crear paciente
   //localhost:4000/patient/createPatient
   createPatient = (req, res) => {
    
-    const { name, email, password, lastname,address,phone_number,dni } = req.body;
-       
+    let { name, email, password, lastname,address,phone_number,dni,province_id,city_id, postal_code} = req.body;
+
+    province_id = parseInt(province_id);
+    city_id = parseInt(city_id);
+    postal_code = parseInt(postal_code);
+     
     let saltRounds = 8;
     bcrypt.genSalt(saltRounds, function (err, saltRounds) {
       bcrypt.hash(password, saltRounds, function (err, hash) {
-        let sql = `INSERT INTO user (name, lastname, phone_number, address, email, password, dni) VALUES ( '${name}','${lastname}', '${phone_number}', '${address}', '${email}', '${hash}', '${dni}')`;
+        let sql = `INSERT INTO user (name, lastname, phone_number, address, email, password, dni,province_id,city_id) VALUES ( '${name}','${lastname}', '${phone_number}', '${address}', '${email}', '${hash}', '${dni}', ${province_id}, ${city_id},${postal_code})`;
 
         connection.query(sql, (error, result) => {
           console.log(error);
@@ -83,26 +87,27 @@ class patientController {
   };
 
 //-----------------------------------------------------
-/// 5.- Editar un usuario
-//localhost:4000/patient/editUser/:userId
+/// 5.- Editar un paciente
+//localhost:4000/patient/editPatient/:user_id
 editPatient = (req, res) => {
   let user_id = req.params.user_id;
-  console.log("esteeee eeesss ellll user_id", user_id) ;
-  console.log(JSON.parse(req.body.register))
   
-  const {name, email, lastname,address,phone_number,dni} = JSON.parse(
-    req.body.register);
+  
+  const {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code} = JSON.parse(req.body.register);
 
-  // const { name, lastname, phone, address, email } = req.body;
+  province_id = parseInt(province_id);
+  city_id = parseInt(city_id);
+  postal_code = parseInt(postal_code);
+  
 
   let img = "";
-  // let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone = "${phone}", address = "${address}",email = "${email}" WHERE user_id = "${user_id}"`;
+  
 
   if (req.file != undefined) {
     img = req.file.filename;
   }
   console.log("*****imagen******",img);
-  let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = ${dni} WHERE user_id = "${user_id}"`;
+  let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = ${dni}, ${province_id}, ${city_id}, ${postal_code} WHERE user_id = "${user_id}"`;
 
   connection.query(sql, (error, result) => {
     if (error) throw error;
@@ -118,4 +123,4 @@ editPatient = (req, res) => {
 
 }
 
-module.exports = new patientController();
+module.exports = new patientControllers();
