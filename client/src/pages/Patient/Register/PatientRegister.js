@@ -215,7 +215,7 @@ export const PatientRegister = () => {
       </select>
 
       <select id='cities' onChange={handleCities}>
-          <option>Elige Ciudad...</option>
+          <option>Elige tú Ciudad</option>
           {listCities?.map((city) => {
             return (
                 <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
