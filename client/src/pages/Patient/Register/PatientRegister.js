@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
@@ -19,6 +19,37 @@ export const PatientRegister = () => {
   const [registerPatient, setRegisterPatient] = useState(initialPatientValue);
   const [message1, setMessage1] = useState(false);
   const [message2, setMessage2] = useState(false);
+
+  const [listProvinces, setListProvinces] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState();
+  const [listCities, setListCities] = useState([]);
+  const [selectedCitie, setSelectedCitie] = useState();
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:4000/place/getAllProvince/")
+    .then((res) => {
+      setListProvinces(res.data);
+    })
+    .catch((error) =>{
+      console.log(error);
+    })
+  }, []);
+
+  
+  useEffect(() => {
+    if(selectedProvince){
+      axios
+      .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
+      .then((res) => {
+        setListCities(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  }, [selectedProvince])
+  
 
   const navigate = useNavigate();
 
@@ -45,6 +76,18 @@ export const PatientRegister = () => {
         })
     }
   }
+
+  const handleProvinces = (e) => {
+    setSelectedProvince(e.target.value);
+  }
+
+  const handleCities = (e) => {
+    setSelectedProvince(e.target.value);
+  }
+
+
+  //console.log(selectedProvince);
+  console.log(listCities);
 
   return (
     <div className='d-flex flex-column justify-content-center text-center w-25 px-5'>
@@ -161,6 +204,26 @@ export const PatientRegister = () => {
         className='mb-3'
         onClick={() => navigate('/loginPatient')}
       >Login</button>
+
+      <select id='province' onChange={handleProvinces}>
+          <option>Elige Provincia...</option>
+          {listProvinces?.map((province) => {
+            return (
+                <option key={province.province_id} value={province.province_id}>{province.province_name}</option>    
+            )
+          })}
+      </select>
+
+      <select id='cities' onChange={handleCities}>
+          <option>Elige Ciudad...</option>
+          {listCities?.map((city) => {
+            return (
+                <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
+            )
+          })}
+      </select>
+        
+
     </div>
   )
 }
