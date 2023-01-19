@@ -47,7 +47,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
     const onSubmit = (event) => {
         
         
-        if(emailValidator(registerMedic.email)){
+        if(!emailValidator(registerMedic.email)){
             setMessage1(true)
             setMessage2(false)
         }
