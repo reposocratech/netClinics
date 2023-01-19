@@ -69,6 +69,20 @@ class userControllers {
     }); 
 
   };
+
+  //-----------------------------------------------------
+  //3.-Trae información de un usuario
+  //localhost:4000/user/oneUser/:userId       
+  selectOneUser = (req, res) => {
+    let {user_id} = req.params;
+
+    let sql = `SELECT * FROM user WHERE user_id = ${user_id}`;
+
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({error}) : res.status(200).json(result);
+    })
+
+  }
 }
 
 module.exports = new userControllers();

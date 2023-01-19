@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
 import { Home } from '../pages/Home/Home';
 import { RegisterMedic } from '../pages/Register/RegisterMedic/RegisterMedic';
@@ -17,7 +18,7 @@ export const AppRoutes = () => {
 
                 <Route
                   path='/'
-                  element={<Home/>}
+                  element={<Login/>}
                 />
 
                 <Route
