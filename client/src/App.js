@@ -1,13 +1,13 @@
-import { NetClinicsProvider } from "./context/NetClinicsProvider";
+import {  NetClinicsProvider } from "./context/NetClinicsProvider";
 import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
   return (
-    <div>
-
-        <AppRoutes/>
-
-    </div>
+      <div>
+        <NetClinicsProvider>
+          <AppRoutes/>
+        </NetClinicsProvider>
+      </div>
   );
 }
 
