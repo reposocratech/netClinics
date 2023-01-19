@@ -39,10 +39,10 @@ class patientControllers {
   //localhost:4000/patient/onePatient/:user_id  
   
   selectOnePatient = (req, res) => {
-    const user_id = req.params.user_id;
+    const {user_id} = req.params;
 
     let sqlPatient = `SELECT * FROM user WHERE user_id = ${user_id} and is_deleted = 0`;
-    let sqlAppointment = `SELECT * FROM appointment WHERE user_id = ${user_id} and is_deleted = 0`;
+    let sqlAppointment = `SELECT * FROM appointment WHERE user_patient_id = ${user_id}`;
     connection.query(sqlPatient, (error, resultPatient) => {
       if (error) {
         res.status(400).json({ error });
@@ -60,7 +60,6 @@ class patientControllers {
   //localhost:4000/patient/getMedics 
   getAllMedics = (req, res) => {
     
-    console.log("headerrresssdasdasda",req.headers.authorization);
     
 
     let sql = `select user.* from user where user.type = 2 and user.is_deleted = 0 `;
@@ -69,7 +68,7 @@ class patientControllers {
     
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
-      console.log(result);
+      
     });
   };
 
@@ -78,11 +77,12 @@ class patientControllers {
   //localhost:4000/patient/getEditPatient/:user_id
 
   getEditPatient = (req, res) => {
-    console.log(req);
+    
     let user_id = req.params.user_id;
     let sql = `SELECT * FROM user WHERE user_id = "${user_id}"`;
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
     });
   };
 
@@ -93,7 +93,7 @@ editPatient = (req, res) => {
   let user_id = req.params.user_id;
   
   
-  const {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code} = JSON.parse(req.body.register);
+  let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code} = req.body;
 
   province_id = parseInt(province_id);
   city_id = parseInt(city_id);
@@ -102,12 +102,12 @@ editPatient = (req, res) => {
 
   let img = "";
   
-
+  
   if (req.file != undefined) {
     img = req.file.filename;
   }
-  console.log("*****imagen******",img);
-  let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = ${dni}, ${province_id}, ${city_id}, ${postal_code} WHERE user_id = "${user_id}"`;
+  c
+  let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
 
   connection.query(sql, (error, result) => {
     if (error) throw error;
