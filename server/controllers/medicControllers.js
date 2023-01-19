@@ -3,6 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+//requiero la función de limpieza de objetos para valores duplicados
+const {cleanObject} = require("../utils/cleanObject");
+
 class medicControllers {
   
   //1.- createMedic
@@ -39,8 +42,11 @@ class medicControllers {
         bcrypt.hash(password, saltRounds, function (err, hash) {
           //insert en la tabla user
           let sql = `INSERT INTO user (name, lastname, address, 
-                    phone_number, dni, email, postal_code, password, province_id, 
-                    city_id, type) VALUES ('${name}', '${lastname}', '${address}', '${phone_number}', '${dni}', '${email}', ${postal_code}, '${hash}', ${province_id}, ${city_id}, 2)`;
+                    phone_number, dni, email, postal_code, password, 
+                    province_id, city_id, type) VALUES ('${name}', 
+                    '${lastname}', '${address}', '${phone_number}', 
+                    '${dni}', '${email}', ${postal_code}, '${hash}', 
+                    ${province_id}, ${city_id}, 2)`;
 
           connection.query(sql, (error, result) => {
             if (error) {
@@ -50,7 +56,8 @@ class medicControllers {
               let id_user = result.insertId;
 
               //inserto en la tabla medic_data
-              let sql2 = `INSERT INTO medic_data (user_id, medic_membership_number) VALUES (${id_user}, '${medic_membership_number}')`;
+              let sql2 = `INSERT INTO medic_data (user_id, medic_membership_number) 
+              VALUES (${id_user}, '${medic_membership_number}')`;
 
               connection.query(sql2, (err, result) => {
                 if (err) {
@@ -58,7 +65,8 @@ class medicControllers {
                 } else {
                   documents.forEach((document) => {
                     //hago una insert de cada documento
-                    let sql = `INSERT INTO title (document, user_id) VALUES ('${document.filename}', ${id_user})`;
+                    let sql = `INSERT INTO title (document, user_id) 
+                    VALUES ('${document.filename}', ${id_user})`;
 
                     connection.query(sql, (error, result) => {
                       if (error) {
@@ -85,53 +93,94 @@ class medicControllers {
   selectOneMedic = (req, res) => {
     let {user_id} = req.params;
 
-    let sql = `SELECT * FROM user left join medic_data on user.user_id = medic_data.user_id left join title on user.user_id = title.user_id WHERE user.user_id=${user_id}`;
+    let sql = `SELECT * FROM user 
+    join medic_data on user.user_id = medic_data.user_id 
+    join title on user.user_id = title.user_id 
+    join medic_data_speciality on user.user_id = medic_data_speciality.user_id 
+    join speciality on medic_data_speciality.speciality_id = speciality.speciality_id 
+    WHERE user.user_id=${user_id}`;
 
     connection.query(sql, (error, result) => {
-      if(error){
+      if (error) {
         res.status(400).json(error);
-      }
-      else{
+      } else {
+
         let finalResult = {};
+
         let groupTitles = [];
         let title = {};
 
-        result.forEach(x =>{
+        let groupSpecialities = [];
+        let speciality = {};
+
+        let groupUser = [];
+        let user = {};
+
+        //recorro el resultado de la query y añado los titulos 
+        //y especialidades del medico
+        result.forEach((x) => {
+
+          user = {
+            user_id: x.user_id,
+            name: x.name,
+            lastname: x.lastname,
+            address: x.address,
+            phone_number: x.phone_number,
+            dni: x.dni,
+            email: x.email,
+            postal_code: x.postal_code,
+            avatar: x.avatar,
+            city_id: x.city_id,
+            province_id: x.province_id,
+            medic_description: x.medic_description,
+            medic_membership_number: x.medic_membership_number,
+            medic_price: x.medic_price,
+          }
+
           title = {
-              title_id: x.title_id,
-              text: x.text,
-              university: x.university,
-              document: x.document,
-              start_date: x.start_date,
-              end_date: x.end_date,
+            title_id: x.title_id,
+            text: x.text,
+            university: x.university,
+            document: x.document,
+            start_date: x.start_date,
+            end_date: x.end_date,
           };
 
-          if(title.title_id != null){
-              groupTitles.push(title); 
+          speciality = {
+            speciality_name: x.speciality_name,
+            speciality_id: x.speciality_id,
+          };
+
+          if(user.user_id != null){
+            groupUser.push(user);
           }
+
+          if (title.title_id != null) {
+            groupTitles.push(title);
+          }
+
+          if (speciality.speciality_id != null) {
+            groupSpecialities.push(speciality);
+          }
+
+
         });
 
+        //limpio con la función cleanObject los id duplicados de titulos y 
+        //especialidades
+        const uniqueUser = cleanObject(groupUser, "user_id")
+        const uniqueTitles = cleanObject(groupTitles, "title_id");
+        const uniqueSpecialities = cleanObject(groupSpecialities,"speciality_id");
+
+        //creo el resultado final
         finalResult = {
-          user_id: user_id,
-          name: result[0].name,
-          lastname: result[0].lastname,
-          address: result[0].address,
-          phone_number: result[0].phone_number,
-          dni: result[0].dni,
-          email: result[0].email,
-          postal_code: result[0].postal_code,
-          avatar: result[0].avatar,
-          city_id: result[0].city_id,
-          province_id: result[0].province_id,
-          medic_description: result[0].medic_description,
-          medic_membership_number: result[0].medic_membership_number,
-          medic_price: result[0].medic_price,
-          titles: groupTitles
+          user: uniqueUser,
+          titles: uniqueTitles,
+          specialities: uniqueSpecialities,
         };
 
         res.status(200).json(finalResult);
       }
-
     });
 
   };
@@ -139,12 +188,23 @@ class medicControllers {
   //3.-Trae la informacion de su  disponibilidad
   //localhost:4000/medic/getAvailability/:user_id
 
-  getAvailability = (req, res) => {};
+  getAvailability = (req, res) => {
+
+    const {user_id} = req.params;
+
+
+
+
+  };
 
   //4.-Editar un medico
   //localhost:4000/medic/editMedic/:user_id
 
-  editMedic = (req, res) => {};
+  editMedic = (req, res) => {
+
+
+
+  };
 
 
   //6.-Trae la información de un usuario para modificarla
