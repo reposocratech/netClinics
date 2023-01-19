@@ -48,7 +48,7 @@ class placeControllers{
     //localhost:4000/place/getAllProvince/
     getAllProvince = (req, res) => {
 
-        let sql = `SELECT * FROM province`;
+        let sql = `SELECT * FROM province ORDER BY province_name`;
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
@@ -64,7 +64,7 @@ class placeControllers{
         
         let {province_id} = req.params
 
-        let sql = `SELECT * FROM city where province_id = ${province_id}`;
+        let sql = `SELECT * FROM city where province_id = ${province_id} ORDER BY city_name`;
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
