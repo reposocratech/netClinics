@@ -9,15 +9,13 @@ export const Register = () => {
 
   return (
     <div>
-      {showRegisterPatient && 
+      {showRegisterPatient ? 
         <RegisterPatient
           showRegisterPatient={showRegisterPatient}
           setShowRegisterPatient={setShowRegisterPatient}
           showRegisterMedic={showRegisterMedic}
-          setShowRegisterMedic={showRegisterMedic}
-        />
-      }
-      {showRegisterMedic &&
+          setShowRegisterMedic={setShowRegisterMedic}
+        /> :
         <RegisterMedic
           showRegisterMedic={showRegisterMedic}
           setShowRegisterMedic={setShowRegisterMedic}

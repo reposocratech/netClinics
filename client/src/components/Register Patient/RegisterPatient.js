@@ -96,7 +96,8 @@ export const RegisterPatient = ({showRegisterPatient, setShowRegisterPatient, sh
         ¿Eres Fisio?. Regístrate aquí.
         </button>
       <div className='whiteBox d-flex flex-column justify-content-center'>
-        
+        <h2> Registro Paciente</h2>
+
           <input
           className='my-3'
           placeholder='Escribe tu Nombre'
