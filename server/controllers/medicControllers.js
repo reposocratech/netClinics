@@ -25,7 +25,7 @@ class medicControllers {
       province_id,
       city_id,
       medic_membership_number,
-    } = req.body;
+    } = JSON.parse(req.body.regMedic);
 
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
