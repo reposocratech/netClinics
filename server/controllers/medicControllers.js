@@ -25,7 +25,7 @@ class medicControllers {
       province_id,
       city_id,
       medic_membership_number,
-    } = JSON.parse(req.body.regMedic);
+    } = req.body;
 
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
@@ -202,7 +202,29 @@ class medicControllers {
 
   editMedic = (req, res) => {
 
+    let user_id = req.params.user_id;
+  
+  
+    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code,avatar,text,university,} = req.body;
 
+    province_id = parseInt(province_id);
+    city_id = parseInt(city_id);
+    postal_code = parseInt(postal_code);
+    
+
+    let img = "";
+    
+    
+    if (req.file != undefined) {
+      img = req.file.filename;
+    }
+    c
+    let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
+
+    connection.query(sql, (error, result) => {
+      if (error) throw error;
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    });
 
   };
 
@@ -329,11 +351,17 @@ class medicControllers {
   //localhost:4000/medic/getPendingAppointments/:user_id
 
   getPendingAppointments = (req, res) => {
-    
+    let {user_medic_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_medic_id = ${user_medic_id} and is_confirmed = true`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
   };
 
   //9.- Trae todas las citas proximas (solo confirmadas) de un medico
   //localhost:4000/medic/getConfirmedAppointments/:user_id
+  //Aqui faltaria el campo de is_completed= true
 
   getConfirmedAppointments = (req, res) => {};
 }
