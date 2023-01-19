@@ -27,7 +27,7 @@ router.get("/getEditPatient/:user_id", patientController.getEditPatient);
 
 //-----------------------------------------------------
 //5.-Editar un usuario 
-//localhost:4000/patient/editPatient/:userId       
+//localhost:4000/patient/editPatient/:user_id       
 router.put("/editPatient/:user_id", multerSingleImage("user"), patientController.editPatient);
 
 

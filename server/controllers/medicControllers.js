@@ -207,21 +207,37 @@ class medicControllers {
   };
 
 
-  //6.-Trae la información de un usuario para modificarla
+  //6.-Trae la información de un medico para modificarla
   //localhost:4000/medic/getEditMedic/:user_id
 
-  getEditOneMedic = (req, res) => {};
+  getEditOneMedic = (req, res) => {
+    let user_id = req.params.user_id;
+    let sql = `SELECT * FROM user WHERE user_id = "${user_id}"`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
 
   //7.- Trae todas las citas realizadas de un medico
   //localhost:4000/medic/getAppointmentHistory/:user_id
 
-  getAppointmentHistory = (req, res) => {};
+  getAppointmentHistory = (req, res) => {
+    let {user_medic_id} = req.params;
+    let sql = `SELECT FROM appointment where user_id = ${user_id}`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
 
   //8.- Trae todas las citas proximas (tanto confirmadas como pendientes de
   // confirmar) de un medico
   //localhost:4000/medic/getPendingAppointments/:user_id
 
-  getPendingAppointments = (req, res) => {};
+  getPendingAppointments = (req, res) => {
+    
+  };
 
   //9.- Trae todas las citas proximas (solo confirmadas) de un medico
   //localhost:4000/medic/getConfirmedAppointments/:user_id
