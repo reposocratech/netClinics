@@ -8,7 +8,7 @@ class patientControllers {
   //1.Crear paciente
   //localhost:4000/patient/createPatient
   createPatient = (req, res) => {
-   
+    console.log(req.body);
     let { name, email, password, lastname,address,phone_number,dni,province_id,city_id, postal_code} = req.body;
 
     province_id = parseInt(province_id);

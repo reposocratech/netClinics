@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { Error } from '../pages/Error/Error';
 import { Home } from '../pages/Home/Home';
-import { PatientRegister } from '../pages/Patient/Register/PatientRegister'
+import { Register } from '../pages/Patient/Register/Register'
 
 export const AppRoutes = () => {
   return (
@@ -20,8 +20,8 @@ export const AppRoutes = () => {
                 />
 
                 <Route
-                  path='/registerPatient'
-                  element={<PatientRegister/>}
+                  path='/register'
+                  element={<Register/>}
                 />
             </Routes>
         </BrowserRouter>
