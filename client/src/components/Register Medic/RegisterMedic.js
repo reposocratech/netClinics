@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { emailValidator } from '../../Utils/checkEmail/checkEmail';
 
 const initialMedicValue = {
     name: '',
@@ -19,14 +20,12 @@ const initialMedicValue = {
 
 export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, showRegisterMedic, setShowRegisterMedic}) => {
     const [registerMedic, setRegisterMedic] = useState(initialMedicValue);
-    const [documents, setDocuments] = useState();
-    const [inputDocument, setInputDocument] = useState();
+    const [documents, setDocuments] = useState([]);
     const [message1, setMessage1] = useState(false);
     const [message2, setMessage2] = useState(false);
     const [listProvinces, setListProvinces] = useState([]);
-    const [selectedProvince, setSelectedProvince] = useState();
     const [listCities, setListCities] = useState([]);
-    const [selectedCitie, setSelectedCitie] = useState();
+
 
     const navigate = useNavigate();
 
@@ -41,25 +40,29 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
     }
 
     const handleFiles = (e) => {
-        setInputDocument(e.target.files);
+        setDocuments(e.target.files);
+        console.log(documents);
     }
 
     const onSubmit = (event) => {
-        const newFormData = new FormData();
-
-        if(!registerMedic.email || !registerMedic.password){
+        
+        
+        if(emailValidator(registerMedic.email)){
             setMessage1(true)
             setMessage2(false)
         }
         else{
-            if(inputDocument){
-                for(const elem of inputDocument){
-                    newFormData.append('file', elem)
-                }
+            const newFormData = new FormData();
+            newFormData.append('regMedic', JSON.stringify(registerMedic));
+
+            if(documents){
+              for(const doc of documents){
+                  newFormData.append('file', doc)
+              }
             }
             
             axios
-                .post("http://localhost:4000/medic/createMedic", registerMedic)
+                .post("http://localhost:4000/medic/createMedic", newFormData)
                 .then((res) => {
                     console.log(res);
                 })
@@ -68,8 +71,9 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
                     setMessage2(true)
                     console.log(error);
                 })
+        
         }
-    }
+      }
 
     useEffect(() => {
         axios
@@ -115,7 +119,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Escribe tu Nombre'
           name='name'
           type='text'
-          required
+          
           value={registerMedic.name}
           onChange={handleChange}
           />
@@ -125,7 +129,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Escribe tu Apellido'
           name='lastname'
           type='text'
-          required
+          
           value={registerMedic.lastname}
           onChange={handleChange}
           />
@@ -135,7 +139,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Introduce tu D.N.I'
           name='dni'
           type='text'
-          required
+         
           value={registerMedic.dni}
           onChange={handleChange}
           />
@@ -145,7 +149,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Introduce tu Nº de Teléfono'
           name='phone_number'
           type='text'
-          required
+          
           value={registerMedic.phone_number}
           onChange={handleChange}
           />
@@ -173,7 +177,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Introduce tu Nº de Colegiado'
           name='medic_membership_number'
           type='text'
-          required
+          
           value={registerMedic.medic_membership_number}
           onChange={handleChange}
           />
@@ -203,7 +207,7 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Escribe tu Email'
           name='email'
           type='email'
-          required
+          
           autoComplete='off'
           value={registerMedic.email}
           onChange={handleChange}
@@ -214,17 +218,17 @@ export const RegisterMedic = ({showRegisterPatient, setShowRegisterPatient, show
           placeholder='Introduce tu Contraseña'
           name='password'
           type='password'
-          required
+          
           value={registerMedic.password}
           onChange={handleChange}
           />
 
           <label>Adjunta tu Título Profesional y Documento de Número de Colegiado</label>
-          <input type='file' multiple onChange={handleFiles}/>
+          <input type='file' name='file' multiple={true} onChange={handleFiles}/>
 
           <div className='mb-2'>
             {message1 && <p>Introduce todos los datos</p>}
-            {message2 && <p>Ya existe una cuenta con este email</p>}
+            {message2 && <p>El email introducido no es válido</p>}
           </div>
 
           <button
