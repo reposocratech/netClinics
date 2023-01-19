@@ -37,18 +37,19 @@ export const PatientRegister = () => {
   }, []);
 
   
-  useEffect(() => {
+  const getCity = (selectedProvince) => {
+    console.log(selectedProvince);
     if(selectedProvince){
-      axios
-      .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
-      .then((res) => {
-        setListCities(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    }
-  }, [selectedProvince])
+       axios
+       .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
+       .then((res) => {
+         setListCities(res.data);
+       })
+       .catch((error) => {
+         console.log(error);
+       })
+      }
+  };
   
 
   const navigate = useNavigate();
@@ -75,10 +76,6 @@ export const PatientRegister = () => {
           console.log(error);
         })
     }
-  }
-
-  const handleProvinces = (e) => {
-    setSelectedProvince(e.target.value);
   }
 
   const handleCities = (e) => {
@@ -113,6 +110,26 @@ export const PatientRegister = () => {
 
       <input
       className='mb-3'
+      placeholder='Introduce tu D.N.I'
+      name='dni'
+      type='text'
+      required
+      value={registerPatient.dni}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Introduce tu Nº de Teléfono'
+      name='phone_number'
+      type='text'
+      required
+      value={registerPatient.phone_number}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
       placeholder='Escribe tu Dirección'
       name='address'
       type='text'
@@ -129,43 +146,25 @@ export const PatientRegister = () => {
       onChange={handleChange}
       />
 
-      <input
-      className='mb-3'
-      placeholder='Escibre tu Ciudad'
-      name='city_id'
-      type='text'
-      value={registerPatient.city}
-      onChange={handleChange}
-      />
+      <select className='mb-3' name='province'
+      onChange={(e) => getCity(e.target.value)}>
+        <option>Elige Provincia</option>
+        {listProvinces?.map((province) => {
+          return (
+              <option key={province.province_id} value={province.province_id}>{province.province_name}</option>    
+          )
+        })}
+      </select>
 
-      <input
-      className='mb-3'
-      placeholder='Escribe tu Provincia'
-      name='province_id'
-      type='text'
-      value={registerPatient.province}
-      onChange={handleChange}
-      />
-
-      <input
-      className='mb-3'
-      placeholder='Introduce tu Número de Teléfono'
-      name='phone_number'
-      type='text'
-      required
-      value={registerPatient.phone_number}
-      onChange={handleChange}
-      />
-
-      <input
-      className='mb-3'
-      placeholder='Introduce tu D.N.I'
-      name='dni'
-      type='text'
-      required
-      value={registerPatient.dni}
-      onChange={handleChange}
-      />
+      <select className='mb-3' name='cities'
+      onChange={handleCities}>
+        <option>Elige Ciudad</option>
+        {listCities?.map((city) => {
+          return (
+              <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
+          )
+        })}
+      </select>
 
       <input
       className='mb-3'
@@ -204,26 +203,6 @@ export const PatientRegister = () => {
         className='mb-3'
         onClick={() => navigate('/loginPatient')}
       >Login</button>
-
-      <select id='province' onChange={handleProvinces}>
-          <option>Elige Provincia...</option>
-          {listProvinces?.map((province) => {
-            return (
-                <option key={province.province_id} value={province.province_id}>{province.province_name}</option>    
-            )
-          })}
-      </select>
-
-      <select id='cities' onChange={handleCities}>
-          <option>Elige tú Ciudad</option>
-          {listCities?.map((city) => {
-            return (
-                <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
-            )
-          })}
-      </select>
-        
-
     </div>
   )
 }
