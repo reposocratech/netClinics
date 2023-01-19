@@ -1,0 +1,166 @@
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+
+const initialPatientValue = {
+  name: '',
+  lastname: '',
+  phone_number: '',
+  address: '',
+  email: '',
+  password: '',
+  dni: '',
+  province_id: '',
+  city_id: '',
+  postal_code: '',
+}
+
+export const PatientRegister = () => {
+  const [registerPatient, setRegisterPatient] = useState(initialPatientValue);
+  const [message1, setMessage1] = useState(false);
+  const [message2, setMessage2] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const {name, value} = event.target;
+    setRegisterPatient({...registerPatient, [name]:value});
+  }
+
+  const onSubmit = (event) => {
+    if(!registerPatient.email || !registerPatient.password){
+      setMessage1(true)
+      setMessage2(false)
+    }
+    else{
+      axios
+        .post("http://localhost:4000/patient/createPatient", registerPatient)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          setMessage1(false);
+          setMessage2(true);
+          console.log(error);
+        })
+    }
+  }
+
+  return (
+    <div className='d-flex flex-column justify-content-center text-center w-25 px-5'>
+      <input
+      className='my-3'
+      placeholder='Escribe tu Nombre'
+      name='name'
+      type='text'
+      required
+      value={registerPatient.name}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Escribe tu Apellido'
+      name='lastname'
+      type='text'
+      required
+      value={registerPatient.lastname}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Escribe tu Dirección'
+      name='address'
+      type='text'
+      value={registerPatient.address}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Introduce tu Código Postal'
+      name='postal_code'
+      type='text'
+      value={registerPatient.postal_code}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Escibre tu Ciudad'
+      name='city_id'
+      type='text'
+      value={registerPatient.city}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Escribe tu Provincia'
+      name='province_id'
+      type='text'
+      value={registerPatient.province}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Introduce tu Número de Teléfono'
+      name='phone_number'
+      type='text'
+      required
+      value={registerPatient.phone_number}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Introduce tu D.N.I'
+      name='dni'
+      type='text'
+      required
+      value={registerPatient.dni}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Escribe tu Email'
+      name='email'
+      type='email'
+      required
+      autoComplete='off'
+      value={registerPatient.email}
+      onChange={handleChange}
+      />
+
+      <input
+      className='mb-3'
+      placeholder='Introduce tu Contraseña'
+      name='password'
+      type='password'
+      required
+      value={registerPatient.password}
+      onChange={handleChange}
+      />
+
+      <div className='mb-2'>
+        {message1 && <p>Introduce todos los datos</p>}
+        {message2 && <p>Ya existe una cuenta con este email</p>}
+      </div>
+
+      <button
+        className='mb-2'
+        onClick={onSubmit}
+      >Registrate</button>
+
+      <hr/>
+
+      <button
+        className='mb-3'
+        onClick={() => navigate('/loginPatient')}
+      >Login</button>
+    </div>
+  )
+}

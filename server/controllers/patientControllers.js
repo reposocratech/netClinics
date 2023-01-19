@@ -18,7 +18,7 @@ class patientControllers {
     let saltRounds = 8;
     bcrypt.genSalt(saltRounds, function (err, saltRounds) {
       bcrypt.hash(password, saltRounds, function (err, hash) {
-        let sql = `INSERT INTO user (name, lastname, phone_number, address, email, password, dni,province_id,city_id) VALUES ( '${name}','${lastname}', '${phone_number}', '${address}', '${email}', '${hash}', '${dni}', ${province_id}, ${city_id},${postal_code})`;
+        let sql = `INSERT INTO user (name, lastname, phone_number, address, email, password, dni, province_id, city_id, postal_code) VALUES ( '${name}','${lastname}', '${phone_number}', '${address}', '${email}', '${hash}', '${dni}', ${province_id}, ${city_id}, ${postal_code})`;
 
         connection.query(sql, (error, result) => {
           console.log(error);
