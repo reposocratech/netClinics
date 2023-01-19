@@ -64,7 +64,7 @@ class placeControllers{
         
         let {province_id} = req.params
 
-        let sql = `SELECT * FROM city where province_id = ${province_id} limit 1000`;
+        let sql = `SELECT * FROM city where province_id = ${province_id}`;
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
