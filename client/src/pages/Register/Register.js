@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { RegisterMedic } from '../../../components/Register Medic/RegisterMedic';
-import { RegisterPatient } from '../../../components/Register Patient/RegisterPatient'
+import { RegisterMedic } from '../../components/Register Medic/RegisterMedic';
+import { RegisterPatient } from '../../components/Register Patient/RegisterPatient'
 import './Styles/StylePatientRegister.scss'
 
 export const Register = () => {
