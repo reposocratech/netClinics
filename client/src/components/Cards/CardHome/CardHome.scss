@@ -1,0 +1,46 @@
+.bgColorHome {
+    background-color: rgba($color: #009EE3, $alpha: 1.0);
+    color: rgba($color: #1C2869, $alpha: 1.0);
+    min-height: 95vh;
+    font-family: 'Rubik', sans-serif;
+
+    .whiteContainerHome {
+        position: absolute;
+        background-color: white;
+        border-radius: 30px;
+        height: 550px;
+        width: 1200px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        gap: 2rem;
+
+        .cardDateHome {
+            background-color: #F3F3F3;
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            border-radius: 30px;
+            width: 500px;
+            height: 230px;
+            cursor: pointer;
+
+            .textHome {
+                padding-left: 2rem;
+                z-index: 1;
+
+            }
+            
+            .icon{
+                width: 300px;
+                clip-path: polygon(0 0%, 100% 0%, 100% 72%, 0 72%, 0% 50%);
+                border-radius: 30px;
+                margin-top: auto;
+
+                img{
+                    width: 320px;
+                }
+
+                .colorIcon{
+                    color: #1C2869;
+                }
+            }
+        }
+    }
+}

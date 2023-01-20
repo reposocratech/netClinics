@@ -39,6 +39,7 @@ export const NavBarNetClinics = () => {
           {user?.type === 2 && 
           <> 
             <Nav.Link as={Link} to="/homeMedic">Home</Nav.Link>
+            <Nav.Link as={Link} to="/homeMedic">Mis citas</Nav.Link>
           </>
           }
 
