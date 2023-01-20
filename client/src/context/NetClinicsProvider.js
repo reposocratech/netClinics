@@ -12,8 +12,6 @@ export const NetClinicsProvider = (props) => {
     const [resetPage, setResetPage] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
 
-    console.log("este es el user en el context", user);
-
     useEffect(() => {
         //pedir id al localStorage y realizar petición a la bbddd
         if(token){
