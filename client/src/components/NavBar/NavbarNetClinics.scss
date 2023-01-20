@@ -1,0 +1,72 @@
+.bgNavbar{
+    background-color:#ffffffc8;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+    .navbar-brand {
+        img{
+            width: 10rem;
+        }
+        
+    }
+
+    .avatar {
+        background-color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: capitalize;
+        font-weight: bolder;
+        font-size: 1.5rem;
+        border: 1px solid rgb(141, 141, 141);
+    }
+    
+    .avatarLogo {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 50%;
+        border: 1px solid rgb(141, 141, 141);
+    }
+
+    .dropdown-toggle::after{
+        display: none;
+    }
+
+    .menuDesplegable{
+       div{
+            left: -5vw;
+        
+        }
+    }
+}
+
+
+@media only screen and (max-width: 991px){
+    .navbar-brand {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 769px){
+    .menuDesplegable{
+        div{
+             left: -15vw !important;
+        }
+     }
+
+}
+
+
+@media only screen and (max-width: 428px){
+    .menuDesplegable{
+        div{
+             left: -35vw !important;
+        }
+     }
+
+}

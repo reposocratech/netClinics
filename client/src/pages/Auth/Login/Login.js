@@ -6,6 +6,7 @@ import { NetClinicsContext } from '../../../context/NetClinicsProvider'
 import { saveLocalStorageNetClinics } from '../../../Utils/localStorage/localStorageNetClinics';
 import {useNavigate} from 'react-router-dom'
 
+
 const initialValue = {
     email: '',
     password: ''
@@ -15,6 +16,8 @@ export const Login = () => {
 
     const [login, setLogin] = useState(initialValue);
     const [errorMessage, setErrorMessage] = useState("");
+    const [errorEmail, setErrorEmail] = useState("");
+    const [errorPassword, setErrorPassword] = useState("");
 
     const {setIsLogged, isLogged, user, setUser} = useContext(NetClinicsContext)
 
@@ -27,37 +30,46 @@ export const Login = () => {
     
     const onSubmit = () => {
 
-        if(!login.email || !login.password){
-            setErrorMessage("Algunos campos están vacíos");
+        const email = login.email.trim();
+        const password = login.password.trim();
+
+        if(!email){
+            setErrorEmail("Tienes que introducir email");
+        }
+        else if(!password){
+            setErrorEmail("");
+            setErrorPassword("Tienes que introducir contraseña")
         }
         else{
             axios
             .post("http://localhost:4000/user/login", login)
             .then((res) => {
+                setErrorEmail("");
                 setErrorMessage("");
+                setErrorPassword("");
                 const token = res.data.token;
                 saveLocalStorageNetClinics(token);
                 const {type} = jwtDecode(token).user;
                 setIsLogged(true);
     
+                
+                type === 2 && navigate('/homeMedic', {replace:true});
+                
                 /*
-                type === 0 ?
-                navigate('/allusers', {replace:true}):
-                type === 1 ?
+                :type === 1 ?
                 navigate('/admin', {replace:true}):
                 navigate('/', {replace:true})
                 */
 
             })
             .catch((error) => {
-                setErrorMessage("");
+                setErrorPassword("");
+                setErrorMessage("Las credenciales no son válidas");
                 console.log(error)
             })
         }
       
     }
-
-    console.log(login);
 
   return (
     <FormLogin 
@@ -66,7 +78,9 @@ export const Login = () => {
         login={login}
         setLogin={setLogin}
         errorMessage={errorMessage}
-        setErrorMessage={setErrorMessage}
+        // setErrorMessage={setErrorMessage}
+        errorEmail={errorEmail}
+        errorPassword={errorPassword}
         navigate={navigate}
     />
   )

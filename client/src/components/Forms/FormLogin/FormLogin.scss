@@ -10,15 +10,51 @@
         border-radius: 30px;
         justify-content: center;
         padding: 2rem;
-        min-width: 370px;
 
         input {
             border-radius: 50px;
             border: none;
             color: #1C2869;
             text-align: center;
-            height: 2rem;
             font-family: 'Rubik', sans-serif;
+        }
+
+        input:focus{
+            box-shadow: 0 0 0 0.1rem rgb(28 40 105);
+        }
+
+        .inputFormLogin{
+            border: none !important;
+            border-radius: 50px;
+        }
+
+        .fa-solid {
+            color:#1C2869;
+        }
+
+        .errorLogin {
+            .inputFormLogin{
+                background-color: #ef5350;
+                .fa-solid{
+                    color: white;
+                }
+            }
+            
+            input {
+                background-color: #ef5350;
+                color: white;
+            }
+
+            input:focus {
+                box-shadow: 0 0 0 0.1rem rgb(255 255 255 / 90%);
+            }
+
+            input::placeholder{
+                color: white;
+            }
+        }
+        .errorLogin::placeholder{
+            color: white;
         }
 
         .defineButton {
@@ -78,4 +114,17 @@
     background-color: transparent;
     font-weight: bold;
     align-items: flex-end;
+}
+
+@media only screen and (min-width: 900px){
+    .whiteBoxFormLogin {
+        width: 600px !important;
+    }
+}
+
+@media only screen and (max-width: 576px){
+    .whiteBoxFormLogin {
+        width: 90vw !important;
+       
+    }
 }

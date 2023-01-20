@@ -12,6 +12,8 @@ export const NetClinicsProvider = (props) => {
     const [resetPage, setResetPage] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
 
+    console.log("este es el user en el context", user);
+
     useEffect(() => {
         //pedir id al localStorage y realizar petición a la bbddd
         if(token){
@@ -20,8 +22,7 @@ export const NetClinicsProvider = (props) => {
             axios
             .get(`http://localhost:4000/user/oneUser/${user_id}`)
             .then((res) => {
-                console.log(res.data[0]);
-                //setUser(res.data.resultUser[0]);
+                setUser(res.data[0]);
             })
             .catch((error) => {console.log(error);})
         }
