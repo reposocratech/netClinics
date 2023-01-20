@@ -6,20 +6,11 @@ export const HomeMedic = () => {
     <div>
         
         <CardHomeMedic
-        
-        
-        
-        
-        />
-        
-        <CardHomeMedic
+          citasRealizadas={citasRealizadas}
         
         
         
         />
-        <CardHomeMedic/>
-        <CardHomeMedic/>
-
     </div>
   )
 }

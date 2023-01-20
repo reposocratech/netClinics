@@ -123,7 +123,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
 
           <button
             className='mb-3 defineButton'
-            onClick={() => navigate('/loginPatient')}
+            onClick={() => navigate('/')}
           >Login</button>
 
       </div>
