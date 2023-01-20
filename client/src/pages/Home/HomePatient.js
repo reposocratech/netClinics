@@ -33,14 +33,7 @@ export const HomeMedic = () => {
             icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
             cardTitle={"Próximas Citas"}
           />
-
-          <CardHome
-            navigate={navigate}
-            icon={'/assets/icons/event_available_black_24dp.svg'}
-            cardTitle={"Disponibilidad"}
-          />
         </Row>
-
       </div>
     </Container>
   )

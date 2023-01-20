@@ -1,6 +1,8 @@
 .bgNavbar{
     background-color:#ffffffc8;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    position: fixed;
+    top: 0;
 
     .navbar-brand {
         img{
@@ -41,6 +43,10 @@
             left: -5vw;
         
         }
+    }
+
+    .MuiSvgIcon-root {
+        color: #1C2869;
     }
 }
 

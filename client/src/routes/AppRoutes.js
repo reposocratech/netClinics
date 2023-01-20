@@ -50,7 +50,7 @@ export const AppRoutes = () => {
                     element={<HomeMedic/>}
                   />
                 }
-
+                
                   <Route
                     path='/availability'
                     element={<AvailabilityMedic/>}
