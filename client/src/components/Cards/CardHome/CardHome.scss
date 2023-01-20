@@ -26,15 +26,16 @@
                 z-index: 1;
 
             }
-            
+            overflow: hidden;
             .icon{
                 width: 300px;
                 clip-path: polygon(0 0%, 100% 0%, 100% 72%, 0 72%, 0% 50%);
                 border-radius: 30px;
                 margin-top: auto;
+                
 
                 img{
-                    width: 320px;
+                    width: 325px;
                 }
 
                 .colorIcon{

@@ -52,7 +52,7 @@ export const AppRoutes = () => {
                 }
                 
                   <Route
-                    path='/availability'
+                    path='/availability/:user_id'
                     element={<AvailabilityMedic/>}
                   />
 
