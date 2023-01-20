@@ -8,19 +8,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useParams } from 'react-router-dom';
+
+import './availabilityMedic.scss'
 
 export const AvailabilityMedic = () => {
+
+  const {user_id} = useParams()
 
   const {token, user} = useContext(NetClinicsContext);
   const [availability, setAvailability] = useState([]);
   const [listDailyHours, setListDailyHours] = useState([]);
   const [listAllDay, setListAllDay] = useState([]);
 
-  const cellRef = useRef([]);
-
   useEffect(() => {
       axios
-      .get(`http://localhost:4000/medic/getAvailability/12`)
+      .get(`http://localhost:4000/medic/getAvailability/${user_id}`)
       .then((res) => {
         console.log(res.data);
         setAvailability(res.data);
@@ -48,63 +51,59 @@ export const AvailabilityMedic = () => {
       .catch((error) =>{
         console.log(error);
       })
-
   }, []);
 
-  /*
-  const addExercise =(exer, index)=>{
-
-    if ( divExer.current[index].style.backgroundColor === "white"){
-
-      divExer.current[index].style.backgroundColor = "#929cbb"
-      botonExer.current[index].textContent = "Deseleccionar"
-      
-    }else {
-      divExer.current[index].style.backgroundColor = "white"
-      botonExer.current[index].textContent = "Seleccionar"
-
-     }
+  const onClickCell = (i, j) => {
+    console.log("esta es la hora", i, "del día", j);
   }
-  */
 
   return (
-    <div>
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-              <TableCell sx={{fontWeight: 'bold'}} align="center">Horas</TableCell>
-              {listAllDay.map((el) => {
-                return (
-                  <TableCell sx={{fontWeight: 'bold'}} align="center">{el.day_name}</TableCell>
+    <div className='d-flex align-items-center justify-content-center'>
+      <div className='w-75 my-5 -mb-5'>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead className='bgThTable'>
+              <TableRow>
+                  <TableCell className='thContentTable' sx={{fontWeight: 'bold'}} align="center">Horas</TableCell>
+                  {listAllDay.map((el, i) => {
+                    return (
+                      <TableCell className='thContentTable' key={el.day_id + i + el.day_id} sx={{fontWeight: 'bold'}} align="center">{el.day_name}</TableCell>
+                    )
+                  })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {listDailyHours?.map((hour, i) => {
+                return(
+                <TableRow
+                  key={hour.daily_hours_id + i}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell  sx={{fontWeight: 'bold'}} align="center">{hour.daily_hours_time}</TableCell>
+                  {listAllDay.map((day, j) => {
+                    return (
+                      //Cada campo detecta el id de la hora y el id del día
+                      <TableCell
+                        key={day.day_id + j}
+                        onClick={()=> onClickCell(hour.daily_hours_id, day.day_id)} 
+                        sx={{fontWeight: 'bold'}} 
+                        align="center">
+                          <span>
+                            {availability?.map((el) => {
+                                return (el.daily_hours_id === hour.daily_hours_id && el.day_id === day.day_id) && "Disponible";
+                            })}
+                            
+                          </span>
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
                 )
               })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {listDailyHours?.map((hour, i) => {
-            return(
-            <TableRow
-              key={hour.daily_hours_id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell  sx={{fontWeight: 'bold'}} align="center">{hour.daily_hours_time}</TableCell>
-              {listAllDay.map((day, j) => {
-                return (
-                  //Cada campo detecta el id de la hora y el id del día
-                  <TableCell onClick={()=> {cellRef.current[j] = `${hour.daily_hours_id}${day.day_id}`; console.log(cellRef.current[j]); cellRef.current[j].style.backgroundColor = "blue"}} ref={(e)=>{cellRef.current[j]= e}} sx={{fontWeight: 'bold'}} align="center">
-                    {hour.daily_hours_id} {day.day_id} 
-                    {/* {i} {j} */}
-
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   )
 }
