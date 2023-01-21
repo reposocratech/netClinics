@@ -44,11 +44,9 @@ export const NavBarNetClinics = () => {
           }
 
         </Nav>
-       
-      </Navbar.Collapse>
-      
-      {isLogged &&
+        {isLogged &&
         <>
+        <Nav>
           {!user?.avatar ? 
               <NavDropdown className='menuDesplegable' title={
                 <div className='avatar me-3'>
@@ -70,9 +68,10 @@ export const NavBarNetClinics = () => {
                 <NavDropdown.Item onClick={logOut}><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
           }
-          
+          </Nav>
         </>
       }
+      </Navbar.Collapse>
     </Container>
     </Navbar>
   )
