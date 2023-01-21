@@ -11,10 +11,9 @@ import Paper from '@mui/material/Paper';
 import { useParams } from 'react-router-dom';
 
 import './availabilityMedic.scss'
+import { AvailabilityCell } from '../../../components/Availability/AvailabilityCell';
 
 export const AvailabilityMedic = () => {
-
-  const {user_id} = useParams()
 
   const {token, user} = useContext(NetClinicsContext);
   const [availability, setAvailability] = useState([]);
@@ -22,8 +21,12 @@ export const AvailabilityMedic = () => {
   const [listAllDay, setListAllDay] = useState([]);
 
   useEffect(() => {
+
+    axios.defaults.headers.common = {'Authorization': `bearer ${token}`}
+
+    if(!user.user_id) return;
       axios
-      .get(`http://localhost:4000/medic/getAvailability/${user_id}`)
+      .get(`http://localhost:4000/medic/availabilities`)
       .then((res) => {
         console.log(res.data);
         setAvailability(res.data);
@@ -51,11 +54,8 @@ export const AvailabilityMedic = () => {
       .catch((error) =>{
         console.log(error);
       })
-  }, []);
 
-  const onClickCell = (i, j) => {
-    console.log("esta es la hora", i, "del día", j);
-  }
+  }, [user]);
 
   return (
     <div className='d-flex align-items-center justify-content-center'>
@@ -76,25 +76,18 @@ export const AvailabilityMedic = () => {
               {listDailyHours?.map((hour, i) => {
                 return(
                 <TableRow
-                  key={hour.daily_hours_id + i}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  key={hour.daily_hours_id}
                 >
-                  <TableCell  sx={{fontWeight: 'bold'}} align="center">{hour.daily_hours_time}</TableCell>
+                  <TableCell  sx={{fontWeight: 'bold', width: "10rem"}} align="center">{hour.daily_hours_time}</TableCell>
                   {listAllDay.map((day, j) => {
                     return (
-                      //Cada campo detecta el id de la hora y el id del día
-                      <TableCell
-                        key={day.day_id + j}
-                        onClick={()=> onClickCell(hour.daily_hours_id, day.day_id)} 
-                        sx={{fontWeight: 'bold'}} 
-                        align="center">
-                          <span>
-                            {availability?.map((el) => {
-                                return (el.daily_hours_id === hour.daily_hours_id && el.day_id === day.day_id) && "Disponible";
-                            })}
-                            
-                          </span>
-                      </TableCell>
+                      //Monto cada componente celda
+                      <AvailabilityCell
+                          key={hour.daily_hours_id + day.day_id + i + j}
+                          availability={availability}
+                          hour={hour}
+                          day={day}
+                      />
                     )
                   })}
                 </TableRow>

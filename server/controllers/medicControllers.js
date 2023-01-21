@@ -187,12 +187,13 @@ class medicControllers {
   //3.-Trae la informacion de su  disponibilidad
   //localhost:4000/medic/getAvailability/:user_id
   getAvailability = (req, res) => {
+    
+    const token = req.headers.authorization.split(" ")[1];
+    const {user:{user_id}} = jwt.decode(token);
 
-    const {user_id} = req.params;
-
-    let sql = `SELECT * FROM availability
-    left join day on availability.day_id = day.day_id
-    left join daily_hours on daily_hours.daily_hours_id = availability.daily_hours_id  
+    let sql = `SELECT a.daily_hours_id, a.day_id, a.user_id, day_name, daily_hours_time FROM availability a
+    left join day on a.day_id = day.day_id
+    left join daily_hours on daily_hours.daily_hours_id = a.daily_hours_id  
     WHERE user_id = ${user_id}`;
 
     connection.query(sql, (error, result) => {
@@ -271,52 +272,56 @@ class medicControllers {
 
 
   //8.- Agregar disponibilidad, horas y dias semana a un médico
-  //localhost:4000/medic/addAvailability/:user_id
+  //localhost:4000/medic/availabilities
   addAvailability = (req, res) => {
 
-    const {user_id} = req.params;
+
+    const token = req.headers.authorization.split(" ")[1];
+    const {user:{user_id}} = jwt.decode(token);
 
     let { daily_hours_id, day_id } = req.body;
 
     daily_hours_id = parseInt(daily_hours_id);
     day_id = parseInt(day_id);
 
-    let sql = `INSERT INTO availability VALUES (${daily_hours_id}, ${day_id}, ${user_id})`;
+    let sql1 = `SELECT * FROM availability WHERE user_id = ${user_id} 
+    AND daily_hours_id = ${daily_hours_id} AND day_id = ${day_id}`;
 
-    connection.query(sql, (error, result) => {
+    let sql2 = `INSERT INTO availability VALUES (${daily_hours_id}, ${day_id}, ${user_id})`;
+
+    let sql3 = `DELETE FROM availability WHERE daily_hours_id=${daily_hours_id} AND day_id = ${day_id} AND user_id = ${user_id}`;
+
+    connection.query(sql1, (error, result) => {
       if(error){
         res.status(400).json("Ha habido un error");
       }
       else{
-        res.status(200).json(result);
+        console.log(result);
+        if(!result.length){
+          connection.query(sql2, (error, result) => {
+            if(error){
+              res.status(400).json("Ha habido un error");
+            }
+            else{
+              res.status(200).json({availability: true});
+            }
+          })
+        }
+        else{
+          connection.query(sql3, (error, result) => {
+            if(error){
+              res.status(400).json("Ha habido un error");
+            }
+            else{
+              res.status(200).json({availability: false});
+            }
+          })
+        }
       }
     });
 
   }
 
-  //9.- Eliminar disponibilidad a un médico
-  //localhost:4000/medic/deleteAvailability/:user_id
-  deleteAvailability = (req, res) => {
-
-    const {user_id} = req.params;
-
-    let { daily_hours_id, day_id } = req.body;
-    
-    daily_hours_id = parseInt(daily_hours_id);
-    day_id = parseInt(day_id);
-
-    let sql = `DELETE FROM availability WHERE daily_hours_id=${daily_hours_id} AND day_id = ${day_id} AND user_id = ${user_id}`;
-
-    connection.query(sql, (error, result) => {
-      if(error){
-        res.status(400).json("Ha habido un error");
-      }
-      else{
-        res.status(200).json(result);
-      }
-    });
-
-  }
   
 
 }

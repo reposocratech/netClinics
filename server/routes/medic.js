@@ -3,6 +3,7 @@ const medicControllers = require("../controllers/medicControllers");
 var router = express.Router();
 const multerSingleImage = require("../middleware/multerSingleImage");
 const multerFiles = require("../middleware/multerFiles");
+const { verify } = require('jsonwebtoken');
 // const verify = require("../middleware/verify");
 
 
@@ -20,8 +21,8 @@ router.get("/oneMedic/:user_id", medicControllers.selectOneMedic);
 
 //-----------------------------------------------------
 //3.-Trae la informacion de su  disponibilidad
-//localhost:4000/medic/getAvailability/:user_id      
-router.get("/getAvailability/:user_id", medicControllers.getAvailability);
+//localhost:4000/medic/getAvailability     
+router.get("/availabilities", verify, medicControllers.getAvailability);
 
 //-----------------------------------------------------
 //4.-Editar un medico 
@@ -45,14 +46,10 @@ router.get("/getPendingAppointments/:user_id", medicControllers.getPendingAppoin
 router.get("/getConfirmedAppointments/:user_id", medicControllers.getConfirmedAppointments);
 
 //------------------------------------------------------
-//8.- Agregar disponibilidad a un médico
-//localhost:4000/medic/addAvailability/:user_id
-router.post("/addAvailability/:user_id", medicControllers.addAvailability);
+//8.- Agregar disponibilidad a un médico y borrar dependiendo si está activo o no
+//localhost:4000/medic/availabilities
+router.post("/availabilities", verify, medicControllers.addAvailability);
 
-//------------------------------------------------------
-//9.- Eliminar disponibilidad a un médico
-//localhost:4000/medic/deleteAvailability/:user_id
-router.delete("/deleteAvailability/:user_id", medicControllers.deleteAvailability);
 
 
 

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { NavBar } from '../components/NavBar/NavBar';
 import { NavBarNetClinics } from '../components/NavBar/NavBarNetClinics';
 import { NetClinicsContext } from '../context/NetClinicsProvider';
 import { Login } from '../pages/Auth/Login/Login';
@@ -18,7 +19,8 @@ export const AppRoutes = () => {
         <BrowserRouter>
           {/* Navbar Netclinics */}
             {token &&
-              <NavBarNetClinics/>
+              // <NavBarNetClinics/>
+              <NavBar/>
             }
             <Routes>
 
@@ -52,7 +54,7 @@ export const AppRoutes = () => {
                 }
                 
                   <Route
-                    path='/availability/:user_id'
+                    path='/availability'
                     element={<AvailabilityMedic/>}
                   />
 
