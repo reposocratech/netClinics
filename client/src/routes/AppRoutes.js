@@ -5,6 +5,7 @@ import { NetClinicsContext } from '../context/NetClinicsProvider';
 import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
 import { HomeMedic } from '../pages/Home/HomeMedic';
+import { HomePatient } from '../pages/Home/HomePatient';
 import { AvailabilityMedic } from '../pages/Medic/Availability/AvailabilityMedic';
 import { RegisterMedic } from '../pages/Register/RegisterMedic/RegisterMedic';
 import { RegisterPatient } from '../pages/Register/RegisterPatient';
@@ -48,6 +49,13 @@ export const AppRoutes = () => {
                   <Route
                     path='/homeMedic'
                     element={<HomeMedic/>}
+                  />
+                }
+                
+                {(token && user?.type === 3) &&
+                  <Route
+                    path='/homePatient'
+                    element={<HomePatient/>}
                   />
                 }
                 
