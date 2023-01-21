@@ -11,11 +11,14 @@
         justify-content: center;
         padding: 2rem;
 
+        .input-group{
+            width: 20rem !important;
+        }
+        
         input {
             border-radius: 50px;
             border: none;
             color: #1C2869;
-            text-align: center;
             font-family: 'Rubik', sans-serif;
         }
 

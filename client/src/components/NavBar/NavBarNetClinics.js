@@ -60,16 +60,17 @@ export const NavBarNetClinics = () => {
                 <NavDropdown.Item><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
           :
-              <NavDropdown className='menuDesplegable' title={
+              <NavDropdown id="dropdown-button-drop-start" className='menuDesplegable' title={
                 <div>
                   <img className='avatarLogo me-3' src={`/assets/images/user/${user?.avatar}`}/>
                 </div>
-              } id="navbarScrollingDropdown">
+              }>
                 <NavDropdown.Item><PersonIcon/> Mi perfil</NavDropdown.Item>
                 <NavDropdown.Item><LockIcon/> Cambiar Contraseña</NavDropdown.Item>
                 <NavDropdown.Item onClick={logOut}><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
           }
+          
         </>
       }
     </Container>

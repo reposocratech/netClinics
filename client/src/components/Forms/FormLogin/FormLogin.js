@@ -20,7 +20,7 @@ export const FormLogin = ({handleChange, onSubmit, login, navigate, errorPasswor
                     </div>
 
                     {/* Container Formulario */}
-                    <div className='d-flex flex-column'>
+                    <div className='d-flex flex-column align-items-center'>
                         
                         <InputGroup className={`mb-3 ${errorEmail && "errorLogin"}`}>
 
@@ -41,7 +41,7 @@ export const FormLogin = ({handleChange, onSubmit, login, navigate, errorPasswor
                         {errorEmail && <h5 className='text-center text-danger pb-2'>{errorEmail}</h5>}
 
                         <InputGroup className={`mb-3 ${errorPassword && "errorLogin"}`}>
-                            <InputGroup.Text id="basic-addon1" className='inputFormLogin'><i class="fa-solid fa-lock"></i></InputGroup.Text>
+                            <InputGroup.Text  id="basic-addon1" className='inputFormLogin'><i class="fa-solid fa-lock"></i></InputGroup.Text>
                             <Form.Control 
                             placeholder="Introduce tu Contraseña"
                             name="password"
