@@ -13,7 +13,10 @@ import { useParams } from 'react-router-dom';
 import './availabilityMedic.scss'
 import { AvailabilityCell } from '../../../components/Availability/AvailabilityCell';
 
+
 export const AvailabilityMedic = () => {
+
+  const {user_id} = useParams()
 
   const {token, user} = useContext(NetClinicsContext);
   const [availability, setAvailability] = useState([]);
@@ -54,8 +57,8 @@ export const AvailabilityMedic = () => {
       .catch((error) =>{
         console.log(error);
       })
-
   }, [user]);
+
 
   return (
     <div className='d-flex align-items-center justify-content-center'>
@@ -76,6 +79,7 @@ export const AvailabilityMedic = () => {
               {listDailyHours?.map((hour, i) => {
                 return(
                 <TableRow
+
                   key={hour.daily_hours_id}
                 >
                   <TableCell  sx={{fontWeight: 'bold', width: "10rem"}} align="center">{hour.daily_hours_time}</TableCell>
@@ -88,6 +92,7 @@ export const AvailabilityMedic = () => {
                           hour={hour}
                           day={day}
                       />
+
                     )
                   })}
                 </TableRow>

@@ -1,8 +1,5 @@
 import React from 'react';
-
 import Col from 'react-bootstrap/esm/Col';
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container';
 import './CardHome.scss'
 
 export const CardHome = ({navigate, icon, cardTitle}) => {

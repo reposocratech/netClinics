@@ -53,14 +53,16 @@ export const Login = () => {
                 const {type} = jwtDecode(token).user;
                 setIsLogged(true);
     
-                
-                type === 2 && navigate('/homeMedic', {replace:true});
-                
                 /*
                 :type === 1 ?
                 navigate('/admin', {replace:true}):
                 navigate('/', {replace:true})
                 */
+                
+                type === 2 && navigate('/homeMedic', {replace:true});
+
+                // type === 3 && navigate('/homePatient', {replace:true});
+                
 
             })
             .catch((error) => {

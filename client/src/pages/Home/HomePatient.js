@@ -5,7 +5,8 @@ import { CardHome } from '../../components/Cards/CardHome/CardHome';
 import { useNavigate } from 'react-router-dom';
 import '../../components/Cards/CardHome/CardHome.scss'
 
-export const HomeMedic = () => {
+
+export const HomePatient = () => {
   const [icon, setIcon] = useState("");
   const [cardTitle, setCardTitle] = useState("");
   const navigate = useNavigate();
