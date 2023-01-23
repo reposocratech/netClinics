@@ -77,7 +77,7 @@ export const EditUser = () => {
 
   return (
     <div className="bgEditPatientProfile d-flex justify-content-center align-items-center">
-      <Container className="whiteBoxEditPatient">
+      <Container className="whiteBoxEditPatient my-5">
         <Row className="rowEditPatientProfile d-flex align-items-center">
           <FormEditUser
             editUser={editUser}
