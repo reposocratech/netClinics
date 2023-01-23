@@ -7,6 +7,9 @@ export const FormEditUser = ({
   handleFile,
   onSubmit,
   navigate,
+  listProvinces,
+  listCities,
+  getCity,
 }) => {
   return (
     <Container>
@@ -59,6 +62,35 @@ export const FormEditUser = ({
               onChange={handleChange}
               value={editUser?.address}
             />
+            <label>Provincia:</label>
+            <select
+              name="province_id"
+              onChange={(e) => getCity(e.target.value)}
+            >
+              <option>Elige Provincia</option>
+              {listProvinces?.map((province) => {
+                return (
+                  <option
+                    key={province.province_id}
+                    value={province.province_id}
+                  >
+                    {province.province_name}
+                  </option>
+                );
+              })}
+            </select>
+
+            <label>Ciudad:</label>
+            <select name="city_id" onChange={handleChange}>
+              <option>Elige Ciudad</option>
+              {listCities?.map((city) => {
+                return (
+                  <option key={city.city_id} value={city.city_id}>
+                    {city.city_name}
+                  </option>
+                );
+              })}
+            </select>
 
             <label>Codigo postal:</label>
             <input
