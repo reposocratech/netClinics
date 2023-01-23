@@ -7,6 +7,8 @@ import { Error } from '../pages/Error/Error';
 import { HomeMedic } from '../pages/Home/HomeMedic';
 import { HomePatient } from '../pages/Home/HomePatient';
 import { AvailabilityMedic } from '../pages/Medic/Availability/AvailabilityMedic';
+import { EditMedic } from '../pages/Medic/EditMedic/EditMedic';
+import { MedicProfile } from '../pages/Medic/MedicProfile/MedicProfile';
 import { RegisterMedic } from '../pages/Register/RegisterMedic/RegisterMedic';
 import { RegisterPatient } from '../pages/Register/RegisterPatient';
 import { EditUser } from '../pages/User/EditUser/EditUser';
@@ -58,12 +60,12 @@ export const AppRoutes = () => {
                   {/* Ruta para ver su perfil */}
                   <Route
                     path='/myProfile'
-                    element={<UserProfile/>}
+                    element={<MedicProfile/>}
                   />
                   {/* Ruta para Edición de perfil */}
                   <Route
                     path='/editProfile'
-                    element={"EditMedic"}
+                    element={<EditMedic/>}
                   />
                   {/* Ruta para mis citas */}
                   <Route

@@ -15,13 +15,13 @@ router.post("/createMedic",multerFiles("titles"), medicControllers.createMedic);
 
 //------------------------------------------------------
 //2.-Trae la información de un medico
-//localhost:4000/medic/oneMedic/:user_id  
-router.get("/oneMedic/:user_id", medicControllers.selectOneMedic);
+//localhost:4000/medic/profile
+router.get("/profile", verify, medicControllers.selectOneMedic);
 
 
 //-----------------------------------------------------
 //3.-Trae la informacion de su  disponibilidad
-//localhost:4000/medic/getAvailability     
+//localhost:4000/medic/availabilities     
 router.get("/availabilities", verify, medicControllers.getAvailability);
 
 //-----------------------------------------------------

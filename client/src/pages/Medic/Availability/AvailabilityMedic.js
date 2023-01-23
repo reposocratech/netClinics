@@ -16,8 +16,6 @@ import { AvailabilityCell } from '../../../components/Availability/AvailabilityC
 
 export const AvailabilityMedic = () => {
 
-  const {user_id} = useParams()
-
   const {token, user} = useContext(NetClinicsContext);
   const [availability, setAvailability] = useState([]);
   const [listDailyHours, setListDailyHours] = useState([]);

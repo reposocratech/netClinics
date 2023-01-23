@@ -88,9 +88,11 @@ class medicControllers {
 
   //------------------------------------------------------
   //2.-Trae la información de un medico
-  //localhost:4000/medic/oneMedic/:user_id
+  //localhost:4000/medic/profile
   selectOneMedic = (req, res) => {
-    let {user_id} = req.params;
+
+    const token = req.headers.authorization.split(" ")[1];
+    const {user:{user_id}} = jwt.decode(token);
 
     let sql = `SELECT * FROM user 
     join medic_data on user.user_id = medic_data.user_id 
@@ -215,7 +217,7 @@ class medicControllers {
     let user_id = req.params.user_id;
   
   
-    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code,avatar,text,university,} = req.body;
+    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, avatar,text,university} = req.body;
 
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
