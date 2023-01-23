@@ -9,6 +9,8 @@ import { HomePatient } from '../pages/Home/HomePatient';
 import { AvailabilityMedic } from '../pages/Medic/Availability/AvailabilityMedic';
 import { RegisterMedic } from '../pages/Register/RegisterMedic/RegisterMedic';
 import { RegisterPatient } from '../pages/Register/RegisterPatient';
+import { EditUser } from '../pages/User/EditUser/EditUser';
+import { UserProfile } from '../pages/User/UserProfile/UserProfile';
 
 export const AppRoutes = () => {
 
@@ -17,61 +19,106 @@ export const AppRoutes = () => {
   return (
     <div>
         <BrowserRouter>
-          {/* Navbar Netclinics */}
+            {/* Navbar Netclinics */}
             {token &&
               <NavBarNetClinics/>
             }
             <Routes>
+                {/* Si no hay logueo, que se pueda registrar tanto médico como paciente */}
+                {!token &&
+                  <>
 
+                    <Route
+                      path='/'
+                      element={<Login/>}
+                    />
+
+                    <Route
+                      path='/registerPatient'
+                      element={<RegisterPatient/>}
+                    />
+                  
+                    <Route
+                      path='/registerMedic'
+                      element={<RegisterMedic/>}
+                    />
+
+                  </>
+                }
+
+
+                {/* Rutas para médicos */}
+                {(token && user?.type === 2) &&
+                <> 
+                  {/* Ruta principal si es médico */}
+                  <Route
+                    path='/'
+                    element={<HomeMedic/>}
+                  />
+                  {/* Ruta para ver su perfil */}
+                  <Route
+                    path='/myProfile'
+                    element={<UserProfile/>}
+                  />
+                  {/* Ruta para Edición de perfil */}
+                  <Route
+                    path='/editProfile'
+                    element={"EditMedic"}
+                  />
+                  {/* Ruta para mis citas */}
+                  <Route
+                    path='/appointments'
+                    element={"/appointments"}
+                  />
+                  {/* Ruta para cita pendiente confirmar */}
+                  <Route
+                    path='/pendingAppointments'
+                    element={"/pendingAppointments"}
+                  />
+                  {/* Ruta para próximas citas */}
+                  <Route
+                    path='/followingAppointments'
+                    element={"/followingAppointments"}
+                  />
+                  {/* Ruta para ver y editar su disponibilidad, sólo médico */}
+                  <Route
+                  path='/availability'
+                  element={<AvailabilityMedic/>}
+                  />
+
+                </>
+                }
+                
+                
+                {/* Rutas Pacientes */}
+                {(token && user?.type === 3) &&
+                  <>
+                    {/* Ruta principal si es paciente */}
+                    <Route
+                    path='/'
+                    element={<HomePatient/>}
+                    />
+                    {/* Ruta para ver su perfil */}
+                    <Route
+                    path='/myProfile'
+                    element={<UserProfile/>}
+                    />
+                    {/* Ruta para Edición de perfil */}
+                    <Route
+                    path='/editProfile'
+                    element={<EditUser/>}
+                    />
+
+
+
+                  </>
+                }
+
+                {/* Ruta para error */}
                 <Route
                   path='*'
                   element={<Error/>}
                 />
-
-                {!token &&
-                  <Route
-                    path='/'
-                    element={<Login/>}
-                  />
-                }
-
-                  <Route
-                    path='/registerPatient'
-                    element={<RegisterPatient/>}
-                  />
-
-                  <Route
-                    path='/registerMedic'
-                    element={<RegisterMedic/>}
-                  />
-
-                {(token && user?.type === 2) &&
-                  <Route
-                    path='/homeMedic'
-                    element={<HomeMedic/>}
-                  />
-                }
-                
-
-                {(token && user?.type === 3) &&
-                  <Route
-                    path='/homePatient'
-                    element={<HomePatient/>}
-                  />
-                }
-
-                  <Route
-                    path='/availability'
-                    element={<AvailabilityMedic/>}
-                  />
-
-                {token &&
-                  <Route
-                    path='/myProfile'
-                    element={""}
-                  />
-                }
-
 
             </Routes>
         </BrowserRouter>

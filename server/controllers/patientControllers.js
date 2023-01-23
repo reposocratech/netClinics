@@ -91,23 +91,25 @@ class patientControllers {
 //localhost:4000/patient/editPatient/:user_id
 editPatient = (req, res) => {
   let user_id = req.params.user_id;
-  
-  
-  let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code} = req.body;
+
+  let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, avatar} = JSON.parse(req.body.register);
+
+  console.log("este es el avatar " , avatar);
 
   province_id = parseInt(province_id);
   city_id = parseInt(city_id);
   postal_code = parseInt(postal_code);
   
 
-  let img = "";
-  
+  let img = avatar;
   
   if (req.file != undefined) {
     img = req.file.filename;
   }
-  c
+
   let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
+
+  console.log("consulta ", sql);
 
   connection.query(sql, (error, result) => {
     if (error) throw error;

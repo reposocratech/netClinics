@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const EditUser = () => {
 
-  const {user, setUser} = useContext(NetClinicsContext);
+  const {user, setUser, setResetPage, resetPage} = useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
   const [file, setFile] = useState();
   const navigate = useNavigate();
@@ -36,7 +36,8 @@ const onSubmit = (e) =>{
       .put(`http://localhost:4000/patient/editPatient/${user.user_id}`, newFormData)
       .then((res)=>{
           setUser(editUser);
-          navigate("/user");
+          setResetPage(!resetPage);
+          navigate("/myProfile");
       })
       .catch((err)=>console.log(err))
 }
