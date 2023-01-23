@@ -70,6 +70,7 @@ export const RegisterPatient = () => {
           .post("http://localhost:4000/patient/createPatient", registerPatient)
           .then((res) => {
               console.log(res);
+              navigate('/');
           })
           .catch((error) => {
               setMessage1(false);

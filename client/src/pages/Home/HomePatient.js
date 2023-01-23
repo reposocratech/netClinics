@@ -12,9 +12,9 @@ export const HomePatient = () => {
   const navigate = useNavigate();
 
   return (
-    <Container fluid className='bgColorHome d-flex justify-content-center align-items-center'>
-      <div className='whiteContainerHome d-flex flex-column justify-content-center'>
-        <Row>
+    <div className='bgColorHome d-flex align-items-center'>
+      <Container className='whiteContainerHome pt-4'>
+          <Row>
           <CardHome
             navigate={navigate}
             icon={'/assets/icons/add_task_black_24dp.svg'}
@@ -34,8 +34,8 @@ export const HomePatient = () => {
             icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
             cardTitle={"Próximas Citas"}
           />
-        </Row>
-      </div>
-    </Container>
+         </Row>
+      </Container>
+    </div>
   )
 }
