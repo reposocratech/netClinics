@@ -59,10 +59,7 @@ export const Login = () => {
                 navigate('/', {replace:true})
                 */
                 
-                type === 2 && navigate('/homeMedic', {replace:true});
-
-                // type === 3 && navigate('/homePatient', {replace:true});
-                
+                navigate('/', {replace:true});
 
             })
             .catch((error) => {

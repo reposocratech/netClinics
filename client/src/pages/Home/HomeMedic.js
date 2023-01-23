@@ -15,12 +15,14 @@ export const HomeMedic = () => {
       <div className='whiteContainerHome d-flex flex-column justify-content-center'>
         <Row>
           <CardHome
+            go={"/appointments"}
             navigate={navigate}
             icon={'/assets/icons/add_task_black_24dp.svg'}
             cardTitle={"Citas Realizadas"}
           />
 
           <CardHome
+            go={"/pendingAppointments"}
             navigate={navigate}
             icon={'/assets/icons/pending_actions_black_24dp.svg'}
             cardTitle={"Citas Pendientes de Confirmación"}
@@ -29,12 +31,14 @@ export const HomeMedic = () => {
 
         <Row>
           <CardHome
+            go={"/followingAppointments"}
             navigate={navigate}
             icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
             cardTitle={"Próximas Citas"}
           />
 
           <CardHome
+            go={"/availability"}
             navigate={navigate}
             icon={'/assets/icons/event_available_black_24dp.svg'}
             cardTitle={"Disponibilidad"}

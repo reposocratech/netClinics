@@ -29,7 +29,7 @@ export const NavBarNetClinics = () => {
     <Navbar className='bgNavbar' expand="lg">
     <Container>
             
-      <Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">
         <img className='logoNavbar' src="/assets/images/logo/Logo-NetClinics1-01.png"/>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -38,10 +38,19 @@ export const NavBarNetClinics = () => {
 
           {user?.type === 2 && 
           <> 
-            <Nav.Link as={Link} to="/homeMedic">Home</Nav.Link>
-            <Nav.Link as={Link} to="/homeMedic">Mis citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/">Mis citas</Nav.Link>
           </>
           }
+
+          {user?.type === 3 && 
+          <> 
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/">Reservar Citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Mis Citas</Nav.Link>
+          </>
+          }
+
 
         </Nav>
         {isLogged &&
@@ -63,7 +72,7 @@ export const NavBarNetClinics = () => {
                   <img className='avatarLogo me-3' src={`/assets/images/user/${user?.avatar}`}/>
                 </div>
               }>
-                <NavDropdown.Item><PersonIcon/> Mi perfil</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/myProfile"><PersonIcon/> Mi perfil</NavDropdown.Item>
                 <NavDropdown.Item><LockIcon/> Cambiar Contraseña</NavDropdown.Item>
                 <NavDropdown.Item onClick={logOut}><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>

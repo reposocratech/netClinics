@@ -16,8 +16,7 @@ export const UserProfile = () => {
     axios
       .get(`http://localhost:4000/place/getPlaceOneUser/${user.user_id}`)
       .then((res) => {
-        console.log("ciudad y provincia", res.data[0]);
-        setProvinceCity(res.data);
+        setProvinceCity(res.data[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -30,7 +29,7 @@ export const UserProfile = () => {
         <Col>
           {user && (
             <div>
-              <Button onClick={()=>navigate("/editUser")}>Editar perfil</Button>
+              <Button onClick={()=>navigate("/editProfile")}>Editar perfil</Button>
               <h2>Datos personales</h2>
               <hr />
               <h4>
@@ -51,11 +50,7 @@ export const UserProfile = () => {
         <Col className="p-5">
           <img
             className="w-50"
-            src={
-              user?.avatar
-                ? `assets/images/user/${user?.avatar}`
-                : "/assets/images/user/avatar.png"
-            }
+            src={`assets/images/user/${user?.avatar}`}
           />
         </Col>
       </Row>
