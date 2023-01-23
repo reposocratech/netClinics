@@ -17,6 +17,7 @@ export const UserProfile = () => {
       .get(`http://localhost:4000/place/getPlaceOneUser/${user.user_id}`)
       .then((res) => {
         setProvinceCity(res.data[0]);
+        console.log(res.data[0]);
       })
       .catch((error) => {
         console.log(error);
