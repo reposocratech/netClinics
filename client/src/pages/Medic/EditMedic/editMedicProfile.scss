@@ -9,7 +9,18 @@
         border-radius: 20px;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
+        .containerAvatarPerfil{
+            .avatarPefil{
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                object-position: center;
+                object-fit: contain;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
+        }
 
+       
     }
 
 }
