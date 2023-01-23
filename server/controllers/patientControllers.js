@@ -57,6 +57,7 @@ class patientControllers {
   };
   //---------------------------------------------------
   // 3.- Trae todos los medicos de la tabla user
+  //Esta ruta no la utilizamos
   //localhost:4000/patient/getMedics 
   getAllMedics = (req, res) => {
     
@@ -118,7 +119,7 @@ editPatient = (req, res) => {
 };
 
 
- 
+
 
 
   
