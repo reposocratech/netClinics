@@ -61,7 +61,7 @@ export const EditUser = () => {
   };
 
   const getCity = (selectedProvince) => {
-    console.log(selectedProvince);
+
     if (selectedProvince) {
       axios
         .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
@@ -81,7 +81,7 @@ export const EditUser = () => {
         <Row className="rowEditPatientProfile d-flex align-items-center">
           <FormEditUser
             editUser={editUser}
-            handleChange={handleChange}
+            handleChange={handleChange}selectedProvince
             handleFile={handleFile}
             onSubmit={onSubmit}
             navigate={navigate}
