@@ -94,11 +94,12 @@ class medicControllers {
     const token = req.headers.authorization.split(" ")[1];
     const {user:{user_id}} = jwt.decode(token);
 
+
     let sql = `SELECT * FROM user 
-    join medic_data on user.user_id = medic_data.user_id 
-    join title on user.user_id = title.user_id 
-    join medic_data_speciality on user.user_id = medic_data_speciality.user_id 
-    join speciality on medic_data_speciality.speciality_id = speciality.speciality_id 
+    left join medic_data on user.user_id = medic_data.user_id 
+    left join title on user.user_id = title.user_id 
+    left join medic_data_speciality on user.user_id = medic_data_speciality.user_id 
+    left join speciality on medic_data_speciality.speciality_id = speciality.speciality_id 
     WHERE user.user_id=${user_id}`;
 
     connection.query(sql, (error, result) => {
@@ -122,7 +123,7 @@ class medicControllers {
         result.forEach((x) => {
 
           user = {
-            user_id: x.user_id,
+            user_id: user_id,
             name: x.name,
             lastname: x.lastname,
             address: x.address,

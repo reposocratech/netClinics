@@ -27,6 +27,7 @@ export const MedicProfile = () => {
         axios
         .get("http://localhost:4000/medic/profile")
         .then((res) => {
+            console.log(res);
             setDataUser(res.data.user[0]);
             setDataTitles(res.data.titles);
             setDataSpecialities(res.data.specialities);
@@ -100,7 +101,7 @@ export const MedicProfile = () => {
                         return  (
                         <>
                             <div className='d-flex gap-1 align-items-center'>
-                                <p>{title?.text === "" ? title?.document : title?.text}</p>
+                                <p>{title?.text === null ? title?.document : title?.text}</p>
                                 <button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><img src='/assets/icons/download_FILL0_wght400_GRAD0_opsz48.svg'/></button>
                             </div>
                         </>
