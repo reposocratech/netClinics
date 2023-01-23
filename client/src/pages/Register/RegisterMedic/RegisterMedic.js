@@ -41,35 +41,34 @@ export const RegisterMedic = () => {
     }
 
     const onSubmit = (event) => {
-        
-        
-        if(!emailValidator(registerMedic.email)){
-            setMessage1(true)
-            setMessage2(false)
-        }
-        else{
-            const newFormData = new FormData();
-            newFormData.append('regMedic', JSON.stringify(registerMedic));
-
-            if(documents){
-              for(const doc of documents){
-                  newFormData.append('file', doc)
-              }
-            }
-            
-            axios
-                .post("http://localhost:4000/medic/createMedic", newFormData)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((error) => {
-                    setMessage1(false)
-                    setMessage2(true)
-                    console.log(error);
-                })
-        
-        }
+      if(!emailValidator(registerMedic.email)){
+          setMessage1(true)
+          setMessage2(false)
       }
+      else{
+          const newFormData = new FormData();
+          newFormData.append('regMedic', JSON.stringify(registerMedic));
+
+          if(documents){
+            for(const doc of documents){
+                newFormData.append('file', doc)
+            }
+          }
+          
+          axios
+              .post("http://localhost:4000/medic/createMedic", newFormData)
+              .then((res) => {
+                  console.log(res);
+                  navigate('/');
+              })
+              .catch((error) => {
+                  setMessage1(false)
+                  setMessage2(true)
+                  console.log(error);
+              })
+      
+      }
+    }
 
     useEffect(() => {
         axios
