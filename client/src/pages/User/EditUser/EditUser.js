@@ -3,6 +3,9 @@ import axios from "axios";
 import { FormEditUser } from "../../../components/Forms/FormEditUser/FormEditUser";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Button } from "react-bootstrap";
+
+import "./styleEditUser.scss";
 
 export const EditUser = () => {
   const { user, setUser, setResetPage, resetPage } =
@@ -73,20 +76,24 @@ export const EditUser = () => {
   };
 
   return (
-    <div>
-      <FormEditUser
-        editUser={editUser}
-        handleChange={handleChange}
-        handleFile={handleFile}
-        onSubmit={onSubmit}
-        navigate={navigate}
-        listProvinces={listProvinces}
-        setSelectedProvince={setSelectedProvince}
-        listCities={listCities}
-        setListCities={setListCities}
-        setSelectedCitie={setSelectedCitie}
-        getCity={getCity}
-      />
+    <div className="bgEditPatientProfile d-flex justify-content-center align-items-center">
+      <Container className="whiteBoxEditPatient">
+        <Row className="rowEditPatientProfile d-flex align-items-center">
+          <FormEditUser
+            editUser={editUser}
+            handleChange={handleChange}
+            handleFile={handleFile}
+            onSubmit={onSubmit}
+            navigate={navigate}
+            listProvinces={listProvinces}
+            setSelectedProvince={setSelectedProvince}
+            listCities={listCities}
+            setListCities={setListCities}
+            setSelectedCitie={setSelectedCitie}
+            getCity={getCity}
+          />
+        </Row>
+      </Container>
     </div>
   );
 };
