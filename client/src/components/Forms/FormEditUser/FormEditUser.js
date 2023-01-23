@@ -12,9 +12,8 @@ export const FormEditUser = ({
   getCity,
 }) => {
   return (
-    <Container>
-      <Row>
-        <Col>
+      <>
+        <Col xs={12} sm={12} md={6} lg={6} className="d-flex justify-content-center align-items-center">
           <form encType="multipart/form" className="d-flex flex-column w-50">
             <h2>Editar usuario</h2>
             <hr />
@@ -36,15 +35,19 @@ export const FormEditUser = ({
               onChange={handleChange}
             />
 
-            <label>Email:</label>
-            <input
-              className="m-2"
-              placeholder="Email"
-              name="email"
-              value={editUser?.email}
-              onChange={handleChange}
-            />
+          <label>Email:</label>
+          <input
+            className="m-2"
+            placeholder="Email"
+            name="email"
+            value={editUser?.email}
+            onChange={handleChange}
+          />
+          </form>
+        </Col>
 
+        <Col  xs={12} sm={12} md={12} lg={6} className="d-flex justify-content-center align-items-center">
+          <form encType="multipart/form" className="d-flex flex-column w-50">
             <label>Teléfono:</label>
             <input
               className="m-2"
@@ -62,23 +65,31 @@ export const FormEditUser = ({
               onChange={handleChange}
               value={editUser?.address}
             />
+          </form>
+
+          <div>
             <label>Provincia:</label>
-            <select
-              name="province_id"
-              onChange={(e) => getCity(e.target.value)}
-            >
-              <option>Elige Provincia</option>
-              {listProvinces?.map((province) => {
-                return (
-                  <option
-                    key={province.province_id}
-                    value={province.province_id}
-                  >
-                    {province.province_name}
-                  </option>
-                );
-              })}
-            </select>
+              <select
+                name="province_id"
+                onChange={(e) => getCity(e.target.value)}
+              >
+                <option>Elige Provincia</option>
+                {listProvinces?.map((province) => {
+                  return (
+                    <option
+                      key={province.province_id}
+                      value={province.province_id}
+                    >
+                      {province.province_name}
+                    </option>
+                  );
+                })}
+              </select>
+          </div>
+        </Col>
+
+        <Col xs={12} sm={12} md={4} lg={4} className="d-flex justify-content-center align-items-center">
+          <form encType="multipart/form" className="d-flex flex-column w-50">
 
             <label>Ciudad:</label>
             <select name="city_id" onChange={handleChange}>
@@ -91,6 +102,11 @@ export const FormEditUser = ({
                 );
               })}
             </select>
+          </form>
+        </Col>
+
+        <Col xs={12} sm={12} md={4} lg={4} className="d-flex justify-content-center align-items-center">
+          <form encType="multipart/form" className="d-flex flex-column w-50">
 
             <label>Codigo postal:</label>
             <input
@@ -100,6 +116,12 @@ export const FormEditUser = ({
               value={editUser?.postal_code}
               onChange={handleChange}
             />
+          </form>
+        </Col>
+
+        <Col xs={12} sm={12} md={4} lg={4} className="d-flex justify-content-center align-items-center">
+          <form encType="multipart/form" className="d-flex flex-column w-50">
+
             <label>Cambiar imagen:</label>
             <input
               type="file"
@@ -107,18 +129,17 @@ export const FormEditUser = ({
               autoComplete="off"
               onChange={handleFile}
             />
-
-            <div>
-              <Button className="m-2" onClick={onSubmit}>
-                Guardar cambios
-              </Button>
-              <Button className="m-2" onClick={() => navigate("/myProfile")}>
-                Cancelar
-              </Button>
-            </div>
           </form>
         </Col>
-      </Row>
-    </Container>
+
+        <div className="d-flex flex-row justify-content-center">
+          <Button className="defineButton m-2" onClick={onSubmit}>
+            Guardar cambios
+          </Button>
+          <Button className="defineButton m-2" onClick={() => navigate("/myProfile")}>
+            Cancelar
+          </Button>
+        </div>
+      </>
   );
 };
