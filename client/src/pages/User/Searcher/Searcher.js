@@ -11,7 +11,7 @@ export const Searcher = () => {
     const [listCities, setListCities] = useState([]);
     const [listSpecialities, setListSpecialities] = useState([]);
     const [search, setSearch] = useState();
-    const [medicsSearched, setMedicsSearched] = useState()    
+    const [medicsSearched, setMedicsSearched] = useState([])    
     const navigate = useNavigate();
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -19,7 +19,7 @@ export const Searcher = () => {
     };
     
     const onSubmit = () => {
-      console.log(search);
+      // console.log(search);
       
       axios
         .post(
@@ -27,8 +27,8 @@ export const Searcher = () => {
         )
         .then((res) => {
           
-          // setMedicsSearched(res.data)
-          console.log(res.data);
+           setMedicsSearched(res.data)
+          // console.log(res.data);
           
         })
         .catch((err) => console.log(err));
@@ -54,7 +54,7 @@ export const Searcher = () => {
         });
     }, [])
     
-    console.log(medicsSearched);
+    // console.log(medicsSearched);
     const getCity = (selectedProvince) => {
         
         if(selectedProvince){
@@ -74,21 +74,24 @@ export const Searcher = () => {
     <div>
         <Container>
             <Row> 
-              {medicsSearched === undefined? 
-              <FormSearchMedic
-                handleChange={handleChange}               
-                onSubmit={onSubmit}
-                navigate={navigate}
-                listProvinces={listProvinces}               
-                listCities={listCities}                
-                getCity={getCity}
-                listSpecialities={listSpecialities}
+              {medicsSearched.length === 0? 
+                <FormSearchMedic
+                  handleChange={handleChange}               
+                  onSubmit={onSubmit}
+                  navigate={navigate}
+                  listProvinces={listProvinces}               
+                  listCities={listCities}                
+                  getCity={getCity}
+                  listSpecialities={listSpecialities}
+                  medicsSearched={medicsSearched}
+                  setMedicsSearched={setMedicsSearched}
+                />:
+                <SearchAppointment
                 medicsSearched={medicsSearched}
                 setMedicsSearched={setMedicsSearched}
-              />:
-              <SearchAppointment/>
-              
-            }
+
+                />
+              }
             </Row>
         </Container>
     </div>
