@@ -111,8 +111,6 @@ export const AppRoutes = () => {
                     element={<EditUser/>}
                     />
 
-
-
                   </>
                 }
 

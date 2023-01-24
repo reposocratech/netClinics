@@ -11,6 +11,8 @@ export const FormEditUser = ({
   listCities,
   getCity,
 }) => {
+
+
   return (
       <>
         <Col xs={12} sm={12} md={6} lg={6} className="d-flex justify-content-center align-items-center">
@@ -71,17 +73,19 @@ export const FormEditUser = ({
             <label>Provincia:</label>
               <select
                 name="province_id"
+                value={editUser?.province_id}
                 onChange={(e) => getCity(e.target.value)}
               >
-                <option>Elige Provincia</option>
                 {listProvinces?.map((province) => {
                   return (
                     <option
-                      key={province.province_id}
-                      value={province.province_id}
+                      key={province?.province_id}
+                      value={province?.province_id}
+                      
                     >
-                      {province.province_name}
+                      {province?.province_name}
                     </option>
+
                   );
                 })}
               </select>
@@ -92,12 +96,13 @@ export const FormEditUser = ({
           <form encType="multipart/form" className="d-flex flex-column w-50">
 
             <label>Ciudad:</label>
-            <select name="city_id" onChange={handleChange}>
-              <option>Elige Ciudad</option>
+            <select value={editUser?.city_id} name="city_id" onChange={handleChange}>
               {listCities?.map((city) => {
                 return (
-                  <option key={city.city_id} value={city.city_id}>
-                    {city.city_name}
+                  <option 
+                    key={city?.city_id} 
+                    value={city?.city_id}>
+                    {city?.city_name}
                   </option>
                 );
               })}
