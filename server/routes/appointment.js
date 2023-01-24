@@ -4,5 +4,5 @@ var router = express.Router();
 //-----------------------------------------------------
 //1.- Traer informacion de la busqueda de medicos
 //localhost:4000/appointment/getInfoAvailableMedic
-router.get("/getInfoAvailableMedic",appointmentControllers.getInfoAvailableMedic)
+router.post("/getInfoAvailableMedic",appointmentControllers.getInfoAvailableMedic)
 module.exports = router;

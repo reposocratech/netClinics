@@ -46,7 +46,7 @@ export const NavBarNetClinics = () => {
           {user?.type === 3 && 
           <> 
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/">Reservar Citas</Nav.Link>
+            <Nav.Link as={Link} to="/searcher">Reservar Citas</Nav.Link>
             <Nav.Link as={Link} to="/">Mis Citas</Nav.Link>
           </>
           }
