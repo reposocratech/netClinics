@@ -19,6 +19,7 @@
                 object-position: center;
                 width: 150px;
                 height: 150px;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             }
 
             .contEditPatient{
@@ -75,7 +76,7 @@
 @media screen and (max-width: 575px){
     .whiteBoxEditPatient {
         width: 90% !important;
-    } 
+    }
 }
 
 @media screen and (max-width: 390px){

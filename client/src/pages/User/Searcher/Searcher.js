@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router';
 import { SearchAppointment } from '../../../components/Appointment/SearchAppointment';
 import { FormSearchMedic } from '../../../components/Forms/FormSearchMedic/FormSearchMedic';
+import './Searcher.scss';
 
 
 export const Searcher = () => {
@@ -71,9 +72,9 @@ export const Searcher = () => {
       };
     
   return (
-    <div>
-        <Container>
-            <Row> 
+    <div className="bgSearcher d-flex justify-content-center align-items-center">
+        <Container className="whiteBoxSeracher my-5">
+            <Row className="rowSearcher d-flex align-items-center"> 
               {medicsSearched.length === 0? 
                 <FormSearchMedic
                   handleChange={handleChange}               
