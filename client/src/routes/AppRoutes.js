@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { NavBarNetClinics } from '../components/NavBar/NavBarNetClinics';
 import { NetClinicsContext } from '../context/NetClinicsProvider';
+import { AllPatients } from '../pages/Admin/AllPatients/AllPatients';
 import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
+import { HomeAdmin } from '../pages/Home/HomeAdmin';
 import { HomeMedic } from '../pages/Home/HomeMedic';
 import { HomePatient } from '../pages/Home/HomePatient';
 import { AvailabilityMedic } from '../pages/Medic/Availability/AvailabilityMedic';
@@ -119,6 +121,24 @@ export const AppRoutes = () => {
                   path='*'
                   element={<Error/>}
                 />
+
+                 {/* Rutas Administrador */}
+                 {(token && user?.type === 1) &&
+                  <>
+                  {/* Ruta principal si es administrador */}
+                    <Route
+                    path='/'
+                    element={<HomeAdmin/>}
+                    />
+                    {/* Ruta principal si es paciente */}
+                    <Route
+                    path='/allPatients'
+                    element={<AllPatients/>}
+                    />
+                    
+                  </>
+                }
+
 
             </Routes>
         </BrowserRouter>
