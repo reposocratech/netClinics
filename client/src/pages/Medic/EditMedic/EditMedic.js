@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider'
 import InputGroup from 'react-bootstrap/InputGroup';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Table from 'react-bootstrap/Table';
 
 import './editMedicProfile.scss'
 import axios from 'axios';
@@ -137,8 +138,12 @@ export const EditMedic = () => {
         </Row>
         {/* Datos Médico */}
         {/* Sobre mí */}
-        <Row>
-          <Col>
+        <Row className='ms-2 me-2 mb-3'>
+          <Col className='fondos_Sections'>
+            <Col className='mb-3'>
+              <h4>Sobre mí</h4>
+              <hr className='separador'/>
+            </Col>
             <FloatingLabel  className="mb-3" controlId="floatingTextarea2" label="Sobre mí">
               <Form.Control
                 as="textarea"
@@ -152,21 +157,25 @@ export const EditMedic = () => {
           </Col>
         </Row>
         {/* Nombre y Apellidos */}
-        <Row>
+        <Row className='fondos_Sections ms-2 me-2 mb-3'>
+          <Col xs="12 mb-3">
+            <h4>Datos Personales</h4>
+            <hr className='separador'/>
+          </Col>
           <Col xs="12" md="6">
-                <InputGroup className='mb-3'>
-                  <Form.Control
-                  placeholder='Escribe tu Nombre'
-                  name='name'
-                  type='text'
-                  autoComplete='off'
-                  aria-label='Nombre'
-                  aria-describedby="basic-addon1"
-                  value={dataUser?.name}
-                  onChange={handleChange}
-                  required
-                  />
-                </InputGroup>
+            <InputGroup className='mb-3'>
+              <Form.Control
+              placeholder='Escribe tu Nombre'
+              name='name'
+              type='text'
+              autoComplete='off'
+              aria-label='Nombre'
+              aria-describedby="basic-addon1"
+              value={dataUser?.name}
+              onChange={handleChange}
+              required
+              />
+            </InputGroup>
           </Col>
           <Col xs="12" md="6">
             <InputGroup className='mb-3'>
@@ -183,22 +192,20 @@ export const EditMedic = () => {
               />
             </InputGroup>
           </Col>
-        </Row>
-        <Row>
           <Col xs="12" md="6">
-                <InputGroup className='mb-3'>
-                  <Form.Control
-                  placeholder='Introduce teléfono'
-                  name='phone_number'
-                  type='text'
-                  autoComplete='off'
-                  aria-label='Teléfono'
-                  aria-describedby="basic-addon1"
-                  value={dataUser?.phone_number}
-                  onChange={handleChange}
-                  required
-                  />
-                </InputGroup>
+            <InputGroup className='mb-3'>
+              <Form.Control
+              placeholder='Introduce teléfono'
+              name='phone_number'
+              type='text'
+              autoComplete='off'
+              aria-label='Teléfono'
+              aria-describedby="basic-addon1"
+              value={dataUser?.phone_number}
+              onChange={handleChange}
+              required
+              />
+            </InputGroup>
           </Col>
           <Col xs="12" md="6">
             <InputGroup className='mb-3'>
@@ -215,9 +222,71 @@ export const EditMedic = () => {
               />
             </InputGroup>
           </Col>
-
-          
         </Row>
+       
+        {/* Titulos */}
+        <Row className='ms-2 me-2 my-3 mb-3'>
+          <Col sm="12" md="12" className='fondos_Sections'>
+              <h4>Datos Académicos</h4>
+              <hr className='separador'/>
+              <Table className='my-2' striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Estudios</th>
+                    <th>Universidad</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Descargar Titulo</th>
+                  </tr>
+                </thead>
+                <tbody style={{cursor: 'pointer'}} >
+                  {dataTitles?.map((title) => {
+                  return  (
+                      <tr>
+                          <td>
+                            <InputGroup className='mb-3'>
+                              <Form.Control
+                              placeholder='Introduce nombre Estudio'
+                              name='text'
+                              type='text'
+                              autoComplete='off'
+                              aria-label='text'
+                              aria-describedby="basic-addon1"
+                              value={title?.text}
+                              onChange={handleChange}
+                              required
+                              />
+                            </InputGroup>  
+                          </td>
+                          <td>
+                            <InputGroup className='mb-3'>
+                              <Form.Control
+                              placeholder='Introduce nombre Universidad'
+                              name='university'
+                              type='text'
+                              autoComplete='off'
+                              aria-label='text'
+                              aria-describedby="basic-addon1"
+                              value={title?.university}
+                              onChange={handleChange}
+                              required
+                              />
+                            </InputGroup>  
+                          </td>
+                          <td>
+                           
+                          
+                          </td>
+                          <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
+                          <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><img src='/assets/icons/download_FILL0_wght400_GRAD0_opsz48.svg'/></button></td>
+                      </tr>
+                  )
+                  })}
+                </tbody>
+              </Table>
+          </Col>
+        </Row>
+        {/* Botón para guardar cambios */}
         <Row>
           <Col>
               <Button onClick={onSubmit}>Guardar Cambios</Button>
