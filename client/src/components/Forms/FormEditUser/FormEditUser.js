@@ -18,7 +18,7 @@ export const FormEditUser = ({
 
   return (
       <>
-        <Col  xs={12} sm={12} md={12} lg={12}className='d-flex justify-content-end'>
+        <Col  xs={12} sm={12} md={12} lg={12}className='d-flex justify-content-end me-3'>
             <Form>
                 <Form.Check 
                     defaultChecked
@@ -29,6 +29,8 @@ export const FormEditUser = ({
                 />
             </Form>
         </Col>
+
+        {/* Foto Perfil */}
         <Col xs={12} sm={12} md={12} lg={12} className="d-flex justify-content-center text-center">
           <div className="imagePatientProfile">
             <img
@@ -39,6 +41,8 @@ export const FormEditUser = ({
           </div>
         </Col>
 
+        {/* Datos Paciente */}
+        {/* Sobre mí */}
         <Col xs={12} sm={12} md={12} lg={6} className="d-flex justify-content-center align-items-center">
           <form encType="multipart/form" className="d-flex flex-column">
             <div className="contEditPatient d-flex flex-row align-items-center">

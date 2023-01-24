@@ -36,7 +36,7 @@ export const UserProfile = () => {
   return (
     <div className="bgPatientProfile d-flex justify-content-center align-items-center">
       <Container className="whiteBoxPatientProfile">
-        <Row className='mt-3'>
+        <Row className='mt-4 me-3'>
           <Col className='d-flex justify-content-end'>
             <Form>
               <Form.Check 
