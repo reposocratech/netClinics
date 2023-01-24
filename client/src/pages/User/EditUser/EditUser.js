@@ -19,15 +19,26 @@ export const EditUser = () => {
   const [selectedCitie, setSelectedCitie] = useState();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/place/getAllProvince/")
-      .then((res) => {
-        setListProvinces(res.data);
-        setEditUser(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      axios
+        .get("http://localhost:4000/place/getAllProvince/")
+        .then((res) => {
+          setListProvinces(res.data);
+          setEditUser(user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      axios
+       .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
+         .then((res) => {
+         console.log(res.data);
+         setListCities(res.data);
+       })
+       .catch((error) => {
+          console.log(error);
+        });
+
   }, [user]);
 
   const handleChange = (e) => {
@@ -60,8 +71,7 @@ export const EditUser = () => {
       .catch((err) => console.log(err));
   };
 
-  const getCity = (selectedProvince) => {
-
+    const getCity = (selectedProvince) => {
     if (selectedProvince) {
       axios
         .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
