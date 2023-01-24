@@ -12,6 +12,7 @@ import { MedicProfile } from '../pages/Medic/MedicProfile/MedicProfile';
 import { RegisterMedic } from '../pages/Register/RegisterMedic/RegisterMedic';
 import { RegisterPatient } from '../pages/Register/RegisterPatient';
 import { EditUser } from '../pages/User/EditUser/EditUser';
+import { Searcher } from '../pages/User/Searcher/Searcher';
 import { UserProfile } from '../pages/User/UserProfile/UserProfile';
 
 export const AppRoutes = () => {
@@ -109,6 +110,11 @@ export const AppRoutes = () => {
                     <Route
                     path='/editProfile'
                     element={<EditUser/>}
+                    />
+                    {/* Ruta para reservar citas */}
+                    <Route
+                    path='/searcher'
+                    element={<Searcher/>}
                     />
 
 
