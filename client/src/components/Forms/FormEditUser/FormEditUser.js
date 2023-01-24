@@ -1,5 +1,8 @@
 import React from "react";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Col, Button } from 
+"react-bootstrap";
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 
 export const FormEditUser = ({
   editUser,
@@ -15,134 +18,170 @@ export const FormEditUser = ({
 
   return (
       <>
-        <Col xs={12} sm={12} md={6} lg={6} className="d-flex justify-content-center align-items-center">
-          <form encType="multipart/form" className="d-flex flex-column w-50">
-            <h2>Editar usuario</h2>
-            <hr />
-            <label>Nombre:</label>
-            <input
-              className="m-2"
-              placeholder="Name"
-              name="name"
-              value={editUser?.name}
-              onChange={handleChange}
-            />
+        <Col  xs={12} sm={12} md={12} lg={12}className='d-flex justify-content-end'>
+            <Form>
+                <Form.Check 
+                    defaultChecked
+                    onClick={()=> navigate('/myProfile')}
+                    type="switch"
+                    id="custom-switch"
+                    label="Ver Perfil"
+                />
+            </Form>
+        </Col>
+        <Col xs={12} sm={12} md={12} lg={12} className="d-flex justify-content-center text-center">
+          <div className="imagePatientProfile">
+            <img
+                  className="imagePatient"
+                  src={`assets/images/user/${editUser?.avatar}`}
+                />
+            <h2 className="my-3">{editUser?.name} {editUser?.lastname}</h2>
+          </div>
+        </Col>
 
-            <label>Apellidos:</label>
-            <input
-              className="m-2"
-              placeholder="Apellidos"
-              name="lastname"
-              value={editUser?.lastname}
-              onChange={handleChange}
-            />
+        <Col xs={12} sm={12} md={12} lg={6} className="d-flex justify-content-center align-items-center">
+          <form encType="multipart/form" className="d-flex flex-column">
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Nombre:</label>
+              <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="Name"
+                  name="name"
+                  value={editUser?.name}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </div>
 
-          <label>Email:</label>
-          <input
-            className="m-2"
-            placeholder="Email"
-            name="email"
-            value={editUser?.email}
-            onChange={handleChange}
-          />
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Apellidos:</label>
+              <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="Apellidos"
+                  name="lastname"
+                  value={editUser?.lastname}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </div>
+
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Email:</label>
+              <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="Email"
+                  name="email"
+                  value={editUser?.email}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </div>
+
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Teléfono:</label>
+              <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="telefono"
+                  name="phone_number"
+                  value={editUser?.phone_number}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </div>
           </form>
         </Col>
 
         <Col  xs={12} sm={12} md={12} lg={6} className="d-flex justify-content-center align-items-center">
-          <form encType="multipart/form" className="d-flex flex-column w-50">
-            <label>Teléfono:</label>
-            <input
-              className="m-2"
-              placeholder="telefono"
-              name="phone_number"
-              value={editUser?.phone_number}
-              onChange={handleChange}
-            />
+          <form encType="multipart/form" className="d-flex flex-column">
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Dirección:</label>
+              <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="direccion"
+                  name="address"
+                  value={editUser?.address}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </div>
 
-            <label>Dirección:</label>
-            <input
-              className="m-2"
-              placeholder="direccion"
-              name="address"
-              onChange={handleChange}
-              value={editUser?.address}
-            />
-          </form>
+            <div className="contEditPatient d-flex flex-row align-items-end mb-3">
+              <label className="me-2">Provincia:</label>
+                <select
+                  className='selectPatient'
+                  name="province_id"
+                  value={editUser?.province_id}
+                  onChange={(e) => getCity(e.target.value)}>
 
-          <div>
-            <label>Provincia:</label>
-              <select
-                name="province_id"
-                value={editUser?.province_id}
-                onChange={(e) => getCity(e.target.value)}
-              >
-                {listProvinces?.map((province) => {
+                  {listProvinces?.map((province) => {
+                    return (
+                      <option
+                        key={province?.province_id}
+                        value={province?.province_id}
+                        
+                      >
+                        {province?.province_name}
+                      </option>
+
+                    );
+                  })}
+                </select>
+            </div>
+
+            <div className="contEditPatient d-flex flex-row align-items-end mb-3">
+              <label className="me-2">Ciudad:</label>
+              <select 
+                className='selectPatient'
+                value={editUser?.city_id}
+                name="city_id"
+                onChange={handleChange}>
+
+                {listCities?.map((city) => {
                   return (
-                    <option
-                      key={province?.province_id}
-                      value={province?.province_id}
-                      
-                    >
-                      {province?.province_name}
+                    <option 
+                      key={city?.city_id} 
+                      value={city?.city_id}>
+                      {city?.city_name}
                     </option>
-
                   );
                 })}
               </select>
-          </div>
-        </Col>
+            </div>
 
-        <Col xs={12} sm={12} md={4} lg={4} className="d-flex justify-content-center align-items-center">
-          <form encType="multipart/form" className="d-flex flex-column w-50">
-
-            <label>Ciudad:</label>
-            <select value={editUser?.city_id} name="city_id" onChange={handleChange}>
-              {listCities?.map((city) => {
-                return (
-                  <option 
-                    key={city?.city_id} 
-                    value={city?.city_id}>
-                    {city?.city_name}
-                  </option>
-                );
-              })}
-            </select>
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Codigo postal:</label>
+              <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="telefono"
+                  name="postal_code"
+                  value={editUser?.postal_code}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </div>
           </form>
         </Col>
 
-        <Col xs={12} sm={12} md={4} lg={4} className="d-flex justify-content-center align-items-center">
-          <form encType="multipart/form" className="d-flex flex-column w-50">
+        <Col xs={12} sm={12} md={12} lg={12} className="d-flex justify-content-center align-items-center mb-2">
+          <form encType="multipart/form">
+            <div className="contEditPatient d-flex flex-row align-items-center">
+              <label className="me-2">Cambiar imagen:</label>
 
-            <label>Codigo postal:</label>
-            <input
-              className="m-2"
-              placeholder="telefono"
-              name="postal_code"
-              value={editUser?.postal_code}
-              onChange={handleChange}
-            />
+              <InputGroup className='mb-3'>
+                <input
+                  type="file"
+                  className="fylePatientProfile m-2"
+                  autoComplete="off"
+                  onChange={handleFile}
+                />
+              </InputGroup>
+            </div>
           </form>
         </Col>
 
-        <Col xs={12} sm={12} md={4} lg={4} className="d-flex justify-content-center align-items-center">
-          <form encType="multipart/form" className="d-flex flex-column w-50">
-
-            <label>Cambiar imagen:</label>
-            <input
-              type="file"
-              className="m-2"
-              autoComplete="off"
-              onChange={handleFile}
-            />
-          </form>
-        </Col>
-
-        <div className="d-flex flex-row justify-content-center">
+        <div className="contEditPatient d-flex flex-row justify-content-center mb-2">
           <Button className="defineButton m-2" onClick={onSubmit}>
             Guardar cambios
-          </Button>
-          <Button className="defineButton m-2" onClick={() => navigate("/myProfile")}>
-            Cancelar
           </Button>
         </div>
       </>
