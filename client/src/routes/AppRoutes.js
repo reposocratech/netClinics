@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { NavBarNetClinics } from '../components/NavBar/NavBarNetClinics';
 import { NetClinicsContext } from '../context/NetClinicsProvider';
+import { AdminProfile } from '../pages/Admin/AdminProfile/AdminProfile';
 import { AllMedics } from '../pages/Admin/AllMedics/AllMedics';
 import { AllPatients } from '../pages/Admin/AllPatients/AllPatients';
+import { EditAdmin } from '../pages/Admin/EditAdmin/EditAdmin';
 import { Validations } from '../pages/Admin/Validations/Validations';
 import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
@@ -153,7 +155,16 @@ export const AppRoutes = () => {
                     path='/validations'
                     element={<Validations/>}
                     />
-                    
+                    {/* Ruta para ver su perfil */}
+                    <Route
+                    path='/myProfile'
+                    element={<AdminProfile/>}
+                    />
+                     {/* Ruta para Edición de perfil */}
+                     <Route
+                    path='/editProfile'
+                    element={<EditAdmin/>}
+                    />
                   </>
                 }
 

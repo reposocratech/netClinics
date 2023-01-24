@@ -51,6 +51,15 @@ export const NavBarNetClinics = () => {
           </>
           }
 
+          {user?.type === 1 && 
+          <> 
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="allPatients">Pacientes</Nav.Link>
+            <Nav.Link as={Link} to="/allMedics">Médicos</Nav.Link>
+            <Nav.Link as={Link} to="/validations">Validaciones</Nav.Link>
+          </>
+          }
+
 
         </Nav>
         {isLogged &&
@@ -62,7 +71,7 @@ export const NavBarNetClinics = () => {
                   {user?.name?.charAt(0)}
                 </div>
               } id="navbarScrollingDropdown">
-                <NavDropdown.Item><PersonIcon/> Mi perfil</NavDropdown.Item>
+                <NavDropdown.Item><PersonIcon/> Mi perfil</NavDropdown.Item>}
                 <NavDropdown.Item><LockIcon/> Cambiar Contraseña</NavDropdown.Item>
                 <NavDropdown.Item><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>

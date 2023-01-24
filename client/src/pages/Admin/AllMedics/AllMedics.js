@@ -15,6 +15,7 @@ import {
 import "./styleAllMedics.scss"
 
 export const AllMedics = () => {
+    const { resetPage, setResetPage } = useContext(NetClinicsContext);
   return (
     <div>
      <h1>Vista del administrador de todos los médicos</h1>
