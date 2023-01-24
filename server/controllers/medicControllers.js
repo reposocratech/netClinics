@@ -215,10 +215,10 @@ class medicControllers {
 
   editMedic = (req, res) => {
 
-    let user_id = req.params.user_id;
+    let {user_id} = req.params;
   
   
-    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, avatar,text,university} = req.body;
+    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, medic_description} = JSON.parse(req.body.editMedic);
 
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
@@ -226,17 +226,34 @@ class medicControllers {
     
 
     let img = "";
-    
+    let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
     
     if (req.file != undefined) {
       img = req.file.filename;
+
+      sql= `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
+
     }
 
-    let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
+    console.log("esta es la consulta ", sql);
 
     connection.query(sql, (error, result) => {
-      if (error) throw error;
-      error ? res.status(400).json({ error }) : res.status(200).json(result);
+
+      if(error){
+        res.status(400).json({ error })
+      }  
+      else{
+        let sql2 = `UPDATE medic_data SET medic_description = '${medic_description}' WHERE user_id = ${user_id}`;
+
+        connection.query(sql2, (error, result) => {
+          if(error){
+            res.status(400).json({error});
+          }
+        });
+      }
+
+      res.status(200).json({updateProfile : true});
+
     });
 
   };

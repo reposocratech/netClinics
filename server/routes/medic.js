@@ -27,7 +27,7 @@ router.get("/availabilities", verify, medicControllers.getAvailability);
 //-----------------------------------------------------
 //4.-Editar un medico 
 //localhost:4000/medic/editMedic/:user_id      
-router.put("/editMedic/:user_id", multerSingleImage("medic"), medicControllers.editMedic);
+router.put("/editMedic/:user_id", multerSingleImage("user"), medicControllers.editMedic);
 
 //------------------------------------------------------
 //5.- Trae todas las citas realizadas de un medico
