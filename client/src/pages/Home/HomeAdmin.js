@@ -15,21 +15,21 @@ export const HomeAdmin = () => {
       <Container className='whiteContainerHome pt-4'>
           <Row>
               <CardHome
-                go={"/appointments"}
+                go={"/allPatients"}
                 navigate={navigate}
                 icon={'/assets/icons/people_black_24dp.svg'}
                 cardTitle={"Pacientes"}
               />
 
               <CardHome
-                go={"/pendingAppointments"}
+                go={"/allMedics"}
                 navigate={navigate}
                 icon={'/assets/icons/medical_services_black_24dp.svg'}
                 cardTitle={"Profesionales"}
               />
 
               <CardHome
-                go={"/followingAppointments"}
+                go={"/validations"}
                 navigate={navigate}
                 icon={'/assets/icons/task_black_24dp.svg'}
                 cardTitle={"Validaciones"}
