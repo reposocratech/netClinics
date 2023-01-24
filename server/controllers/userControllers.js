@@ -7,7 +7,7 @@ class userControllers {
   //localhost:4000/user/login
   login = (req, res) => {
     let { email, password } = req.body;
-    let sql = `SELECT * FROM user WHERE email = '${email}'`;
+    let sql = `SELECT * FROM user WHERE email = '${email}' and is_deleted = 0`;
 
     console.log(sql);
 

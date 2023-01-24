@@ -64,8 +64,8 @@ export const Login = () => {
             })
             .catch((error) => {
                 setErrorPassword("");
-                setErrorMessage("Las credenciales no son válidas");
-                console.log(error)
+                setErrorMessage(error.response.data);
+                console.log(error.response.data)
             })
         }
       

@@ -15,11 +15,11 @@ class adminControllers {
         })
     }
 
-    // 2.- Trae los datos de todos los pacientes
+    // 2.- Trae los datos de todos los pacientes con ciudad y provincia
     // localhost:4000/admin/getAllPatients
     getAllPatients = (req, res) => {
 
-        let sql = "SELECT * FROM user WHERE type = 3";
+        let sql = "SELECT user.*, province.province_name, city.city_name from user, province, city where user.city_id = city.city_id and user.province_id = province.province_id and province.province_id = city.province_id and user.type = 3";
         connection.query(sql, (error, result) => {
             if(error){
                 res.status(400).json({error});

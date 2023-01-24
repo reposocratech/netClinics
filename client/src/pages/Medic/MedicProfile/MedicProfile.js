@@ -94,20 +94,6 @@ export const MedicProfile = () => {
                     <label className='campos'>Email:</label>
                     <p>{dataUser?.email}</p>
                 </Col>
-                <Col className='fondos_Sections'>
-                    <h4>Titulos</h4>
-                    <hr className='separador'/>
-                    {dataTitles?.map((title) => {
-                        return  (
-                        <>
-                            <div className='d-flex gap-1 align-items-center'>
-                                <p>{title?.text === null ? title?.document : title?.text}</p>
-                                <button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><img src='/assets/icons/download_FILL0_wght400_GRAD0_opsz48.svg'/></button>
-                            </div>
-                        </>
-                        )
-                    })}
-                </Col>
             </Row>
             <Row className='ms-2 me-2 my-3 mb-3'>
                 <Col sm="12" md="12" className='fondos_Sections'>
@@ -120,6 +106,7 @@ export const MedicProfile = () => {
                                 <th>Universidad</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Fin</th>
+                                <th>Descargar Titulo</th>
                             </tr>
                         </thead>
                         <tbody style={{cursor: 'pointer'}} >
@@ -130,6 +117,7 @@ export const MedicProfile = () => {
                                     <td>{title?.university}</td>
                                     <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
                                     <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
+                                    <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><img src='/assets/icons/download_FILL0_wght400_GRAD0_opsz48.svg'/></button></td>
                                 </tr>
                             )
                             })}

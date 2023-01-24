@@ -16,24 +16,19 @@ import "./styleAllPatiens.scss";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 
 export const AllPatients = () => {
+
   const [patients, setPatients] = useState([]);
-  const [listProvinces, setListProvinces] = useState()
-  const { resetPage, setResetPage } =
-    useContext(NetClinicsContext);
+
+  const { resetPage, setResetPage } = useContext(NetClinicsContext);
 
   useEffect(() => {
+
     axios
     .get("http://localhost:4000/admin/getAllPatients")
     .then((res) => {
       setPatients(res.data);
     });
 
-    axios
-    .get("http://localhost:4000/place/getAllProvince/")
-    .then((res)=>{
-        setListProvinces(res.data)
-        console.log("Estas son las provincias", res.data);
-    })
   }, [resetPage]);
 
   const handleEdit = (id, is_deleted) => {
@@ -51,15 +46,6 @@ export const AllPatients = () => {
       .catch((Err) => console.log(Err));
   };
 
-  const findProvince = (id_province) => {
-
-    return listProvinces.find((el) => {
-        if(el.province_id === id_province){
-            return  el.province_name;
-        }
-    }).province_name;
-
-};
 
   return (
     <div>
@@ -97,8 +83,8 @@ export const AllPatients = () => {
                   </TableCell>
                   <TableCell align="center">{patient.dni}</TableCell>
                   <TableCell align="center">{patient.address}</TableCell>
-                  <TableCell align="center">{findProvince(patient.province_id)}</TableCell>
-                  <TableCell align="center"></TableCell>
+                  <TableCell align="center">{patient.province_name}</TableCell>
+                  <TableCell align="center">{patient.city_name}</TableCell>
                   <TableCell align="center">{patient.postal_code}</TableCell>
                   <TableCell align="center">{patient.phone_number}</TableCell>
                   <TableCell align="center">{patient.email}</TableCell>
