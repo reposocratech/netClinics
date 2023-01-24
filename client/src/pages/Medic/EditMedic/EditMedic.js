@@ -7,11 +7,12 @@ import {useNavigate} from 'react-router-dom';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider'
 import InputGroup from 'react-bootstrap/InputGroup';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Table from 'react-bootstrap/Table';
+
 
 import './editMedicProfile.scss'
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { FormAddTitlesMedic } from '../../../components/Forms/FormAddTitlesMedic/FormAddTitlesMedic';
 
 export const EditMedic = () => {
 
@@ -19,12 +20,15 @@ export const EditMedic = () => {
 
   const {token, user, setResetPage, resetPage} = useContext(NetClinicsContext);
   const [dataUser, setDataUser] = useState({});
-  const [dataTitles, setDataTitles] = useState([]);
-  const [dataSpecialities, setDataSpecialities] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
-  const [image, setImage] = useState(dataUser?.avatar);
+  const [image, setImage] = useState();
 
   //useEffect para que esté pendiente la imagen seleccionada
   useEffect(() => {
@@ -53,9 +57,9 @@ export const EditMedic = () => {
     axios
     .get("http://localhost:4000/medic/profile")
     .then((res) => {
+        console.log(res.data);
         setDataUser(res.data.user[0]);
-        setDataTitles(res.data.titles);
-        setDataSpecialities(res.data.specialities);
+      
     })
     .catch((error) => {
         console.log(error);
@@ -76,7 +80,7 @@ export const EditMedic = () => {
 
   }
 
-  //handleChange ir guardando cambios
+  //handleChange usuario
   const handleChange = (e) => {
     const {name, value} = e.target;
     setDataUser({...dataUser, [name]: value});
@@ -84,6 +88,7 @@ export const EditMedic = () => {
 
   //Submit modificar cambios
   const onSubmit = () => {
+
     const newFormData = new FormData();
     newFormData.append("file", image);
     newFormData.append("editMedic", JSON.stringify(dataUser));
@@ -100,25 +105,17 @@ export const EditMedic = () => {
 
   }
 
+  console.log(dataUser);
 
   return (
+    <>
     <div className='backgroundEditProfileMedic py-3 pb-3 pe-1 ps-1 d-flex align-items-center justify-content-center'>
       <Container className="aboutme-editprofile-medic pb-3">
         <Row className='p-3'>
-          <Col className='d-flex justify-content-end'>
-              <Form>
-                  <Form.Check 
-                      defaultChecked
-                      onClick={()=> navigate('/myProfile')}
-                      type="switch"
-                      id="custom-switch"
-                      label="Ver Perfil"
-                  />
-              </Form>
+          <Col sm="12" md="4">
+                    <h2>Nº de Colegiado</h2>
+                    <p>{dataUser?.medic_membership_number}</p>
           </Col>
-        </Row>
-        {/* Foto Perfil */}
-        <Row>
           <Col className='text-center d-flex align-items center justify-content-center gap-5'>
             <div className="avatar-upload">
               <div className="avatar-edit">
@@ -135,7 +132,19 @@ export const EditMedic = () => {
               </div>
             </div>
           </Col>
+          <Col className='d-flex justify-content-end'>
+              <Form>
+                  <Form.Check 
+                      defaultChecked
+                      onClick={()=> navigate('/myProfile')}
+                      type="switch"
+                      id="custom-switch"
+                      label="Ver Perfil"
+                  />
+              </Form>
+          </Col>
         </Row>
+
         {/* Datos Médico */}
         {/* Sobre mí */}
         <Row className='ms-2 me-2 mb-3'>
@@ -225,65 +234,14 @@ export const EditMedic = () => {
         </Row>
        
         {/* Titulos */}
-        <Row className='ms-2 me-2 my-3 mb-3'>
-          <Col sm="12" md="12" className='fondos_Sections'>
-              <h4>Datos Académicos</h4>
-              <hr className='separador'/>
-              <Table className='my-2' striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Estudios</th>
-                    <th>Universidad</th>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
-                    <th>Descargar Titulo</th>
-                  </tr>
-                </thead>
-                <tbody style={{cursor: 'pointer'}} >
-                  {dataTitles?.map((title) => {
-                  return  (
-                      <tr>
-                          <td>
-                            <InputGroup className='mb-3'>
-                              <Form.Control
-                              placeholder='Introduce nombre Estudio'
-                              name='text'
-                              type='text'
-                              autoComplete='off'
-                              aria-label='text'
-                              aria-describedby="basic-addon1"
-                              value={title?.text}
-                              onChange={handleChange}
-                              required
-                              />
-                            </InputGroup>  
-                          </td>
-                          <td>
-                            <InputGroup className='mb-3'>
-                              <Form.Control
-                              placeholder='Introduce nombre Universidad'
-                              name='university'
-                              type='text'
-                              autoComplete='off'
-                              aria-label='text'
-                              aria-describedby="basic-addon1"
-                              value={title?.university}
-                              onChange={handleChange}
-                              required
-                              />
-                            </InputGroup>  
-                          </td>
-                          <td>
-                           
-                          
-                          </td>
-                          <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
-                          <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><img src='/assets/icons/download_FILL0_wght400_GRAD0_opsz48.svg'/></button></td>
-                      </tr>
-                  )
-                  })}
-                </tbody>
-              </Table>
+        <Row className='ms-2 me-2 my-3 mb-3 fondos_Sections'>
+          <Col className='mb-3'>
+            <h4>Datos Académicos</h4>
+            <hr className='separador'/>
+          </Col>
+          <Col sm="12" md="12" className='d-flex align-items-center justify-content-center gap-3'>
+            <Button>Editar Datos Académicos</Button>
+            <Button onClick={handleShow}>Añadir Datos Académicos</Button>
           </Col>
         </Row>
         {/* Botón para guardar cambios */}
@@ -294,6 +252,15 @@ export const EditMedic = () => {
         </Row>
       </Container>
     </div>
+    {show &&
+      <FormAddTitlesMedic
+        show={show}
+        setShow={setShow}
+        handleClose={handleClose}
+        handleShow={handleShow}
+      />
+    } 
+    </>
   )
 }
 

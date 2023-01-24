@@ -50,11 +50,11 @@ export const MedicProfile = () => {
 
   return (
     <div className='profile-medic-background py-3 pb-3 pe-1 ps-1 d-flex align-items-center justify-content-center'>
-        <Container Fluid className="aboutme-profile pb-3">
+        <Container className="aboutme-profile pb-3">
             <Row className='p-3'>
                 <Col sm="12" md="4">
                     <h2>Nº de Colegiado</h2>
-                    <spa>{dataUser?.medic_membership_number}</spa>
+                    <p>{dataUser?.medic_membership_number}</p>
                 </Col>
                 <Col sm="12" md="4" className='text-center'>
                     <div className='containerAvatarPerfil'>
@@ -112,7 +112,7 @@ export const MedicProfile = () => {
                         <tbody style={{cursor: 'pointer'}} >
                             {dataTitles?.map((title) => {
                             return  (
-                                <tr>
+                                <tr key={title.document}>
                                     <td>{title?.text}</td>
                                     <td>{title?.university}</td>
                                     <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
