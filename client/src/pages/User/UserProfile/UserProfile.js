@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { useContext, useEffect, useState, useRef } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 
@@ -10,6 +11,7 @@ export const UserProfile = () => {
   const navigate = useNavigate();
   const { user } = useContext(NetClinicsContext);
   const [provinceCity, setProvinceCity] = useState();
+  const [toggleOn, setToggleOn] = useState(false);
 
   useEffect(() => {
     if(!user.user_id) return
@@ -24,14 +26,33 @@ export const UserProfile = () => {
       });
   }, [user]);
 
+  const refToggle = useRef(null);
+
+  const handleChangeToggle = () => {
+    setToggleOn(refToggle.current.checked);  
+    navigate("/editProfile");
+  }
+
   return (
     <div className="bgPatientProfile d-flex justify-content-center align-items-center">
       <Container className="whiteBoxPatientProfile">
-        <Row className="rowPatientProfile d-flex align-items-center">
+        <Row className='mt-3'>
+          <Col className='d-flex justify-content-end'>
+            <Form>
+              <Form.Check 
+                ref={refToggle}
+                onChange={handleChangeToggle}
+                type="switch"
+                id="custom-switch"
+                label="Editar Perfil"
+              />
+            </Form>
+          </Col>
+        </Row>
+        <Row className="rowPatientProfile d-flex align-items-center mb-4">
           <Col xs={12} sm={12} md={6} lg={6} className='colPatientProfile d-flex flex-row justify-content-center'>
             {user && (
               <div className="informationPatientProfile">
-                <Button onClick={()=>navigate("/editProfile")}>Editar perfil</Button>
                 <h2>Datos personales</h2>
                 <hr />
                 <h4>

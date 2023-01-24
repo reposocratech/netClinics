@@ -12,23 +12,79 @@
 
         .rowEditPatientProfile{
             padding: 2rem;
+    
+            .imagePatient {
+                border-radius: 50%;
+                object-fit: cover;
+                object-position: center;
+                width: 150px;
+                height: 150px;
+            }
+
+            .contEditPatient{
+                width: 95%;
+
+                input {
+                    background-color: #EDEDED;
+                    border-radius: 50px;
+                    border: none;
+                    color: rgb(18, 18, 18);
+                    font-family: 'Rubik', sans-serif;
+                    padding-left: 1rem;
+                }
+                
+                input:focus{
+                    box-shadow: 0 0 0 0.1rem rgb(28 40 105);
+                }
+    
+                .inputPatient{
+                    width: 100%;
+                }
+    
+                .selectPatient {
+                    background-color: #EDEDED;
+                    border-radius: 50px;
+                    border: none;
+                    color: rgb(18, 18, 18);
+                    text-align: center;
+                    height: 2rem;
+                    width: 100%;
+                }
+            }
+
+            .defineButton {
+                appearance: none;
+                background-color: rgba($color: #1C2869, $alpha: 1.0);
+                color: white;
+                border: none;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 1.4rem;
+                font-family: 'Rubik', sans-serif;
+                width: 15rem;
+                padding: 0.3rem;
+
+            }
+
+            .defineButton:hover {
+                background-color: #293a9a;
+            }
         }
     }
+}
+@media screen and (max-width: 575px){
+    .whiteBoxEditPatient {
+        width: 90% !important;
+    } 
+}
 
-    .defineButton {
-        appearance: none;
-        background-color: rgba($color: #1C2869, $alpha: 1.0);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-weight: bold;
-        font-size: 1.4rem;
-        font-family: 'Rubik', sans-serif;
-        width: 15rem;
-        padding: 0.3rem;
-    }
-
-    .defineButton:hover {
-        background-color: #293a9a;
-    }
+@media screen and (max-width: 390px){
+    .whiteBoxEditPatient {
+        width: 90% !important;
+        
+        .fylePatientProfile{
+            width: 100%;
+            background-color: white !important;
+        }
+    }  
 }
