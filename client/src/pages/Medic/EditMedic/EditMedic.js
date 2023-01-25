@@ -26,6 +26,12 @@ export const EditMedic = () => {
   const {token, user, setResetPage, resetPage} = useContext(NetClinicsContext);
   const [dataUser, setDataUser] = useState({});
   const [dataTitles, setDataTitles] = useState([]);
+  const [dataSpecialities, setDataSpecialities] = useState([]);
+
+  const [editTitle, setEditTitle] = useState({
+    open: false,
+    title: null
+  });
 
   //Modal para añadir datos academicos
   const [show, setShow] = useState(false);
@@ -33,16 +39,17 @@ export const EditMedic = () => {
   const handleShow = () => setShow(true);
   //------------------------------------------
 
-  //Modal para editar datos académico
-  const [showEdit, setShowEdit] = useState(false);
-  const handleCloseEdit = () => setShow(false);
-  const handleShowEdit = () => setShow(true);
-  //-----------------------------------------
-  
+  //Modal para editar titulos
+  const editTitleMedic = (title) =>{
+    setEditTitle({open: true, title});
+  }
+  //--------
 
+  //Vista previa imagen cuando subo una nueva al input type file
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
+  //-----------------------------------------------------------
 
   //useEffect para que esté pendiente la imagen seleccionada
   useEffect(() => {
@@ -57,7 +64,7 @@ export const EditMedic = () => {
     return () => URL.revokeObjectURL(objectUrl);
 
   }, [selectedFile])
-  
+  //-------------------------------------------------------------------------
 
   //useEffect para devolver datos del perfil médico
   //se comprueba en la peticion el token para devolver datos del usuario
@@ -74,13 +81,13 @@ export const EditMedic = () => {
         console.log(res.data);
         setDataUser(res.data.user[0]);
         setDataTitles(res.data.titles);
-      
+        setDataSpecialities(res.data.specialities);
     })
     .catch((error) => {
         console.log(error);
-    })
+    });
   }, [user]);
-
+  //-------------------------------------------------------------------------
 
   //Conforme se cambie la imagen setea el archivo seleccionado y la imagen
   //que se mandará a base de datos
@@ -93,15 +100,18 @@ export const EditMedic = () => {
     setSelectedFile(e.target.files[0]);
     setImage(e.target.files[0]);
 
-  }
+  };
+  //-------------------------------------------------------------------------
+
 
   //handleChange usuario
   const handleChange = (e) => {
     const {name, value} = e.target;
     setDataUser({...dataUser, [name]: value});
-  }
+  };
+  //-------------------------------------------------------------------------
 
-  //Submit modificar cambios
+  //Submit modificar cambios usuario
   const onSubmit = () => {
 
     const newFormData = new FormData();
@@ -120,7 +130,16 @@ export const EditMedic = () => {
 
   }
 
-  console.log(dataUser);
+  //Borrar título
+  const deleteTitle = (title) => {
+    
+    axios
+    .delete(`http://localhost:4000/title/${title}`)
+    .then((res) => {
+      setResetPage(!resetPage);
+    })
+    
+  }
 
   return (
     <>
@@ -248,6 +267,7 @@ export const EditMedic = () => {
           </Col>
         </Row>
         <Row>
+          {/* Botón para guardar cambios edición perfil*/}
           <Col className='text-center'>
               <Button onClick={onSubmit}>Guardar Cambios Perfil</Button>
           </Col>
@@ -280,15 +300,17 @@ export const EditMedic = () => {
                                     <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
                                     <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
                                     <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
-                                    <td><button onClick={handleShowEdit}><EditRoundedIcon/></button></td>
-                                    <td><button><DeleteForeverRoundedIcon/></button></td>
+                                    <td><button onClick={()=>editTitleMedic(title)}><EditRoundedIcon/></button></td>
+                                    <td><button onClick={()=>deleteTitle(title?.title_id)}><DeleteForeverRoundedIcon/></button></td>
                                 </tr>
 
-                                {!showEdit &&
+                                {editTitle.open &&
                                   <FormEditTitlesMedic
-                                    title={title}
-                                    showEdit={showEdit}
-                                    handleCloseEdit={handleCloseEdit}
+                                    editTitle={editTitle}
+                                    setEditTitle={setEditTitle}
+                                    title={editTitle.title}
+                                    setResetPage={setResetPage}
+                                    resetPage={resetPage}
                                   />
                                 } 
                               </>
@@ -302,14 +324,42 @@ export const EditMedic = () => {
             <Button onClick={handleShow}>Añadir Datos Académicos</Button>
           </Col>
         </Row>
-        {/* Botón para guardar cambios */}
+        
+        {/* Especialidades */}
+        <Row className='ms-2 me-2 my-3 mb-3 fondos_Sections'>
+          <Col className='mb-3'>
+            
+            {dataSpecialities.length !== 0 ?
+
+              <>
+              <h4>Especialidades</h4>
+              <hr className='separador'/>
+              <ul>
+                {dataSpecialities.map((el) => {
+                  return <li key={el.speciality_name}>{el.speciality_name}</li>
+                })}
+              </ul>
+              </>
+              :
+              <h4 className='text-center'>Actualmente no tienes agregada ninguna especialidad, agregue una</h4>
+            }
+          </Col>
+          {/* Boton para añadir Especialidades */}
+          <Col sm="12" md="12" className='d-flex align-items-center justify-content-center gap-3'>
+            <Button>Añadir Especialidades</Button>
+          </Col>
+        </Row>
+
        
       </Container>
     </div>
     {show &&
       <FormAddTitlesMedic
+        user={user}
         show={show}
         handleClose={handleClose}
+        setResetPage={setResetPage}
+        resetPage={resetPage}
       />
     } 
 
