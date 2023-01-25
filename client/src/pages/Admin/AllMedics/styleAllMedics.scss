@@ -1,4 +1,20 @@
-.imageMedic{
-    width: 60px;
-    border-radius: 50%;
+.bgAllMedics{
+    background-color: rgba($color: #009EE3, $alpha: 1.0);
+    color: rgba($color: #1C2869, $alpha: 1.0);
+    min-height: 100vh;
+    font-family: 'Rubik', sans-serif;
+
+    .whiteBoxAllMedics{
+
+        .MuiTableCell-root{
+            font-family: 'Rubik', sans-serif;
+            color: rgba($color: #1C2869, $alpha: 1.0);
+            
+            .imagePatient{
+                width: 60px;
+                border-radius: 50%;
+            }
+        }
+
+    }
 }
