@@ -79,13 +79,10 @@ export const Searcher = () => {
                 <FormSearchMedic
                   handleChange={handleChange}               
                   onSubmit={onSubmit}
-                  navigate={navigate}
                   listProvinces={listProvinces}               
                   listCities={listCities}                
                   getCity={getCity}
                   listSpecialities={listSpecialities}
-                  medicsSearched={medicsSearched}
-                  setMedicsSearched={setMedicsSearched}
                 />:
                 <SearchAppointment
                 medicsSearched={medicsSearched}
