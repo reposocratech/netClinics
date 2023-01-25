@@ -30,7 +30,7 @@ export const HomePatient = () => {
 
         <Row>
           <CardHome
-            navigate={()=>navigate("/userConfirmedAppointments")}
+            navigate={()=>navigate("/userFollowingAppointments")}
             icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
             cardTitle={"Próximas Citas"}
           />

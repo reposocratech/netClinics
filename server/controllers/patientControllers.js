@@ -128,11 +128,11 @@ editPatient = (req, res) => {
     });
   };
   //7.- Trae todas las citas proximas (tanto confirmadas como pendientes de confirmar) de un paciente
-  //localhost:4000/medic/getPendingAppointments/:user_id
+  //localhost:4000/patient/getPendingAppointments/:user_id
 
   getPendingAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id} and is_confirmed = true`;
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and appointment_is_confirmed = false`; 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -140,11 +140,16 @@ editPatient = (req, res) => {
   };
 
   //8.- Trae todas las citas proximas (solo confirmadas) de un paciente
-  //localhost:4000/medic/getConfirmedAppointments/:user_id
+  //localhost:4000/patient/getConfirmedAppointments/:user_id
   
 
   getConfirmedAppointments = (req, res) => {
-
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = true`; 
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
   };
 
   //6.- Trae todas las citas realizadas de un paciente

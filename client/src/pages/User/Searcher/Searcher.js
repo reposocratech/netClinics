@@ -64,6 +64,7 @@ export const Searcher = () => {
     
 
     // console.log(medicsSearched);
+
   const getCity = (selectedProvince) => {
       
       if(selectedProvince){
@@ -78,6 +79,7 @@ export const Searcher = () => {
           })
         }
   };
+
     
   return (
     <div className="bgSearcher d-flex justify-content-center align-items-center">
