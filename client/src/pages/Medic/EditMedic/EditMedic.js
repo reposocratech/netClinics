@@ -17,21 +17,26 @@ import { FormAddTitlesMedic } from '../../../components/Forms/FormAddTitlesMedic
 import { FormEditTitlesMedic } from '../../../components/Forms/FormEditTitlesMedic/FormEditTitlesMedic';
 
 import './editMedicProfile.scss'
+import { FormAddSpecialityMedic } from '../../../components/Forms/FormAddSpecialityMedic/FormAddSpecialityMedic';
 
 
 export const EditMedic = () => {
 
   const navigate = useNavigate();
 
+
   const {token, user, setResetPage, resetPage} = useContext(NetClinicsContext);
   const [dataUser, setDataUser] = useState({});
   const [dataTitles, setDataTitles] = useState([]);
   const [dataSpecialities, setDataSpecialities] = useState([]);
 
+
+  //Objeto con el titulo y para abrir y cerrar modal
   const [editTitle, setEditTitle] = useState({
     open: false,
     title: null
   });
+  //----------------------------------------------------------------------------
 
   //Modal para añadir datos academicos
   const [show, setShow] = useState(false);
@@ -39,17 +44,24 @@ export const EditMedic = () => {
   const handleShow = () => setShow(true);
   //------------------------------------------
 
+
+  //Modal para añadir especialidades
+  const [showSpecialities, setShowSpecialities] = useState(false);
+  const handleCloseSpecialities = () => setShowSpecialities(false);
+  const handleShowSpecialities = () => setShowSpecialities(true);
+
   //Modal para editar titulos
   const editTitleMedic = (title) =>{
     setEditTitle({open: true, title});
   }
-  //--------
+  //----------------------------------------------------------------------------
 
   //Vista previa imagen cuando subo una nueva al input type file
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
-  //-----------------------------------------------------------
+  //----------------------------------------------------------------------------
+
 
   //useEffect para que esté pendiente la imagen seleccionada
   useEffect(() => {
@@ -78,7 +90,6 @@ export const EditMedic = () => {
     axios
     .get("http://localhost:4000/medic/profile")
     .then((res) => {
-        console.log(res.data);
         setDataUser(res.data.user[0]);
         setDataTitles(res.data.titles);
         setDataSpecialities(res.data.specialities);
@@ -87,7 +98,7 @@ export const EditMedic = () => {
         console.log(error);
     });
   }, [user]);
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
 
   //Conforme se cambie la imagen setea el archivo seleccionado y la imagen
   //que se mandará a base de datos
@@ -101,7 +112,7 @@ export const EditMedic = () => {
     setImage(e.target.files[0]);
 
   };
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
 
 
   //handleChange usuario
@@ -109,7 +120,7 @@ export const EditMedic = () => {
     const {name, value} = e.target;
     setDataUser({...dataUser, [name]: value});
   };
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
 
   //Submit modificar cambios usuario
   const onSubmit = () => {
@@ -129,6 +140,7 @@ export const EditMedic = () => {
       });
 
   }
+  //----------------------------------------------------------------------------
 
   //Borrar título
   const deleteTitle = (title) => {
@@ -140,6 +152,18 @@ export const EditMedic = () => {
     })
     
   }
+  //----------------------------------------------------------------------------
+
+  //Borrar especialidad
+  const deleteSpeciality = (speciality_id) => {
+    axios
+    .delete(`http://localhost:4000/speciality/${speciality_id}/${user.user_id}`)
+    .then((res) => {
+      setResetPage(!resetPage);
+    })
+    
+  }
+  //----------------------------------------------------------------------------
 
   return (
     <>
@@ -191,7 +215,7 @@ export const EditMedic = () => {
               <Form.Control
                 as="textarea"
                 name='medic_description'
-                maxLength="250"
+                maxLength="249"
                 value={dataUser?.medic_description}
                 onChange={handleChange}
                 placeholder="Sobre mí"
@@ -275,8 +299,8 @@ export const EditMedic = () => {
         </Row>
        
         {/* Titulos */}
-        <Row className='ms-2 me-2 my-3 mb-3 fondos_Sections'>
-          <Col className='mb-3'>
+        <Row className='ms-2 me-2 my-3 mb-3'>
+          <Col sm="12" md="12" className='mb-3 fondos_Sections'>
             <h4>Datos Académicos</h4>
             <hr className='separador'/>
               <Table className='my-2 text-center my-3' striped bordered hover>
@@ -331,15 +355,25 @@ export const EditMedic = () => {
           <Col className='mb-3'>
             
             {dataSpecialities.length !== 0 ?
-
               <>
               <h4>Especialidades</h4>
               <hr className='separador'/>
-              <ul>
-                {dataSpecialities.map((el) => {
-                  return <li key={el.speciality_name}>{el.speciality_name}</li>
-                })}
-              </ul>
+              <Table className='my-4 text-center w-50' striped bordered hover>
+                <thead>
+                  <tr>
+                      <th>Especialidad</th>
+                      <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataSpecialities.map((el) => {
+                    return  <tr key={el.speciality_name}>
+                              <td>{el.speciality_name}</td>
+                              <td><button onClick={()=>deleteSpeciality(el.speciality_id)}><DeleteForeverRoundedIcon/></button></td>
+                            </tr>
+                  })}
+                </tbody>
+              </Table>
               </>
               :
               <h4 className='text-center'>Actualmente no tienes agregada ninguna especialidad, agregue una</h4>
@@ -347,7 +381,7 @@ export const EditMedic = () => {
           </Col>
           {/* Boton para añadir Especialidades */}
           <Col sm="12" md="12" className='d-flex align-items-center justify-content-center gap-3'>
-            <Button>Añadir Especialidades</Button>
+            <Button onClick={handleShowSpecialities}>Añadir Especialidades</Button>
           </Col>
         </Row>
 
@@ -363,6 +397,18 @@ export const EditMedic = () => {
         resetPage={resetPage}
       />
     } 
+
+    {showSpecialities &&
+      <FormAddSpecialityMedic
+        user={user}
+        resetPage={resetPage}
+        setResetPage={setResetPage}
+        showSpecialities={showSpecialities}
+        handleCloseSpecialities={handleCloseSpecialities}
+        handleShowSpecialities={handleShowSpecialities}
+      />
+    }
+
 
    
     </>
