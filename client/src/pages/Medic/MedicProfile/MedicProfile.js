@@ -107,7 +107,7 @@ export const MedicProfile = () => {
                                 <th>Universidad</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Fin</th>
-                                <th>Descargar Titulo</th>
+                                <th>Descargar</th>
                             </tr>
                         </thead>
                         <tbody style={{cursor: 'pointer'}} >
