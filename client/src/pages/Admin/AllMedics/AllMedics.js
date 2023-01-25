@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container } from 'react-bootstrap'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import "./styleAllMedics.scss";
 import { useNavigate } from "react-router";
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/material/Checkbox';
 
 
 export const AllMedics = () => {
@@ -85,82 +82,87 @@ export const AllMedics = () => {
                 <TableCell align="center">Teléfono</TableCell>
                 <TableCell align="center">Email</TableCell>
                 <TableCell align="center" size="small">Habilitado</TableCell>
-                <TableCell align="center">Disponible</TableCell>
-                <TableCell align="center">Borrar Usuario</TableCell>
+                <TableCell align="center">Vacaciones</TableCell>
+                <TableCell align="center" width='100%'>Borrar Usuario</TableCell>
               </TableRow>
             </TableHead>
+
+            {/* Datos Tabla Médico */}
             <TableBody>
               {medics?.map((medic) => (
                 <TableRow
                   key={medic?.user_id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="center">
+                  <TableCell className="viewProf" align="center"
+                  onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
                     <img
                       className="imageMedic"
                       src={`assets/images/user/${medic.avatar}`}
                     />
                   </TableCell>
-                  <TableCell align="center">
+
+                  <TableCell className="viewProf" align="center"
+                  onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
                     {medic?.lastname}, {medic?.name}
                   </TableCell>
+
                   <TableCell align="center">{medic?.dni}</TableCell>
+
                   <TableCell align="center">
                     {medic?.medic_membership_number}
                   </TableCell>
+
                   <TableCell align="center">{medic?.province_name}</TableCell>
+
                   <TableCell align="center">{medic?.city_name}</TableCell>
+
                   <TableCell align="center">{medic?.postal_code}</TableCell>
+
                   <TableCell align="center">{medic?.phone_number}</TableCell>
+
                   <TableCell align="center">{medic?.email}</TableCell>
+
                   <TableCell align="center" size="small">
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="success"
-                      onClick={() => enable(medic.user_id, medic.medic_enabled)}
-                    >
-                      {medic?.medic_enabled === 0
-                        ? "No habilitado"
-                        : "Habilitado"}
-                    </Button>
-                  </TableCell>
-                  <TableCell align="center" size="small">
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="success"
-                      onClick={() =>
-                        vacation(medic.user_id, medic.medic_is_on_vacation)
-                      }
-                    >
-                      {medic.medic_is_on_vacation === 0
-                        ? "Disponible"
-                        : "No disponible"}
-                    </Button>
-                  </TableCell>
-                  <TableCell align="center" size="small">
-                      {medic.is_deleted ?
-                      <button onClick={() => deleted(medic.user_id, medic.is_deleted)} className="buttonEnabledUser">
-                        <div className="pointEnable"></div>
-                        Eliminado
+                    {medic?.medic_enabled ?
+                      <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
+                          <div className="pointEnable"></div>
+                          Habilitar
                       </button>
                       :
-                      <button onClick={() => deleted(medic.user_id, medic.is_deleted)}  className="buttonDisabledUser">
+                      <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
                         <div className="pointDisabled"></div>
-                        Eliminar
+                        Deshabilitar
                       </button>
-                      }
+                    }
                   </TableCell>
 
                   <TableCell align="center" size="small">
-                    <Button
-                    onClick={()=>navigate(`/medicProfile/${medic.user_id}`)} 
-                      variant="contained"
-                      size="small"
-                      color="info"
-                    >Ver perfil</Button>
+                    {medic.medic_is_on_vacation ?
+                      <button onClick={() => vacation(medic.user_id, medic.medic_is_on_vacation)}  className="buttonAvailable">
+                        <div className="pointAvailable"></div>
+                        Activar
+                      </button>
+                      :
+                     <button onClick={() => vacation(medic.user_id, medic.medic_is_on_vacation)} className="buttonOccupied">
+                        <div className="pointOccupied"></div>
+                        Desactivar
+                      </button>
+                    }
+                  </TableCell>
 
+                  <TableCell align="center" size="small">
+                      {medic.is_deleted ?
+                      <button onClick={() => deleted(medic.user_id, medic.is_deleted)}  className="buttonDeleteOnUser">
+                        <div className="pointDeleteOn"></div>
+                        Eliminar
+                      </button>
+                      :
+                      <button onClick={() => deleted(medic.user_id, medic.is_deleted)} className="buttonDeleteOffUser">
+                        <div className="pointDeleteOff"></div>
+                        Activar
+                      </button>
+                      }
                   </TableCell>
                 </TableRow>
               ))}

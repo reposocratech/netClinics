@@ -1,14 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Button,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Container } from 'react-bootstrap'
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
@@ -19,6 +11,7 @@ export const Validations = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const [medics, setMedics] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get("http://localhost:4000/admin/getAllMedicsValidation")
@@ -41,75 +34,87 @@ export const Validations = () => {
       })
       .catch((Err) => console.log(Err));
   };
+  
   return (
-    <div>
-      {medics && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center">Médico</TableCell>
-                <TableCell align="center">D.N.I.</TableCell>
-                <TableCell align="center">Nº Colegiado</TableCell>
-                <TableCell align="center">Dirección</TableCell>
-                <TableCell align="center">Provincia</TableCell>
-                <TableCell align="center">Ciudad</TableCell>
-                <TableCell align="center">C.P.</TableCell>
-                <TableCell align="center">Teléfono</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Habilitado</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {medics?.map((medic) => (
-                <TableRow
-                  key={medic?.user_id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="center">
-                    <img
-                      className="imageMedic"
-                      src={`assets/images/user/${medic.avatar}`}
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    {medic?.lastname}, {medic?.name}
-                  </TableCell>
-                  <TableCell align="center">{medic?.dni}</TableCell>
-                  <TableCell align="center">
-                    {medic?.medic_membership_number}
-                  </TableCell>
-                  <TableCell align="center">{medic?.address}</TableCell>
-                  <TableCell align="center">{medic?.province_name}</TableCell>
-                  <TableCell align="center">{medic?.city_name}</TableCell>
-                  <TableCell align="center">{medic?.postal_code}</TableCell>
-                  <TableCell align="center">{medic?.phone_number}</TableCell>
-                  <TableCell align="center">{medic?.email}</TableCell>
-                  <TableCell align="center">
-                    {medic?.medic_enabled === 0
-                      ? "No habilitado"
-                      : "Habilitado"}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      onClick={() => enable(medic.user_id, medic.medic_enabled)}
-                    >
-                      {medic?.medic_enabled === 0
-                        ? "Habilitar"
-                        : "Deshabilitar"}
-                    </Button>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}  variant="contained">Ver perfil</Button>
-                  </TableCell>
+    <div className="bgValidation p-2">
+      <Container fluid className="whiteBoxValidation my-5">
+        {medics && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center"></TableCell>
+                  <TableCell align="center">Médico</TableCell>
+                  <TableCell align="center">D.N.I.</TableCell>
+                  <TableCell align="center">Nº Colegiado</TableCell>
+                  <TableCell align="center">Dirección</TableCell>
+                  <TableCell align="center">Provincia</TableCell>
+                  <TableCell align="center">Ciudad</TableCell>
+                  <TableCell align="center">C.P.</TableCell>
+                  <TableCell align="center">Teléfono</TableCell>
+                  <TableCell align="center">Email</TableCell>
+                  <TableCell align="center">Habilitado</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+              </TableHead>
+
+              {/* Datos Tabla Médico */}
+              <TableBody>
+                {medics?.map((medic) => (
+                  <TableRow
+                    key={medic?.user_id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell className="viewProf" align="center"
+                    onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
+                      <img
+                        className="imageMedic"
+                        src={`assets/images/user/${medic.avatar}`}
+                      />
+                    </TableCell>
+
+                    <TableCell className="viewProf" align="center"
+                    onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
+                      {medic?.lastname}, {medic?.name}
+                    </TableCell>
+
+                    <TableCell align="center">{medic?.dni}</TableCell>
+
+                    <TableCell align="center">
+                      {medic?.medic_membership_number}
+                    </TableCell>
+
+                    <TableCell align="center">{medic?.address}</TableCell>
+
+                    <TableCell align="center">{medic?.province_name}</TableCell>
+
+                    <TableCell align="center">{medic?.city_name}</TableCell>
+
+                    <TableCell align="center">{medic?.postal_code}</TableCell>
+
+                    <TableCell align="center">{medic?.phone_number}</TableCell>
+
+                    <TableCell align="center">{medic?.email}</TableCell>
+
+                    <TableCell align="center">
+                      {medic?.medic_enabled ?
+                        <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
+                            <div className="pointEnable"></div>
+                            Habilitar
+                        </button>
+                        :
+                        <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
+                          <div className="pointDisabled"></div>
+                          Deshabilitar
+                        </button>
+                      }
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </Container>
     </div>
   );
 };

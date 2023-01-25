@@ -4,11 +4,33 @@
     position: fixed;
     top: 0;
 
+    .nav-link {
+        color: #1C2869;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 400;
+        box-sizing: border-box;
+    }
+
+    .nav-link:hover {
+        background-color: rgba($color: #009EE3, $alpha: 1.0);
+        border-radius: 30px;
+        color: white;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 600;
+    }
+
+    .nav-link:focus{
+        background-color: rgba($color: #009EE3, $alpha: 1.0);
+        border-radius: 30px;
+        color: white;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 600;
+    }
+
     .navbar-brand {
         img{
             width: 10rem;
         }
-        
     }
 
     .avatar {
@@ -41,7 +63,6 @@
     .menuDesplegable{
        div{
             left: -5vw;
-        
         }
     }
 

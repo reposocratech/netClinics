@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container } from 'react-bootstrap'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
+import { useNavigate } from "react-router";
 import "./styleAllPatiens.scss";
 
 export const AllPatients = () => {
   const [patients, setPatients] = useState([]);
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllPatients").then((res) => {
@@ -48,44 +50,56 @@ export const AllPatients = () => {
                   <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Email</TableCell>
                   <TableCell align="center">Estado</TableCell>
-                  
                 </TableRow>
               </TableHead>
+
+              {/* Datos Tabla Paciente */}
               <TableBody>
                 {patients?.map((patient) => (
                   <TableRow
                     key={patient.user_id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="center">
+                    <TableCell className="viewProf" align="center"
+                    onClick={()=>navigate(`/patientProfile/${patient?.user_id}`)}>
                       <img
                         className="imagePatient"
                         src={`assets/images/user/${patient.avatar}`}
                       />
                     </TableCell>
-                    <TableCell align="center">
+
+                    <TableCell className="viewProf" align="center"
+                    onClick={()=>navigate(`/patientProfile/${patient.user_id}`)}>
                       {patient.name} {patient.lastname}
                     </TableCell>
+
                     <TableCell align="center">{patient.dni}</TableCell>
+
                     <TableCell align="center">{patient.address}</TableCell>
+
                     <TableCell align="center">{patient.province_name}</TableCell>
+
                     <TableCell align="center">{patient.city_name}</TableCell>
+
                     <TableCell align="center">{patient.postal_code}</TableCell>
+
                     <TableCell align="center">{patient.phone_number}</TableCell>
+
                     <TableCell align="center">{patient.email}</TableCell>
-                    <TableCell align="center">
-                      {patient.is_deleted === 0 ? "Activo" : "Inactivo"}
-                    </TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="contained" color="success" size="small"
-                        onClick={() =>
-                          handleEdit(patient.user_id, patient.is_deleted)
-                        }
-                      >
-                        {patient.is_deleted === 0 ? "Deshabilitar" : "Habilitar"}
-                      </Button>
-                    </TableCell>
+
+                    <TableCell align="center" size="small">
+                    {patient?.is_deleted ?
+                      <button onClick={() =>  handleEdit(patient.user_id, patient.is_deleted)} className="buttonEnabledUser">
+                          <div className="pointEnable"></div>
+                          Habilitar
+                      </button>
+                      :
+                      <button  onClick={() =>  handleEdit(patient.user_id, patient.is_deleted)} className="buttonDisabledUser">
+                        <div className="pointDisabled"></div>
+                        Deshabilitar
+                      </button>
+                    }
+                  </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
