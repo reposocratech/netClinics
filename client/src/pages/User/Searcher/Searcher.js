@@ -77,15 +77,15 @@ export const Searcher = () => {
             <Row className="rowSearcher d-flex align-items-center"> 
               {medicsSearched.length === 0? 
                 <FormSearchMedic
-                  handleChange={handleChange}               
-                  onSubmit={onSubmit}
-                  navigate={navigate}
-                  listProvinces={listProvinces}               
-                  listCities={listCities}                
-                  getCity={getCity}
-                  listSpecialities={listSpecialities}
-                  medicsSearched={medicsSearched}
-                  setMedicsSearched={setMedicsSearched}
+                handleChange={handleChange}               
+                onSubmit={onSubmit}
+                navigate={navigate}
+                listProvinces={listProvinces}               
+                listCities={listCities}                
+                getCity={getCity}
+                listSpecialities={listSpecialities}
+                medicsSearched={medicsSearched}
+                setMedicsSearched={setMedicsSearched}
                 />:
                 <SearchAppointment
                 medicsSearched={medicsSearched}
