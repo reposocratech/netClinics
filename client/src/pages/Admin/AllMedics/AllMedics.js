@@ -4,14 +4,18 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import "./styleAllMedics.scss";
+import { useNavigate } from "react-router";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 
+
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const [medics, setMedics] = useState([]);
+  const navigate = useNavigate();
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllMedics").then((res) => {
@@ -154,12 +158,15 @@ export const AllMedics = () => {
                       {medic?.is_deleted === 0 ? "Activo" : "Inactivo"}
                     </Button> */}
                   </TableCell>
+
                   <TableCell align="center" size="small">
                     <Button
+                    onClick={()=>navigate(`/medicProfile/${medic.user_id}`)} 
                       variant="contained"
                       size="small"
                       color="info"
                     >Ver perfil</Button>
+
                   </TableCell>
                 </TableRow>
               ))}

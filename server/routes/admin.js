@@ -37,5 +37,9 @@ router.put("/offVacation/:user_id", adminControllers.offVacation);
 //8.- Desactiva un médico
 router.put("/onVacation/:user_id", adminControllers.onVacation);
 
+//9.- Trae la información de un médico
+//localhost:4000/admin/medicProfile/:user_id
+router.get("/medicProfile/:user_id", adminControllers.getMedicProfile);
+
 
 module.exports = router;
