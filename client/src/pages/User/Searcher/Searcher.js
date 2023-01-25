@@ -69,7 +69,8 @@ export const Searcher = () => {
               console.log(error);
             })
           }
-      };
+      }
+      
     
   return (
     <div className="bgSearcher d-flex justify-content-center align-items-center">
