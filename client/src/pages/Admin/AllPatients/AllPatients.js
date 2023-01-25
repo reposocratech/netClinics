@@ -16,19 +16,14 @@ import "./styleAllPatiens.scss";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 
 export const AllPatients = () => {
-
   const [patients, setPatients] = useState([]);
 
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
 
   useEffect(() => {
-
-    axios
-    .get("http://localhost:4000/admin/getAllPatients")
-    .then((res) => {
+    axios.get("http://localhost:4000/admin/getAllPatients").then((res) => {
       setPatients(res.data);
     });
-
   }, [resetPage]);
 
   const handleEdit = (id, is_deleted) => {
@@ -45,7 +40,6 @@ export const AllPatients = () => {
       })
       .catch((Err) => console.log(Err));
   };
-
 
   return (
     <div>
@@ -79,7 +73,7 @@ export const AllPatients = () => {
                     />
                   </TableCell>
                   <TableCell align="center">
-                    {patient.name} {patient.lastname}
+                    {patient.lastname}, {patient.name}
                   </TableCell>
                   <TableCell align="center">{patient.dni}</TableCell>
                   <TableCell align="center">{patient.address}</TableCell>

@@ -31,5 +31,11 @@ router.put("/disableMedic/:user_id", adminControllers.disableMedic);
 //localhost:4000/admin/getAllMedicsValidation
 router.get("/getAllMedicsValidation", adminControllers.getAllMedicsValidation);
 
+//7.- Activa un médico
+router.put("/offVacation/:user_id", adminControllers.offVacation);
+
+//8.- Desactiva un médico
+router.put("/onVacation/:user_id", adminControllers.onVacation);
+
 
 module.exports = router;
