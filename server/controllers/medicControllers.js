@@ -263,8 +263,8 @@ class medicControllers {
   //localhost:4000/medic/getAppointmentHistory/:user_id
 
   getAppointmentHistory = (req, res) => {
-    let {user_medic_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_medic_id = ${user_medic_id}`;
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id}`;
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       

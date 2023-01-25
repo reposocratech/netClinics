@@ -71,7 +71,7 @@ export const NavBarNetClinics = () => {
                   {user?.name?.charAt(0)}
                 </div>
               } id="navbarScrollingDropdown">
-                <NavDropdown.Item><PersonIcon/> Mi perfil</NavDropdown.Item>}
+                <NavDropdown.Item><PersonIcon/> Mi perfil</NavDropdown.Item>
                 <NavDropdown.Item><LockIcon/> Cambiar Contraseña</NavDropdown.Item>
                 <NavDropdown.Item><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>

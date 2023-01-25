@@ -15,8 +15,8 @@ export const HomeMedic = () => {
       <Container className='whiteContainerHome pt-4'>
           <Row>
               <CardHome
-                go={"/appointments"}
-                navigate={navigate}
+                // go={"/appointments"}
+                navigate={()=>navigate("/medicAppointmentsHistory")}
                 icon={'/assets/icons/add_task_black_24dp.svg'}
                 cardTitle={"Citas Realizadas"}
               />

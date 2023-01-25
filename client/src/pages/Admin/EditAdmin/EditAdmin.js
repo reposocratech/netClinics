@@ -9,14 +9,20 @@ import "./styleEditAdmin.scss";
 
 export const EditAdmin = () => {
   const { user, setUser, setResetPage, resetPage } =
-    useContext(NetClinicsContext);
+  useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
   const [file, setFile] = useState();
+
   const navigate = useNavigate();
+
   const [listProvinces, setListProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState();
   const [listCities, setListCities] = useState([]);
   const [selectedCitie, setSelectedCitie] = useState();
+
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
+  const [image, setImage] = useState();
 
   useEffect(() => {
     axios
@@ -55,7 +61,7 @@ const handleChange = (e) => {
     e.preventDefault();
     const newFormData = new FormData();
 
-    newFormData.append("file", file);
+    newFormData.append("file", image);
     newFormData.append("register", JSON.stringify(editUser));
     console.log("lo que hay en el editUser", editUser);
     axios
@@ -85,22 +91,48 @@ const handleChange = (e) => {
     }
   };
 
+  //useEffect para que esté pendiente la imagen seleccionada
+  useEffect(() => {
+    if(!selectedFile){
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+
+  }, [selectedFile])
+  
+
+  //Conforme se cambie la imagen setea el archivo seleccionado y la imagen
+  //que se mandará a base de datos
+  const onSelectFile = (e) => {
+    if(!e.target.files || e.target.files.length === 0){
+      setSelectedFile(undefined);
+      return;
+    }
+
+    setSelectedFile(e.target.files[0]);
+    setImage(e.target.files[0]);
+
+  }
+
   return (
   <div className="bgEditPatientProfile d-flex justify-content-center align-items-center">
       <Container className="whiteBoxEditPatient my-5">
         <Row className="rowEditPatientProfile d-flex align-items-center">
           <FormEditUser
-            editUser={editUser}
-            handleChange={handleChange}selectedProvince
-            handleFile={handleFile}
-            onSubmit={onSubmit}
-            navigate={navigate}
-            listProvinces={listProvinces}
-            setSelectedProvince={setSelectedProvince}
-            listCities={listCities}
-            setListCities={setListCities}
-            setSelectedCitie={setSelectedCitie}
-            getCity={getCity}
+             editUser={editUser}
+             handleChange={handleChange}
+             onSubmit={onSubmit}
+             navigate={navigate}
+             listProvinces={listProvinces}
+             listCities={listCities}
+             getCity={getCity}
+             onSelectFile={onSelectFile}
+             preview={preview}
           />
         </Row>
       </Container>
