@@ -6,6 +6,7 @@ import { AdminProfile } from '../pages/Admin/AdminProfile/AdminProfile';
 import { AllMedics } from '../pages/Admin/AllMedics/AllMedics';
 import { AllPatients } from '../pages/Admin/AllPatients/AllPatients';
 import { EditAdmin } from '../pages/Admin/EditAdmin/EditAdmin';
+import { AdminMedicProfile } from '../pages/Admin/MedicProfile/AdminMedicProfile';
 import { Validations } from '../pages/Admin/Validations/Validations';
 import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
@@ -164,6 +165,11 @@ export const AppRoutes = () => {
                      <Route
                     path='/editProfile'
                     element={<EditAdmin/>}
+                    />
+                     {/* Ruta para ver perfil de un médico */}
+                     <Route
+                    path='/medicProfile/:user_id'
+                    element={<AdminMedicProfile/>}
                     />
                   </>
                 }

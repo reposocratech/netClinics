@@ -13,10 +13,12 @@ import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 
 import "./styleAllMedics.scss";
+import { useNavigate } from "react-router";
 
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const [medics, setMedics] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllMedics").then((res) => {
@@ -144,7 +146,7 @@ export const AllMedics = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="center">
-                    <Button variant="contained">Ver perfil</Button>
+                    <Button onClick={()=>navigate(`/medicProfile/${medic.user_id}`)} variant="contained">Ver perfil</Button>
                   </TableCell>
                 </TableRow>
               ))}
