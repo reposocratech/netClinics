@@ -12,6 +12,8 @@ export const FormSearchMedic = ({
   getCity,
   listSpecialities,
 }) => {
+
+
   return (
     <>
         <Col xs={12} sm={12} md={12} lg={12} className='d-flex flex-column align-items-center text-center'>
@@ -69,12 +71,12 @@ export const FormSearchMedic = ({
                 <option>Indique una especialidad</option>
                 {listSpecialities?.map((speciality) => {
                     return (
-                      <Dropdown.Item
+                      <option 
                         key={speciality.speciality_id}
                         value={speciality.speciality_id}
                       >
-                        {speciality.speciality_name}
-                      </Dropdown.Item>
+                          {speciality.speciality_name}
+                      </option>
                     );
                   })}
               </select>
