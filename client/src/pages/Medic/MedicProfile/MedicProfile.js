@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import {useNavigate} from 'react-router-dom';
+import FilePresentRoundedIcon from '@mui/icons-material/FilePresentRounded';
 
 import './medicProfile.scss'
 
@@ -99,7 +100,7 @@ export const MedicProfile = () => {
                 <Col sm="12" md="12" className='fondos_Sections'>
                     <h4>Datos Académicos</h4>
                     <hr className='separador'/>
-                    <Table className='my-2' striped bordered hover>
+                    <Table className='my-2 text-center my-3' striped bordered hover>
                         <thead>
                             <tr>
                                 <th>Estudios</th>
@@ -117,7 +118,7 @@ export const MedicProfile = () => {
                                     <td>{title?.university}</td>
                                     <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
                                     <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
-                                    <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><img src='/assets/icons/download_FILL0_wght400_GRAD0_opsz48.svg'/></button></td>
+                                    <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
                                 </tr>
                             )
                             })}
