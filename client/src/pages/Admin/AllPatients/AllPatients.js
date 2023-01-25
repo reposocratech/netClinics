@@ -10,13 +10,9 @@ export const AllPatients = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
 
   useEffect(() => {
-
-    axios
-    .get("http://localhost:4000/admin/getAllPatients")
-    .then((res) => {
+    axios.get("http://localhost:4000/admin/getAllPatients").then((res) => {
       setPatients(res.data);
     });
-
   }, [resetPage]);
 
   const handleEdit = (id, is_deleted) => {
@@ -33,7 +29,6 @@ export const AllPatients = () => {
       })
       .catch((Err) => console.log(Err));
   };
-
 
   return (
     <div className="bgAllPatients p-2">
@@ -53,6 +48,7 @@ export const AllPatients = () => {
                   <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Email</TableCell>
                   <TableCell align="center">Estado</TableCell>
+                  
                 </TableRow>
               </TableHead>
               <TableBody>

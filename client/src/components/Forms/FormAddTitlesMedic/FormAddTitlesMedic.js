@@ -3,6 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 
 const initialValue = {
     text: '',
@@ -11,7 +15,7 @@ const initialValue = {
     end_date: ''
 }
 
-export const FormAddTitlesMedic = ({show, setShow, handleClose, handleShow}) => {
+export const FormAddTitlesMedic = ({show, handleClose}) => {
 
     const [titles, setTitles] = useState(initialValue);
 
@@ -27,28 +31,78 @@ export const FormAddTitlesMedic = ({show, setShow, handleClose, handleShow}) => 
         </Modal.Header>
         <Modal.Body>
             <InputGroup className='mb-3'>
-              <Form.Control
-              placeholder='Escribe nombre del Título Universitario'
-              name='text'
-              type='text'
-              autoComplete='off'
-              aria-label='text'
-              aria-describedby="basic-addon1"
-              value={titles?.text}
-              onChange={handleChange}
-              required
-              />
+                <InputGroup.Text id="basic-addon1"><SchoolRoundedIcon/></InputGroup.Text>
+                <Form.Control
+                placeholder='Indique nombre del Título Universitario'
+                name='text'
+                type='text'
+                autoComplete='off'
+                aria-label='text'
+                aria-describedby="basic-addon1"
+                value={titles?.text}
+                onChange={handleChange}
+                required
+                />
             </InputGroup>
-
-
-
+            <InputGroup className='mb-3'>
+                <InputGroup.Text id="basic-addon1"><AccountBalanceRoundedIcon/></InputGroup.Text>
+                <Form.Control
+                placeholder='Indique nombre de la Universidad'
+                name='university'
+                type='text'
+                autoComplete='off'
+                aria-label='text'
+                aria-describedby="basic-addon1"
+                value={titles?.university}
+                onChange={handleChange}
+                required
+                />
+            </InputGroup>
+            <InputGroup className='mb-3'>
+                <InputGroup.Text id="basic-addon1"><CalendarMonthRoundedIcon/></InputGroup.Text>
+                <Form.Control
+                name='start_date'
+                type='date'
+                autoComplete='off'
+                aria-label='text'
+                aria-describedby="basic-addon1"
+                value={titles?.start_date}
+                onChange={handleChange}
+                required
+                />
+            </InputGroup>
+            <InputGroup className='mb-3'>
+                <InputGroup.Text id="basic-addon1"><CalendarMonthRoundedIcon/></InputGroup.Text>
+                <Form.Control
+                name='end_date'
+                type='date'
+                autoComplete='off'
+                aria-label='text'
+                aria-describedby="basic-addon1"
+                value={titles?.end_date}
+                onChange={handleChange}
+                required
+                />
+            </InputGroup>
+            <InputGroup className='mb-3'>
+                <InputGroup.Text id="basic-addon1"><PictureAsPdfRoundedIcon/></InputGroup.Text>
+                <Form.Control
+                name='file'
+                type='file'
+                autoComplete='off'
+                aria-label='text'
+                aria-describedby="basic-addon1"
+                onChange={handleChange}
+                required
+                />
+            </InputGroup>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancelar
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Añadir Datos Académicos
           </Button>
         </Modal.Footer>
     </Modal>
