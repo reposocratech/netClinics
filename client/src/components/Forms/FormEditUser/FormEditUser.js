@@ -7,12 +7,13 @@ import Form from 'react-bootstrap/Form';
 export const FormEditUser = ({
   editUser,
   handleChange,
-  handleFile,
   onSubmit,
   navigate,
   listProvinces,
   listCities,
   getCity,
+  onSelectFile,
+  preview
 }) => {
 
 
@@ -32,11 +33,19 @@ export const FormEditUser = ({
 
         {/* Foto Perfil */}
         <Col xs={12} sm={12} md={12} lg={12} className="d-flex justify-content-center text-center">
-          <div className="imagePatientProfile">
-            <img
-                  className="imagePatient"
-                  src={`assets/images/user/${editUser?.avatar}`}
-                />
+          <div className="avatar-upload">
+            <div className="avatar-edit">
+              <input type='file' onChange={onSelectFile} name="img" id="imageUpload" accept=".png, .jpg, .jpeg" />
+              <label htmlFor="imageUpload"></label>
+            </div>
+            <div className="avatar-preview">
+              {preview &&
+                <div id="imagePreview" style={{backgroundImage: `url(${preview})`}}></div>
+              }
+              {!preview &&
+                <div id="imagePreview" style={{backgroundImage: `url(/assets/images/user/${editUser?.avatar})`}}></div>
+              } 
+            </div>
             <h2 className="my-3">{editUser?.name} {editUser?.lastname}</h2>
           </div>
         </Col>
@@ -160,23 +169,6 @@ export const FormEditUser = ({
                   name="postal_code"
                   value={editUser?.postal_code}
                   onChange={handleChange}
-                />
-              </InputGroup>
-            </div>
-          </form>
-        </Col>
-
-        <Col xs={12} sm={12} md={12} lg={12} className="d-flex justify-content-center align-items-center mb-2">
-          <form encType="multipart/form">
-            <div className="contEditPatient d-flex flex-row align-items-center">
-              <label className="me-2">Cambiar imagen:</label>
-
-              <InputGroup className='mb-3'>
-                <input
-                  type="file"
-                  className="fylePatientProfile m-2"
-                  autoComplete="off"
-                  onChange={handleFile}
                 />
               </InputGroup>
             </div>

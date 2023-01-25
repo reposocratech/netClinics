@@ -1,18 +1,16 @@
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 
 export const FormSearchMedic = ({
   handleChange,
   onSubmit,
-  navigate,
   listProvinces,
   listCities,
   getCity,
   listSpecialities,
-  medicsSearched,
-  setMedicsSearched
 }) => {
   return (
     <>
@@ -39,7 +37,7 @@ export const FormSearchMedic = ({
                   })}
               </select>
             </div>
-            
+
             <div className='d-flex flex-row align-items-start'>
               <img className='iconSearch me-2' src='/assets/icons/my_location_black_24dp.svg'/>
               <select
@@ -63,7 +61,7 @@ export const FormSearchMedic = ({
             
             <div className='d-flex flex-row align-items-start'>
               <img className='iconSearch me-2' src='/assets/icons/badge_black_24dp.svg'/>
-              <select 
+              <select
                 className='selectSearcher mb-3'
                 name='speciality_id'
                 onChange={handleChange}
@@ -71,12 +69,12 @@ export const FormSearchMedic = ({
                 <option>Indique una especialidad</option>
                 {listSpecialities?.map((speciality) => {
                     return (
-                      <option
+                      <Dropdown.Item
                         key={speciality.speciality_id}
                         value={speciality.speciality_id}
                       >
                         {speciality.speciality_name}
-                      </option>
+                      </Dropdown.Item>
                     );
                   })}
               </select>
