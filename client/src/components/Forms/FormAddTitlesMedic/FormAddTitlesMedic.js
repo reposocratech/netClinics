@@ -7,6 +7,7 @@ import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
+import axios from 'axios';
 
 const initialValue = {
     text: '',
@@ -15,13 +16,43 @@ const initialValue = {
     end_date: ''
 }
 
-export const FormAddTitlesMedic = ({show, handleClose}) => {
+export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, resetPage}) => {
 
     const [titles, setTitles] = useState(initialValue);
+    const [file, setFile] = useState();
+    const [messageError, setMessageError] = useState("");
 
     const handleChange = (e) => {
         const {name, value} = e.target;
         setTitles({...titles, [name]:value});
+    }
+
+    const handleFile = (e) => {
+        setFile(e.target.files[0]);
+    }
+
+    const onSubmit = () => {
+    
+      if(file !== undefined){
+        setMessageError("");
+        const newFormData = new FormData();
+        newFormData.append("file", file);
+        newFormData.append("addTittle", JSON.stringify(titles));
+
+        axios
+        .post(`http://localhost:4000/title/${user.user_id}`, newFormData)
+        .then((res) => {
+          setResetPage(!resetPage);
+          handleClose();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      }
+      else{
+        setMessageError("No has completado todos los campos")
+      }
+
     }
 
   return (
@@ -92,16 +123,17 @@ export const FormAddTitlesMedic = ({show, handleClose}) => {
                 autoComplete='off'
                 aria-label='text'
                 aria-describedby="basic-addon1"
-                onChange={handleChange}
+                onChange={handleFile}
                 required
                 />
             </InputGroup>
+            <h4>{messageError}</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={onSubmit}>
             Añadir Datos Académicos
           </Button>
         </Modal.Footer>

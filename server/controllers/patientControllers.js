@@ -56,14 +56,13 @@ class patientControllers {
     });
   };
   //---------------------------------------------------
-  // 3.- Trae todos los medicos de la tabla user
-  //Esta ruta no la utilizamos
-  //localhost:4000/patient/getMedics 
-  getAllMedics = (req, res) => {
+  // 3.- Trae la info de todos los medicos (sus nombres)
+  //localhost:4000/patient/getMedicsName
+  getMedicsName = (req, res) => {
     
     
 
-    let sql = `select user.* from user where user.type = 2 and user.is_deleted = 0 `;
+    let sql = `select * from user where user.type = 2 and user.is_deleted = 0  `;
 
     
     
@@ -117,6 +116,44 @@ editPatient = (req, res) => {
     error ? res.status(400).json({ error }) : res.status(200).json(result);
   });
 };
+//6.- Trae todas las citas realizadas de un paciente
+  //localhost:4000/patient/getAppointmentHistory/:user_id
+
+  getAppointmentHistory = (req, res) => {
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id}`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
+  //7.- Trae todas las citas proximas (tanto confirmadas como pendientes de confirmar) de un paciente
+  //localhost:4000/patient/getPendingAppointments/:user_id
+
+  getPendingAppointments = (req, res) => {
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and appointment_is_confirmed = false`; 
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
+
+  //8.- Trae todas las citas proximas (solo confirmadas) de un paciente
+  //localhost:4000/patient/getConfirmedAppointments/:user_id
+  
+
+  getConfirmedAppointments = (req, res) => {
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = true`; 
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
+
+  //6.- Trae todas las citas realizadas de un paciente
+  //localhost:4000/patient/getAppointmentHistory/:user_id
 
 
 

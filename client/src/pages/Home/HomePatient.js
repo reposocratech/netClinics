@@ -16,13 +16,13 @@ export const HomePatient = () => {
       <Container className='whiteContainerHome pt-4'>
           <Row>
           <CardHome
-            navigate={navigate}
+            navigate={()=>navigate("/userAppointmentsHistory")}
             icon={'/assets/icons/add_task_black_24dp.svg'}
             cardTitle={"Citas Realizadas"}
           />
 
           <CardHome
-            navigate={navigate}
+            navigate={()=>navigate("/userPendingAppointments")}
             icon={'/assets/icons/pending_actions_black_24dp.svg'}
             cardTitle={"Citas Pendientes de Confirmación"}
           />
@@ -30,7 +30,7 @@ export const HomePatient = () => {
 
         <Row>
           <CardHome
-            navigate={navigate}
+            navigate={()=>navigate("/userFollowingAppointments")}
             icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
             cardTitle={"Próximas Citas"}
           />

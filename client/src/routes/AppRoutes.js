@@ -15,11 +15,17 @@ import { HomeMedic } from '../pages/Home/HomeMedic';
 import { HomePatient } from '../pages/Home/HomePatient';
 import { AvailabilityMedic } from '../pages/Medic/Availability/AvailabilityMedic';
 import { EditMedic } from '../pages/Medic/EditMedic/EditMedic';
+import { MedicAppointmentsHistory } from '../pages/Medic/MedicAppointments/MedicAppointmentsHistory';
+import { MedicFollowingAppointments } from '../pages/Medic/MedicAppointments/MedicFollowingAppointments';
+import { MedicPendingAppointments } from '../pages/Medic/MedicAppointments/MedicPendingAppointments';
 import { MedicProfile } from '../pages/Medic/MedicProfile/MedicProfile';
 import { RegisterMedic } from '../pages/Register/RegisterMedic/RegisterMedic';
 import { RegisterPatient } from '../pages/Register/RegisterPatient';
 import { EditUser } from '../pages/User/EditUser/EditUser';
 import { Searcher } from '../pages/User/Searcher/Searcher';
+import { UserAppointmentsHistory } from '../pages/User/UserAppointments/UserAppointmentsHistory';
+import { UserFollowingAppointments } from '../pages/User/UserAppointments/UserFollowingAppointments';
+import { UserPendingAppointments } from '../pages/User/UserAppointments/UserPendingAppointments';
 import { UserProfile } from '../pages/User/UserProfile/UserProfile';
 
 export const AppRoutes = () => {
@@ -77,18 +83,18 @@ export const AppRoutes = () => {
                   />
                   {/* Ruta para mis citas */}
                   <Route
-                    path='/appointments'
-                    element={"/appointments"}
+                    path='/medicAppointmentsHistory'
+                    element={<MedicAppointmentsHistory/>}
                   />
                   {/* Ruta para cita pendiente confirmar */}
                   <Route
-                    path='/pendingAppointments'
-                    element={"/pendingAppointments"}
+                    path='/medicPendingAppointments'
+                    element={<MedicPendingAppointments/>}
                   />
                   {/* Ruta para próximas citas */}
                   <Route
-                    path='/followingAppointments'
-                    element={"/followingAppointments"}
+                    path='/medicFollowingAppointments'
+                    element={<MedicFollowingAppointments/>}
                   />
                   {/* Ruta para ver y editar su disponibilidad, sólo médico */}
                   <Route
@@ -122,6 +128,21 @@ export const AppRoutes = () => {
                     <Route
                     path='/searcher'
                     element={<Searcher/>}
+                    />
+                    {/* Ruta para ver el historial de citas */}
+                    <Route
+                    path='/userAppointmentsHistory'
+                    element={<UserAppointmentsHistory/>}
+                    />
+                    {/* Ruta para ver las citas pendientes (tanto confirmadas como pendientes de confirmar) */}
+                    <Route
+                    path='/userPendingAppointments'
+                    element={<UserPendingAppointments/>}
+                    />
+                    {/* Ruta para ver las proximas citas ya confirmadas */}
+                    <Route
+                    path='/userFollowingAppointments'
+                    element={<UserFollowingAppointments/>}
                     />
 
                   </>

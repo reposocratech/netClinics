@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Container } from 'react-bootstrap'
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
-import "./styleAllPatiens.scss";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
+import "./styleAllPatiens.scss";
 
 export const AllPatients = () => {
   const [patients, setPatients] = useState([]);
