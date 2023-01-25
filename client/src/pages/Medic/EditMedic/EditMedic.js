@@ -147,8 +147,8 @@ export const EditMedic = () => {
       <Container className="aboutme-editprofile-medic pb-3">
         <Row className='p-3'>
           <Col sm="12" md="4">
-                    <h2>Nº de Colegiado</h2>
-                    <p>{dataUser?.medic_membership_number}</p>
+              <h2>Nº de Colegiado</h2>
+              <p>{dataUser?.medic_membership_number}</p>
           </Col>
           <Col className='text-center d-flex align-items center justify-content-center gap-5'>
             <div className="avatar-upload">
@@ -191,6 +191,7 @@ export const EditMedic = () => {
               <Form.Control
                 as="textarea"
                 name='medic_description'
+                maxLength="250"
                 value={dataUser?.medic_description}
                 onChange={handleChange}
                 placeholder="Sobre mí"
