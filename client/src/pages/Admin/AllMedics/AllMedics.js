@@ -86,7 +86,7 @@ export const AllMedics = () => {
                 <TableCell align="center">Email</TableCell>
                 <TableCell align="center" size="small">Habilitado</TableCell>
                 <TableCell align="center">Disponible</TableCell>
-                <TableCell align="center">Estado</TableCell>
+                <TableCell align="center">Borrar Usuario</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -140,23 +140,17 @@ export const AllMedics = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="center" size="small">
-                  <IconButton aria-label="delete"
-                    onClick={() => deleted(medic.user_id, medic.is_deleted)}>
-                    <Checkbox
-                      {...label}
-                      icon={<DeleteIcon />}
-                      checkedIcon={<DeleteIcon />}
-                    />
-                  </IconButton>                    
-                    {/* <Button
-                      size="small"
-                      variant="contained"
-                      color="success"
-
-                      onClick={() => deleted(medic.user_id, medic.is_deleted)}
-                    >
-                      {medic?.is_deleted === 0 ? "Activo" : "Inactivo"}
-                    </Button> */}
+                      {medic.is_deleted ?
+                      <button onClick={() => deleted(medic.user_id, medic.is_deleted)} className="buttonEnabledUser">
+                        <div className="pointEnable"></div>
+                        Eliminado
+                      </button>
+                      :
+                      <button onClick={() => deleted(medic.user_id, medic.is_deleted)}  className="buttonDisabledUser">
+                        <div className="pointDisabled"></div>
+                        Eliminar
+                      </button>
+                      }
                   </TableCell>
 
                   <TableCell align="center" size="small">
