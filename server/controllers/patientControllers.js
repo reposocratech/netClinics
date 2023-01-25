@@ -121,7 +121,7 @@ editPatient = (req, res) => {
 
   getAppointmentHistory = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id}`;
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = 1`;
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -132,7 +132,7 @@ editPatient = (req, res) => {
 
   getPendingAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and appointment_is_confirmed = false`; 
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and  is_completed = 0`; 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -145,15 +145,14 @@ editPatient = (req, res) => {
 
   getConfirmedAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = true`; 
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = false and appointment_is_confirmed = 1`; 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
     });
   };
 
-  //6.- Trae todas las citas realizadas de un paciente
-  //localhost:4000/patient/getAppointmentHistory/:user_id
+  
 
 
 
