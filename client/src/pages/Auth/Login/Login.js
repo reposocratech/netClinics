@@ -48,7 +48,6 @@ export const Login = () => {
                 setErrorMessage("");
                 setErrorPassword("");
                 const token = res.data.token;
-                console.log(token);
                 saveLocalStorageNetClinics(token);
                 const {type} = jwtDecode(token).user;
                 setIsLogged(true);

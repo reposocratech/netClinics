@@ -23,7 +23,6 @@ export const Searcher = () => {
     };
     
   const onSubmit = () => {
-    // console.log(search);
     
     axios
       .post(
