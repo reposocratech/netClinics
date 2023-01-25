@@ -7,12 +7,17 @@ import {useNavigate} from 'react-router-dom';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider'
 import InputGroup from 'react-bootstrap/InputGroup';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-
-
-import './editMedicProfile.scss'
+import Table from 'react-bootstrap/Table';
+import FilePresentRoundedIcon from '@mui/icons-material/FilePresentRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { FormAddTitlesMedic } from '../../../components/Forms/FormAddTitlesMedic/FormAddTitlesMedic';
+import { FormEditTitlesMedic } from '../../../components/Forms/FormEditTitlesMedic/FormEditTitlesMedic';
+
+import './editMedicProfile.scss'
+
 
 export const EditMedic = () => {
 
@@ -20,10 +25,19 @@ export const EditMedic = () => {
 
   const {token, user, setResetPage, resetPage} = useContext(NetClinicsContext);
   const [dataUser, setDataUser] = useState({});
+  const [dataTitles, setDataTitles] = useState([]);
 
+  //Modal para añadir datos academicos
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  //------------------------------------------
+
+  //Modal para editar datos académico
+  const [showEdit, setShowEdit] = useState(false);
+  const handleCloseEdit = () => setShow(false);
+  const handleShowEdit = () => setShow(true);
+  //-----------------------------------------
   
 
   const [selectedFile, setSelectedFile] = useState();
@@ -59,6 +73,7 @@ export const EditMedic = () => {
     .then((res) => {
         console.log(res.data);
         setDataUser(res.data.user[0]);
+        setDataTitles(res.data.titles);
       
     })
     .catch((error) => {
@@ -232,34 +247,73 @@ export const EditMedic = () => {
             </InputGroup>
           </Col>
         </Row>
+        <Row>
+          <Col className='text-center'>
+              <Button onClick={onSubmit}>Guardar Cambios Perfil</Button>
+          </Col>
+        </Row>
        
         {/* Titulos */}
         <Row className='ms-2 me-2 my-3 mb-3 fondos_Sections'>
           <Col className='mb-3'>
             <h4>Datos Académicos</h4>
             <hr className='separador'/>
+              <Table className='my-2 text-center my-3' striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Estudios</th>
+                                <th>Universidad</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Descargar</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody style={{cursor: 'pointer'}} >
+                            {dataTitles?.map((title) => {
+                            return  (
+                              <>
+                                <tr key={title.document}>
+                                    <td>{title?.text}</td>
+                                    <td>{title?.university}</td>
+                                    <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
+                                    <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
+                                    <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
+                                    <td><button onClick={handleShowEdit}><EditRoundedIcon/></button></td>
+                                    <td><button><DeleteForeverRoundedIcon/></button></td>
+                                </tr>
+
+                                {!showEdit &&
+                                  <FormEditTitlesMedic
+                                    title={title}
+                                    showEdit={showEdit}
+                                    handleCloseEdit={handleCloseEdit}
+                                  />
+                                } 
+                              </>
+                            )
+                            })}
+                        </tbody>
+              </Table>         
           </Col>
+          {/* Boton para añadir datos académicos */}
           <Col sm="12" md="12" className='d-flex align-items-center justify-content-center gap-3'>
-            <Button>Editar Datos Académicos</Button>
             <Button onClick={handleShow}>Añadir Datos Académicos</Button>
           </Col>
         </Row>
         {/* Botón para guardar cambios */}
-        <Row>
-          <Col>
-              <Button onClick={onSubmit}>Guardar Cambios</Button>
-          </Col>
-        </Row>
+       
       </Container>
     </div>
     {show &&
       <FormAddTitlesMedic
         show={show}
-        setShow={setShow}
         handleClose={handleClose}
-        handleShow={handleShow}
       />
     } 
+
+   
     </>
   )
 }
