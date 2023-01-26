@@ -8,7 +8,8 @@ import './FormRegisterPatient.scss';
 
 export const FormRegisterPatient = ({registerPatient, handleChange, getCity, handleCities, listCities, listProvinces, onSubmit, navigate, message1, message2}) => {
   return (
-    <Container fluid className='bgColorFormRegister d-flex flex-column'>
+    <div className='bgColorFormRegister pb-5'>
+    <Container>
       <Row>
         <Col className='d-flex align-items-center justify-content-end my-3'>
           <button className='borderButton' onClick={() => navigate('/registerMedic')}>
@@ -19,7 +20,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
       </Row>
       <Row>
         <Col className='d-flex align-items-center justify-content-center'>
-          <div className='whiteBoxFormRegister d-flex flex-column mb-5'>
+          <div className='whiteBoxFormRegister'>
 
             {/* Logo Netclinics */}
             <div className='titleFormRegisterPatient text-center mb-4'>
@@ -30,7 +31,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
             <div className='d-flex flex-column'>
 
               <InputGroup className='mb-3'>
-
+               <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-user"></i></InputGroup.Text>
                 <Form.Control
                 placeholder='Escribe tu Nombre'
                 name='name'
@@ -45,7 +46,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
+                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-user"></i></InputGroup.Text>
                 <Form.Control
                 placeholder='Escribe tu Apellido'
                 name='lastname'
@@ -60,7 +61,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
+                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-address-card"></i></InputGroup.Text>
                 <Form.Control
                 placeholder='Introduce tu D.N.I'
                 name='dni'
@@ -75,7 +76,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
+                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-phone"></i></InputGroup.Text>
                 <Form.Control
                 placeholder='Introduce tu Nº de Teléfono'
                 name='phone_number'
@@ -90,7 +91,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
+                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-map-location"></i></InputGroup.Text>
                 <Form.Control
                 placeholder='Escribe tu Dirección'
                 name='address'
@@ -104,7 +105,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
+                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-location-pin"></i></InputGroup.Text>
                 <Form.Control
                 placeholder='Introduce tu Código Postal'
                 name='postal_code'
@@ -118,8 +119,9 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
-                <select className='selectPatient' name='province'
+              <div className='d-flex w-100'>
+              <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-city"></i></InputGroup.Text>
+                <Form.Select className='selectPatient' name='province'
                 onChange={(e) => getCity(e.target.value)}>
                   <option>Elige Provincia</option>
                   {listProvinces?.map((province) => {
@@ -127,12 +129,14 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
                         <option key={province.province_id} value={province.province_id}>{province.province_name}</option>    
                     )
                   })}
-                </select>
+                </Form.Select>
+                </div>
               </InputGroup>
 
               <InputGroup className='mb-3'>
-
-                <select className='selectPatient' name='cities'
+              <div className='d-flex w-100'>
+              <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-city"></i></InputGroup.Text>
+                <Form.Select className='selectPatient' name='cities'
                 onChange={handleCities}>
                   <option>Elige Ciudad</option>
                   {listCities?.map((city) => {
@@ -140,7 +144,8 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
                         <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
                     )
                   })}
-                </select>
+                </Form.Select>
+              </div>
               </InputGroup>
 
               <InputGroup className='mb-3'>
@@ -204,5 +209,6 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
         </Col>
       </Row>
     </Container>
+    </div>
   )
 }
