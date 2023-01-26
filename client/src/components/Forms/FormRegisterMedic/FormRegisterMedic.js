@@ -199,8 +199,8 @@ export const FormRegisterMedic = ({ registerMedic, message1, message2, listProvi
 
             </div>
             <div className='mb-2'>
-              {message1 && <p>Introduce todos los datos</p>}
-              {message2 && <p>El email introducido no es válido</p>}
+              {message1 && <p>Introduce correctamente todos los datos</p>}
+              {message2 && <p>Ya existe una cuenta con este email</p>}
             </div>
 
             <div className='d-flex flex-column align-items-center justify-content-center text-center'>

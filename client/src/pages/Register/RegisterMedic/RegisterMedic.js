@@ -41,7 +41,7 @@ export const RegisterMedic = () => {
     }
 
     const onSubmit = (event) => {
-      if(!emailValidator(registerMedic.email)){
+      if(!emailValidator(registerMedic.email)|| !registerMedic.password){
           setMessage1(true)
           setMessage2(false)
       }
