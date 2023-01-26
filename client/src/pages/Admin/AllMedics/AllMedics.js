@@ -1,18 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container } from 'react-bootstrap'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Container } from "react-bootstrap";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import "./styleAllMedics.scss";
 import { useNavigate } from "react-router";
 
-
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const [medics, setMedics] = useState([]);
   const navigate = useNavigate();
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllMedics").then((res) => {
@@ -67,64 +73,64 @@ export const AllMedics = () => {
   return (
     <div className="bgAllMedics p-2">
       <Container fluid className="whiteBoxAllMedics my-5">
-      {medics && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center"></TableCell>
-                <TableCell align="center">Profesional</TableCell>
-                <TableCell align="center">D.N.I.</TableCell>
-                <TableCell align="center">Nº Colegiado</TableCell>
-                <TableCell align="center">Provincia</TableCell>
-                <TableCell align="center">Ciudad</TableCell>
-                <TableCell align="center">C.P.</TableCell>
-                <TableCell align="center">Teléfono</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center" size="small">Habilitado</TableCell>
-                <TableCell align="center">Vacaciones</TableCell>
-                <TableCell align="center" width='100%'>Borrar Usuario</TableCell>
-              </TableRow>
-            </TableHead>
-
-            {/* Datos Tabla Médico */}
-            <TableBody>
-              {medics?.map((medic) => (
-                <TableRow
-                  key={medic?.user_id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell className="viewProf" align="center"
-                  onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
-                    <img
-                      className="imageMedic"
-                      src={`assets/images/user/${medic.avatar}`}
-                    />
-                  </TableCell>
-
-                  <TableCell className="viewProf" align="center"
-                  onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
-                    {medic?.lastname}, {medic?.name}
-                  </TableCell>
-
-                  <TableCell align="center">{medic?.dni}</TableCell>
-
-                  <TableCell align="center">
-                    {medic?.medic_membership_number}
-                  </TableCell>
-
-                  <TableCell align="center">{medic?.province_name}</TableCell>
-
-                  <TableCell align="center">{medic?.city_name}</TableCell>
-
-                  <TableCell align="center">{medic?.postal_code}</TableCell>
-
-                  <TableCell align="center">{medic?.phone_number}</TableCell>
-
-                  <TableCell align="center">{medic?.email}</TableCell>
-
+        {medics && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center"></TableCell>
+                  <TableCell align="center">Profesional</TableCell>
+                  <TableCell align="center">Nº Colegiado</TableCell>
+                  <TableCell align="center">Teléfono</TableCell>
+                  <TableCell align="center">Email</TableCell>
+                  <TableCell align="center">Vacaciones</TableCell>
                   <TableCell align="center" size="small">
-                    {medic?.medic_enabled ?
+                    Habilitado
+                  </TableCell>
+                  <TableCell align="center">Borrar Usuario</TableCell>
+                </TableRow>
+              </TableHead>
+
+              {/* Datos Tabla Médico */}
+              <TableBody>
+                {medics?.map((medic) => (
+                  <TableRow
+                    key={medic?.user_id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      className="viewProf"
+                      align="center"
+                      onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
+                    >
+                      <img
+                        className="imageMedic"
+                        src={`assets/images/user/${medic.avatar}`}
+                      />
+                    </TableCell>
+
+                    <TableCell
+                      className="viewProf"
+                      align="center"
+                      onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
+                    >
+                      {medic?.lastname}, {medic?.name}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {medic?.medic_membership_number}
+                    </TableCell>
+
+                    <TableCell align="center">{medic?.phone_number}</TableCell>
+
+                    <TableCell align="center">{medic?.email}</TableCell>
+
+                    <TableCell align="center" size="small">
+                      {medic.medic_is_on_vacation ? "De vacaciones" : "Activo"}
+                    </TableCell>
+
+                    <TableCell align="center" size="small">
+                    {!medic?.medic_enabled ?
                       <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
                           <div className="pointEnable"></div>
                           Habilitar
@@ -138,21 +144,7 @@ export const AllMedics = () => {
                   </TableCell>
 
                   <TableCell align="center" size="small">
-                    {medic.medic_is_on_vacation ?
-                      <button onClick={() => vacation(medic.user_id, medic.medic_is_on_vacation)}  className="buttonAvailable">
-                        <div className="pointAvailable"></div>
-                        Activar
-                      </button>
-                      :
-                     <button onClick={() => vacation(medic.user_id, medic.medic_is_on_vacation)} className="buttonOccupied">
-                        <div className="pointOccupied"></div>
-                        Desactivar
-                      </button>
-                    }
-                  </TableCell>
-
-                  <TableCell align="center" size="small">
-                      {medic.is_deleted ?
+                      {!medic.is_deleted ?
                       <button onClick={() => deleted(medic.user_id, medic.is_deleted)}  className="buttonDeleteOnUser">
                         <div className="pointDeleteOn"></div>
                         Eliminar
@@ -164,12 +156,12 @@ export const AllMedics = () => {
                       </button>
                       }
                   </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </Container>
     </div>
   );

@@ -1,6 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container } from 'react-bootstrap'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Container } from "react-bootstrap";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
@@ -36,17 +44,12 @@ export const AllPatients = () => {
     <div className="bgAllPatients p-2">
       <Container fluid className="whiteBoxAllPatients my-5">
         {patients && (
-          <TableContainer component={Paper} className='tableAllPatient'>
+          <TableContainer component={Paper} className="tableAllPatient">
             <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
                   <TableCell align="center"></TableCell>
                   <TableCell align="center">Paciente</TableCell>
-                  <TableCell align="center">D.N.I.</TableCell>
-                  <TableCell align="center">Dirección</TableCell>
-                  <TableCell align="center">Provincia</TableCell>
-                  <TableCell align="center">Ciudad</TableCell>
-                  <TableCell align="center">C.P.</TableCell>
                   <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Email</TableCell>
                   <TableCell align="center">Estado</TableCell>
@@ -60,46 +63,56 @@ export const AllPatients = () => {
                     key={patient.user_id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell className="viewProf" align="center"
-                    onClick={()=>navigate(`/patientProfile/${patient?.user_id}`)}>
+                    <TableCell
+                      className="viewProf"
+                      align="center"
+                      onClick={() =>
+                        navigate(`/patientProfile/${patient?.user_id}`)
+                      }
+                    >
                       <img
                         className="imagePatient"
                         src={`assets/images/user/${patient.avatar}`}
                       />
                     </TableCell>
 
-                    <TableCell className="viewProf" align="center"
-                    onClick={()=>navigate(`/patientProfile/${patient.user_id}`)}>
+                    <TableCell
+                      className="viewProf"
+                      align="center"
+                      onClick={() =>
+                        navigate(`/patientProfile/${patient.user_id}`)
+                      }
+                    >
                       {patient.name} {patient.lastname}
                     </TableCell>
-
-                    <TableCell align="center">{patient.dni}</TableCell>
-
-                    <TableCell align="center">{patient.address}</TableCell>
-
-                    <TableCell align="center">{patient.province_name}</TableCell>
-
-                    <TableCell align="center">{patient.city_name}</TableCell>
-
-                    <TableCell align="center">{patient.postal_code}</TableCell>
 
                     <TableCell align="center">{patient.phone_number}</TableCell>
 
                     <TableCell align="center">{patient.email}</TableCell>
 
                     <TableCell align="center" size="small">
-                    {patient?.is_deleted ?
-                      <button onClick={() =>  handleEdit(patient.user_id, patient.is_deleted)} className="buttonEnabledUser">
+                      {patient?.is_deleted ? (
+                        <button
+                          onClick={() =>
+                            handleEdit(patient.user_id, patient.is_deleted)
+                          }
+                          className="buttonEnabledUser"
+                        >
                           <div className="pointEnable"></div>
                           Habilitar
-                      </button>
-                      :
-                      <button  onClick={() =>  handleEdit(patient.user_id, patient.is_deleted)} className="buttonDisabledUser">
-                        <div className="pointDisabled"></div>
-                        Deshabilitar
-                      </button>
-                    }
-                  </TableCell>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            handleEdit(patient.user_id, patient.is_deleted)
+                          }
+                          className="buttonDisabledUser"
+                        >
+                          <div className="pointDisabled"></div>
+                          Deshabilitar
+                        </button>
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

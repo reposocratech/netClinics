@@ -44,13 +44,8 @@ export const Validations = () => {
               <TableHead>
                 <TableRow>
                   <TableCell align="center"></TableCell>
-                  <TableCell align="center">Médico</TableCell>
-                  <TableCell align="center">D.N.I.</TableCell>
+                  <TableCell align="center">Profesional a validar</TableCell>
                   <TableCell align="center">Nº Colegiado</TableCell>
-                  <TableCell align="center">Dirección</TableCell>
-                  <TableCell align="center">Provincia</TableCell>
-                  <TableCell align="center">Ciudad</TableCell>
-                  <TableCell align="center">C.P.</TableCell>
                   <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Email</TableCell>
                   <TableCell align="center">Habilitado</TableCell>
@@ -77,36 +72,26 @@ export const Validations = () => {
                       {medic?.lastname}, {medic?.name}
                     </TableCell>
 
-                    <TableCell align="center">{medic?.dni}</TableCell>
-
                     <TableCell align="center">
                       {medic?.medic_membership_number}
                     </TableCell>
-
-                    <TableCell align="center">{medic?.address}</TableCell>
-
-                    <TableCell align="center">{medic?.province_name}</TableCell>
-
-                    <TableCell align="center">{medic?.city_name}</TableCell>
-
-                    <TableCell align="center">{medic?.postal_code}</TableCell>
 
                     <TableCell align="center">{medic?.phone_number}</TableCell>
 
                     <TableCell align="center">{medic?.email}</TableCell>
 
                     <TableCell align="center">
-                      {medic?.medic_enabled ?
-                        <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
-                            <div className="pointEnable"></div>
-                            Habilitar
-                        </button>
-                        :
-                        <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
-                          <div className="pointDisabled"></div>
-                          Deshabilitar
-                        </button>
-                      }
+                    {!medic?.medic_enabled ?
+                      <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
+                          <div className="pointEnable"></div>
+                          Habilitar
+                      </button>
+                      :
+                      <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
+                        <div className="pointDisabled"></div>
+                        Deshabilitar
+                      </button>
+                    }
                     </TableCell>
                   </TableRow>
                 ))}

@@ -105,7 +105,7 @@ class adminControllers {
 
   //9.- Trae la información de un médico
   //localhost:4000/admin/medicProfile/:user_id
-  getMedicProfile = (req, res) =>{
+  getMedicProfile = (req, res) => {
     const user_id = req.params.user_id;
     let sql = `SELECT * FROM user 
     left join medic_data on user.user_id = medic_data.user_id 
@@ -118,7 +118,6 @@ class adminControllers {
       if (error) {
         res.status(400).json(error);
       } else {
-
         let finalResult = {};
 
         let groupTitles = [];
@@ -130,10 +129,9 @@ class adminControllers {
         let groupUser = [];
         let user = {};
 
-        //recorro el resultado de la query y añado los titulos 
+        //recorro el resultado de la query y añado los titulos
         //y especialidades del medico
         result.forEach((x) => {
-
           user = {
             user_id: user_id,
             name: x.name,
@@ -149,7 +147,8 @@ class adminControllers {
             medic_description: x.medic_description,
             medic_membership_number: x.medic_membership_number,
             medic_price: x.medic_price,
-          }
+            medic_enabled: x.medic_enabled,
+          };
 
           title = {
             title_id: x.title_id,
@@ -165,7 +164,7 @@ class adminControllers {
             speciality_id: x.speciality_id,
           };
 
-          if(user.user_id != null){
+          if (user.user_id != null) {
             groupUser.push(user);
           }
 
@@ -176,15 +175,16 @@ class adminControllers {
           if (speciality.speciality_id != null) {
             groupSpecialities.push(speciality);
           }
-
-
         });
 
-        //limpio con la función cleanObject los id duplicados de titulos y 
+        //limpio con la función cleanObject los id duplicados de titulos y
         //especialidades
-        const uniqueUser = cleanObject(groupUser, "user_id")
+        const uniqueUser = cleanObject(groupUser, "user_id");
         const uniqueTitles = cleanObject(groupTitles, "title_id");
-        const uniqueSpecialities = cleanObject(groupSpecialities,"speciality_id");
+        const uniqueSpecialities = cleanObject(
+          groupSpecialities,
+          "speciality_id"
+        );
 
         //creo el resultado final
         finalResult = {
@@ -198,8 +198,20 @@ class adminControllers {
     });
   };
 
+  //10.- Trae la información de un paciente
+  //localhost:4000/admin/patientProfile/:user_id
+  getPatientProfile = (req, res) => {
+     const user_id  = req.params.user_id;
 
+    let sql = `SELECT user.*, province.province_name, city.city_name from user, province, city where user.city_id = city.city_id and user.province_id = province.province_id and province.province_id = city.province_id and user.user_id = ${user_id}`;
 
+    connection.query(sql, (error, result) => {
+      if (error) {
+        res.status(400).json({ error });
+      }
+      res.status(200).json(result);
+    });
+  };
 }
 
 module.exports = new adminControllers();

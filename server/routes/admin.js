@@ -41,5 +41,9 @@ router.put("/onVacation/:user_id", adminControllers.onVacation);
 //localhost:4000/admin/medicProfile/:user_id
 router.get("/medicProfile/:user_id", adminControllers.getMedicProfile);
 
+//10.- Trae la información de un paciente
+//localhost:4000/admin/patientProfile/:user_id
+router.get("/patientProfile/:user_id", adminControllers.getPatientProfile);
+
 
 module.exports = router;
