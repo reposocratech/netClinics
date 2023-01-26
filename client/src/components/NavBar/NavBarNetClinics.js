@@ -34,29 +34,29 @@ export const NavBarNetClinics = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
+        <Nav className="me-auto gap-2">
 
           {user?.type === 2 && 
           <> 
-            <Nav.Link classname='clickNav' as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link classname='clickNav' as={Link} to="/">Mis citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link className='linkClick' as={Link} to="/">Mis citas</Nav.Link>
           </>
           }
 
           {user?.type === 3 && 
           <> 
-            <Nav.Link classname='clickNav' as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link classname='clickNav' as={Link} to="/searcher">Reservar Citas</Nav.Link>
-            <Nav.Link classname='clickNav' as={Link} to="/">Mis Citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/searcher">Reservar Citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Mis Citas</Nav.Link>
           </>
           }
 
           {user?.type === 1 && 
           <> 
-            <Nav.Link classname='clickNav' as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link classname='clickNav' as={Link} to="allPatients">Pacientes</Nav.Link>
-            <Nav.Link classname='clickNav' as={Link} to="/allMedics">Médicos</Nav.Link>
-            <Nav.Link classname='clickNav' as={Link} to="/validations">Validaciones</Nav.Link>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="allPatients">Pacientes</Nav.Link>
+            <Nav.Link as={Link} to="/allMedics">Médicos</Nav.Link>
+            <Nav.Link as={Link} to="/validations">Validaciones</Nav.Link>
           </>
           }
 
