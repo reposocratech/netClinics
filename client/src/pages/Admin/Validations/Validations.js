@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container } from 'react-bootstrap'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
 
 import "./styleValidations.scss";
+import { ValidationAdmins } from "../../../components/Tables/ValidationsAdmin/ValidationAdmins";
 
 export const Validations = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
@@ -34,72 +33,16 @@ export const Validations = () => {
       })
       .catch((Err) => console.log(Err));
   };
-  
+  console.log("esto trae medics", medics);
   return (
-    <div className="bgValidation p-2">
-      <Container fluid className="whiteBoxValidation d-flex justify-content-center my-5">
-        {medics && (
-          <TableContainer component={Paper} className="tableValidation">
-            <Table sx={{ minWidth: 650 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center"></TableCell>
-                  <TableCell align="center">Profesional a validar</TableCell>
-                  <TableCell align="center">Nº Colegiado</TableCell>
-                  <TableCell align="center">Teléfono</TableCell>
-                  <TableCell align="center">Email</TableCell>
-                  <TableCell align="center">Habilitado</TableCell>
-                </TableRow>
-              </TableHead>
-
-              {/* Datos Tabla Médico */}
-              <TableBody>
-                {medics?.map((medic) => (
-                  <TableRow
-                    key={medic?.user_id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell className="viewProf" align="center"
-                    onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
-                      <img
-                        className="imageMedic"
-                        src={`assets/images/user/${medic.avatar}`}
-                      />
-                    </TableCell>
-
-                    <TableCell className="viewProf" align="center"
-                    onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
-                      {medic?.lastname}, {medic?.name}
-                    </TableCell>
-
-                    <TableCell align="center">
-                      {medic?.medic_membership_number}
-                    </TableCell>
-
-                    <TableCell align="center">{medic?.phone_number}</TableCell>
-
-                    <TableCell align="center">{medic?.email}</TableCell>
-
-                    <TableCell align="center">
-                    {!medic?.medic_enabled ?
-                      <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
-                          <div className="pointEnable"></div>
-                          Habilitar
-                      </button>
-                      :
-                      <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
-                        <div className="pointDisabled"></div>
-                        Deshabilitar
-                      </button>
-                    }
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Container>
+    <div>
+      {medics.length !== 0 ? (
+        <ValidationAdmins medics={medics} navigate={navigate} enable={enable} />
+      ) : (
+        <h1 className="mt-5 text-center">
+          Actualmente no hay validaciones de médicos pendientes
+        </h1>
+      )}
     </div>
   );
 };
