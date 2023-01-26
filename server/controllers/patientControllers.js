@@ -127,12 +127,12 @@ editPatient = (req, res) => {
       
     });
   };
-  //7.- Trae todas las citas proximas (tanto confirmadas como pendientes de confirmar) de un paciente
+  //7.- Trae todas las citas pendientes de confirmar de un paciente
   //localhost:4000/patient/getPendingAppointments/:user_id
 
   getPendingAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and  is_completed = 0`; 
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and  is_completed = 0 and appointment_is_confirmed = 0`; 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -145,13 +145,24 @@ editPatient = (req, res) => {
 
   getConfirmedAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = false and appointment_is_confirmed = 1`; 
+    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = 0 and appointment_is_confirmed = 1`; 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
     });
   };
 
+  //9.- El paciente cancela una proxima cita que todavia no esta confirmada
+  //localhost:4000/patient/cancelPendingAppointment/:appointment_id
+
+  cancelPendingAppointment = (req,res) => {
+    let {appointment_id} = req.params;
+    let sql = `DELETE FROM appointment where appointment_id = ${appointment_id}`
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      console.log(result);
+  });
+  }
   
 
 
