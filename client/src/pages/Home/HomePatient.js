@@ -34,7 +34,14 @@ export const HomePatient = () => {
             icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
             cardTitle={"Próximas Citas"}
           />
-         </Row>
+
+          <CardHome
+            navigate={()=>navigate("/searcher")}
+            icon={'/assets/icons/search_black_24dp.svg'}
+            cardTitle={"Reservar Cita"}
+          />
+        </Row>
+
       </Container>
     </div>
   )

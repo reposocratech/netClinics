@@ -1,8 +1,17 @@
-.bgThTable{
-    background-color: #009EE3;
-    
-    .thContentTable{
-        color:white;
+.bgAvailabilityMedic{
+    background-color:  #009EE3;
+
+    .MuiTableRow-head, .thContentTable {
+        background-color: white;
+        color: #1C2869 !important;
+        font-family: 'Rubik', sans-serif !important;
+    }
+
+    .MuiTableBody-root, .MuiTableCell-root {
+        color: #1C2869 !important;
+        font-family: 'Rubik', sans-serif !important;
+        width: max-content;
+        font-weight: 500;
     }
 }
 

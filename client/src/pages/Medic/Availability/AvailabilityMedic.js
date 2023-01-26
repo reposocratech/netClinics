@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {NetClinicsContext} from '../../../context/NetClinicsProvider'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,7 +8,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useParams } from 'react-router-dom';
 
 import './availabilityMedic.scss'
 import { AvailabilityCell } from '../../../components/Availability/AvailabilityCell';
@@ -59,7 +58,7 @@ export const AvailabilityMedic = () => {
 
 
   return (
-    <div className='d-flex align-items-center justify-content-center'>
+    <div className='bgAvailabilityMedic d-flex align-items-center justify-content-center'>
       <div className='w-75 my-5 -mb-5'>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
