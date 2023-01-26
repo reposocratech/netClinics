@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -18,6 +18,7 @@ import { FormEditTitlesMedic } from '../../../components/Forms/FormEditTitlesMed
 
 import './editMedicProfile.scss'
 import { FormAddSpecialityMedic } from '../../../components/Forms/FormAddSpecialityMedic/FormAddSpecialityMedic';
+import { FormAddProviderServiceMedic } from '../../../components/Forms/FormAddProviderServiceMedic/FormAddProviderServiceMedic';
 
 
 export const EditMedic = () => {
@@ -29,7 +30,63 @@ export const EditMedic = () => {
   const [dataUser, setDataUser] = useState({});
   const [dataTitles, setDataTitles] = useState([]);
   const [dataSpecialities, setDataSpecialities] = useState([]);
+  const [providerServices, setProviderServices] = useState([]);
 
+  const [listCities, setListCities] = useState([]);
+  const [listProvinces, setListProvinces] = useState([]);
+
+
+  //Peticios Axios
+  useEffect(() => {
+    //Peticion para traer todas las provincias
+    axios
+    .get("http://localhost:4000/place/getAllProvince/")
+    .then((res) => {
+        setListProvinces(res.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
+    //Petición para traer todas las ciudades de una provincia concreta
+    axios
+    .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
+        .then((res) => {
+        setListCities(res.data);
+    })
+      .catch((error) => {
+        console.log(error);
+    });  
+
+    //petición para traer las provincias/ciudades donde presta servicio el médico
+    if(!user.user_id) return
+    axios
+      .get(`http://localhost:4000/medic/providerServices/${user?.user_id}`)
+      .then((res) => {
+        setProviderServices(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+    });
+
+  }, [user]);
+  //--------------------------------------------------------------------------
+
+  //Función para traer todas las ciudades de una provincia enviada como parámetro
+  const getCity = (selectedProvince) => {
+    if (selectedProvince) {
+      axios
+        .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
+        .then((res) => {
+          setListCities(res.data);
+          setDataUser({ ...dataUser, province_id: selectedProvince});
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+  };
+  //--------------------------------------------------------------------------
 
   //Objeto con el titulo y para abrir y cerrar modal
   const [editTitle, setEditTitle] = useState({
@@ -42,15 +99,21 @@ export const EditMedic = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //------------------------------------------
+  //----------------------------------------------------------------------------
 
 
   //Modal para añadir especialidades
   const [showSpecialities, setShowSpecialities] = useState(false);
   const handleCloseSpecialities = () => setShowSpecialities(false);
   const handleShowSpecialities = () => setShowSpecialities(true);
+  //----------------------------------------------------------------------------
 
-  //Modal para editar titulos
+  //Modal para añadir provincia y ciudad donde preste servicios médico
+  const [showProviderService, setShowProviderService] = useState(false);
+  const handleCloseProviderService = () => setShowProviderService(false);
+  const handleShowProviderService = () => setShowProviderService(true);
+
+  //Función para setear edición título, objeto con modal y titulo
   const editTitleMedic = (title) =>{
     setEditTitle({open: true, title});
   }
@@ -128,7 +191,7 @@ export const EditMedic = () => {
     const newFormData = new FormData();
     newFormData.append("file", image);
     newFormData.append("editMedic", JSON.stringify(dataUser));
-
+    
     axios
       .put(`http://localhost:4000/medic/editMedic/${dataUser?.user_id}`, newFormData)
       .then((res) => {
@@ -143,27 +206,65 @@ export const EditMedic = () => {
   //----------------------------------------------------------------------------
 
   //Borrar título
-  const deleteTitle = (title) => {
-    
-    axios
-    .delete(`http://localhost:4000/title/${title}`)
-    .then((res) => {
-      setResetPage(!resetPage);
-    })
+  const deleteTitle = (title, title_name) => {
+    if(window.confirm(`¿Deseas borrar el dato académico ${title_name}?`)){
+      axios
+      .delete(`http://localhost:4000/title/${title}`)
+      .then((res) => {
+        setResetPage(!resetPage);
+        })
+    }
     
   }
   //----------------------------------------------------------------------------
 
   //Borrar especialidad
-  const deleteSpeciality = (speciality_id) => {
-    axios
-    .delete(`http://localhost:4000/speciality/${speciality_id}/${user.user_id}`)
-    .then((res) => {
-      setResetPage(!resetPage);
-    })
+  const deleteSpeciality = (speciality_id, speciality_name) => {
+
+    if(window.confirm(`¿Deseas borrar la especialidad ${speciality_name}?`)){
+        axios
+        .delete(`http://localhost:4000/speciality/${speciality_id}/${user.user_id}`)
+        .then((res) => {
+          setResetPage(!resetPage);
+        })
+    }
     
   }
   //----------------------------------------------------------------------------
+  //Borrar una provincia y ciudad donde presta servicio médico
+  const deleteProviderService = (province_id, province_name, city_id, city_name) => {
+    if(window.confirm(`¿Deseas borrar la zona de servicio ${province_name} ${city_name}?`)){
+      axios
+      .delete(`http://localhost:4000/medic/providerServices/${user.user_id}/${province_id}/${city_id}`)
+      .then((res) => {
+        setResetPage(!resetPage);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  }
+  //----------------------------------------------------------------------------
+
+  //Activar & Desactivar vacaciones
+  const vacation = () => {
+    
+    let url = `http://localhost:4000/admin/onVacation/${dataUser?.user_id}`;
+    
+    if (dataUser?.medic_is_on_vacation === 1) {
+      url = `http://localhost:4000/admin/offVacation/${dataUser?.user_id}`;
+    }
+
+    axios
+      .put(url)
+      .then((res) => {
+        setResetPage(!resetPage);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  //----------------------------------------------------------------------------
+
 
   return (
     <>
@@ -190,7 +291,7 @@ export const EditMedic = () => {
               </div>
             </div>
           </Col>
-          <Col className='d-flex justify-content-end'>
+          <Col className='d-flex justify-content-end gap-5'>
               <Form>
                   <Form.Check 
                       defaultChecked
@@ -200,29 +301,37 @@ export const EditMedic = () => {
                       label="Ver Perfil"
                   />
               </Form>
+              <Form>
+                  <Form.Check 
+                      checked={dataUser?.medic_is_on_vacation}
+                      onClick={vacation}
+                      type="switch"
+                      id="custom-switch"
+                      label="Vacaciones"
+                  />
+              </Form>
           </Col>
         </Row>
 
         {/* Datos Médico */}
         {/* Sobre mí */}
-        <Row className='ms-2 me-2 mb-3'>
-          <Col className='fondos_Sections'>
-            <Col className='mb-3'>
+        <Row className='ms-2 me-2 mb-3 fondos_Sections'>
+            <Col xs="12" md="12" className='mb-3'>
               <h4>Sobre mí</h4>
               <hr className='separador'/>
             </Col>
-            <FloatingLabel  className="mb-3" controlId="floatingTextarea2" label="Sobre mí">
-              <Form.Control
-                as="textarea"
-                name='medic_description'
-                maxLength="249"
-                value={dataUser?.medic_description}
-                onChange={handleChange}
-                placeholder="Sobre mí"
-                style={{ height: '100px' }}
-              />
-            </FloatingLabel>
-          </Col>
+            <Col xs="12" md="12">
+              <FloatingLabel  className="mb-3" controlId="floatingTextarea2">
+                <Form.Control
+                  as="textarea"
+                  name='medic_description'
+                  value={dataUser?.medic_description}
+                  onChange={handleChange}
+                  placeholder="Sobre mí"
+                  style={{ height: '100px' }}
+                />
+              </FloatingLabel>
+            </Col>
         </Row>
         {/* Nombre y Apellidos */}
         <Row className='fondos_Sections ms-2 me-2 mb-3'>
@@ -231,6 +340,7 @@ export const EditMedic = () => {
             <hr className='separador'/>
           </Col>
           <Col xs="12" md="6">
+            <label>Nombre:</label>
             <InputGroup className='mb-3'>
               <Form.Control
               placeholder='Escribe tu Nombre'
@@ -246,6 +356,7 @@ export const EditMedic = () => {
             </InputGroup>
           </Col>
           <Col xs="12" md="6">
+            <label>Apellidos:</label>
             <InputGroup className='mb-3'>
               <Form.Control
               placeholder='Escribe tus Apellidos'
@@ -261,6 +372,7 @@ export const EditMedic = () => {
             </InputGroup>
           </Col>
           <Col xs="12" md="6">
+            <label>Teléfono:</label>
             <InputGroup className='mb-3'>
               <Form.Control
               placeholder='Introduce teléfono'
@@ -276,13 +388,14 @@ export const EditMedic = () => {
             </InputGroup>
           </Col>
           <Col xs="12" md="6">
+            <label>Email:</label>
             <InputGroup className='mb-3'>
               <Form.Control
-              placeholder='Introduce DNI'
-              name='dni'
+              placeholder='Introduce Correo Electronico'
+              name='email'
               type='text'
               autoComplete='off'
-              aria-label='DNI'
+              aria-label='email'
               aria-describedby="basic-addon1"
               value={dataUser?.email}
               onChange={handleChange}
@@ -290,12 +403,102 @@ export const EditMedic = () => {
               />
             </InputGroup>
           </Col>
+          {/* Provincia Médico */}
+          <Col xs="12" md="4">
+            <label>Provincia:</label>
+            <InputGroup className='mb-3'>
+              <Form.Select value={dataUser?.province_id} onChange={(e) => getCity(e.target.value)} name="province_id" aria-label="Default select example">
+                {listProvinces?.map((province) => {
+                    return (
+                      <option
+                        key={province?.province_id}
+                        value={province?.province_id} 
+                      >
+                        {province?.province_name}
+                      </option>
+                    );
+                })}
+              </Form.Select>
+            </InputGroup>
+          </Col>
+          {/* Ciudad Médico */}
+          <Col xs="12" md="4">
+            <label>Ciudad:</label>
+            <InputGroup className='mb-3'>
+              <Form.Select value={dataUser?.city_id} name="city_id" onChange={handleChange} aria-label="Default select example">
+                {listCities?.map((city) => {
+                    return (
+                      <option
+                        key={city?.city_id}
+                        value={city?.city_id} 
+                      >
+                        {city?.city_name}
+                      </option>
+                    );
+                })}
+              </Form.Select>
+            </InputGroup>
+          </Col>
+          <Col xs="12" md="4">
+            <label>Código Postal:</label>
+            <InputGroup className='mb-3'>
+              <Form.Control
+              placeholder='Código Postal'
+              name='postal_code'
+              type='text'
+              autoComplete='off'
+              aria-label='postal_code'
+              aria-describedby="basic-addon1"
+              value={dataUser?.postal_code}
+              onChange={handleChange}
+              required
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        {/* Datos Profesionales */}
+        <Row className='fondos_Sections ms-2 me-2 mb-3'>
+          <Col xs="12 mb-3">
+            <h4>Datos Profesionales</h4>
+            <hr className='separador'/>
+          </Col>
+          <Col xs="12" md="6">
+            <label>Precio Consulta:</label>
+            <InputGroup className='mb-3'>
+              <Form.Control
+              placeholder='Precio consulta'
+              name='medic_price'
+              type='text'
+              autoComplete='off'
+              aria-label='medic_price'
+              aria-describedby="basic-addon1"
+              value={dataUser?.medic_price}
+              onChange={handleChange}
+              required
+              />
+            </InputGroup>
+          </Col>
+          <Col xs="12" md="6">
+            <label>Nº Colegiado:</label>
+            <InputGroup className='mb-3'>
+              <Form.Control
+              disabled
+              name='medic_membership_number'
+              type='text'
+              aria-label='medic_membership_number'
+              aria-describedby="basic-addon1"
+              value={dataUser?.medic_membership_number}
+              />
+            </InputGroup>
+          </Col>
         </Row>
         <Row>
           {/* Botón para guardar cambios edición perfil*/}
-          <Col className='text-center'>
-              <Button onClick={onSubmit}>Guardar Cambios Perfil</Button>
+          <Col className='gap-4 align-items-center justify-content-center d-flex'>
+              <Button className="defineButton" onClick={onSubmit}>Guardar Cambios Perfil</Button>
+              <Button className="defineButtonDanger" onClick={()=>navigate(-1)}>Cancelar Cambios</Button>
           </Col>
+          
         </Row>
        
         {/* Titulos */}
@@ -326,7 +529,7 @@ export const EditMedic = () => {
                                     <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
                                     <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
                                     <td><button onClick={()=>editTitleMedic(title)}><EditRoundedIcon/></button></td>
-                                    <td><button onClick={()=>deleteTitle(title?.title_id)}><DeleteForeverRoundedIcon/></button></td>
+                                    <td><button onClick={()=>deleteTitle(title?.title_id, title?.text)}><DeleteForeverRoundedIcon/></button></td>
                                 </tr>
 
                                 {editTitle.open &&
@@ -346,48 +549,75 @@ export const EditMedic = () => {
           </Col>
           {/* Boton para añadir datos académicos */}
           <Col sm="12" md="12" className='d-flex align-items-center justify-content-center gap-3'>
-            <Button onClick={handleShow}>Añadir Datos Académicos</Button>
+            <Button className="defineButton" onClick={handleShow}>Añadir Datos Académicos</Button>
           </Col>
         </Row>
         
         {/* Especialidades */}
         <Row className='ms-2 me-2 my-3 mb-3 fondos_Sections'>
-          <Col className='mb-3'>
+          <Col sm="12" md="12" lg="6" className='mb-3'>
             
             {dataSpecialities.length !== 0 ?
               <>
               <h4>Especialidades</h4>
               <hr className='separador'/>
-              <Table className='my-4 text-center w-50' striped bordered hover>
+              <Table className='my-4' striped bordered hover>
                 <thead>
                   <tr>
                       <th>Especialidad</th>
-                      <th>Acción</th>
+                      <th className='text-center'>Acción</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dataSpecialities.map((el) => {
                     return  <tr key={el.speciality_name}>
                               <td>{el.speciality_name}</td>
-                              <td><button onClick={()=>deleteSpeciality(el.speciality_id)}><DeleteForeverRoundedIcon/></button></td>
+                              <td className='text-center'><button onClick={()=>deleteSpeciality(el.speciality_id, el.speciality_name)}><DeleteForeverRoundedIcon/></button></td>
                             </tr>
                   })}
                 </tbody>
               </Table>
+              {/* Boton para añadir Especialidades */}
+              <div className='text-center'>
+                <Button className='defineButton' onClick={handleShowSpecialities}>Añadir Especialidades</Button>
+              </div>
               </>
               :
               <h4 className='text-center'>Actualmente no tienes agregada ninguna especialidad, agregue una</h4>
             }
           </Col>
-          {/* Boton para añadir Especialidades */}
-          <Col sm="12" md="12" className='d-flex align-items-center justify-content-center gap-3'>
-            <Button onClick={handleShowSpecialities}>Añadir Especialidades</Button>
+          {/* ------------------------------------------------------------------ */}
+          {/* Prestación servicios Provincias y Ciudades */}
+          <Col>
+              <h4>Prestación Servicios</h4>
+              <hr className='separador'/>
+              <Table className='my-4' striped bordered hover>
+                <thead>
+                  <tr>
+                      <th>Provincia</th>
+                      <th>Ciudad</th>
+                      <th className='text-center'>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {providerServices.map((services, i) => {
+                    return  <tr key={i}>
+                              <td>{services.province_name}</td>
+                              <td>{services.city_name}</td>
+                              <td className='text-center'><button onClick={()=>deleteProviderService(services.province_id, services.province_name, services.city_id, services.city_name)}><DeleteForeverRoundedIcon/></button></td>
+                            </tr>
+                  })}
+                </tbody>
+              </Table>
+              <div className='text-center'>
+                <Button className='defineButton' onClick={handleShowProviderService}>Añadir Provincia/Ciudad</Button>
+              </div>
           </Col>
         </Row>
-
-       
       </Container>
     </div>
+    {/* -------------------------------------------------------------------- */}
+    {/* Modal para Añadir Titulos */}
     {show &&
       <FormAddTitlesMedic
         user={user}
@@ -398,6 +628,8 @@ export const EditMedic = () => {
       />
     } 
 
+    {/* -------------------------------------------------------------------- */}
+    {/* Modal para Añadir Especialidades */}
     {showSpecialities &&
       <FormAddSpecialityMedic
         user={user}
@@ -408,8 +640,20 @@ export const EditMedic = () => {
         handleShowSpecialities={handleShowSpecialities}
       />
     }
+    {/* -------------------------------------------------------------------- */}
+    {/* Modal para Añadir Prestacion de Servicios (Provincia, Ciudad)*/}
+    {showProviderService &&
+      <FormAddProviderServiceMedic
+        user={user}
+        resetPage={resetPage}
+        setResetPage={setResetPage}
+        showProviderService={showProviderService}
+        handleCloseProviderService={handleCloseProviderService}
+        handleShowProviderService={handleShowProviderService}
+        listProvinces={listProvinces}
+      />
 
-
+    }
    
     </>
   )

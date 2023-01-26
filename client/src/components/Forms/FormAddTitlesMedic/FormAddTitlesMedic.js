@@ -25,20 +25,24 @@ export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, reset
     const handleChange = (e) => {
         const {name, value} = e.target;
         setTitles({...titles, [name]:value});
+        setMessageError("");
     }
 
     const handleFile = (e) => {
         setFile(e.target.files[0]);
+        setMessageError("");
     }
 
     const onSubmit = () => {
     
-      if(file !== undefined){
+      if(file !== undefined && titles.text.trim("") && titles.university.trim("") && titles.start_date){
+        
         setMessageError("");
         const newFormData = new FormData();
         newFormData.append("file", file);
         newFormData.append("addTittle", JSON.stringify(titles));
 
+        
         axios
         .post(`http://localhost:4000/title/${user.user_id}`, newFormData)
         .then((res) => {
@@ -48,13 +52,13 @@ export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, reset
         .catch((error) => {
           console.log(error);
         })
+
       }
       else{
-        setMessageError("No has completado todos los campos")
+        setMessageError("Debes completar todos los campos")
       }
 
     }
-
   return (
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -127,7 +131,7 @@ export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, reset
                 required
                 />
             </InputGroup>
-            <h4>{messageError}</h4>
+            <h4 className='text-center text-danger'>{messageError}</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
