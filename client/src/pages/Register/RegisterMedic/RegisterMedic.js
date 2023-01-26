@@ -23,8 +23,9 @@ const initialMedicValue = {
 export const RegisterMedic = () => {
     const [registerMedic, setRegisterMedic] = useState(initialMedicValue);
     const [documents, setDocuments] = useState([]);
-    const [message1, setMessage1] = useState(false);
-    const [message2, setMessage2] = useState(false);
+
+    const [message, setMessage] = useState("");
+
     const [listProvinces, setListProvinces] = useState([]);
     const [listCities, setListCities] = useState([]);
     const [listSpecialities, setListSpecialities] = useState([]);
@@ -39,15 +40,30 @@ export const RegisterMedic = () => {
 
     const handleFiles = (e) => {
         setDocuments(e.target.files);
-        console.log(documents);
     }
 
-    const onSubmit = (event) => {
-      if(!emailValidator(registerMedic.email) || !registerMedic.password){
-          setMessage1(true)
-          setMessage2(false)
+    const onSubmit = () => {
+      if(
+          !emailValidator(registerMedic.email) 
+          || !registerMedic.password 
+          || !registerMedic.name.trim("")
+          || !registerMedic.lastname.trim("")
+          || !registerMedic.address.trim("")
+          || !registerMedic.phone_number.trim("")
+          || !registerMedic.postal_code.trim("")
+          || !registerMedic.province_id
+          || !registerMedic.city_id
+          || !registerMedic.medic_membership_number.trim("")
+          || !registerMedic.speciality_id
+          
+        ){
+          setMessage("Tienes campos sin rellenar");
+      }
+      else if(documents.length < 2){
+        setMessage("Tienes que adjuntar el documento de Colegiado y Titulo Universitario")
       }
       else{
+          setMessage("");
           const newFormData = new FormData();
           newFormData.append('regMedic', JSON.stringify(registerMedic));
 
@@ -56,7 +72,7 @@ export const RegisterMedic = () => {
                 newFormData.append('file', doc)
             }
           }
-          
+          /*
           axios
               .post("http://localhost:4000/medic/createMedic", newFormData)
               .then((res) => {
@@ -64,11 +80,10 @@ export const RegisterMedic = () => {
                   navigate('/');
               })
               .catch((error) => {
-                  setMessage1(false)
-                  setMessage2(true)
+                  
                   console.log(error);
               })
-      
+            */
       }
     }
 
@@ -116,8 +131,7 @@ export const RegisterMedic = () => {
   return (
     <FormRegisterMedic
         registerMedic={registerMedic}
-        message1={message1}
-        message2={message2}
+        message={message}
         listProvinces={listProvinces}
         listCities={listCities}
         listSpecialities={listSpecialities}
