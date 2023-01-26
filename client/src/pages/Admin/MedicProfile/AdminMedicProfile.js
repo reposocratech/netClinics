@@ -1,13 +1,13 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { NetClinicsContext } from "../../../context/NetClinicsProvider";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
-import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import { useNavigate, useParams } from "react-router-dom";
 import FilePresentRoundedIcon from "@mui/icons-material/FilePresentRounded";
+
+import { Button } from "react-bootstrap";
 
 import "./styleAdminMedicProfile.scss";
 
@@ -15,13 +15,12 @@ export const AdminMedicProfile = () => {
   const [dataUser, setDataUser] = useState({});
   const [dataTitles, setDataTitles] = useState([]);
   const [dataSpecialities, setDataSpecialities] = useState([]);
-  const {user_id} = useParams();
+  const { user_id } = useParams();
   console.log("este es el user_id", user_id);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-   
     axios
       .get(`http://localhost:4000/admin/medicProfile/${user_id}`)
       .then((res) => {
@@ -35,6 +34,15 @@ export const AdminMedicProfile = () => {
       });
   }, []);
 
+  const enable = (id, is_enable) => {
+    let url = `http://localhost:4000/admin/enableMedic/${id}`;
+    axios
+      .put(url)
+      .then((res) => {
+        navigate(-1);
+      })
+      .catch((Err) => console.log(Err));
+  };
   return (
     <div className="profile-medic-background py-3 pb-3 pe-1 ps-1 d-flex align-items-center justify-content-center">
       <Container className="aboutme-profile pb-3">
@@ -132,6 +140,17 @@ export const AdminMedicProfile = () => {
             </ul>
           </Col>
         </Row>
+        <div className="d-flex justify-content-center">
+          <Button className="m-1" onClick={() => navigate(-1)}>Volver</Button>
+          {dataUser.medic_enabled === 0 && (
+              <Button
+              className="m-1"
+                onClick={() => enable(dataUser.user_id, dataUser.medic_enabled)}
+              >
+                Habilitar
+              </Button>
+          )}
+        </div>
       </Container>
     </div>
   );

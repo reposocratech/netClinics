@@ -7,6 +7,7 @@ import { AllMedics } from '../pages/Admin/AllMedics/AllMedics';
 import { AllPatients } from '../pages/Admin/AllPatients/AllPatients';
 import { EditAdmin } from '../pages/Admin/EditAdmin/EditAdmin';
 import { AdminMedicProfile } from '../pages/Admin/MedicProfile/AdminMedicProfile';
+import { AdminPatientProfile } from '../pages/Admin/PatientProfile/AdminPatientProfile';
 import { Validations } from '../pages/Admin/Validations/Validations';
 import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
@@ -191,6 +192,11 @@ export const AppRoutes = () => {
                      <Route
                     path='/medicProfile/:user_id'
                     element={<AdminMedicProfile/>}
+                    />
+                    {/* Ruta para ver perfil de un paciente */}
+                    <Route
+                    path='/patientProfile/:user_id'
+                    element={<AdminPatientProfile/>}
                     />
                   </>
                 }
