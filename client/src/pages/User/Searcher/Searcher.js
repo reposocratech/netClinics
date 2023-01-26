@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Container, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router';
 import { SearchAppointment } from '../../../components/Appointment/SearchAppointment';
 import { FormSearchMedic } from '../../../components/Forms/FormSearchMedic/FormSearchMedic';

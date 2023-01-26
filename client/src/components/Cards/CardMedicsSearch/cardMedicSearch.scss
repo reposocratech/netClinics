@@ -1,0 +1,36 @@
+.cardMedic{
+    background-color: #F3F3F3;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 15px;
+    width: fit-content; 
+
+    .cardImgMedic{
+        width: 100%;
+
+        .imgMedic{
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+
+        }
+    }
+}
+
+.defineButton {
+    appearance: none;
+    background-color: rgba($color: #1C2869, $alpha: 1.0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Rubik', sans-serif;
+    width: 10rem;
+    padding: 0.3rem;
+}
+
+.defineButton:hover {
+    background-color: #293a9a;
+}
