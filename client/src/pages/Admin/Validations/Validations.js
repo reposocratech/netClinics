@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import Container from "react-bootstrap/esm/Container";
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/esm/Col";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
 
@@ -35,14 +38,20 @@ export const Validations = () => {
   };
   console.log("esto trae medics", medics);
   return (
-    <div>
-      {medics.length !== 0 ? (
-        <ValidationAdmins medics={medics} navigate={navigate} enable={enable} />
-      ) : (
-        <h1 className="mt-5 text-center">
-          Actualmente no hay validaciones de médicos pendientes
-        </h1>
-      )}
+      <div className="bgValidation d-flex align-items-center justify-content-center">
+      <Container className="whiteBoxValidationText">
+        <Row className="">
+          <Col>
+            {medics.length !== 0 ? (
+              <ValidationAdmins medics={medics} navigate={navigate} enable={enable} />
+            ) : (
+              <h1 className="text-center p-3">
+                Actualmente no hay validaciones de médicos pendientes
+              </h1>
+            )}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
