@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import './myDatesPatient.scss';
+import axios from 'axios';
 
 export const UserPendingAppointments = () => {
   const [appointmentData, setAppointmentData] = useState();
