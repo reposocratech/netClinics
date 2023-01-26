@@ -1,59 +1,63 @@
-.profile-medic-background{
-    color: #1C2869;
-    background-color: #009EE3;
-    min-height: 100vh;
+.profile-medic-background {
+  color: #1c2869;
+  background-color: #009ee3;
+  min-height: 100vh;
 
-    .aboutme-profile{
-        background-color: rgb(238, 238, 238);
-        border-radius: 20px;
-        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  .aboutme-profile {
+    background-color: rgb(238, 238, 238);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
-        .containerAvatarPerfil{
-
-          
-           
-            .avatarPefil{
-                width: 192px;
-                height: 192px;
-                border-radius: 50%;
-                object-position: center;
-                object-fit: contain;
-                border: 6px solid rgb(255, 255, 255);
-                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-            }
-        }
+    .containerAvatarPerfil {
+      .avatarPefil {
+        width: 192px;
+        height: 192px;
+        border-radius: 50%;
+        object-position: center;
+        object-fit: cover;
+        border: 6px solid rgb(255, 255, 255);
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+      }
     }
 
-    .fondos_Sections{
-        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-        border-radius: 20px;
-        padding: 1rem;
+    .name {
+      font-weight: 700;
+    }
 
-        h4{
-            margin: 0;
-            padding: 0;
-        }
+    .lastname {
+      font-weight: 300;
+    }
 
-        .separador {
-            width: 10rem;
-            margin: 0;
-            border:2px solid #1C2869;
-            opacity: 1;
-        }
+    .section {
+      padding: 1rem;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      border-radius: 20px;
 
-        .campos{
-            font-weight: bold;
-        }
+      .campos {
+        font-weight: 800;
+      }
 
-        button{
-            border: none;
-        }
+      button {
+        border: none;
+        background-color: transparent;
+      }
 
-        div > p {
-            margin: 0;
-        }
+      div > p {
+        margin: 0;
+      }
 
-    }   
+      .separador {
+        margin: 0;
+        border: 1.5px solid #1c2869;
+        opacity: 1;
+        margin-bottom: 1rem;
+      }
+
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
 }
-
-
