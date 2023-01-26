@@ -31,7 +31,6 @@
       }
 
       .separador {
-        width: 10rem;
         margin: 0;
         border:2px solid #1C2869;
         opacity: 1;
@@ -39,10 +38,6 @@
 
       .campos{
         font-weight: bold;
-      }
-
-      button{
-        border: none;
       }
 
       div > p {
@@ -53,6 +48,45 @@
         resize: none;
       }
 
+      table * button {
+        border: none;
+        background-color: transparent;
+      }
+
+    }
+
+    .defineButton {
+      appearance: none;
+      background-color: rgba($color: #1C2869, $alpha: 1.0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      font-family: 'Rubik', sans-serif;
+      width: 15rem;
+      padding: 0.3rem;
+    }
+
+    .defineButton:hover {
+        background-color: #293a9a;
+    }
+
+    .defineButtonDanger {
+      appearance: none;
+      background-color: rgba($color: #da0f0f, $alpha: 1.0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      font-family: 'Rubik', sans-serif;
+      width: 15rem;
+      padding: 0.3rem;
+    }
+
+    .defineButtonDanger:hover {
+        background-color: #9a2929;
     }
 
     .avatar-upload {

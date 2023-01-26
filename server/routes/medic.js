@@ -50,7 +50,20 @@ router.get("/getConfirmedAppointments/:user_id", medicControllers.getConfirmedAp
 //localhost:4000/medic/availabilities
 router.post("/availabilities", verify, medicControllers.addAvailability);
 
+//------------------------------------------------------
+//9.- Trae las provincias y ciudades donde presta servicios el médico
+//localhost:4000/medic/providerServices/:user_id
+router.get("/providerServices/:user_id", medicControllers.providerServices);
 
+//------------------------------------------------------
+//10.- Inserta provincia y ciudad donde quiera prestar servicio el médico
+//localhost:4000/medic/providerServices/:user_id
+router.post("/providerServices/:user_id", medicControllers.providerServicesAdd);
+
+//------------------------------------------------------
+//11.- Elimina una provincia y ciudad donde preste servicio un médico
+//localhost:4000/medic/providerServices/:user_id/:province_id/:city_id
+router.delete("/providerServices/:user_id/:province_id/:city_id", medicControllers.providerServicesDel);
 
 
 module.exports = router;

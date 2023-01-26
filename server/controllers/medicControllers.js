@@ -137,6 +137,7 @@ class medicControllers {
             medic_description: x.medic_description,
             medic_membership_number: x.medic_membership_number,
             medic_price: x.medic_price,
+            medic_is_on_vacation: x.medic_is_on_vacation
           }
 
           title = {
@@ -218,11 +219,12 @@ class medicControllers {
     let {user_id} = req.params;
   
   
-    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, medic_description} = JSON.parse(req.body.editMedic);
+    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, medic_description, medic_price} = JSON.parse(req.body.editMedic);
 
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
     postal_code = parseInt(postal_code);
+    medic_price = parseInt(medic_price);
     
 
     let img = "";
@@ -234,16 +236,14 @@ class medicControllers {
       sql= `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
 
     }
-
-    console.log("esta es la consulta ", sql);
-
+    
     connection.query(sql, (error, result) => {
 
       if(error){
         res.status(400).json({ error })
       }  
       else{
-        let sql2 = `UPDATE medic_data SET medic_description = '${medic_description}' WHERE user_id = ${user_id}`;
+        let sql2 = `UPDATE medic_data SET medic_description = '${medic_description}', medic_price = ${medic_price} WHERE user_id = ${user_id}`;
 
         connection.query(sql2, (error, result) => {
           if(error){
@@ -255,6 +255,7 @@ class medicControllers {
       res.status(200).json({updateProfile : true});
 
     });
+    
 
   };
 
@@ -340,9 +341,61 @@ class medicControllers {
       }
     });
 
+  };
+
+  //9.- Trae las provincias y ciudades donde presta servicios el médico
+  //localhost:4000/medic/providerServices/:user_id
+  providerServices = (req, res) => {
+    
+    let {user_id} = req.params;
+
+    let sql = `select medic_city.province_id, province.province_name, city.city_name, medic_city.city_id 
+    from medic_city, city, province
+    where medic_city.city_id = city.city_id
+    and medic_city.province_id = province.province_id
+    and city.province_id = province.province_id and user_id=${user_id}`;
+
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    });
+
+  };
+
+
+  //------------------------------------------------------
+  //10.- Inserta provincia y ciudad donde quiera prestar servicio el médico
+  //localhost:4000/medic/providerServices/:user_id
+  providerServicesAdd = (req, res) => {
+
+    let {user_id} = req.params;
+
+    let {province_id, city_id} = req.body;
+
+    province_id = parseInt(province_id);
+    city_id = parseInt(city_id);
+    
+    let sql = `INSERT INTO medic_city VALUES (${user_id}, ${province_id}, ${city_id})`;
+
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    });
+
   }
 
-  
+  //------------------------------------------------------
+  //11.- Elimina una provincia y ciudad donde preste servicio un médico
+  //localhost:4000/medic/providerServices/:user_id/:province_id/:city_id
+  providerServicesDel = (req, res) => {
+    let {user_id, province_id, city_id} = req.params;
+
+    let sql = `DELETE FROM medic_city WHERE user_id = ${user_id} AND province_id = ${province_id} AND city_id = ${city_id}`;
+
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    })
+
+  }
+
 
 }
 
