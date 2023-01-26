@@ -63,7 +63,6 @@ export const UserFollowingAppointments = () => {
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
 
                   <TableCell align="center">{appointment.appointment_address}</TableCell>
-                  
                 </TableRow>)
               })}
             </TableBody>
@@ -71,5 +70,5 @@ export const UserFollowingAppointments = () => {
         </TableContainer>
       </Container>
     </div>
-  )
-}
+  );
+};

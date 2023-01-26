@@ -1,10 +1,8 @@
-import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import './myDatesPatient.scss';
-
 
 export const UserPendingAppointments = () => {
   const [appointmentData, setAppointmentData] = useState();
@@ -47,7 +45,6 @@ export const UserPendingAppointments = () => {
       .catch((err) => console.log(err));
    };
   return (
-
     <div className="bgAppointmentHistory p-2">
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
         <TableContainer component={Paper} className="tableAppointmentHistory">
@@ -90,6 +87,5 @@ export const UserPendingAppointments = () => {
         </TableContainer>
       </Container>
     </div>
-    
-  )
-}
+  );
+};

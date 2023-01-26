@@ -37,9 +37,9 @@ export const Validations = () => {
   
   return (
     <div className="bgValidation p-2">
-      <Container fluid className="whiteBoxValidation my-5">
+      <Container fluid className="whiteBoxValidation d-flex justify-content-center my-5">
         {medics && (
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} className="tableValidation">
             <Table sx={{ minWidth: 650 }} aria-label="customized table">
               <TableHead>
                 <TableRow>

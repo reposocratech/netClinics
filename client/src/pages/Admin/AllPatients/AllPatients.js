@@ -1,14 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
@@ -42,10 +34,10 @@ export const AllPatients = () => {
 
   return (
     <div className="bgAllPatients p-2">
-      <Container fluid className="whiteBoxAllPatients my-5">
+      <Container fluid className="whiteBoxAllPatients d-flex justify-content-center my-5">
         {patients && (
           <TableContainer component={Paper} className="tableAllPatient">
-            <Table sx={{ minWidth: 650 }}>
+            <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
                   <TableCell align="center"></TableCell>
@@ -91,27 +83,29 @@ export const AllPatients = () => {
                     <TableCell align="center">{patient.email}</TableCell>
 
                     <TableCell align="center" size="small">
-                      {patient?.is_deleted ? (
-                        <button
-                          onClick={() =>
-                            handleEdit(patient.user_id, patient.is_deleted)
-                          }
-                          className="buttonEnabledUser"
-                        >
-                          <div className="pointEnable"></div>
-                          Habilitar
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() =>
-                            handleEdit(patient.user_id, patient.is_deleted)
-                          }
-                          className="buttonDisabledUser"
-                        >
-                          <div className="pointDisabled"></div>
-                          Deshabilitar
-                        </button>
-                      )}
+                      <div className="d-flex justify-content-center">
+                        {patient?.is_deleted ? (
+                          <button
+                            onClick={() =>
+                              handleEdit(patient.user_id, patient.is_deleted)
+                            }
+                            className="buttonEnabledUser"
+                          >
+                            <div className="pointEnable"></div>
+                            Habilitar
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() =>
+                              handleEdit(patient.user_id, patient.is_deleted)
+                            }
+                            className="buttonDisabledUser"
+                          >
+                            <div className="pointDisabled"></div>
+                            Deshabilitar
+                          </button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
