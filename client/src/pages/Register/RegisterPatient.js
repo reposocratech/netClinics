@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { FormRegisterPatient } from '../../components/Forms/FormRegisterPatient/FormRegisterPatient';
 import axios from 'axios';
+import { emailValidator } from '../../Utils/checkEmail/checkEmail';
+
 
 const initialPatientValue = {
   name: '',
@@ -61,7 +63,7 @@ export const RegisterPatient = () => {
   }
 
   const onSubmit = (event) => {
-      if(!registerPatient.email || !registerPatient.password){
+      if(!emailValidator(registerPatient.email) || !registerPatient.password){
           setMessage1(true)
           setMessage2(false)
       }

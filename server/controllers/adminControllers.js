@@ -69,7 +69,7 @@ class adminControllers {
   // localhost:4000/admin/getAllMedicsValidation
   getAllMedicsValidation = (req, res) => {
     let sql =
-      "SELECT user.*, medic_data.*, province_name, city.city_name FROM user left join medic_data on user.user_id = medic_data.user_id  left join title on user.user_id = title.user_id join province on user.province_id = province.province_id join city on user.city_id = city.city_id and province.province_id = city.province_id where user.type = 2 and medic_data.medic_enabled = 0 group by user.user_id order by user.lastname";
+      "SELECT user.*, medic_data.*, province_name, city.city_name FROM user left join medic_data on user.user_id = medic_data.user_id  left join title on user.user_id = title.user_id join province on user.province_id = province.province_id join city on user.city_id = city.city_id and province.province_id = city.province_id where user.type = 2 and medic_data.medic_enabled = 0 and user.is_deleted = 0  group by user.user_id order by user.lastname";
 
     connection.query(sql, (error, result) => {
       if (error) {
@@ -148,6 +148,7 @@ class adminControllers {
             medic_membership_number: x.medic_membership_number,
             medic_price: x.medic_price,
             medic_enabled: x.medic_enabled,
+            is_deleted: x.is_deleted,
           };
 
           title = {
