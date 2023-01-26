@@ -10,7 +10,6 @@ class placeControllers{
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         });
     }
     
@@ -52,7 +51,6 @@ class placeControllers{
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         });
 
 
@@ -68,7 +66,6 @@ class placeControllers{
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         });
 
     }

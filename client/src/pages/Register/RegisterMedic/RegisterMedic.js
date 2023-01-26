@@ -17,6 +17,7 @@ const initialMedicValue = {
     city_id: '',
     medic_membership_number: '',
     document: '',
+    speciality_id: '',
 }
 
 export const RegisterMedic = () => {
@@ -26,6 +27,7 @@ export const RegisterMedic = () => {
     const [message2, setMessage2] = useState(false);
     const [listProvinces, setListProvinces] = useState([]);
     const [listCities, setListCities] = useState([]);
+    const [listSpecialities, setListSpecialities] = useState([]);
 
 
     const navigate = useNavigate();
@@ -41,7 +43,7 @@ export const RegisterMedic = () => {
     }
 
     const onSubmit = (event) => {
-      if(!emailValidator(registerMedic.email)|| !registerMedic.password){
+      if(!emailValidator(registerMedic.email) || !registerMedic.password){
           setMessage1(true)
           setMessage2(false)
       }
@@ -79,6 +81,17 @@ export const RegisterMedic = () => {
           .catch((error) =>{
             console.log(error);
           })
+        
+        axios
+          .get("http://localhost:4000/speciality/getAllSpecialities")
+          .then((res) => {
+            setListSpecialities(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+
       }, []);
 
     const getCity = (selectedProvince) => {
@@ -97,8 +110,7 @@ export const RegisterMedic = () => {
       };
 
     const handleCities = (e) => {
-        // setSelectedProvince(e.target.value);
-        setRegisterMedic({...registerMedic, city_id : e.target.value});
+      setRegisterMedic({...registerMedic, city_id : e.target.value});
     }
 
   return (
@@ -108,6 +120,7 @@ export const RegisterMedic = () => {
         message2={message2}
         listProvinces={listProvinces}
         listCities={listCities}
+        listSpecialities={listSpecialities}
         navigate={navigate}
         handleChange={handleChange}
         handleFiles={handleFiles}

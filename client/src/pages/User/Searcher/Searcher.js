@@ -62,8 +62,6 @@ export const Searcher = () => {
   }, [])
     
 
-    // console.log(medicsSearched);
-
   const getCity = (selectedProvince) => {
       
       if(selectedProvince){

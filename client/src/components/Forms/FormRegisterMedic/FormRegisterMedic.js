@@ -6,7 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import './FormRegisterMedic.scss';
 
-export const FormRegisterMedic = ({ registerMedic, message1, message2, listProvinces, listCities, navigate, handleChange, handleFiles, onSubmit, getCity, handleCities}) => {
+export const FormRegisterMedic = ({ registerMedic, message1, message2, listProvinces, listCities, navigate, handleChange, handleFiles, onSubmit, getCity, handleCities, listSpecialities}) => {
   return (
     <Container fluid className='bgColorFormRegister d-flex flex-column'>
       <Row>
@@ -157,6 +157,18 @@ export const FormRegisterMedic = ({ registerMedic, message1, message2, listProvi
               </InputGroup>
 
               <InputGroup className='mb-3'>
+                <select className='selectMedic' name='speciality_id' onChange={handleChange}>
+                <option>Elige Especialidad</option>
+                {listSpecialities?.map((el) => {
+                  return (
+                      <option key={el.speciality_id} value={el.speciality_id}>{el.speciality_name}</option>    
+                    )
+                  })}
+                </select>
+              </InputGroup>
+
+
+              <InputGroup className='mb-3'>
                 <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-envelope"></i></InputGroup.Text>
 
                 <Form.Control
@@ -174,7 +186,7 @@ export const FormRegisterMedic = ({ registerMedic, message1, message2, listProvi
 
               <InputGroup className='mb-3'>
                 
-                <InputGroup.Text id="basic-addon1" className='inputRegister'><i class="fa-solid fa-lock"></i></InputGroup.Text>
+                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-lock"></i></InputGroup.Text>
                 
                 <Form.Control
                 placeholder="Introduce tu Contraseña"

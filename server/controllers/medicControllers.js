@@ -25,11 +25,13 @@ class medicControllers {
       province_id,
       city_id,
       medic_membership_number,
+      speciality_id,
     } = JSON.parse(req.body.regMedic);
 
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
     postal_code = parseInt(postal_code);
+    speciality_id = parseInt(speciality_id);
 
     let documents = [""];
 
@@ -62,19 +64,37 @@ class medicControllers {
               connection.query(sql2, (err, result) => {
                 if (err) {
                   res.status(500).json("Ha habido un error");
-                } else {
-                  documents.forEach((document) => {
-                    //hago una insert de cada documento
-                    let sql = `INSERT INTO title (document, user_id) 
-                    VALUES ('${document.filename}', ${id_user})`;
-
-                    connection.query(sql, (error, result) => {
-                      if (error) {
-                        console.log(error);
-                      }
-                    });
-                  });
                 }
+                else{
+                  let sql = `INSERT INTO medic_city VALUES(${id_user}, ${province_id}, ${city_id})`;
+                    connection.query(sql, (error, result) => {
+                      if(error){
+                        res.status(500).json("Ha habido un error");
+                      }
+                      else{
+                        let sql = `INSERT INTO medic_data_speciality VALUES(${speciality_id}, ${id_user})`;
+                        connection.query(sql, (error, result)=>{
+                          if(error){
+                            res.status(500).json("Ha habido un error");
+                          }
+                          else{
+                            documents.forEach((document) => {
+                              //hago una insert de cada documento
+                              let sql = `INSERT INTO title (document, user_id) 
+                              VALUES ('${document.filename}', ${id_user})`;
+                        
+                              connection.query(sql, (error, result) => {
+                                if (error) {
+                                  res.status(500).json("Ha habido un error");
+                                }
+                              });
+                            });
+                          }
+                        })
+                      }
+                    })
+                } 
+                
               });
               res.status(200).json(result);
             }
@@ -85,6 +105,7 @@ class medicControllers {
       res.status(500).json("Ha habido un error");
     }
   };
+
 
   //------------------------------------------------------
   //2.-Trae la información de un medico
@@ -317,7 +338,6 @@ class medicControllers {
         res.status(400).json("Ha habido un error");
       }
       else{
-        console.log(result);
         if(!result.length){
           connection.query(sql2, (error, result) => {
             if(error){
