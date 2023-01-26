@@ -39,23 +39,24 @@ export const NavBarNetClinics = () => {
           {user?.type === 2 && 
           <> 
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link className='linkClick' as={Link} to="/">Mis citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Citas Realizadas</Nav.Link>
+            <Nav.Link as={Link} to="/">Citas Pendientes</Nav.Link>
+            <Nav.Link as={Link} to="/">Próximas Citas</Nav.Link>
+            <Nav.Link as={Link} to="/">Disponibilidad</Nav.Link>
           </>
           }
 
           {user?.type === 3 && 
           <> 
-            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/searcher">Reservar Citas</Nav.Link>
+            <Nav.Link as={Link} to="/searcher">Reservar Cita</Nav.Link>
             <Nav.Link as={Link} to="/">Mis Citas</Nav.Link>
           </>
           }
 
           {user?.type === 1 && 
           <> 
-            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
             <Nav.Link as={Link} to="allPatients">Pacientes</Nav.Link>
-            <Nav.Link as={Link} to="/allMedics">Médicos</Nav.Link>
+            <Nav.Link as={Link} to="/allMedics">Profesionales</Nav.Link>
             <Nav.Link as={Link} to="/validations">Validaciones</Nav.Link>
           </>
           }
