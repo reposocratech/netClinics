@@ -36,7 +36,7 @@ router.put("/editPatient/:user_id", multerSingleImage("user"), patientController
 router.get("/getAppointmentHistory/:user_id", patientController.getAppointmentHistory);
 
 //----------------------------------------------------------------
-//7.-Trae todas las citas proximas (tanto confirmadas como pendientes de confirmar) de un paciente
+//7.-Trae todas las citas pendientes de confirmar de un paciente
 //localhost:4000/patient/getAppointmentHistory/:user_id  
 router.get("/getPendingAppointments/:user_id", patientController.getPendingAppointments);
 
@@ -44,6 +44,11 @@ router.get("/getPendingAppointments/:user_id", patientController.getPendingAppoi
 //8.-Trae todas las citas realizadas de un paciente
 //localhost:4000/patient/getAppointmentHistory/:user_id  
 router.get("/getConfirmedAppointments/:user_id", patientController.getConfirmedAppointments);
+
+//----------------------------------------------------------------
+//9.- El paciente cancela una proxima cita que todavia no esta confirmada
+//localhost:4000/patient/cancelPendingAppointment/:appointment_id  
+router.delete("/cancelPendingAppointment/:appointment_id", patientController.cancelPendingAppointment);
 
 
 module.exports = router;
