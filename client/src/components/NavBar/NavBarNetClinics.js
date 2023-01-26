@@ -29,7 +29,7 @@ export const NavBarNetClinics = () => {
     <Navbar className='bgNavbar' expand="lg">
     <Container>
             
-      <Navbar.Brand as={Link} to="/">
+      <Navbar.Brand>
         <img className='logoNavbar' src="/assets/images/logo/Logo-NetClinics1-01.png"/>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -39,22 +39,26 @@ export const NavBarNetClinics = () => {
           {user?.type === 2 && 
           <> 
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/">Citas Realizadas</Nav.Link>
-            <Nav.Link as={Link} to="/">Citas Pendientes</Nav.Link>
-            <Nav.Link as={Link} to="/">Próximas Citas</Nav.Link>
-            <Nav.Link as={Link} to="/">Disponibilidad</Nav.Link>
+            <Nav.Link as={Link} to="/medicAppointmentsHistory">Citas Realizadas</Nav.Link>
+            <Nav.Link as={Link} to="/medicPendingAppointments">Citas Pendientes</Nav.Link>
+            <Nav.Link as={Link} to="/medicFollowingAppointments">Próximas Citas</Nav.Link>
+            <Nav.Link as={Link} to="/availability">Disponibilidad</Nav.Link>
           </>
           }
 
           {user?.type === 3 && 
           <> 
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/userAppointmentsHistory">Citas Realizadas</Nav.Link>
+            <Nav.Link as={Link} to="/userPendingAppointments">Citas Pendientes</Nav.Link>
+            <Nav.Link as={Link} to="/userFollowingAppointments">Próximas Citas</Nav.Link>
             <Nav.Link as={Link} to="/searcher">Reservar Cita</Nav.Link>
-            <Nav.Link as={Link} to="/">Mis Citas</Nav.Link>
           </>
           }
 
           {user?.type === 1 && 
           <> 
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
             <Nav.Link as={Link} to="allPatients">Pacientes</Nav.Link>
             <Nav.Link as={Link} to="/allMedics">Profesionales</Nav.Link>
             <Nav.Link as={Link} to="/validations">Validaciones</Nav.Link>
