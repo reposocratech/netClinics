@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
 import { Container } from "react-bootstrap";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
-import axios from 'axios';
-import './myDatesPatient.scss'
+import './myDatesPatient.scss';
 
 export const UserFollowingAppointments = () => {
   const [appointmentData, setAppointmentData] = useState();
@@ -46,7 +46,6 @@ export const UserFollowingAppointments = () => {
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Hora</TableCell>
                 <TableCell align="center">Dirección</TableCell>
-                <TableCell align="center">Cancelación</TableCell>
               </TableRow>
             </TableHead>
             
@@ -64,11 +63,6 @@ export const UserFollowingAppointments = () => {
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
 
                   <TableCell align="center">{appointment.appointment_address}</TableCell>
-
-                  <TableCell align="center">
-                    <button>Cancelar</button>
-                  </TableCell>
-
                 </TableRow>)
               })}
             </TableBody>

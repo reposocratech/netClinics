@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Container } from "react-bootstrap";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import { Container } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
-import axios from 'axios';
-import './myDatesPatient.scss'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import './myDatesPatient.scss';
 
 export const UserPendingAppointments = () => {
   const [appointmentData, setAppointmentData] = useState();
+  
     const [listMedics, setListMedics] = useState([]);
-    const { user } = useContext(NetClinicsContext);
+    const { user,resetPage,setResetPage } = useContext(NetClinicsContext);
     useEffect(() => {
       if(!user.user_id) return
       axios
@@ -26,7 +26,7 @@ export const UserPendingAppointments = () => {
             setListMedics(res.data);
         })
         .catch((err) => console.log(err));
-    }, [])
+    }, [resetPage])
 
     const findMedicName = (id_medic) => {
       return listMedics?.find((el)=> {
@@ -35,6 +35,15 @@ export const UserPendingAppointments = () => {
          }
      });
    }
+
+   const cancelAppointment = (id_appointment) => {
+    axios
+      .delete(`http://localhost:4000/patient/cancelPendingAppointment/${id_appointment}`)
+      .then((res)=>{
+          setResetPage(!resetPage);
+      })
+      .catch((err) => console.log(err));
+   };
   return (
     <div className="bgAppointmentHistory p-2">
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
@@ -66,7 +75,9 @@ export const UserPendingAppointments = () => {
                   <TableCell align="center">{appointment.appointment_address}</TableCell>
 
                   <TableCell align="center">
-                    <button>Cancelar</button>
+                    <button 
+                    onClick={()=>cancelAppointment(appointment?.appointment_id)}
+                    >Cancelar</button>
                   </TableCell>
 
                 </TableRow>)

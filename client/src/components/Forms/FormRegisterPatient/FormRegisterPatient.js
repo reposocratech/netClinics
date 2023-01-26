@@ -179,7 +179,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <div className='mb-2'>
-                {message1 && <p>Introduce todos los datos</p>}
+                {message1 && <p>Introduce correctamente todos los datos</p>}
                 {message2 && <p>Ya existe una cuenta con este email</p>}
               </div>
             </div>
