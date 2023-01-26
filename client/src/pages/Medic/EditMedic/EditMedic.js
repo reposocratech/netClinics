@@ -583,7 +583,12 @@ export const EditMedic = () => {
               </div>
               </>
               :
-              <h4 className='text-center'>Actualmente no tienes agregada ninguna especialidad, agregue una</h4>
+              <>
+                <h4 className='text-center'>Actualmente no tienes agregada ninguna especialidad, agregue una</h4>
+                <div className='text-center my-4'>
+                  <Button className='defineButton' onClick={handleShowSpecialities}>Añadir Especialidades</Button>
+                </div>
+              </>
             }
           </Col>
           {/* ------------------------------------------------------------------ */}
