@@ -36,7 +36,7 @@ export const AllPatients = () => {
       {patients.length !== 0 ? (
         <AllPatiensAdmin
           patients={patients}
-          navitage={navigate}
+          navigate={navigate}
           handleEdit={handleEdit}
         />
       ) : (
