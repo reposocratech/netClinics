@@ -6,3 +6,7 @@ var router = express.Router();
 //localhost:4000/appointment/getInfoAvailableMedic
 router.post("/getInfoAvailableMedic",appointmentControllers.getInfoAvailableMedic)
 module.exports = router;
+
+//2.-Trae disponibilidad de un médico
+//localhost:4000/appointment/:medic_id/:day_id
+router.get("/:medic_id/:day_id", appointmentControllers.availabilityMedic);
