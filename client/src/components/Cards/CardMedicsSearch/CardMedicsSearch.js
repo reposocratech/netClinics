@@ -2,10 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import { Card } from 'react-bootstrap'
 import axios from 'axios'
+
 import './cardMedicSearch.scss'
+import { SearchAvailabilityMedicAppointment } from '../../Appointment/SearchAvailabilityMedicAppointment/SearchAvailabilityMedicAppointment';
 
 export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
-    const [listSpecialities, setListSpecialities] = useState([])
+
+    
+    const [listSpecialities, setListSpecialities] = useState([]);
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     useEffect(() => {
         axios
           .get(`http://localhost:4000/speciality/getAllSpecialities`)
@@ -15,14 +24,18 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
           .catch((error) => {
           console.log(error);
           });
-      }, [])
-      const findSpeciality = (id_speciality) => {
-         return listSpecialities?.find((el)=> {
-            if(el.speciality_id === id_speciality){
-                return el.speciality_name
-            }
-        })?.speciality_name;
-      }
+    }, [])
+
+
+    const findSpeciality = (id_speciality) => {
+        return listSpecialities?.find((el)=> {
+          if(el.speciality_id === id_speciality){
+              return el.speciality_name
+          }
+      })?.speciality_name;
+    }
+
+
     
   return (
     <div className='bgSearcher pb-5'>
@@ -37,8 +50,8 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
             <Col className='contWrap d-flex flex-wrap align-items-center justify-content-center gap-5'>
                 {medicsSearched?.map((medic,i) => {
                     return(
-                      <div className='d-flex flex-column justify-content-center cardMedic p-3 mb-3'>
-                        <card key={i} style={{ width: '12rem' }}>
+                      <div key={medic.name + i} className='d-flex flex-column justify-content-center cardMedic p-3 mb-3'>
+                        <Card style={{ width: '15rem' }}>
                           <div className='cardImgMedic text-center p-3'>
                             <img className='imgMedic' src={`/assets/images/user/${medic?.avatar}`}/>
                           </div>
@@ -51,11 +64,17 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
                             <Card.Title>Especialidad:</Card.Title>
                             <Card.Text>{findSpeciality(medic?.speciality_id)}</Card.Text>
                           </div>
-
                           <div className='text-center'>
-                            <button className='defineButton2'>Disponibilidad</button>
+                              <button onClick={handleShow}>Ver disponibilidad</button>
                           </div>
-                        </card>
+                          {show &&
+                            <SearchAvailabilityMedicAppointment
+                              medic={medic}
+                              show={show}
+                              handleClose={handleClose}
+                            />
+                          }
+                        </Card>
                       </div>
                     )
                 })}
