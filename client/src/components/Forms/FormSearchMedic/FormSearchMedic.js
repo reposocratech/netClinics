@@ -14,14 +14,15 @@ export const FormSearchMedic = ({
 
 
   return (
-    <div className='bgSearcher pb-5'>
+    <div className='bgSearcher'>
       <Container>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex align-items-center justify-content-center'>
-            <div className="whiteBoxSeracher d-flex flex-column align-items-center p-5 mt-5">
+            <div className="whiteBoxSearcher d-flex flex-column align-items-center p-5 mt-5">
               <div>
                 <h2 className='mb-5'>Reservar cita</h2>
               </div>
+
               <div className='d-flex flex-column'>
                 <InputGroup className='mb-3'>
                   <div className='d-flex w-100'>
@@ -38,49 +39,49 @@ export const FormSearchMedic = ({
                   </div>
                 </InputGroup>
                   
-              <InputGroup className='mb-3'>
-              <div className='d-flex w-100'>
-              <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-location-pin"></i></InputGroup.Text>
-                  <Form.Select className='selectPatient' name='city_id'
-                  onChange={handleChange}>
-                    <option>Indique una ciudad</option>
-                    {listCities?.map((city) => {
+                <InputGroup className='mb-3'>
+                <div className='d-flex w-100'>
+                <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-location-pin"></i></InputGroup.Text>
+                    <Form.Select className='selectPatient' name='city_id'
+                    onChange={handleChange}>
+                      <option>Indique una ciudad</option>
+                      {listCities?.map((city) => {
+                        return (
+                            <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
+                        )
+                      })}
+                    </Form.Select>
+                  </div>
+                </InputGroup>
+
+                <InputGroup className='mb-3'>
+                <div className='d-flex w-100'>
+                <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-id-card-clip"></i></InputGroup.Text>
+                  <Form.Select className='selectPatient' name='speciality_id' onChange={handleChange}>
+                    <option>Indique una especialidad</option>
+                    {listSpecialities?.map((speciality) => {
                       return (
-                          <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    
+                          <option key={speciality.speciality_id}
+                          value={speciality.speciality_id}>{speciality.speciality_name}</option>    
                       )
                     })}
                   </Form.Select>
                 </div>
-              </InputGroup>
+                </InputGroup>
 
-              <InputGroup className='mb-3'>
-              <div className='d-flex w-100'>
-              <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-id-card-clip"></i></InputGroup.Text>
-                <Form.Select className='selectPatient' name='speciality_id' onChange={handleChange}>
-                  <option>Indique una especialidad</option>
-                  {listSpecialities?.map((speciality) => {
-                    return (
-                        <option key={speciality.speciality_id}
-                        value={speciality.speciality_id}>{speciality.speciality_name}</option>    
-                    )
-                  })}
-                </Form.Select>
+                <InputGroup className='mb-3'>
+                    <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-user-doctor"></i></InputGroup.Text>
+                    <Form.Control
+                      placeholder='Indique nombre del profesional'
+                      name='name'
+                      type='text'
+                      autoComplete='off'
+                      aria-label='Nombre'
+                      aria-describedby="basic-addon1"
+                      onChange={handleChange}
+                    />
+                </InputGroup>
               </div>
-              </InputGroup>
-
-              <InputGroup className='mb-3'>
-                  <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-user-doctor"></i></InputGroup.Text>
-                  <Form.Control
-                    placeholder='Indique nombre del profesional'
-                    name='name'
-                    type='text'
-                    autoComplete='off'
-                    aria-label='Nombre'
-                    aria-describedby="basic-addon1"
-                    onChange={handleChange}
-                  />
-              </InputGroup>
-            </div>
 
               <Button
               className='defineButton my-3' 

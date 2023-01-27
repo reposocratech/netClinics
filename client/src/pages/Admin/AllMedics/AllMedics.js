@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
-import "./styleAllMedics.scss";
 import { useNavigate } from "react-router";
 import { AllMedicsAdmin } from "../../../components/Tables/AllMedicsAdmin/AllMedicsAdmin";
 import { Container } from "react-bootstrap";
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/esm/Col";
+import axios from "axios";
+import "./styleAllMedics.scss";
 
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
@@ -63,20 +65,24 @@ export const AllMedics = () => {
   };
 
   return (
-    <div className="bgAllMedics">
+    <div className="bgAllMedics d-flex justify-content-center">
       <Container>
-        {medics?.length !== 0 ? (
-          <AllMedicsAdmin
-            medics={medics}
-            navigate={navigate}
-            enable={enable}
-            deleted={deleted}
-          />
-        ) : (
-          <h1 className="mt-5 text-center">
-            Actualmente no hay registrado ningún médico
-          </h1>
-        )}
+        <Row className="">
+          <Col>
+            {medics.length !== 0 ? (
+              <AllMedicsAdmin
+              medics={medics}
+              navigate={navigate}
+              enable={enable}
+              deleted={deleted}
+            />
+            ) : (
+              <h1 className="text-center p-3 whiteBoxValidationText">
+                Actualmente no hay registrado ningún médico
+              </h1>
+            )}
+          </Col>
+        </Row>
       </Container>
     </div>
   );

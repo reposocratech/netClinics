@@ -37,7 +37,7 @@ export const ValidationAdmins = ({medics, navigate, enable}) => {
 
                     <TableCell className="viewProf" align="center"
                     onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
-                      {medic?.lastname}, {medic?.name}
+                      <strong>{medic?.lastname},</strong> {medic?.name}
                     </TableCell>
 
                     <TableCell align="center">
