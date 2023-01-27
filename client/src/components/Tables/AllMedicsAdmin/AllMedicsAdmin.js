@@ -16,6 +16,7 @@ export const AllMedicsAdmin = ({
 
    
   return (
+
     <>
     <Row className='py-4'>
     <Col>
@@ -126,7 +127,7 @@ export const AllMedicsAdmin = ({
 
                     <TableCell
                       className="viewProf"
-                      align="center"
+                      align="left"
                       onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
                     >
                       {medic?.lastname}
@@ -186,8 +187,7 @@ export const AllMedicsAdmin = ({
         )}
       </Container>
     </div>
-    </>
-  )
-}
+  );
+};
 
 

@@ -79,7 +79,7 @@ export const Searcher = () => {
     
   return (
     <div>
-      {medicsSearched.length === 0? 
+      {medicsSearched.length === 0 ? 
         <FormSearchMedic
           handleChange={handleChange}               
           onSubmit={onSubmit}

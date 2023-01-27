@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
-import "./styleAllMedics.scss";
 import { useNavigate } from "react-router";
 import { AllMedicsAdmin } from "../../../components/Tables/AllMedicsAdmin/AllMedicsAdmin";
+import { Container } from "react-bootstrap";
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/esm/Col";
+import axios from "axios";
+import "./styleAllMedics.scss";
 import { Button, Container } from "react-bootstrap";
 
 export const AllMedics = () => {
@@ -257,7 +260,7 @@ export const AllMedics = () => {
 console.log("esto es results", results);
 
   return (
-    <div className="bgAllMedics">
+    <div className="bgAllMedics d-flex justify-content-center">
       <Container>
         {results?.length !== 0 ? (
           <AllMedicsAdmin

@@ -46,7 +46,7 @@ export const AllPatiensAdmin = ({patients, navigate, handleEdit}) => {
                         navigate(`/patientProfile/${patient.user_id}`)
                       }
                     >
-                      {patient.name} {patient.lastname}
+                      <strong>{patient.lastname},</strong> {patient.name} 
                     </TableCell>
 
                     <TableCell align="center">{patient.phone_number}</TableCell>
