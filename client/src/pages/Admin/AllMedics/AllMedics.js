@@ -4,6 +4,7 @@ import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import "./styleAllMedics.scss";
 import { useNavigate } from "react-router";
 import { AllMedicsAdmin } from "../../../components/Tables/AllMedicsAdmin/AllMedicsAdmin";
+import { Container } from "react-bootstrap";
 
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
@@ -62,19 +63,21 @@ export const AllMedics = () => {
   };
 
   return (
-    <div>
-      {medics.length !== 0 ? (
-        <AllMedicsAdmin
-          medics={medics}
-          navigate={navigate}
-          enable={enable}
-          deleted={deleted}
-        />
-      ) : (
-        <h1 className="mt-5 text-center">
-          Actualmente no hay registrado ningún médico
-        </h1>
-      )}
+    <div className="bgAllMedics">
+      <Container>
+        {medics?.length !== 0 ? (
+          <AllMedicsAdmin
+            medics={medics}
+            navigate={navigate}
+            enable={enable}
+            deleted={deleted}
+          />
+        ) : (
+          <h1 className="mt-5 text-center">
+            Actualmente no hay registrado ningún médico
+          </h1>
+        )}
+      </Container>
     </div>
   );
 };
