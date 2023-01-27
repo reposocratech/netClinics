@@ -6,8 +6,7 @@ import './myDatesPatient.scss';
 import axios from 'axios';
 
 export const UserPendingAppointments = () => {
-  const [appointmentData, setAppointmentData] = useState();
-  
+  const [appointmentData, setAppointmentData] = useState([]);
     const [listMedics, setListMedics] = useState([]);
     const { user,resetPage,setResetPage } = useContext(NetClinicsContext);
     useEffect(() => {

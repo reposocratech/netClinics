@@ -286,20 +286,19 @@ class medicControllers {
 
   getAppointmentHistory = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id}`;
+    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id} and is_completed = 1`;
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
     });
   };
 
-  //6.- Trae todas las citas proximas (tanto confirmadas como pendientes de
-  // confirmar) de un medico
+  //6.- Trae todas las citas pendientes de confirmar de un medico
   //localhost:4000/medic/getPendingAppointments/:user_id
 
   getPendingAppointments = (req, res) => {
-    let {user_medic_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_medic_id = ${user_medic_id} and is_confirmed = true`;
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id}  and  is_completed = 0 and appointment_is_confirmed = 0`;
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -308,9 +307,15 @@ class medicControllers {
 
   //7.- Trae todas las citas proximas (solo confirmadas) de un medico
   //localhost:4000/medic/getConfirmedAppointments/:user_id
-  //Aqui faltaria el campo de is_completed= true
 
-  getConfirmedAppointments = (req, res) => {};
+  getConfirmedAppointments = (req, res) => {
+    let {user_id} = req.params;
+    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id}  and is_completed = 0 and appointment_is_confirmed = 1`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
 
 
   //8.- Agregar disponibilidad, horas y dias semana a un médico
@@ -415,6 +420,44 @@ class medicControllers {
     })
 
   }
+
+  //---------------------------------------------------
+  // 12.- Trae la info de todos los pacientes (sus nombres)
+  //localhost:4000/medic/getPatientsName
+  getPatientsName = (req, res) => {
+    
+    let sql = `select * from user where user.type = 3 and user.is_deleted = 0  `;
+
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      
+    });
+  };
+
+   //13.- El medico cancela una proxima cita que todavia no esta confirmada
+  //localhost:4000/medic/cancelPendingAppointment/:appointment_id
+
+  cancelPendingAppointment = (req,res) => {
+    let {appointment_id} = req.params;
+    let sql = `DELETE FROM appointment where appointment_id = ${appointment_id}`
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      console.log(result);
+  });
+  }
+
+   //14.- El medico acepta una proxima cita que todavia no estaba confirmada
+  //localhost:4000/patient/acceptPendingAppointment/:appointment_id
+
+  acceptPendingAppointment = (req,res) => {
+    let {appointment_id} = req.params;
+    let sql = `UPDATE appointment SET appointment_is_confirmed = 1 WHERE appointment_id = ${appointment_id}`
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      console.log(result);
+  });
+  }
+
 
 
 }

@@ -22,15 +22,15 @@ export const HomeMedic = () => {
               />
 
               <CardHome
-                go={"/pendingAppointments"}
-                navigate={navigate}
+                // go={"/pendingAppointments"}
+                navigate={()=>navigate("/medicPendingAppointments")}
                 icon={'/assets/icons/pending_actions_black_24dp.svg'}
                 cardTitle={"Citas Pendientes de Confirmación"}
               />
 
               <CardHome
-                go={"/followingAppointments"}
-                navigate={navigate}
+                // go={"/followingAppointments"}
+                navigate={()=>navigate("/medicFollowingAppointments")}
                 icon={'/assets/icons/keyboard_tab_black_24dp.svg'}
                 cardTitle={"Próximas Citas"}
               />

@@ -6,19 +6,33 @@ import axios from 'axios'
 import './myDatesMedic.scss'
 
 export const MedicAppointmentsHistory = () => {
-    const [appointmentData, setAppointmentData] = useState();
+    const [appointmentData, setAppointmentData] = useState([]);
+    const [listPatients, setListPatients] = useState([]);
     const { user } = useContext(NetClinicsContext);
-    const medic_id = user.user_id
     
     useEffect(() => {
+      if(!user.user_id) return
       axios
-        .get(`http://localhost:4000/medic/getAppointmentHistory/${medic_id}`)
-        .then((res)=>{
-            // console.log(res.data);
+        .get(`http://localhost:4000/medic/getAppointmentHistory/${user.user_id}`)
+        .then((res)=>{           
             setAppointmentData(res.data)
         })
         .catch((err) => console.log(err));
-    }, [])
+      axios
+        .get(`http://localhost:4000/medic/getPatientsName`)
+        .then((res)=>{
+            setListPatients(res.data);
+        })
+        .catch((err) => console.log(err));
+    }, []);
+
+    const findPatientName = (id_patient) => {
+      return listPatients?.find((el)=> {
+         if(el.user_id === id_patient){
+             return `${el.name} ${el.lastname}`
+         }
+      });
+    }
     
   return (
     <div className="bgAppointmentHistory p-2">
@@ -31,7 +45,6 @@ export const MedicAppointmentsHistory = () => {
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Hora</TableCell>
                 <TableCell align="center">Dirección</TableCell>
-                <TableCell align="center">Especialidad</TableCell>
               </TableRow>
             </TableHead>
 
@@ -41,7 +54,7 @@ export const MedicAppointmentsHistory = () => {
                 <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 
                   <TableCell align="center">
-                  {appointment.user_patient_id}
+                  {findPatientName(appointment.user_patient_id)?.name} {findPatientName(appointment.user_patient_id)?.lastname}
                   </TableCell>
 
                   <TableCell align="center">{appointment.appointment_date}</TableCell>
@@ -49,8 +62,6 @@ export const MedicAppointmentsHistory = () => {
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
 
                   <TableCell align="center">{appointment.appointment_address}</TableCell>
-
-                  <TableCell align="center">{appointment.appointment_commentary}</TableCell>
 
                 </TableRow>)
               })}
