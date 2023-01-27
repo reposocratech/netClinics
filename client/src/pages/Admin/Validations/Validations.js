@@ -39,13 +39,13 @@ export const Validations = () => {
   console.log("esto trae medics", medics);
   return (
       <div className="bgValidation d-flex align-items-center justify-content-center">
-      <Container className="whiteBoxValidationText">
+      <Container>
         <Row className="">
           <Col>
             {medics.length !== 0 ? (
               <ValidationAdmins medics={medics} navigate={navigate} enable={enable} />
             ) : (
-              <h1 className="text-center p-3">
+              <h1 className="text-center p-3 whiteBoxValidationText">
                 Actualmente no hay validaciones de médicos pendientes
               </h1>
             )}
