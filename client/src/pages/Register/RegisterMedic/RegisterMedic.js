@@ -72,7 +72,7 @@ export const RegisterMedic = () => {
                 newFormData.append('file', doc)
             }
           }
-          /*
+          
           axios
               .post("http://localhost:4000/medic/createMedic", newFormData)
               .then((res) => {
@@ -83,7 +83,7 @@ export const RegisterMedic = () => {
                   
                   console.log(error);
               })
-            */
+          
       }
     }
 
