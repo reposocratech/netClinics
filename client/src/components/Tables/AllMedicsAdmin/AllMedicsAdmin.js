@@ -4,54 +4,35 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow 
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
+export const AllMedicsAdmin = ({
+  navigate, 
+  enable, 
+  deleted, 
+  searchComplete, 
+  results,  
+  handlerSearch, 
+  cleanSubmit,
+  onSubmit}) => {
 
-  const [searchComplete, setSearchComplete] = useState({
-    searchName: "",
-    searchlastName: "",
-    searchProvince: "",
-    searchCity: "",
-  });
-
-  const [results, setResults] = useState(medics);
-
-  const handlerSearch = (e) => {
-    const {name, value} = e.target;
-    setSearchComplete({...searchComplete, [name]:value});
-  }
-
-
-  const onSubmit = () => {
-    if(searchComplete.searchName !== "" && searchComplete.searchProvince === ""){
-      setResults(medics.filter((medic) => {
-        return medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase());
-      }));
-    }
-    else if(searchComplete.searchName !== "" && searchComplete.searchProvince !== "" && searchComplete.searchCity === ""){
-      setResults(medics.filter((medic) => {
-        return medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase()) && medic.province_name.toLowerCase().includes(searchComplete.searchProvince.toLowerCase());
-      }));
-    }
-    else{
-      setResults(medics);
-    }
-
-  }
-
-  const cleanSubmit = () => {
-    setSearchComplete({
-      searchName: "",
-      searchlastName: "",
-      searchProvince: "",
-      searchCity: "",
-    });
-    setResults(medics);
-
-  }
-
+   
   return (
     <>
     <Row className='py-4'>
+    <Col>
+        <InputGroup className='mb-3'>
+                    <InputGroup.Text id="basic-addon1">Apellidos</InputGroup.Text>
+                    <Form.Control
+                    placeholder='Apellidos Profesional'
+                    name='searchlastName'
+                    type='text'
+                    autoComplete='off'
+                    aria-label='text'
+                    aria-describedby="basic-addon1"
+                    value={searchComplete.searchlastName}
+                    onChange={handlerSearch}
+                    />
+        </InputGroup>
+      </Col>
       <Col>
         <InputGroup className='mb-3'>
                     <InputGroup.Text id="basic-addon1">Nombre</InputGroup.Text>
@@ -63,21 +44,6 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
                     aria-label='text'
                     aria-describedby="basic-addon1"
                     value={searchComplete.searchName}
-                    onChange={handlerSearch}
-                    />
-        </InputGroup>
-      </Col>
-      <Col>
-        <InputGroup className='mb-3'>
-                    <InputGroup.Text id="basic-addon1">Apellidos</InputGroup.Text>
-                    <Form.Control
-                    placeholder='Apellidos Profesional'
-                    name='searchlastName'
-                    type='text'
-                    autoComplete='off'
-                    aria-label='text'
-                    aria-describedby="basic-addon1"
-                    value={searchComplete.searchlastName}
                     onChange={handlerSearch}
                     />
         </InputGroup>
@@ -112,20 +78,24 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
                     />
         </InputGroup>
       </Col>
-      <Col>
-        <Button onClick={onSubmit}>Buscar</Button>
-        <Button onClick={cleanSubmit}>Limpiar</Button>
+      <Row>
+        <Col className='d-flex justify-content-center'>
+        <Button className='m-2' onClick={onSubmit}>Buscar</Button>
+        <Button className='m-2' onClick={cleanSubmit}>Limpiar</Button>
       </Col>
+      </Row>
+      
     </Row>
     <div className="p-2">
       <Container className="whiteBoxAllMedics d-flex justify-content-center my-5">
-        {medics && (
+        {results && (
           <TableContainer component={Paper}  className="tableAllMedics">
             <Table sx={{ minWidth: 390 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center"></TableCell>
                   <TableCell align="center">Profesional</TableCell>
+                  <TableCell align="center">Apellidos</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
                   <TableCell align="center">Provincia</TableCell>
                   <TableCell align="center">Ciudad</TableCell>
                   <TableCell align="center">Vacaciones</TableCell>
@@ -138,7 +108,7 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
 
               {/* Datos Tabla Médico */}
               <TableBody>
-                {medics?.map((medic) => (
+                {results?.map((medic) => (
                   <TableRow
                     key={medic?.user_id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -159,7 +129,14 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
                       align="center"
                       onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
                     >
-                      {medic?.lastname}, {medic?.name}
+                      {medic?.lastname}
+                    </TableCell>
+                    <TableCell
+                      className="viewProf"
+                      align="center"
+                      onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
+                    >
+                      {medic?.name}
                     </TableCell>
 
                     <TableCell align="center">{medic?.province_name}</TableCell>

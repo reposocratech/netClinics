@@ -4,18 +4,16 @@ import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import "./styleAllMedics.scss";
 import { useNavigate } from "react-router";
 import { AllMedicsAdmin } from "../../../components/Tables/AllMedicsAdmin/AllMedicsAdmin";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
-  const [medics, setMedics] = useState([]);
   const navigate = useNavigate();
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllMedics").then((res) => {
-      setMedics(res.data);
-      console.log("información de todos los médicos", res.data);
+      setResults(res.data);
     });
   }, [resetPage]);
 
@@ -62,20 +60,224 @@ export const AllMedics = () => {
       .catch((Err) => console.log(Err));
   };
 
+  const [searchComplete, setSearchComplete] = useState({
+    searchName: "",
+    searchlastName: "",
+    searchProvince: "",
+    searchCity: "",
+  });
+
+  const [results, setResults] = useState([]);
+
+  const handlerSearch = (e) => {
+    const {name, value} = e.target;
+    setSearchComplete({...searchComplete, [name]:value});
+  };
+
+  const cleanSubmit = () => {
+    setSearchComplete({
+      searchName: "",
+      searchlastName: "",
+      searchProvince: "",
+      searchCity: "",
+    });
+    setResetPage(!resetPage)
+  };
+
+  const onSubmit = () => {
+    if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase()) &&
+        medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) ;
+      }));
+    }
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase()) &&
+        medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.province_name.toLocaleLowerCase().includes(searchComplete.searchProvince.toLocaleLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase()) &&
+        medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.province_name.toLocaleLowerCase().includes(searchComplete.searchProvince.toLocaleLowerCase()) &&
+        medic.city_name.toLocaleLowerCase().includes(searchComplete.searchCity.toLocaleLowerCase());
+      }));
+    }
+    
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase()) &&
+        medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.city_name.toLocaleLowerCase().includes(searchComplete.searchCity.toLocaleLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.province_name.toLocaleLowerCase().includes(searchComplete.searchProvince.toLocaleLowerCase()) &&
+        medic.city_name.toLocaleLowerCase().includes(searchComplete.searchCity.toLocaleLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.city_name.toLocaleLowerCase().includes(searchComplete.searchCity.toLocaleLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.city_name.toLocaleLowerCase().includes(searchComplete.searchCity.toLocaleLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLocaleLowerCase()) &&
+        medic.province_name.toLocaleLowerCase().includes(searchComplete.searchProvince.toLocaleLowerCase()); 
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase());
+      }));
+    } 
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.province_name.toLowerCase().includes(searchComplete.searchProvince.toLowerCase()) &&
+        medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.province_name.toLowerCase().includes(searchComplete.searchProvince.toLowerCase()) &&
+        medic.city_name.toLocaleLowerCase().includes(searchComplete.searchCity.toLocaleLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince !== "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity === ""){
+      setResults(results.filter((medic) => {
+        return medic.province_name.toLowerCase().includes(searchComplete.searchProvince.toLowerCase()) &&
+        medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName === "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.city_name.toLowerCase().includes(searchComplete.searchCity.toLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName === "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.city_name.toLowerCase().includes(searchComplete.searchCity.toLowerCase()) &&
+        medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase());
+      }));
+    }
+    else if(
+      searchComplete.searchlastName !== "" && 
+      searchComplete.searchProvince === "" &&
+      searchComplete.searchName !== "" &&
+      searchComplete.searchCity !== ""){
+      setResults(results.filter((medic) => {
+        return medic.city_name.toLowerCase().includes(searchComplete.searchCity.toLowerCase()) &&
+        medic.lastname.toLowerCase().includes(searchComplete.searchlastName.toLowerCase()) &&
+        medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase());
+      }));
+    }
+    else{
+      setResults(results);
+    }
+
+  }
+console.log("esto es results", results);
+
   return (
     <div className="bgAllMedics">
       <Container>
-        {medics?.length !== 0 ? (
+        {results?.length !== 0 ? (
           <AllMedicsAdmin
-            medics={medics}
             navigate={navigate}
             enable={enable}
             deleted={deleted}
+            searchComplete={searchComplete}
+            results={results}
+            handlerSearch={handlerSearch}
+            cleanSubmit={cleanSubmit}
+            onSubmit={onSubmit}
           />
         ) : (
-          <h1 className="mt-5 text-center">
+          <div className="text-center p-3 msg py-5">
+            <h1 >
             Actualmente no hay registrado ningún médico
-          </h1>
+          </h1> 
+          <Button onClick={cleanSubmit}>Volver</Button>
+          </div>
+         
         )}
       </Container>
     </div>
