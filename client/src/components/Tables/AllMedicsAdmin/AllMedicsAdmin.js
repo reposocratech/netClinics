@@ -1,11 +1,124 @@
-import React from 'react'
-import { Container } from "react-bootstrap";
+import React, { useState } from 'react'
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
+
+  const [searchComplete, setSearchComplete] = useState({
+    searchName: "",
+    searchlastName: "",
+    searchProvince: "",
+    searchCity: "",
+  });
+
+  const [results, setResults] = useState(medics);
+
+  const handlerSearch = (e) => {
+    const {name, value} = e.target;
+    setSearchComplete({...searchComplete, [name]:value});
+  }
+
+
+  const onSubmit = () => {
+    if(searchComplete.searchName !== "" && searchComplete.searchProvince === ""){
+      setResults(medics.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase());
+      }));
+    }
+    else if(searchComplete.searchName !== "" && searchComplete.searchProvince !== "" && searchComplete.searchCity === ""){
+      setResults(medics.filter((medic) => {
+        return medic.name.toLowerCase().includes(searchComplete.searchName.toLowerCase()) && medic.province_name.toLowerCase().includes(searchComplete.searchProvince.toLowerCase());
+      }));
+    }
+    else{
+      setResults(medics);
+    }
+
+  }
+
+  const cleanSubmit = () => {
+    setSearchComplete({
+      searchName: "",
+      searchlastName: "",
+      searchProvince: "",
+      searchCity: "",
+    });
+    setResults(medics);
+
+  }
+
   return (
-    <div className="bgAllMedics p-2">
-      <Container fluid className="whiteBoxAllMedics d-flex justify-content-center my-5">
+    <>
+    <Row className='py-4'>
+      <Col>
+        <InputGroup className='mb-3'>
+                    <InputGroup.Text id="basic-addon1">Nombre</InputGroup.Text>
+                    <Form.Control
+                    placeholder='Nombre Profesional'
+                    name='searchName'
+                    type='text'
+                    autoComplete='off'
+                    aria-label='text'
+                    aria-describedby="basic-addon1"
+                    value={searchComplete.searchName}
+                    onChange={handlerSearch}
+                    />
+        </InputGroup>
+      </Col>
+      <Col>
+        <InputGroup className='mb-3'>
+                    <InputGroup.Text id="basic-addon1">Apellidos</InputGroup.Text>
+                    <Form.Control
+                    placeholder='Apellidos Profesional'
+                    name='searchlastName'
+                    type='text'
+                    autoComplete='off'
+                    aria-label='text'
+                    aria-describedby="basic-addon1"
+                    value={searchComplete.searchlastName}
+                    onChange={handlerSearch}
+                    />
+        </InputGroup>
+      </Col>
+      <Col>
+        <InputGroup className='mb-3'>
+                    <InputGroup.Text id="basic-addon1">Provincia</InputGroup.Text>
+                    <Form.Control
+                    placeholder='Provincia'
+                    name='searchProvince'
+                    type='text'
+                    autoComplete='off'
+                    aria-label='text'
+                    aria-describedby="basic-addon1"
+                    value={searchComplete.searchProvince}
+                    onChange={handlerSearch}
+                    />
+        </InputGroup>
+      </Col>
+      <Col>
+        <InputGroup className='mb-3'>
+                    <InputGroup.Text id="basic-addon1">Ciudad</InputGroup.Text>
+                    <Form.Control
+                    placeholder='Ciudad'
+                    name='searchCity'
+                    type='text'
+                    autoComplete='off'
+                    aria-label='text'
+                    aria-describedby="basic-addon1"
+                    value={searchComplete.searchCity}
+                    onChange={handlerSearch}
+                    />
+        </InputGroup>
+      </Col>
+      <Col>
+        <Button onClick={onSubmit}>Buscar</Button>
+        <Button onClick={cleanSubmit}>Limpiar</Button>
+      </Col>
+    </Row>
+    <div className="p-2">
+      <Container className="whiteBoxAllMedics d-flex justify-content-center my-5">
         {medics && (
           <TableContainer component={Paper}  className="tableAllMedics">
             <Table sx={{ minWidth: 390 }} aria-label="customized table">
@@ -13,7 +126,6 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
                 <TableRow>
                   <TableCell align="center"></TableCell>
                   <TableCell align="center">Profesional</TableCell>
-                  <TableCell align="center">Nº Colegiado</TableCell>
                   <TableCell align="center">Provincia</TableCell>
                   <TableCell align="center">Ciudad</TableCell>
                   <TableCell align="center">Vacaciones</TableCell>
@@ -48,10 +160,6 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
                       onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
                     >
                       {medic?.lastname}, {medic?.name}
-                    </TableCell>
-
-                    <TableCell align="center">
-                      {medic?.medic_membership_number}
                     </TableCell>
 
                     <TableCell align="center">{medic?.province_name}</TableCell>
@@ -101,6 +209,7 @@ export const AllMedicsAdmin = ({medics, navigate, enable, deleted}) => {
         )}
       </Container>
     </div>
+    </>
   )
 }
 
