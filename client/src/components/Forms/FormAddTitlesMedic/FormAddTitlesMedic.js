@@ -59,6 +59,21 @@ export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, reset
       }
 
     }
+
+
+    const date = new Date();
+
+    let maxDatePicker = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+    if(date.getMonth() < 10 && date.getDate() < 10){
+      maxDatePicker = `${date.getFullYear()}-0${date.getMonth()+1}-0${date.getDate()}`;
+    }
+    else if(date.getMonth() < 10 && date.getDate() > 10){
+      maxDatePicker = `${date.getFullYear()}-0${date.getMonth()+1}-${date.getDate()}`;
+    }
+    else if(date.getMonth() > 10 && date.getDate() < 10){
+      maxDatePicker = `${date.getFullYear()}-${date.getMonth()+1}-0${date.getDate()}`;
+    }
+
   return (
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -97,6 +112,7 @@ export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, reset
                 <InputGroup.Text id="basic-addon1"><CalendarMonthRoundedIcon/></InputGroup.Text>
                 <Form.Control
                 name='start_date'
+                max={maxDatePicker}
                 type='date'
                 autoComplete='off'
                 aria-label='text'
@@ -110,6 +126,7 @@ export const FormAddTitlesMedic = ({show, handleClose, user, setResetPage, reset
                 <InputGroup.Text id="basic-addon1"><CalendarMonthRoundedIcon/></InputGroup.Text>
                 <Form.Control
                 name='end_date'
+                min={titles?.start_date}
                 type='date'
                 autoComplete='off'
                 aria-label='text'
