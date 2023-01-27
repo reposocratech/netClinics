@@ -275,8 +275,8 @@ console.log("esto es results", results);
             onSubmit={onSubmit}
           />
         ) : (
-          <div className="text-center p-3 msg py-5">
-            <h1 >
+          <div className="text-center p-3 msg my-4">
+            <h1>
             Actualmente no hay registrado ningún médico
           </h1> 
           <Button onClick={cleanSubmit}>Volver</Button>
