@@ -6,7 +6,7 @@ function uploadImage(a) {
     //destination: `./public/images/${a}`,
 
     filename: function (req, file, callback) {
-      callback(null, "Id-" + Date.now() + "-" + file.originalname);
+      callback(null, "Id-" + Date.now());
     },
   });
 

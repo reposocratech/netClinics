@@ -263,8 +263,7 @@ export const EditMedic = () => {
       .catch((err) => console.log(err));
   }
 
-  //----------------------------------------------------------------------------
-
+  //---------------------------------------------------------------------------
 
   return (
     <>
@@ -504,7 +503,7 @@ export const EditMedic = () => {
         {/* Titulos */}
         <Row className='ms-2 me-2 my-3 mb-3'>
           <Col sm="12" md="12" className='mb-3 fondos_Sections'>
-            <h4>Datos Académicos</h4>
+            <h4>Datos Académicos & Profesionales</h4>
             <hr className='separador'/>
               <Table className='my-2 text-center my-3' striped bordered hover>
                         <thead>
@@ -523,10 +522,10 @@ export const EditMedic = () => {
                             return  (
                               <>
                                 <tr key={title.document}>
-                                    <td>{title?.text}</td>
-                                    <td>{title?.university}</td>
-                                    <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
-                                    <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
+                                    <td>{title?.text === "" || title?.text === null ? "Introduce nombre del título" : title?.text}</td>
+                                    <td>{title?.university === "" || title?.university === null ? "Introduce Universidad" : title?.university}</td>
+                                    <td>{title?.start_date === "" || title?.start_date === "null" || title?.start_date === null ? "Sin Fecha" : title?.start_date}</td>
+                                    <td>{title?.end_date === "" ||  title?.end_date === "null" || title?.end_date === null ? "Sin Fecha" : title?.end_date}</td>
                                     <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
                                     <td><button onClick={()=>editTitleMedic(title)}><EditRoundedIcon/></button></td>
                                     <td><button onClick={()=>deleteTitle(title?.title_id, title?.text)}><DeleteForeverRoundedIcon/></button></td>
