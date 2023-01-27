@@ -40,7 +40,7 @@ export const NavBarNetClinics = () => {
           <> 
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
             <Nav.Link as={Link} to="/medicAppointmentsHistory">Citas Realizadas</Nav.Link>
-            <Nav.Link as={Link} to="/medicPendingAppointments">Citas Pendientes</Nav.Link>
+            <Nav.Link as={Link} to="/medicPendingAppointments">Citas a Confirmar</Nav.Link>
             <Nav.Link as={Link} to="/medicFollowingAppointments">Próximas Citas</Nav.Link>
             <Nav.Link as={Link} to="/availability">Disponibilidad</Nav.Link>
           </>
