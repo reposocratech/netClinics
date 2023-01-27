@@ -11,7 +11,7 @@ class appointmentControllers {
         province_id = parseInt(province_id);
         city_id = parseInt(city_id);
         speciality_id = parseInt(speciality_id);
-        
+        console.log(city_id);
         let sql = `SELECT user.province_id, user.city_id, user.name, user.lastname, user.avatar, medic_data.medic_membership_number, medic_data_speciality.speciality_id from user 
         join medic_data on user.user_id = medic_data.user_id 
         join medic_data_speciality on user.user_id = medic_data_speciality.user_id
