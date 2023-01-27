@@ -35,8 +35,7 @@ router.put("/editMedic/:user_id", multerSingleImage("user"), medicControllers.ed
 router.get("/getAppointmentHistory/:user_id", medicControllers.getAppointmentHistory);
 
 //------------------------------------------------------
-//6.- Trae todas las citas proximas (tanto confirmadas como pendientes de 
-// confirmar) de un medico
+//6.- Trae todas las citas pendientes de confirmar de un medico
 //localhost:4000/medic/getPendingAppointments/:user_id 
 router.get("/getPendingAppointments/:user_id", medicControllers.getPendingAppointments);
 
@@ -64,6 +63,21 @@ router.post("/providerServices/:user_id", medicControllers.providerServicesAdd);
 //11.- Elimina una provincia y ciudad donde preste servicio un médico
 //localhost:4000/medic/providerServices/:user_id/:province_id/:city_id
 router.delete("/providerServices/:user_id/:province_id/:city_id", medicControllers.providerServicesDel);
+
+//------------------------------------------------------
+//12.- Trae la info de todos los pacientes (sus nombres)
+//localhost:4000/medic/getPatientsName
+router.get("/getPatientsName", medicControllers.getPatientsName);
+
+//------------------------------------------------------
+//13.- El medico cancela una proxima cita que todavia no esta confirmada
+//localhost:4000/medic/cancelPendingAppointment/:appointment_id
+router.delete("/cancelPendingAppointment/:appointment_id", medicControllers.cancelPendingAppointment);
+
+//------------------------------------------------------
+//14.- El medico acepta una proxima cita que todavia no estaba confirmada
+//localhost:4000/medic/acceptPendingAppointment/:appointment_id
+router.put("/acceptPendingAppointment/:appointment_id", medicControllers.acceptPendingAppointment);
 
 
 module.exports = router;
