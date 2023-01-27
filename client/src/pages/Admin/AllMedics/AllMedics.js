@@ -2,13 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
 import { AllMedicsAdmin } from "../../../components/Tables/AllMedicsAdmin/AllMedicsAdmin";
-
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
-
+import { Button, Container } from "react-bootstrap";
+import { Row, Col } from 'react-bootstrap'
 import axios from "axios";
 import "./styleAllMedics.scss";
-import { Button, Container } from "react-bootstrap";
 
 export const AllMedics = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
@@ -275,12 +272,16 @@ console.log("esto es results", results);
             onSubmit={onSubmit}
           />
         ) : (
-          <div className="text-center p-3 msg my-4">
-            <h1>
-            Actualmente no hay registrado ningún médico
-          </h1> 
-          <Button onClick={cleanSubmit}>Volver</Button>
-          </div>
+          <Row className='msg d-flex justify-content-center p-3 mt-5'>
+            <Col>
+              <div className="text-center">
+                <h1 className="mb-3">
+                Actualmente no hay registrado ningún médico
+                </h1> 
+                <Button className="defineButton" onClick={cleanSubmit}>Volver</Button>
+              </div>
+            </Col>
+          </Row>
          
         )}
       </Container>
