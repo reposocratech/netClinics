@@ -36,12 +36,12 @@ class appointmentControllers {
     }
 
     //2.-Trae disponibilidad de un médico
-    //localhost:4000/appointment/:medic_id/:day_id
+    //localhost:4000/appointment/:medic_id/:day_id/:date
     availabilityMedic = (req, res) => {
-        let {medic_id, day_id} = req.params;
-        let {date} = req.body;
+        let {medic_id, day_id, date} = req.params;
 
-        let sql = `SELECT * FROM availability WHERE user_id = ${medic_id} AND day_id = ${day_id}`;
+        let sql = `SELECT * FROM availability 
+        WHERE NOT EXISTS (SELECT * FROM appointment WHERE availability.day_id = appointment.day_id AND availability.daily_hours_id = appointment.daily_hours_id AND appointment.appointment_date = '${date}') AND availability.user_id = ${medic_id} AND availability.day_id = ${day_id}`;
 
         connection.query(sql, (error, result) => {
            if(error){
@@ -55,8 +55,21 @@ class appointmentControllers {
 
     }
 
-    //3.-Saca la lista de 
+    //3.-Agregar cita
+    //localhost:4000/appointment
+    addAppointment = (req, res) => {
+        let {medic_id, patient_id, date, daily_hours_id, day_id, appointment_time, appointment_commentary} = req.body;
 
+        let sql = `INSERT INTO appointment 
+        (appointment_commentary, appointment_date, appointment_time, user_patient_id, user_medic_id, daily_hours_id, day_id) 
+        VALUES ('${appointment_commentary}', '${date}', '${appointment_time}', ${patient_id}, ${medic_id}, ${daily_hours_id}, ${day_id})`;
+
+        connection.query(sql, (error, result) => {
+            error ? res.status(400).json({ error }) : res.status(200).json(result);
+        });
+      
+    }
+    
 }
 
 module.exports = new appointmentControllers();

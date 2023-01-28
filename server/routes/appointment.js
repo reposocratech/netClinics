@@ -9,4 +9,8 @@ module.exports = router;
 
 //2.-Trae disponibilidad de un médico
 //localhost:4000/appointment/:medic_id/:day_id
-router.get("/:medic_id/:day_id", appointmentControllers.availabilityMedic);
+router.get("/:medic_id/:day_id/:date", appointmentControllers.availabilityMedic);
+
+//3.-Inserta cita
+//localhost:4000/appointment/
+router.post("/", appointmentControllers.addAppointment);

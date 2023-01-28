@@ -6,17 +6,21 @@ import Form from 'react-bootstrap/Form';
 import { maxDatePicker } from '../../../Utils/maxDatePicker/maxDatePicker';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-export const SearchAvailabilityMedicAppointment = ({show, handleClose, medic}) => {
+export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setHandleShowAvailability, showToast, setShowToast, setMedicsSearched}) => {
 
-    const {user} = useContext(NetClinicsContext)
+    const {user} = useContext(NetClinicsContext);
+    
+    const navigate = useNavigate();
 
     const [pickerDateSelected, setPickerDateSelected] = useState();
     const [listAvailability, setListAvailability] = useState([]);
     const [listHoursDay, setListHoursDay] = useState([]);
-    const [listAppointments, setListAppointments] = useState([]);
+    const [idSelectHour, setIdSelectHour] = useState();
+    const [appointmentCommentary, setAppointmentCommentary] = useState("");
 
-    // const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     //segun la fecha seleccionada guardo el valor en pickerDateSelected
     //Ej. '2023-01-27'
@@ -28,13 +32,21 @@ export const SearchAvailabilityMedicAppointment = ({show, handleClose, medic}) =
     //Segun la fecha seleccionada saco el dia (1-7) de la semana que corresponda
     useEffect(() => {
         if(pickerDateSelected){
-            
-            const day_id = new Date(pickerDateSelected).getDay();
+            setMessage("");
+            setListAvailability([]);
 
+            const day_id = new Date(pickerDateSelected).getDay();
+            
             axios
-            .get(`http://localhost:4000/appointment/${medic.medic}/${day_id}`)
+            .get(`http://localhost:4000/appointment/${handleShowAvailability.medic.medic}/${day_id}/${pickerDateSelected}`)
             .then((res) =>{
-                setListAvailability(res.data);
+                console.log(res.data);
+                if(res.data.length !== 0){
+                    setListAvailability(res.data);
+                }
+                else{
+                    setMessage("No hay citas disponible");
+                } 
             })
             .catch((err)=>{
                 console.log(err);
@@ -68,14 +80,46 @@ export const SearchAvailabilityMedicAppointment = ({show, handleClose, medic}) =
     
     //Compruebo el valor del select de la hora seleccionada
     const selectHour = (e) => {
-        const hourId = e.target.value;
-        console.log(hourId);
+        setIdSelectHour(e.target.value);
+    }
+
+    //Voy guardando el valor del comentario que introduzca sobre la cita
+    const handleChange = (e) => {
+        setAppointmentCommentary(e.target.value);
+    }
+
+    //Reservo cita
+    const onSubmit = () => {
+
+        if(listAvailability.length !== 0){
+            //Compruebo si el médico tiene disponibilidad
+            const addAppointment = {
+                medic_id: handleShowAvailability.medic.medic,
+                patient_id: user.user_id,
+                date: pickerDateSelected,
+                daily_hours_id: parseInt(idSelectHour),
+                day_id: parseInt(new Date(pickerDateSelected).getDay()),
+                appointment_time: findHour(parseInt(idSelectHour)),
+                appointment_commentary: appointmentCommentary
+            }
+
+            axios
+            .post("http://localhost:4000/appointment", addAppointment)
+            .then((res) => {
+                setShowToast(!showToast);
+                setHandleShowAvailability({open:false, medic: null});
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+
     }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={handleShowAvailability.open} onHide={()=>setHandleShowAvailability({open:false, medic: null})}>
         <Modal.Header closeButton>
-          <Modal.Title>Disponibilidad de {medic.name} {medic.lastname}</Modal.Title>
+          <Modal.Title>Disponibilidad de {handleShowAvailability.medic.name} {handleShowAvailability.medic.lastname}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <InputGroup className='mb-3'>
@@ -89,23 +133,36 @@ export const SearchAvailabilityMedicAppointment = ({show, handleClose, medic}) =
                 onChange={datePickerChange}
                 />
             </InputGroup>
-            {listAvailability.length !== 0 &&
-            <InputGroup className='mb-3'>
-                <Form.Select onChange={selectHour}>
-                    <option>Seleccione Hora</option>
-                    {listAvailability?.map((el) => {
-                        return <option value={el.daily_hours_id}>{findHour(el.daily_hours_id)}</option>
-                    })}
-                </Form.Select>
-            </InputGroup>
+            {listAvailability.length !== 0 ?
+                <>
+                <InputGroup className='mb-3'>
+                    <Form.Select onChange={selectHour}>
+                        <option>Seleccione Hora</option>
+                        {listAvailability?.map((el) => {
+                            return <option key={el.daily_hours_id} value={el.daily_hours_id}>{findHour(el.daily_hours_id)}</option>
+                        })}
+                    </Form.Select>
+                </InputGroup>
+                <InputGroup className='inputPatient mb-3'>
+                <Form.Control
+                  placeholder="Introduzca comentario sobre tu cita"
+                  name="appointmentCommentary"
+                  value={appointmentCommentary}
+                  onChange={handleChange}
+                />
+                </InputGroup>
+
+                </>
+                :
+                <h4 className='text-center text-danger'>{message}</h4>
             }
-            {/* <h4 className='text-center text-danger'>{message}</h4> */}
+            
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={()=>setHandleShowAvailability({open:false, medic:null})}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={onSubmit}>
             Reservar Cita
           </Button>
         </Modal.Footer>

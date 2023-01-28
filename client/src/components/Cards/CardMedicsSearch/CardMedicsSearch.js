@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import { Card } from 'react-bootstrap'
 import axios from 'axios'
+import Toast from 'react-bootstrap/Toast';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { green } from '@mui/material/colors';
+
 
 import { SearchAvailabilityMedicAppointment } from '../../Appointment/SearchAvailabilityMedicAppointment/SearchAvailabilityMedicAppointment';
 
@@ -12,9 +16,13 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
     
   const [listSpecialities, setListSpecialities] = useState([]);
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showToast, setShowToast] = useState(false);
+
+
+  const [handleShowAvailability, setHandleShowAvailability] = useState({
+    open: false,
+    medic: null
+  });
 
   useEffect(() => {
       axios
@@ -29,17 +37,32 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
 
 
   const findSpeciality = (id_speciality) => {
-      return listSpecialities?.find((el)=> {
+      return listSpecialities?.find((el) => {
         if(el.speciality_id === id_speciality){
             return el.speciality_name
         }
     })?.speciality_name;
   }
+  
+  const handleShowAvailabilityMedic = (medic) => {
+    setHandleShowAvailability({open:true, medic: medic});
+  }
 
     
   return (
+    <>
+    
     <div className='bgSearcher pb-5'>
-      <div className="d-flex align-items-center">
+      <div className="d-flex flex-column align-items-center">
+          <Row className='my-4'>
+            <Col>
+              <Toast style={{width: '80%'}} onClose={() => setShowToast(false)} show={showToast} delay={4000} autohide>
+                <Toast.Header>
+                </Toast.Header>
+                <Toast.Body><CheckCircleIcon sx={{color: green[500]}}/>¡Gracias por su Cita! El profesional deberá confirmarla</Toast.Body>
+              </Toast>
+            </Col>
+          </Row>
         <Container  className="whiteBoxSeracher d-flex flex-column align-items-center p-5 mt-5">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} className='text-center mb-3'>
@@ -53,7 +76,7 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
                       <div key={medic.name + i} className='d-flex flex-column justify-content-center cardMedic p-3 mb-3'>
                         <div style={{ width: '16rem' }}>
                           <div className='cardImgMedic text-center p-3'>
-                            <img className='imgMedic' src={`/assets/images/user/${medic?.avatar}`}/>
+                            <img alt="Avatar Médico" className='imgMedic' src={`/assets/images/user/${medic?.avatar}`}/>
                           </div>
 
                           <div className='mb-3 ms-2'>
@@ -65,15 +88,9 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
                             <Card.Text>{findSpeciality(medic?.speciality_id)}</Card.Text>
                           </div>
                           <div className='text-center'>
-                              <button onClick={handleShow}>Ver disponibilidad</button>
+                              <button className='defineButton' onClick={()=>handleShowAvailabilityMedic(medic)}>Ver su disponibilidad</button>
                           </div>
-                          {show &&
-                            <SearchAvailabilityMedicAppointment
-                              medic={medic}
-                              show={show}
-                              handleClose={handleClose}
-                            />
-                          }
+                         
                         </div>
                       </div>
                     )
@@ -88,5 +105,15 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
         </Container>
       </div>
     </div>
+    {handleShowAvailability.open &&
+      <SearchAvailabilityMedicAppointment
+        handleShowAvailability={handleShowAvailability}
+        setHandleShowAvailability={setHandleShowAvailability}
+        showToast={showToast}
+        setShowToast={setShowToast}
+        setMedicsSearched={setMedicsSearched}
+      />
+    }
+    </>
   )
 }

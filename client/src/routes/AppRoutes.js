@@ -150,10 +150,11 @@ export const AppRoutes = () => {
                 }
 
                 {/* Ruta para error */}
-                <Route
-                  path='*'
-                  element={<Error/>}
-                />
+               
+                  <Route
+                    path='*'
+                    element={<Error/>}
+                  />
 
                  {/* Rutas Administrador */}
                  {(token && user?.type === 1) &&
@@ -190,8 +191,8 @@ export const AppRoutes = () => {
                     />
                      {/* Ruta para ver perfil de un médico */}
                      <Route
-                    path='/medicProfile/:user_id'
-                    element={<AdminMedicProfile/>}
+                      path='/medicProfile/:user_id'
+                      element={<AdminMedicProfile/>}
                     />
                     {/* Ruta para ver perfil de un paciente */}
                     <Route

@@ -51,7 +51,8 @@ export const MedicPendingAppointments = () => {
         })
         .catch((err) => console.log(err));
      };
-    
+     
+     console.log(appointmentData);
   return (
     <div className="bgAppointmentHistory p-2">
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
@@ -81,7 +82,7 @@ export const MedicPendingAppointments = () => {
 
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
 
-                  <TableCell align="center">{appointment.appointment_address}</TableCell>
+                  <TableCell align="center">{appointment.address}, {appointment.city_name} ( {appointment.province_name} ) - {appointment.postal_code}</TableCell>
 
                   <TableCell align="center">
                      <Button
