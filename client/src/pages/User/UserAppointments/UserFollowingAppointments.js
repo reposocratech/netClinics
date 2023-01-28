@@ -37,6 +37,7 @@ export const UserFollowingAppointments = () => {
    }
   return (
     <div className="bgAppointmentHistory p-2">
+      {appointmentData?.length !== 0 ?
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
         <TableContainer component={Paper} className="tableAppointmentHistory">
           <Table sx={{ minWidth: 390 }}>
@@ -45,7 +46,6 @@ export const UserFollowingAppointments = () => {
                 <TableCell align="center">Profesional</TableCell>
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Hora</TableCell>
-                <TableCell align="center">Dirección</TableCell>
               </TableRow>
             </TableHead>
             
@@ -62,13 +62,17 @@ export const UserFollowingAppointments = () => {
 
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
 
-                  <TableCell align="center">{appointment.appointment_address}</TableCell>
                 </TableRow>)
               })}
             </TableBody>
           </Table>
         </TableContainer>
       </Container>
+      :
+      <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
+        <h3>Actualmente no tienes citas confirmadas</h3>
+      </Container>       
+      }
     </div>
   );
 };

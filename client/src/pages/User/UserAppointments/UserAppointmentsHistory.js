@@ -41,7 +41,9 @@ export const UserAppointmentsHistory = () => {
      
   return (
     <div className="bgAppointmentHistory p-2">
+      {appointmentData?.length !== 0 ?
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
+        
         <TableContainer component={Paper} className="tableAppointmentHistory">
           <Table sx={{ minWidth: 390 }}>
             <TableHead>
@@ -73,7 +75,12 @@ export const UserAppointmentsHistory = () => {
             </TableBody>
           </Table>
         </TableContainer>
+      </Container> 
+      :
+      <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
+        <h3>Actualmente no tienes histórico de citas</h3>
       </Container>
+      }
     </div>
   );
 };

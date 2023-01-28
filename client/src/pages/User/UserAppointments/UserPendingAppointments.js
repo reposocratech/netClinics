@@ -46,6 +46,7 @@ export const UserPendingAppointments = () => {
    };
   return (
     <div className="bgAppointmentHistory p-2">
+      {appointmentData?.length !== 0 ?
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
         <TableContainer component={Paper} className="tableAppointmentHistory">
           <Table sx={{ minWidth: 390 }}>
@@ -54,7 +55,6 @@ export const UserPendingAppointments = () => {
                 <TableCell align="center">Profesional</TableCell>
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Hora</TableCell>
-                <TableCell align="center">Dirección</TableCell>
                 <TableCell align="center">Cancelación</TableCell>
               </TableRow>
             </TableHead>
@@ -72,8 +72,6 @@ export const UserPendingAppointments = () => {
 
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
 
-                  <TableCell align="center">{appointment.appointment_address}</TableCell>
-
                   <TableCell align="center">
                     <button 
                     onClick={()=>cancelAppointment(appointment?.appointment_id)}
@@ -86,6 +84,11 @@ export const UserPendingAppointments = () => {
           </Table>
         </TableContainer>
       </Container>
+      :
+      <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
+        <h3>Actualmente no tienes citas pendiente de confirmar</h3>
+      </Container>
+      }
     </div>
   );
 };
