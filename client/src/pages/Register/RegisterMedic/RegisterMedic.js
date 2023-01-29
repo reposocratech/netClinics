@@ -76,7 +76,17 @@ export const RegisterMedic = () => {
           axios
               .post("http://localhost:4000/medic/createMedic", newFormData)
               .then((res) => {
-                  console.log(res);
+                  const sendEmail = {
+                    name: registerMedic.name,
+                    lastName: registerMedic.lastname,
+                    medic_membership_number: registerMedic.medic_membership_number,
+                    email: registerMedic.email,
+
+                  };
+                  //Redirijo al login, antes envio un correo al admin para indicar que se ha registrado un nuevo profesional
+                  //Envio correo al profesional indicando que está a la espera de que sea validado por el admin
+                  sendMailRegisterMedic(sendEmail);
+                  sendMailRegisterAdmin(sendEmail);
                   navigate('/');
               })
               .catch((error) => {
@@ -86,6 +96,25 @@ export const RegisterMedic = () => {
           
       }
     }
+
+    //------------------ NODEMAILER --------------------------------
+    //Función para envío de email al médico
+    const sendMailRegisterMedic = (registerMedic) => {
+      axios
+        .post("http://localhost:4000/medic/registerMail", registerMedic)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    };
+
+    //Función para envío de email al admin
+    const sendMailRegisterAdmin = (registerMedic) => {
+      axios
+        .post("http://localhost:4000/medic/registerMailAdmin", registerMedic)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    };
+
+    //---------------------------------------------------------------
 
     useEffect(() => {
         axios

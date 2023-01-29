@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import { Card } from 'react-bootstrap'
 import axios from 'axios'
-import Toast from 'react-bootstrap/Toast';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { green } from '@mui/material/colors';
-
 
 import { SearchAvailabilityMedicAppointment } from '../../Appointment/SearchAvailabilityMedicAppointment/SearchAvailabilityMedicAppointment';
+
+import {CompleteAppointment} from '../../Appointment/CompleteAppointment/CompleteAppointment';
 
 import './cardMedicSearch.scss'
 
@@ -16,7 +14,12 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
     
   const [listSpecialities, setListSpecialities] = useState([]);
 
-  const [showToast, setShowToast] = useState(false);
+  const [showToast, setShowToast] = useState({
+    open:false,
+    appointment: null,
+    medicName: null,
+    medicLastName: null
+  });
 
 
   const [handleShowAvailability, setHandleShowAvailability] = useState({
@@ -51,18 +54,9 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
     
   return (
     <>
-    
+    {!showToast.open &&
     <div className='bgSearcher pb-5'>
       <div className="d-flex flex-column align-items-center">
-          <Row className='my-4'>
-            <Col>
-              <Toast style={{width: '80%'}} onClose={() => setShowToast(false)} show={showToast} delay={4000} autohide>
-                <Toast.Header>
-                </Toast.Header>
-                <Toast.Body><CheckCircleIcon sx={{color: green[500]}}/>¡Gracias por su Cita! El profesional deberá confirmarla</Toast.Body>
-              </Toast>
-            </Col>
-          </Row>
         <Container  className="whiteBoxSeracher d-flex flex-column align-items-center p-5 mt-5">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} className='text-center mb-3'>
@@ -105,6 +99,7 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
         </Container>
       </div>
     </div>
+    }
     {handleShowAvailability.open &&
       <SearchAvailabilityMedicAppointment
         handleShowAvailability={handleShowAvailability}
@@ -114,6 +109,14 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
         setMedicsSearched={setMedicsSearched}
       />
     }
+    {showToast.open &&
+      <CompleteAppointment
+        showToast={showToast}
+        setShowToast={setShowToast}
+      />
+
+    }
+
     </>
   )
 }

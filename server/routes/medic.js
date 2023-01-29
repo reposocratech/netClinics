@@ -1,5 +1,7 @@
 var express = require('express');
 const medicControllers = require("../controllers/medicControllers");
+const nodeMailerController = require("../services/nodeMailer");
+
 var router = express.Router();
 const multerSingleImage = require("../middleware/multerSingleImage");
 const multerFiles = require("../middleware/multerFiles");
@@ -11,6 +13,14 @@ const { verify } = require('jsonwebtoken');
 //1.- Crear médico
 //localhost:4000/medic/createMedic
 router.post("/createMedic",multerFiles("titles"), medicControllers.createMedic);
+
+//1.1- Envio de email de confirmación registro
+//localhost:4000/medic/registerMail
+router.post("/registerMail", nodeMailerController.sendRegistrationMedic);
+
+//1.2- Envio de email de confirmación registro
+//localhost:4000/medic/registerMailAdmin
+router.post("/registerMailAdmin", nodeMailerController.sendRegistrationAdmin);
 
 
 //------------------------------------------------------

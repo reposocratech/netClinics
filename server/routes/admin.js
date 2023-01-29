@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var adminControllers = require("../controllers/adminControllers");
+const nodeMailerController = require("../services/nodeMailer");
 
 //1.- trae los datos de todos los médicos
 //localhost:4000/admin/getAllMedics
@@ -21,6 +22,10 @@ router.put("/enableUser/:user_id", adminControllers.enableUser);
 //localhost:4000/admin/enableMedic/:user_id
 //--------------------------------------------
 router.put("/enableMedic/:user_id", adminControllers.enableMedic);
+
+//4.1- Envia email cuando se activa un médico
+//localhost:4000/admin/enableMedicEmail
+router.post("/enableMedicEmail", nodeMailerController.sendAvailabilityMedic);
 
 //5.- Desactiva un medico
 //localhost:4000/admin/disableMedic/:user_id
