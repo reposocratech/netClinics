@@ -6,44 +6,45 @@ import './myDatesPatient.scss';
 import axios from 'axios';
 
 export const UserPendingAppointments = () => {
+  
   const [appointmentData, setAppointmentData] = useState([]);
-    const [listMedics, setListMedics] = useState([]);
-    const { user,resetPage,setResetPage } = useContext(NetClinicsContext);
-    useEffect(() => {
-      if(!user.user_id) return
-      axios
-        .get(`http://localhost:4000/patient/getPendingAppointments/${user.user_id}`)
-        .then((res)=>{
-            // console.log(res.data);
-            setAppointmentData(res.data);
-        })
-        .catch((err) => console.log(err));
+  const [listMedics, setListMedics] = useState([]);
+  const { user } = useContext(NetClinicsContext);
 
-      axios
-        .get(`http://localhost:4000/patient/getMedicsName`)
-        .then((res)=>{
-            // console.log(res.data);
-            setListMedics(res.data);
-        })
-        .catch((err) => console.log(err));
-    }, [resetPage])
-
-    const findMedicName = (id_medic) => {
-      return listMedics?.find((el)=> {
-         if(el.user_id === id_medic){
-             return `${el.name} ${el.lastname}`
-         }
-     });
-   }
-
-   const cancelAppointment = (id_appointment) => {
+  useEffect(() => {
+    if(!user.user_id) return
     axios
-      .delete(`http://localhost:4000/patient/cancelPendingAppointment/${id_appointment}`)
+      .get(`http://localhost:4000/patient/getPendingAppointments/${user.user_id}`)
       .then((res)=>{
-          setResetPage(!resetPage);
+          setAppointmentData(res.data);
       })
       .catch((err) => console.log(err));
-   };
+
+    axios
+      .get(`http://localhost:4000/patient/getMedicsName`)
+      .then((res)=>{
+          setListMedics(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [user]);
+
+  const findMedicName = (id_medic) => {
+    return listMedics?.find((el) => {
+        return el.user_id === id_medic && el;
+    });
+  }
+
+  //Cancelar Cita por parte del paciente
+  //  const cancelAppointment = (id_appointment) => {
+  //   axios
+  //     .delete(`http://localhost:4000/patient/cancelPendingAppointment/${id_appointment}`)
+  //     .then((res)=>{
+  //         setResetPage(!resetPage);
+  //     })
+  //     .catch((err) => console.log(err));
+  //  };
+  //----------------------------------------------------------------------------
+
   return (
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ?
@@ -55,7 +56,6 @@ export const UserPendingAppointments = () => {
                 <TableCell align="center">Profesional</TableCell>
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Hora</TableCell>
-                <TableCell align="center">Cancelación</TableCell>
               </TableRow>
             </TableHead>
             
@@ -71,12 +71,6 @@ export const UserPendingAppointments = () => {
                   <TableCell align="center">{appointment.appointment_date}</TableCell>
 
                   <TableCell align="center">{appointment.appointment_time}</TableCell>
-
-                  <TableCell align="center">
-                    <button 
-                    onClick={()=>cancelAppointment(appointment?.appointment_id)}
-                    >Cancelar</button>
-                  </TableCell>
 
                 </TableRow>)
               })}

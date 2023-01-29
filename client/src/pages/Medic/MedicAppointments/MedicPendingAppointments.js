@@ -52,7 +52,6 @@ export const MedicPendingAppointments = () => {
         .catch((err) => console.log(err));
      };
      
-     console.log(appointmentData);
   return (
     <div className="bgAppointmentHistory p-2">
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">

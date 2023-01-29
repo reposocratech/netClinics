@@ -11,8 +11,6 @@ import { useNavigate } from "react-router-dom";
 export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setHandleShowAvailability, showToast, setShowToast, setMedicsSearched}) => {
 
     const {user} = useContext(NetClinicsContext);
-    
-    const navigate = useNavigate();
 
     const [pickerDateSelected, setPickerDateSelected] = useState();
     const [listAvailability, setListAvailability] = useState([]);
@@ -21,6 +19,9 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
     const [appointmentCommentary, setAppointmentCommentary] = useState("");
 
     const [message, setMessage] = useState("");
+
+    const nameLastNameMedic = {name: handleShowAvailability.medic.name, lastname: handleShowAvailability.medic.lastname};
+
 
     //segun la fecha seleccionada guardo el valor en pickerDateSelected
     //Ej. '2023-01-27'
@@ -106,7 +107,12 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
             axios
             .post("http://localhost:4000/appointment", addAppointment)
             .then((res) => {
-                setShowToast(!showToast);
+                setShowToast({
+                        open: true, 
+                        appointment: addAppointment, 
+                        medicName: nameLastNameMedic.name,
+                        medicLastName: nameLastNameMedic.lastname,
+                });
                 setHandleShowAvailability({open:false, medic: null});
             })
             .catch((err) => {
