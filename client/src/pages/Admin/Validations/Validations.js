@@ -19,11 +19,12 @@ export const Validations = () => {
       .get("http://localhost:4000/admin/getAllMedicsValidation")
       .then((res) => {
         setMedics(res.data);
-        console.log("información de todos los médicos", res.data);
       });
   }, [resetPage]);
 
-  const enable = (id, is_enable) => {
+  const enable = (id, is_enable, medic) => {
+    console.log(medic);
+
     let url = `http://localhost:4000/admin/enableMedic/${id}`;
     if (is_enable === 1) {
       url = `http://localhost:4000/admin/disableMedic/${id}`;
@@ -32,11 +33,19 @@ export const Validations = () => {
     axios
       .put(url)
       .then((res) => {
+        enableMedicEmail(medic);
         setResetPage(!resetPage);
       })
       .catch((Err) => console.log(Err));
   };
-  console.log("esto trae medics", medics);
+
+  const enableMedicEmail = (medic) => {
+    axios
+        .post("http://localhost:4000/admin/enableMedicEmail", medic)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+  }
+
   return (
       <div className="bgValidation d-flex justify-content-center">
       <Container>

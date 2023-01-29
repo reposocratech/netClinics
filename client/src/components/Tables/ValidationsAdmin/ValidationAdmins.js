@@ -50,12 +50,12 @@ export const ValidationAdmins = ({medics, navigate, enable}) => {
 
                     <TableCell align="center">
                     {!medic?.medic_enabled ?
-                      <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
+                      <button onClick={() => enable(medic.user_id, medic.medic_enabled, medic)} className="buttonEnabledUser">
                           <div className="pointEnable"></div>
                           Habilitar
                       </button>
                       :
-                      <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
+                      <button  onClick={() => enable(medic.user_id, medic.medic_enabled, medic)} className="buttonDisabledUser">
                         <div className="pointDisabled"></div>
                         Deshabilitar
                       </button>

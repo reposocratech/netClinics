@@ -53,6 +53,7 @@ class adminControllers {
     });
   };
 
+
   //5.-Desactiva un médico
   //localhost:4000/admin/disableMedic/:user_id
   disableMedic = (req, res) => {
