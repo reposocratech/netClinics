@@ -167,6 +167,9 @@ export const MedicAppointmentsHistory = () => {
       ) : (
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes histórico de citas</h3>
+          <button className="deffineButton" onClick={cleanSubmit}>
+            Volver
+          </button>
         </Container>
       )}
       {handleShow.open && (
