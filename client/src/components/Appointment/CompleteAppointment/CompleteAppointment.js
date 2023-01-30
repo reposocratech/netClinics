@@ -1,10 +1,9 @@
 import React from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from 'react-router';
+import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
 
-export const CompleteAppointment = ({showToast, setShowToast}) => {
-
-    let dateAppointment = showToast.appointment.date.split("-").reverse().join("-");
+export const CompleteAppointment = ({showToast}) => {
 
     const navigate = useNavigate();
 
@@ -15,7 +14,7 @@ export const CompleteAppointment = ({showToast, setShowToast}) => {
         <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='text-center mb-3'>
             <h2>Gracias por su cita</h2>
-            <h4>Has reservado cita con {showToast.medicName} {showToast.medicLastName} para el {dateAppointment} de {showToast.appointment.appointment_time}</h4>
+            <h4>Has reservado cita con {showToast.medicName} {showToast.medicLastName} para el {reverseDate(showToast.appointment.date)} de {showToast.appointment.appointment_time}</h4>
             <p>*Recuerde, el profesional debera aceptar su cita</p>
           </Col>
         </Row>

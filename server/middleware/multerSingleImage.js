@@ -6,7 +6,8 @@ function uploadImage(a) {
     //destination: `./public/images/${a}`,
 
     filename: function (req, file, callback) {
-      callback(null, "Id-" + Date.now());
+      let extension = file.originalname.slice(file.originalname.lastIndexOf("."), file.originalname.length);
+      callback(null, "Id-" + Date.now() + extension);
     },
   });
 
