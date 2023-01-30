@@ -58,11 +58,11 @@ export const MedicAppointmentsHistory = () => {
       setAppointmentData(appointmentData);
     }
   };
-console.log(appointmentData);
+  
   return (
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ? (
-        <Container cclassName="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
+        <Container className="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
           {/* Buscador por filtro */}
           <Row className="contSearcher d-flex justify-content-center p-3">
             <div className="searcher align-items-center justify-content-center d-flex gap-2">
@@ -119,11 +119,13 @@ console.log(appointmentData);
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="center">
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={`assets/images/user/${appointment.avatar}`} 
-                          sx={{ width: 56, height: 56 }}
-                        />
+                        <div className='d-flex align-items-center justify-content-center'>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src={`assets/images/user/${appointment.avatar}`} 
+                            sx={{ width: 56, height: 56 }}
+                          />
+                        </div>
                       </TableCell>
 
                       <TableCell align="center">

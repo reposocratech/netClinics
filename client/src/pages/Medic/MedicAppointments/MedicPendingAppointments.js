@@ -142,11 +142,14 @@ export const MedicPendingAppointments = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="center">
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={`assets/images/user/${appointment.avatar}`}
-                          sx={{ width: 56, height: 56 }}
-                        />
+                        <div className='d-flex align-items-center justify-content-center'>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src={`assets/images/user/${appointment.avatar}`}
+                            sx={{ width: 56, height: 56 }}
+                          />
+                        </div>
+                       
                       </TableCell>
 
                       <TableCell align="center">
@@ -198,8 +201,8 @@ export const MedicPendingAppointments = () => {
           </TableContainer>
         </Container>
       ) : (
-        <Container className="withoutAppointments d-flex justify-content-center my-5">
-          <h3>Actualmente no tienes histórico de citas</h3>
+        <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
+          <h3>Actualmente no tienes citas pendiente de confirmar</h3>
           <button className="deffineButton" onClick={cleanSubmit}>
             Volver
           </button>

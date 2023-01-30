@@ -28,7 +28,6 @@ export const AvailabilityMedic = () => {
       axios
       .get(`http://localhost:4000/medic/availabilities`)
       .then((res) => {
-        console.log(res.data);
         setAvailability(res.data);
       })
       .catch((error) =>{
@@ -38,7 +37,6 @@ export const AvailabilityMedic = () => {
       axios
       .get(`http://localhost:4000/time/getAllHours`)
       .then((res) => {
-        console.log(res.data);
         setListDailyHours(res.data);
       })
       .catch((error) =>{
@@ -48,7 +46,6 @@ export const AvailabilityMedic = () => {
       axios
       .get(`http://localhost:4000/time/getAllDays`)
       .then((res) => {
-        console.log(res.data);
         setListAllDay(res.data);
       })
       .catch((error) =>{
