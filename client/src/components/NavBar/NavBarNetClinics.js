@@ -87,7 +87,7 @@ export const NavBarNetClinics = () => {
                 </div>
               }>
                 <NavDropdown.Item as={Link} to="/myProfile"><PersonIcon/> Mi perfil</NavDropdown.Item>
-                <NavDropdown.Item><LockIcon/> Cambiar Contraseña</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/changePassword"><LockIcon/> Cambiar Contraseña</NavDropdown.Item>
                 <NavDropdown.Item onClick={logOut}><LogoutIcon/> Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
           }

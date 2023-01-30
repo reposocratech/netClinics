@@ -1,7 +1,6 @@
 var express = require('express');
 const userControllers = require("../controllers/userControllers");
 var router = express.Router();
-const multerSingleImage = require("../middleware/multerSingleImage");
 // const verify = require("../middleware/verify");
 
 
@@ -10,16 +9,24 @@ const multerSingleImage = require("../middleware/multerSingleImage");
 //localhost:4000/user/login
 router.post("/login", userControllers.login);
 
-
 //-----------------------------------------------------
 //2.-Borrado lógico de un usuario
-//localhost:4000/user/deleteUser/:userId       
+//localhost:4000/user/deleteUser/:user_id      
 router.put("/deleteUser/:user_id", userControllers.deleteUser);
 
 //-----------------------------------------------------
-//2.-Trae información de un usuario
-//localhost:4000/user/oneUser/:userId       
+//3.-Trae información de un usuario
+//localhost:4000/user/oneUser/:user_id      
 router.get("/oneUser/:user_id", userControllers.selectOneUser);
 
+//-----------------------------------------------------
+//4.-Cambio de contraseña en cualquier tipo de usuario
+//localhost:4000/user/changeUserPassword/:user_id      
+router.put("/changeUserPassword/:user_id", userControllers.changeUserPassword);
+
+//-----------------------------------------------------
+//5.-Solicitud reseteo de contraseña
+//localhost:4000/user/resetPassword
+router.put("/resetPassword", userControllers.resetPassword);
 
 module.exports = router;

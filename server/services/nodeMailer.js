@@ -18,8 +18,6 @@ class nodeMailerController {
 
     const { name, lastName, email } = req.body;
 
-    console.log(req);
-
     let info = `<h1>Bienvenido a NetClinics ${name}</h1>
         <h4>Hola, ${name} ${lastName} te damos la bienvenida a nuestra plataforma.</h4>
         <p>Vamos a revisar la documentación adjunta en el registro,
