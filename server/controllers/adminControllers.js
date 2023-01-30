@@ -6,26 +6,21 @@ class adminControllers {
   // localhost:4000/admin/getAllMedics
   getAllMedics = (req, res) => {
     let sql =
-      "SELECT user.*, medic_data.*, province_name, city.city_name FROM user left join medic_data on user.user_id = medic_data.user_id  left join title on user.user_id = title.user_id join province on user.province_id = province.province_id join city on user.city_id = city.city_id and province.province_id = city.province_id where user.type = 2 group by user.user_id order by user.lastname";
+      "SELECT user.*, medic_data.*, province_name, city.city_name FROM user LEFT JOIN medic_data ON user.user_id = medic_data.user_id  LEFT JOIN title ON user.user_id = title.user_id JOIN province ON user.province_id = province.province_id JOIN city ON user.city_id = city.city_id AND province.province_id = city.province_id WHERE user.type = 2 GROUP BY user.user_id ORDER BY user.lastname";
 
-    connection.query(sql, (error, result) => {
-      if (error) {
-        res.status(400).json(error);
-      }
-      res.status(200).json(result);
-    });
+      connection.query(sql, (error, result) => {
+        error ? res.status(400).json({ error }) : res.status(200).json(result);
+      });
   };
 
   // 2.- Trae los datos de todos los pacientes con ciudad y provincia
   // localhost:4000/admin/getAllPatients
   getAllPatients = (req, res) => {
     let sql =
-      "SELECT user.*, province.province_name, city.city_name from user, province, city where user.city_id = city.city_id and user.province_id = province.province_id and province.province_id = city.province_id and user.type = 3 order by user.lastname";
+      "SELECT user.*, province.province_name, city.city_name FROM user, province, city WHERE user.city_id = city.city_id AND user.province_id = province.province_id AND province.province_id = city.province_id AND user.type = 3 ORDER BY user.lastname";
+
     connection.query(sql, (error, result) => {
-      if (error) {
-        res.status(400).json({ error });
-      }
-      res.status(200).json(result);
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
     });
   };
 
@@ -70,14 +65,11 @@ class adminControllers {
   // localhost:4000/admin/getAllMedicsValidation
   getAllMedicsValidation = (req, res) => {
     let sql =
-      "SELECT user.*, medic_data.*, province_name, city.city_name FROM user left join medic_data on user.user_id = medic_data.user_id  left join title on user.user_id = title.user_id join province on user.province_id = province.province_id join city on user.city_id = city.city_id and province.province_id = city.province_id where user.type = 2 and medic_data.medic_enabled = 0 and user.is_deleted = 0  group by user.user_id order by user.lastname";
+      "SELECT user.*, medic_data.*, province_name, city.city_name FROM user LEFT JOIN medic_data ON user.user_id = medic_data.user_id  LEFT JOIN title ON user.user_id = title.user_id JOIN province ON user.province_id = province.province_id JOIN city ON user.city_id = city.city_id AND province.province_id = city.province_id WHERE user.type = 2 AND medic_data.medic_enabled = 0 AND user.is_deleted = 0  GROUP BY user.user_id ORDER BY user.lastname";
 
-    connection.query(sql, (error, result) => {
-      if (error) {
-        res.status(400).json({ error });
-      }
-      res.status(200).json(result);
-    });
+      connection.query(sql, (error, result) => {
+        error ? res.status(400).json({ error }) : res.status(200).json(result);
+      });
   };
 
   //7.- Pone un médico en estado disponible
@@ -109,10 +101,10 @@ class adminControllers {
   getMedicProfile = (req, res) => {
     const user_id = req.params.user_id;
     let sql = `SELECT * FROM user 
-    left join medic_data on user.user_id = medic_data.user_id 
-    left join title on user.user_id = title.user_id 
-    left join medic_data_speciality on user.user_id = medic_data_speciality.user_id 
-    left join speciality on medic_data_speciality.speciality_id = speciality.speciality_id 
+    LEFT JOIN  medic_data ON user.user_id = medic_data.user_id 
+    LEFT JOIN title ON user.user_id = title.user_id 
+    LEFT JOIN medic_data_speciality ON user.user_id = medic_data_speciality.user_id 
+    LEFT JOIN speciality ON medic_data_speciality.speciality_id = speciality.speciality_id 
     WHERE user.user_id=${user_id}`;
 
     connection.query(sql, (error, result) => {
@@ -205,13 +197,10 @@ class adminControllers {
   getPatientProfile = (req, res) => {
      const user_id  = req.params.user_id;
 
-    let sql = `SELECT user.*, province.province_name, city.city_name from user, province, city where user.city_id = city.city_id and user.province_id = province.province_id and province.province_id = city.province_id and user.user_id = ${user_id}`;
+    let sql = `SELECT user.*, province.province_name, city.city_name FROM user, province, city WHERE user.city_id = city.city_id AND user.province_id = province.province_id AND province.province_id = city.province_id AND user.user_id = ${user_id}`;
 
     connection.query(sql, (error, result) => {
-      if (error) {
-        res.status(400).json({ error });
-      }
-      res.status(200).json(result);
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
     });
   };
 }

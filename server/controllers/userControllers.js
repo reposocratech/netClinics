@@ -7,9 +7,7 @@ class userControllers {
   //localhost:4000/user/login
   login = (req, res) => {
     let { email, password } = req.body;
-    let sql = `SELECT * FROM user WHERE email = '${email}' and is_deleted = 0`;
-
-    console.log(sql);
+    let sql = `SELECT * FROM user WHERE email = '${email}' AND is_deleted = 0`;
 
     connection.query(sql, (error, result) => {
       //En caso de error en la consulta
@@ -60,7 +58,6 @@ class userControllers {
   //2.-Borrado lógico de un usuario
   //localhost:4000/user/deleteUser/:user_id
   deleteUser = (req, res) => {
-
     let user_id = req.params.user_id;
     let sql = `UPDATE user SET is_deleted = 1 WHERE user_id = ${user_id}`;
     
@@ -90,13 +87,13 @@ class userControllers {
   changeUserPassword = (req, res) => {
     let {user_id} = req.params;
     let {password} = req.body;
+
     let saltRounds = 8;
     bcrypt.genSalt(saltRounds, function (err, saltRounds) {
       bcrypt.hash(password, saltRounds, function (err, hash) {
         let sql = `UPDATE user SET password = "${hash}" WHERE user_id = ${user_id}`;
 
         connection.query(sql, (error, result) => {
-          console.log(error);
           error
             ? res.status(400).json({ error })
             : res.status(200).json(result);
