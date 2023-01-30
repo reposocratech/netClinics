@@ -59,6 +59,10 @@
         .tableAllMedics {
             width: 100%;
 
+            .title{
+                color: #1C2869;
+            }
+
             .MuiTableCell-root{
                 font-family: 'Rubik', sans-serif;
                 color: rgba($color: #1C2869, $alpha: 1.0);

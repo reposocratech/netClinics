@@ -46,6 +46,7 @@ export const UserFollowingAppointments = () => {
         {appointmentData?.length !== 0 ? 
           <Container className="whiteBoxAppointmentHistory d-flex flex-column align-items-center p-5 mt-5">
             <Row>
+              <h3 className="title text-center mb-4">Próximas citas</h3>
               <Col className='contWrap d-flex flex-wrap align-items-center justify-content-center gap-5'>
                 {appointmentData?.map((appointment,i)=>{
                   return(

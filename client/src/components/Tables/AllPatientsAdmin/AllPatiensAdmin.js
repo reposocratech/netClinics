@@ -19,6 +19,7 @@ export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
       >
         {patients && (
           <TableContainer component={Paper} className="tableAllPatient">
+            <h3 className="title text-center my-3">Pacientes</h3>
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>

@@ -105,6 +105,7 @@ export const MedicAppointmentsHistory = () => {
 
           {/* Tabla Histórico Citas */}
           <TableContainer component={Paper} className="tableMyDates mt-4">
+            <h3 className="title text-center my-3">Historial de Citas</h3>
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>

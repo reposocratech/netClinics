@@ -58,6 +58,7 @@ export const AvailabilityMedic = () => {
     <div className='bgAvailabilityMedic d-flex align-items-center justify-content-center'>
       <div className='w-75 my-5 -mb-5'>
         <TableContainer component={Paper}>
+          <h3 className="title text-center my-3">Disponibilidad</h3>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead className='bgThTable'>
               <TableRow>
