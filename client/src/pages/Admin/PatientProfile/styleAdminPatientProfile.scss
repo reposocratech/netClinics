@@ -14,7 +14,6 @@
             padding: 2rem;
             
             .informationPatientProfile{
-    
                 h4{
                     font-weight: 400;
                 }
@@ -29,17 +28,32 @@
     
             .imagePatientProfile {
                 width: fit-content;
-    
-    
+
                 .imagePatient {
                     border-radius: 50%;
                     object-fit: cover;
                     object-position: center;
                     width: 300px;
-                    //border: 6px solid rgb(255, 255, 255);
                     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
                 }
             }
+        }
+
+        .deffineButton{
+            appearance: none;
+            background-color: rgba($color: #1C2869, $alpha: 1.0);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 400;
+            font-size: 1rem;
+            font-family: 'Rubik', sans-serif;
+            width: 5rem;
+            padding: 0.3rem;
+        }
+    
+        .deffineButton:hover {
+            background-color: #293a9a;
         }
     }
 }
@@ -57,8 +71,6 @@
                 height: 200px !important;
             }
         }
-        
-
     }  
 }
 
@@ -72,7 +84,6 @@
             .imagePatient{
                 width: 120px !important;
                 height: 120px !important;
-                
             }
         }
     }  
