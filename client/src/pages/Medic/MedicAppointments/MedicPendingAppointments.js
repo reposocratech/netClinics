@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
+import Avatar from '@mui/material/Avatar';
 import axios from "axios";
 
 import { Container, Row, Col } from "react-bootstrap";
@@ -15,9 +16,9 @@ import {
 } from "@mui/material";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 
 import "./myDatesMedic.scss";
 
@@ -83,13 +84,14 @@ export const MedicPendingAppointments = () => {
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ? (
         <Container className="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
+
           {/* Buscador por filtro */}
           <Row className="contSearcher d-flex justify-content-center p-3">
             <div className="searcher align-items-center justify-content-center d-flex gap-2">
               <Col xs={12} sm={12} md={8} lg={8}>
                 <InputGroup className="textSearcher">
                   <InputGroup.Text id="basic-addon1">
-                    <CalendarMonthRoundedIcon></CalendarMonthRoundedIcon>
+                    <CalendarMonthTwoToneIcon/>
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="dd/mm/aaaa"
@@ -140,9 +142,11 @@ export const MedicPendingAppointments = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="center">
-                      <img
-                        src={`assets/images/user/${appointment.avatar}`}
-                      />
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={`assets/images/user/${appointment.avatar}`}
+                          sx={{ width: 56, height: 56 }}
+                        />
                       </TableCell>
 
                       <TableCell align="center">

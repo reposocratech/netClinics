@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
-import axios from "axios";
 import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
+import Avatar from '@mui/material/Avatar';
+import axios from "axios";
 
 import {
   Paper,
@@ -12,9 +13,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 
 import "./myDatesMedic.scss";
 
@@ -67,7 +69,7 @@ console.log(appointmentData);
               <Col xs={12} sm={12} md={8} lg={8}>
                 <InputGroup className="textSearcher">
                   <InputGroup.Text id="basic-addon1">
-                    <i className="fa-solid fa-user-doctor"></i>
+                    <CalendarMonthTwoToneIcon/>
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="dd/mm/aaaa"
@@ -117,8 +119,12 @@ console.log(appointmentData);
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="center">
-                        <img src={`assets/images/user/${appointment.avatar}`} />
-                  </TableCell>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={`assets/images/user/${appointment.avatar}`} 
+                          sx={{ width: 56, height: 56 }}
+                        />
+                      </TableCell>
 
                       <TableCell align="center">
                       <strong>{appointment.lastname}</strong>, {appointment.name}
