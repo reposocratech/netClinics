@@ -9,6 +9,7 @@ import { EditAdmin } from '../pages/Admin/EditAdmin/EditAdmin';
 import { AdminMedicProfile } from '../pages/Admin/MedicProfile/AdminMedicProfile';
 import { AdminPatientProfile } from '../pages/Admin/PatientProfile/AdminPatientProfile';
 import { Validations } from '../pages/Admin/Validations/Validations';
+import { ChangePassword } from '../pages/Auth/ChangePassword/ChangePassword';
 import { Login } from '../pages/Auth/Login/Login';
 import { Error } from '../pages/Error/Error';
 import { HomeAdmin } from '../pages/Home/HomeAdmin';
@@ -102,6 +103,11 @@ export const AppRoutes = () => {
                   path='/availability'
                   element={<AvailabilityMedic/>}
                   />
+                  {/* Ruta para cambiar la contraseña de su cuenta*/}
+                  <Route
+                    path='/changePassword'
+                    element={<ChangePassword/>}
+                    />
 
                 </>
                 }
@@ -145,6 +151,12 @@ export const AppRoutes = () => {
                     path='/userFollowingAppointments'
                     element={<UserFollowingAppointments/>}
                     />
+                    {/* Ruta para cambiar la contraseña de su cuenta*/}
+                    <Route
+                    path='/changePassword'
+                    element={<ChangePassword/>}
+                    />
+
 
                   </>
                 }
@@ -198,6 +210,11 @@ export const AppRoutes = () => {
                     <Route
                     path='/patientProfile/:user_id'
                     element={<AdminPatientProfile/>}
+                    />
+                    {/* Ruta para cambiar la contraseña de su cuenta*/}
+                    <Route
+                    path='/changePassword'
+                    element={<ChangePassword/>}
                     />
                   </>
                 }
