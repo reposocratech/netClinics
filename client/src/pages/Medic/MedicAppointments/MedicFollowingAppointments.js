@@ -16,6 +16,7 @@ import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker"
 import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import { MedicAppointmentView } from "./MedicAppointmentView";
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 
@@ -132,6 +133,7 @@ export const MedicFollowingAppointments = () => {
                   <TableCell align="center">Fecha</TableCell>
                   <TableCell align="center">Hora</TableCell>
                   <TableCell align="center">Dirección</TableCell>
+                  <TableCell align="center"></TableCell>
                 </TableRow>
               </TableHead>
 
@@ -182,8 +184,10 @@ export const MedicFollowingAppointments = () => {
                       <TableCell align="center">
                         <div className="contButton d-flex justify-content-center gap-3">
                           <button
+                          className="acceptButton"
                           onClick={()=>completAppointment(appointment?.appointment_id)}>
-                            Completar cita
+                            <DoneRoundedIcon />
+                            Confirmar Realización
                           </button>
                         </div>
                       </TableCell>
