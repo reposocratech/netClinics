@@ -94,7 +94,7 @@ export const UserPendingAppointments = () => {
             </Row>
           </Container>
           :
-          <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
+          <Container className="withoutAppointments d-flex justify-content-center mt-5">
             <h3>Actualmente no tienes citas pendiente de confirmar</h3>
           </Container>
         }
