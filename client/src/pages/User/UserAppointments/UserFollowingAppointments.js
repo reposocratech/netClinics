@@ -64,7 +64,9 @@ export const UserFollowingAppointments = () => {
                         <Card.Title>Hora:</Card.Title>
                         <Card.Text>{appointment.appointment_time}</Card.Text>
                         <Card.Title>Estado:</Card.Title>
-                        <Card.Text className='text-success'>Confirmada</Card.Text>
+                        <Card.Text>
+                            <div className='acceptButton text-center mt-1'><p>CONFIRMADA</p></div>
+                          </Card.Text>
                       </div>
                     </div>
                   )
