@@ -8,7 +8,6 @@ class patientControllers {
   //1.Crear paciente
   //localhost:4000/patient/createPatient
   createPatient = (req, res) => {
-    console.log(req.body);
     let { name, email, password, lastname,address,phone_number,dni,province_id,city_id, postal_code} = req.body;
 
     province_id = parseInt(province_id);
@@ -21,7 +20,6 @@ class patientControllers {
         let sql = `INSERT INTO user (name, lastname, phone_number, address, email, password, dni, province_id, city_id, postal_code) VALUES ( '${name}','${lastname}', '${phone_number}', '${address}', '${email}', '${hash}', '${dni}', ${province_id}, ${city_id}, ${postal_code})`;
 
         connection.query(sql, (error, result) => {
-          console.log(error);
           error
             ? res.status(400).json({ error })
             : res.status(200).json(result);
@@ -41,8 +39,9 @@ class patientControllers {
   selectOnePatient = (req, res) => {
     const {user_id} = req.params;
 
-    let sqlPatient = `SELECT * FROM user WHERE user_id = ${user_id} and is_deleted = 0`;
+    let sqlPatient = `SELECT * FROM user WHERE user_id = ${user_id} AND is_deleted = 0`;
     let sqlAppointment = `SELECT * FROM appointment WHERE user_patient_id = ${user_id}`;
+
     connection.query(sqlPatient, (error, resultPatient) => {
       if (error) {
         res.status(400).json({ error });
@@ -60,15 +59,10 @@ class patientControllers {
   //localhost:4000/patient/getMedicsName
   getMedicsName = (req, res) => {
     
-    
+    let sql = `SELECT * FROM user WHERE user.type = 2 AND user.is_deleted = 0  `;
 
-    let sql = `select * from user where user.type = 2 and user.is_deleted = 0  `;
-
-    
-    
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
-      
     });
   };
 
@@ -80,6 +74,7 @@ class patientControllers {
     
     let user_id = req.params.user_id;
     let sql = `SELECT * FROM user WHERE user_id = "${user_id}"`;
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -116,7 +111,9 @@ class patientControllers {
   //localhost:4000/patient/getAppointmentHistory/:user_id
   getAppointmentHistory = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = 1`;
+
+    let sql = `SELECT * FROM appointment WHERE user_patient_id = ${user_id} AND is_completed = 1`;
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -127,7 +124,8 @@ class patientControllers {
   //localhost:4000/patient/getPendingAppointments/:user_id
   getPendingAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and  is_completed = 0 and appointment_is_confirmed = 0`; 
+    let sql = `SELECT * FROM appointment WHERE user_patient_id = ${user_id} AND  is_completed = 0 AND appointment_is_confirmed = 0`;
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       
@@ -140,10 +138,10 @@ class patientControllers {
 
   getConfirmedAppointments = (req, res) => {
     let {user_id} = req.params;
-    let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = 0 and appointment_is_confirmed = 1`; 
+    let sql = `SELECT * FROM appointment WHERE user_patient_id = ${user_id} AND is_completed = 0 AND appointment_is_confirmed = 1`; 
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
-      
     });
   };
 
@@ -152,20 +150,14 @@ class patientControllers {
 
   cancelPendingAppointment = (req,res) => {
     let {appointment_id} = req.params;
-    let sql = `DELETE FROM appointment where appointment_id = ${appointment_id}`
+    let sql = `DELETE FROM appointment WHERE appointment_id = ${appointment_id}`;
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
       console.log(result);
   });
-  }
-  
-
-
-
-
-
-  
-
+  };
+   
 }
 
 module.exports = new patientControllers();

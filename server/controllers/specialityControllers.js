@@ -21,15 +21,7 @@ class specialityControllers {
         let sql = `SELECT speciality_name FROM speciality join medic_data_speciality on speciality.speciality_id = medic_data_speciality.speciality_id WHERE medic_data_speciality.user_id = ${user_id}`;
   
         connection.query(sql, (error, result) => {
-           if(error){
-            res.status(400).json(error);
-           }
-           else{
-            res.status(200).json(result);
-            console.log(result);
-            
-
-           }
+            error ? res.status(400).json({ error }) : res.status(200).json(result);
         });
 
     };
@@ -40,15 +32,11 @@ class specialityControllers {
 
         let {user_id} = req.params;
         const speciality_id = parseInt(req.body.speciality_id);
-       
         
         let sql = `INSERT INTO medic_data_speciality VALUES (${speciality_id}, ${user_id})`;
-        console.log(sql);
-        
         
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         });
     
     };
@@ -63,11 +51,8 @@ class specialityControllers {
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         });
-
     };
-
 
 }
 module.exports = new specialityControllers();

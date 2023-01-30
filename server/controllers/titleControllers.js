@@ -5,11 +5,10 @@ class titleControllers {
     //1.Traer la informacion de los titulos 
     //localhost:4000/title/getTitles
     getTitles = (req,res) => {
-        let sql = 'select * from title';
+        let sql = 'SELECT * FROM title';
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
           });
     }
 
@@ -23,24 +22,19 @@ class titleControllers {
 
         let file = "";
 
-        let sql = `UPDATE title set text = '${text}', university = '${university}', start_date = '${start_date}', end_date = '${end_date}' WHERE title_id = ${title_id}`;
+        let sql = `UPDATE title SET text = '${text}', university = '${university}', start_date = '${start_date}', end_date = '${end_date}' WHERE title_id = ${title_id}`;
 
         if(req.files.length !== 0){
 
             file = req.files[0].filename;
 
-            sql = `UPDATE title set text = '${text}', university = '${university}', start_date = '${start_date}', end_date = '${end_date}', document = '${file}' WHERE title_id = ${title_id}`;
+            sql = `UPDATE title SET text = '${text}', university = '${university}', start_date = '${start_date}', end_date = '${end_date}', document = '${file}' WHERE title_id = ${title_id}`;
 
-        }
+        };
         
         connection.query(sql, (error, result) => {
-            if(error){
-                res.status(400).json({error});
-            }
-            else{
-                res.status(200).json(result);
-            }
-        })
+            error ? res.status(400).json({ error }) : res.status(200).json(result);
+          });
 
     }
 
@@ -53,7 +47,6 @@ class titleControllers {
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         });
 
 
@@ -69,11 +62,10 @@ class titleControllers {
 
         let document = req.files[0].filename;
 
-        let sql = `INSERT INTO title (text, university, document, start_date, end_date, user_id) values('${text}', '${university}', '${document}', '${start_date}', '${end_date}', ${user_id})`;
+        let sql = `INSERT INTO title (text, university, document, start_date, end_date, user_id) VALUES('${text}', '${university}', '${document}', '${start_date}', '${end_date}', ${user_id})`;
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
-            console.log(result);
         })
 
     }

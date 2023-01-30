@@ -6,7 +6,7 @@ class placeControllers{
     //1.Traer la informacion tanto de ciudades como provincias
     //localhost:4000/place/getPlaces
     getPlaces = (req,res) => {
-        let sql = 'select * from city left join province on province.province_id = city.province_id';
+        let sql = 'SELECT * FROM city LEFT JOIN province ON province.province_id = city.province_id';
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
@@ -27,16 +27,11 @@ class placeControllers{
            else{
             let {province_id, city_id} = result[0];
 
-            let sql2 = `SELECT province.province_name, city.city_name from province, city where province.province_id = ${province_id} and city.city_id = ${city_id} and province.province_id = city.province_id;`
+            let sql2 = `SELECT province.province_name, city.city_name from province, city WHERE province.province_id = ${province_id} AND city.city_id = ${city_id} AND province.province_id = city.province_id`;
 
-                connection.query(sql2, (error, result) => {
-                    if(error){
-                        res.status(400).json(error);
-                    }
-                    else{
-                        res.status(200).json(result);
-                    }
-                });
+            connection.query(sql2, (error, result) => {
+                error ? res.status(400).json({ error }) : res.status(200).json(result);
+            });
 
            }
         });
@@ -52,8 +47,6 @@ class placeControllers{
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
         });
-
-
     }
 
     //4.-Trae la información de todas las ciudades de un provincia
@@ -62,7 +55,7 @@ class placeControllers{
         
         let {province_id} = req.params
 
-        let sql = `SELECT * FROM city where province_id = ${province_id} ORDER BY city_name`;
+        let sql = `SELECT * FROM city WHERE province_id = ${province_id} ORDER BY city_name`;
 
         connection.query(sql, (error, result) => {
             error ? res.status(400).json({ error }) : res.status(200).json(result);
