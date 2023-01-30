@@ -1,8 +1,8 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { Container } from "react-bootstrap";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import React, { useContext, useEffect, useState } from 'react';
+import { Container, Row, Col } from "react-bootstrap";
+import { Card } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
+import axios from 'axios';
 import './myDatesPatient.scss';
 
 export const UserFollowingAppointments = () => {
@@ -37,42 +37,58 @@ export const UserFollowingAppointments = () => {
    }
   return (
     <div className="bgAppointmentHistory p-2">
-      {appointmentData?.length !== 0 ?
-      <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
-        <TableContainer component={Paper} className="tableAppointmentHistory">
-          <Table sx={{ minWidth: 390 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Profesional</TableCell>
-                <TableCell align="center">Fecha</TableCell>
-                <TableCell align="center">Hora</TableCell>
-              </TableRow>
-            </TableHead>
-            
-            <TableBody>
-              {appointmentData?.map((appointment,i)=>{
-                return(
-                <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+      <div className="d-flex flex-column align-items-center">
+        {appointmentData?.length !== 0 ? 
+          <Container className="whiteBoxAppointmentHistory d-flex flex-column align-items-center p-5 mt-5">
+            <Row>
+              <Col className='contWrap d-flex flex-wrap align-items-center justify-content-center gap-5'>
+                {appointmentData?.map((appointment,i)=>{
+                  return(
+                    <div key={i} className='d-flex flex-column justify-content-center cardMedic p-3 mb-3'>
+                      <div style={{ width: '16rem' }}>
+                        <div className='cardImgMedic text-center p-3'>
+                          <img alt={findMedicName(appointment.user_medic_id)?.name} className='imgMedic' src={`/assets/images/user/${findMedicName(appointment.user_medic_id)?.avatar}`}/>
+                        </div>
+                      </div>
 
-                  <TableCell align="center">
-                  {findMedicName(appointment.user_medic_id)?.name} {findMedicName(appointment.user_medic_id)?.lastname}
-                  </TableCell>
-
-                  <TableCell align="center">{appointment.appointment_date}</TableCell>
-
-                  <TableCell align="center">{appointment.appointment_time}</TableCell>
-
-                </TableRow>)
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-      :
-      <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
-        <h3>Actualmente no tienes citas confirmadas</h3>
-      </Container>       
-      }
+                      <div className='mb-3 ms-2'>
+                        <Card.Title>Nombre:</Card.Title>
+                        <Card.Text>{findMedicName(appointment.user_medic_id)?.name} {findMedicName(appointment.user_medic_id)?.lastname}</Card.Text>
+                        <Card.Title>Día:</Card.Title>
+                        <Card.Text>{appointment.appointment_date}</Card.Text>
+                        <Card.Title>Hora:</Card.Title>
+                        <Card.Text>{appointment.appointment_time}</Card.Text>
+                        {/* <Card.Title>Dirección:</Card.Title>
+                        <Card.Text>{appointment.appointment_address}</Card.Text> */}
+                        <Card.Title>Estado:</Card.Title>
+                        <Card.Text>
+                          <div className="d-flex justify-content-center">
+                            {/* {!medic?.medic_enabled ?
+                              <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
+                                  <div className="pointDisabled"></div>
+                                  Confirmada
+                              </button>
+                              :
+                              <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
+                                <div className="pointEnable"></div>
+                              Pendiente
+                              </button>
+                            } */}
+                          </div>
+                        </Card.Text>
+                      </div>
+                    </div>
+                  )
+                })}
+              </Col>
+            </Row>
+          </Container>
+          :
+          <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
+          <h3>Actualmente no tienes citas confirmadas</h3>
+          </Container>
+        }
+      </div>
     </div>
   );
 };
