@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import axios from 'axios';
 import './myDatesPatient.scss';
+import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
 
 export const UserPendingAppointments = () => {
   
@@ -45,6 +46,8 @@ export const UserPendingAppointments = () => {
   //  };
   //----------------------------------------------------------------------------
 
+  console.log(appointmentData);
+
   return (
     <div className="bgAppointmentHistory p-2">
       <div className="d-flex flex-column align-items-center">
@@ -64,27 +67,11 @@ export const UserPendingAppointments = () => {
                           <Card.Title>Nombre:</Card.Title>
                           <Card.Text>{findMedicName(appointment.user_medic_id)?.name} {findMedicName(appointment.user_medic_id)?.lastname}</Card.Text>
                           <Card.Title>Día:</Card.Title>
-                          <Card.Text>{appointment.appointment_date}</Card.Text>
+                          <Card.Text>{reverseDate(appointment.appointment_date)}</Card.Text>
                           <Card.Title>Hora:</Card.Title>
                           <Card.Text>{appointment.appointment_time}</Card.Text>
-                          {/* <Card.Title>Dirección:</Card.Title>
-                          <Card.Text>{appointment.appointment_address}</Card.Text> */}
                           <Card.Title>Estado:</Card.Title>
-                          <Card.Text>
-                            <div className="d-flex justify-content-center">
-                              {/* {!medic?.medic_enabled ?
-                                <button onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonEnabledUser">
-                                    <div className="pointEnable"></div>
-                                    Confirmada
-                                </button>
-                                :
-                                <button  onClick={() => enable(medic.user_id, medic.medic_enabled)} className="buttonDisabledUser">
-                                  <div className="pointDisabled"></div>
-                                Pendiente
-                                </button>
-                              } */}
-                            </div>
-                          </Card.Text>
+                          <Card.Text className='text-warning'>Pendiente de Confirmar</Card.Text>
                         </div>
                       </div>
                     </div>
