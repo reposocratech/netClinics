@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
-import { useNavigate } from "react-router";
 import Avatar from '@mui/material/Avatar';
 import axios from "axios";
 
@@ -70,6 +69,17 @@ export const MedicFollowingAppointments = () => {
   const openModal = (appointment) => {
     setHandleShow({ open: true, appointment: appointment });
   };
+
+  const completAppointment = (id_appointment) => {
+    axios
+      .put(
+        `http://localhost:4000/medic/completeAppointment/${id_appointment}`
+      )
+      .then((res) => {
+        setResetPage(!resetPage);
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="bgAppointmentHistory p-2">
@@ -167,6 +177,14 @@ export const MedicFollowingAppointments = () => {
                         {appointment.address}, {appointment.city_name} ({" "}
                         {appointment.province_name} ) -{" "}
                         {appointment.postal_code}
+                      </TableCell>
+                      <TableCell align="center">
+                        <div className="contButton d-flex justify-content-center gap-3">
+                          <button
+                          onClick={()=>completAppointment(appointment?.appointment_id)}>
+                            Completar cita
+                          </button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   );

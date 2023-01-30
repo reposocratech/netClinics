@@ -440,6 +440,18 @@ class medicControllers {
       console.log(result);
     });
   };
+
+  
+  //15.- El medico completa una proxima cita 
+  //localhost:4000/patient/completeAppointment/:appointment_id
+  completeAppointment = (req, res) => {
+    let { appointment_id } = req.params;
+    let sql = `UPDATE appointment SET is_completed = 1 WHERE appointment_id = ${appointment_id}`;
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+      console.log(result);
+    });
+  };
 }
 
 module.exports = new medicControllers();
