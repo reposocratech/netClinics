@@ -113,6 +113,7 @@ export const MedicFollowingAppointments = () => {
 
           {/* Tabla Próximas Citas */}
           <TableContainer component={Paper} className="tableMyDates mt-4">
+            <h3 className="title text-center my-3">Próximas Citas</h3>
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>

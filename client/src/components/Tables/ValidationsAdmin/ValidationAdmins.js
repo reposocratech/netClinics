@@ -20,6 +20,7 @@ export const ValidationAdmins = ({ medics, navigate, enable }) => {
       >
         {medics && (
           <TableContainer component={Paper} className="tableValidation">
+            <h3 className="title text-center my-3">Validaciones</h3>
             <Table sx={{ minWidth: 650 }} aria-label="customized table">
               <TableHead>
                 <TableRow>

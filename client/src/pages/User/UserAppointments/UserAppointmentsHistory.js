@@ -45,6 +45,7 @@ export const UserAppointmentsHistory = () => {
       <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
         
         <TableContainer component={Paper} className="tableAppointmentHistory">
+          <h3 className="title text-center mb-4">Historial de citas</h3>
           <Table sx={{ minWidth: 390 }}>
             <TableHead>
               <TableRow>

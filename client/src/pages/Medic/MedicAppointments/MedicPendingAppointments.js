@@ -121,6 +121,7 @@ export const MedicPendingAppointments = () => {
 
           {/* Tabla Citas Pendientes */}
           <TableContainer component={Paper} className="tableMyDates mt-4">
+            <h3 className="title text-center my-3">Citas pendientes de Confirmación</h3>
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
