@@ -58,7 +58,7 @@ class userControllers {
   };
 
   //2.-Borrado lógico de un usuario
-  //localhost:4000/user/deleteUser/:userId
+  //localhost:4000/user/deleteUser/:user_id
   deleteUser = (req, res) => {
 
     let user_id = req.params.user_id;
@@ -72,7 +72,7 @@ class userControllers {
 
   //-----------------------------------------------------
   //3.-Trae información de un usuario
-  //localhost:4000/user/oneUser/:userId       
+  //localhost:4000/user/oneUser/:user_id      
   selectOneUser = (req, res) => {
     let {user_id} = req.params;
 
@@ -80,9 +80,30 @@ class userControllers {
 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({error}) : res.status(200).json(result);
-    })
+    });
 
-  }
+  };
+
+  //-----------------------------------------------------
+  //4.-Cambio de contraseña en cualquier tipo de usuario
+  //localhost:4000/user/changeUserPassword/:user_id       
+  changeUserPassword = (req, res) => {
+    let {user_id} = req.params;
+    let {password} = req.body;
+    let saltRounds = 8;
+    bcrypt.genSalt(saltRounds, function (err, saltRounds) {
+      bcrypt.hash(password, saltRounds, function (err, hash) {
+        let sql = `UPDATE user SET password = "${hash}" WHERE user_id = ${user_id}`;
+
+        connection.query(sql, (error, result) => {
+          console.log(error);
+          error
+            ? res.status(400).json({ error })
+            : res.status(200).json(result);
+        });
+      });
+    });
+  };
 }
 
 module.exports = new userControllers();
