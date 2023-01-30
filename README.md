@@ -1,5 +1,5 @@
 # NetClinics
-Este proyecto es una aplicación web realizada por [equipo NetClinics](#contacto) como proyecto final del Bootcamp Full-Stack Developer en [Socratech](https://socratech.es/) para la empresa NetClinics
+Este proyecto es una aplicación web realizada por [equipo Socratech](#contacto) como proyecto final del Bootcamp Full-Stack Developer en [Socratech](https://socratech.es/) para la empresa NetClinics
 
 ## Tabla de Contenidos
 * [Información General](#informacion-general)
