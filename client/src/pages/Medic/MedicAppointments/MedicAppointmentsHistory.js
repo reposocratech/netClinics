@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import axios from 'axios'
-import './myDatesMedic.scss'
 import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
+
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+
+import './myDatesMedic.scss'
+
 
 export const MedicAppointmentsHistory = () => {
     const [appointmentData, setAppointmentData] = useState([]);
@@ -63,11 +66,13 @@ export const MedicAppointmentsHistory = () => {
   return (
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ?
-      <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
-        <Row>
-            <div>
-              <Col>
-                <InputGroup>
+        <Container cclassName="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
+
+          {/* Buscador por filtro */}
+          <Row  className='contSearcher d-flex justify-content-center p-3'>
+            <div className='searcher align-items-center justify-content-center d-flex gap-2'>
+              <Col xs={12} sm={12} md={8} lg={8}>
+                <InputGroup className='textSearcher'>
                   <InputGroup.Text id="basic-addon1">
                     <i className="fa-solid fa-user-doctor"></i>
                   </InputGroup.Text>
@@ -83,57 +88,62 @@ export const MedicAppointmentsHistory = () => {
                   />
                 </InputGroup>
               </Col>
-              <Col>
-                <div>
-                  <Button onClick={onSubmit}>
+
+              <Col xs={12} sm={12} md={4} lg={4}>
+                <div className='contButton d-flex gap-3'>
+                  <button className='deffineButton' onClick={onSubmit}>
                     Buscar
-                  </Button>
-                  <Button onClick={cleanSubmit}>
+                  </button>
+                  <button className='deffineButton' onClick={cleanSubmit}>
                     Limpiar
-                  </Button>
+                  </button>
                 </div>
               </Col>
             </div>
           </Row>
-        <TableContainer component={Paper} className="tableAppointmentHistory">
-          <Table sx={{ minWidth: 390 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Paciente</TableCell>
-                <TableCell align="center">Fecha</TableCell>
-                <TableCell align="center">Hora</TableCell>
-                <TableCell align="center">Dirección</TableCell>
-              </TableRow>
-            </TableHead>
 
-            <TableBody>
-              {appointmentData?.map((appointment,i)=>{
-                return(
-                <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+          {/* Tabla Histórico Citas */}
+          <TableContainer component={Paper} className="tableMyDates mt-4">
+            <Table sx={{ minWidth: 390 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Paciente</TableCell>
+                  <TableCell align="center">Fecha</TableCell>
+                  <TableCell align="center">Hora</TableCell>
+                  <TableCell align="center">Dirección</TableCell>
+                </TableRow>
+              </TableHead>
 
-                  <TableCell align="center">
-                  {findPatientName(appointment.user_patient_id)?.name} {findPatientName(appointment.user_patient_id)?.lastname}
-                  </TableCell>
+              {/* Datos Tabla */}
+              <TableBody>
+                {appointmentData?.map((appointment,i)=>{
+                  return(
+                  <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 
-                  <TableCell align="center">{reverseDate(appointment.appointment_date)}</TableCell>
+                    <TableCell align="center">
+                      <strong>{findPatientName(appointment.user_patient_id)?.lastname}, </strong>
+                      {findPatientName(appointment.user_patient_id)?.name} 
+                    </TableCell>
 
-                  <TableCell align="center">{appointment.appointment_time}</TableCell>
+                    <TableCell align="center">{reverseDate(appointment.appointment_date)}</TableCell>
 
-                  <TableCell align="center">{appointment.appointment_address}</TableCell>
+                    <TableCell align="center">{appointment.appointment_time}</TableCell>
 
-                </TableRow>)
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
+                    <TableCell align="center">{appointment.appointment_address}</TableCell>
+
+                  </TableRow>)
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
+
       :
-      <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
-        <h3>Actualmente no tienes histórico de citas</h3>
-        <Button className="defineButton" onClick={cleanSubmit}>
-            Volver
-          </Button>
-      </Container>}
+
+        <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
+          <h3>Actualmente no tienes histórico de citas</h3>
+        </Container>
+      }
     </div>
   );
 };
