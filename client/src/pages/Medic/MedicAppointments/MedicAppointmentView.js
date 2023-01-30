@@ -4,24 +4,17 @@ import Modal from 'react-bootstrap/Modal';
 export const MedicAppointmentView = ({handleShow, setHandleShow }) => {
 
   return (
-    <div
-      className="modal show"
-      style={{ display: 'block', position: 'initial' }}
-    >
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <p>Modal body text goes here.</p>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    </div>
+    <Modal show={handleShow.open} onHide={()=>setHandleShow({open:false, appointment: null})}>
+      <Modal.Header closeButton>
+        <Modal.Title>Modal heading</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={()=>setHandleShow({open:false, appointment: null})}>
+          Cerrar
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
