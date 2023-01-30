@@ -1,5 +1,7 @@
 var express = require('express');
 const appointmentControllers = require("../controllers/appointmentControllers");
+const nodeMailerController = require("../services/nodeMailer");
+
 var router = express.Router();
 //-----------------------------------------------------
 //1.- Traer informacion de la busqueda de medicos
@@ -14,3 +16,7 @@ router.get("/:medic_id/:day_id/:date", appointmentControllers.availabilityMedic)
 //3.-Inserta cita
 //localhost:4000/appointment/
 router.post("/", appointmentControllers.addAppointment);
+
+//3.1 - Envia email al médico cuando cogen una cita
+//localhost:4000/appointment/newAppointment
+router.post("/newAppointment", nodeMailerController.sendEmailAppointment);

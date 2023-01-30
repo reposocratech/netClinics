@@ -172,8 +172,8 @@ export const MedicProfile = () => {
                                 <tr key={title.document}>
                                     <td>{title?.text}</td>
                                     <td>{title?.university}</td>
-                                    <td>{title?.start_date === "" ? "Sin Fecha" : title?.start_date}</td>
-                                    <td>{title?.end_date === "" ? "Sin Fecha" : title?.end_date}</td>
+                                    <td>{title?.start_date === "" || title?.start_date === "null" || title?.start_date === null ? "Sin Fecha" : title?.start_date}</td>
+                                    <td>{title?.end_date === "" ||  title?.end_date === "null" || title?.end_date === null ? "Sin Fecha" : title?.end_date}</td>
                                     <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
                                 </tr>
                             )

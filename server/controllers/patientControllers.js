@@ -89,36 +89,31 @@ class patientControllers {
 //-----------------------------------------------------
 /// 5.- Editar un paciente
 //localhost:4000/patient/editPatient/:user_id
-editPatient = (req, res) => {
-  let user_id = req.params.user_id;
+  editPatient = (req, res) => {
+    let user_id = req.params.user_id;
 
-  let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, avatar} = JSON.parse(req.body.register);
+    let {name, email, lastname, address, phone_number, dni, province_id, city_id, postal_code, avatar} = JSON.parse(req.body.register);
 
-  console.log("este es el avatar " , avatar);
+    province_id = parseInt(province_id);
+    city_id = parseInt(city_id);
+    postal_code = parseInt(postal_code);
+    
 
-  province_id = parseInt(province_id);
-  city_id = parseInt(city_id);
-  postal_code = parseInt(postal_code);
+    let img = avatar;
+    
+    if (req.file != undefined) {
+      img = req.file.filename;
+    }
+
+    let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
+
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json(error) : res.status(200).json(result);
+    });
+  };
   
-
-  let img = avatar;
-  
-  if (req.file != undefined) {
-    img = req.file.filename;
-  }
-
-  let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", avatar = "${img}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
-
-  console.log("consulta ", sql);
-
-  connection.query(sql, (error, result) => {
-    if (error) throw error;
-    error ? res.status(400).json({ error }) : res.status(200).json(result);
-  });
-};
-//6.- Trae todas las citas realizadas de un paciente
+  //6.- Trae todas las citas realizadas de un paciente
   //localhost:4000/patient/getAppointmentHistory/:user_id
-
   getAppointmentHistory = (req, res) => {
     let {user_id} = req.params;
     let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and is_completed = 1`;
@@ -127,9 +122,9 @@ editPatient = (req, res) => {
       
     });
   };
+
   //7.- Trae todas las citas pendientes de confirmar de un paciente
   //localhost:4000/patient/getPendingAppointments/:user_id
-
   getPendingAppointments = (req, res) => {
     let {user_id} = req.params;
     let sql = `SELECT * FROM appointment where user_patient_id = ${user_id} and  is_completed = 0 and appointment_is_confirmed = 0`; 

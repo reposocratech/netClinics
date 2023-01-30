@@ -4,12 +4,11 @@ import { Card } from 'react-bootstrap'
 import axios from 'axios'
 
 import { SearchAvailabilityMedicAppointment } from '../../Appointment/SearchAvailabilityMedicAppointment/SearchAvailabilityMedicAppointment';
-
 import {CompleteAppointment} from '../../Appointment/CompleteAppointment/CompleteAppointment';
 
 import './cardMedicSearch.scss'
 
-export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
+export const CardMedicsSearch = ({medicsSearched,setMedicsSearched, setSearch}) => {
 
     
   const [listSpecialities, setListSpecialities] = useState([]);
@@ -51,6 +50,16 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
     setHandleShowAvailability({open:true, medic: medic});
   }
 
+  const cancelSearch = () => {
+    setMedicsSearched([]);
+    setSearch({
+      province_id: null,
+      city_id: null,
+      speciality_id: null,
+      name: null,
+    })
+  }
+
     
   return (
     <>
@@ -80,6 +89,8 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
                             <Card.Text>{medic?.medic_membership_number}</Card.Text>
                             <Card.Title>Especialidad:</Card.Title>
                             <Card.Text>{findSpeciality(medic?.speciality_id)}</Card.Text>
+                            <Card.Title>Precio consulta:</Card.Title>
+                            <Card.Text>{medic?.medic_price}€</Card.Text>
                           </div>
                           <div className='text-center'>
                               <button className='defineButton' onClick={()=>handleShowAvailabilityMedic(medic)}>Ver su disponibilidad</button>
@@ -93,7 +104,7 @@ export const CardMedicsSearch = ({medicsSearched,setMedicsSearched}) => {
           </Row>
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} className='d-flex justify-content-center mt-3'>
-              <button className='defineButton' onClick={()=>setMedicsSearched([])}>Cancelar</button>
+              <button className='buttonCancel' onClick={cancelSearch}>Cancelar</button>
             </Col>
           </Row>
         </Container>

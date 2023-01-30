@@ -10,8 +10,8 @@ export const FormSearchMedic = ({
   listCities,
   getCity,
   listSpecialities,
+  messageError,
 }) => {
-
 
   return (
     <div className='bgSearcher'>
@@ -89,6 +89,7 @@ export const FormSearchMedic = ({
               >Buscar
               </Button>
 
+              {messageError && <h5 className='text-danger'>{messageError}</h5>}
             </div>
           </Col>
         </Row>

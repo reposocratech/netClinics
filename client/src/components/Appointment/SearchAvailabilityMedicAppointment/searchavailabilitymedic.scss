@@ -1,0 +1,39 @@
+.defineButtonModalAvailabilityMedicSubmit {
+    appearance: none;
+    background-color: rgba($color: #1C2869, $alpha: 1.0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Rubik', sans-serif;
+    width: 10rem;
+    padding: 0.3rem;
+    cursor: pointer;
+}
+
+.defineButtonModalAvailabilityMedicSubmit:hover {
+    background-color: #293a9a;
+}
+
+.defineButtonModalAvailabilityMedicCancel {
+    appearance: none;
+    background-color: rgba($color: #e81b1b, $alpha: 1.0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Rubik', sans-serif;
+    width: 10rem;
+    padding: 0.3rem;
+    cursor: pointer;
+}
+
+.defineButtonModalAvailabilityMedicCancel:hover {
+    background-color: rgba($color: #bf2525, $alpha: 1.0);
+}
+
+.commentaryAppointment{
+    resize: none;
+}

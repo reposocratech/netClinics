@@ -90,8 +90,12 @@ export const RegisterMedic = () => {
                   navigate('/');
               })
               .catch((error) => {
-                  
-                  console.log(error);
+               if(error.response.data.code === 'ER_DUP_ENTRY'){
+                setMessage("El email indicado ya existe");
+               }
+               else{
+                console.log(error);
+               }
               })
           
       }

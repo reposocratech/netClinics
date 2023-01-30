@@ -52,8 +52,7 @@ class medicControllers {
 
           connection.query(sql, (error, result) => {
             if (error) {
-              console.log(error);
-              res.status(500).json("Ha habido un error");
+              res.status(400).json(error);
             } else {
               let id_user = result.insertId;
 
@@ -245,8 +244,7 @@ class medicControllers {
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
     postal_code = parseInt(postal_code);
-    medic_price = parseInt(medic_price);
-    
+    medic_price = isNaN(parseInt(medic_price)) ? 0 : parseInt(medic_price);
 
     let img = "";
     let sql = `UPDATE user SET name = "${name}", lastname = "${lastname}", phone_number = "${phone_number}", address = "${address}",email = "${email}", dni = "${dni}", province_id= ${province_id}, city_id= ${city_id}, postal_code= ${postal_code} WHERE user_id = "${user_id}"`;
@@ -261,7 +259,7 @@ class medicControllers {
     connection.query(sql, (error, result) => {
 
       if(error){
-        res.status(400).json({ error })
+        res.status(400).json(error)
       }  
       else{
         let sql2 = `UPDATE medic_data SET medic_description = '${medic_description}', medic_price = ${medic_price} WHERE user_id = ${user_id}`;
@@ -271,12 +269,11 @@ class medicControllers {
             res.status(400).json({error});
           }
         });
+
+        res.status(200).json({updateProfile : true});
       }
-
-      res.status(200).json({updateProfile : true});
-
+      
     });
-    
 
   };
 

@@ -12,19 +12,19 @@ class appointmentControllers {
         city_id = parseInt(city_id);
         speciality_id = parseInt(speciality_id);
        
-        let sql = `SELECT medic_city.province_id, medic_city.city_id, user.name, user.lastname, user.   avatar, medic_data.medic_membership_number, medic_data_speciality.speciality_id, medic_data.user_id as medic from user 
+        let sql = `SELECT medic_city.province_id, medic_city.city_id, user.name, user.lastname, user.avatar, user.email, medic_data.medic_price, medic_data.medic_membership_number, medic_data_speciality.speciality_id, medic_data.user_id as medic from user 
         join medic_data on user.user_id = medic_data.user_id 
         join medic_data_speciality on user.user_id = medic_data_speciality.user_id
         join medic_city on medic_city.user_id = medic_data.user_id
-        WHERE medic_city.province_id = ${province_id} and medic_city.city_id = ${city_id} and medic_data_speciality.speciality_id = ${speciality_id} and user.is_deleted = 0 and medic_data.medic_enabled = 1 and medic_data.medic_is_on_vacation = 0`;
+        WHERE medic_city.province_id = ${province_id} and medic_city.city_id = ${city_id} and medic_data_speciality.speciality_id = ${speciality_id} and user.is_deleted = 0 and medic_data.medic_enabled = 1 and medic_data.medic_is_on_vacation = 0 and medic_data.medic_price <> 0`;
 
         if (name != undefined ) {
 
-            sql = `SELECT medic_city.province_id, medic_city.city_id, user.name, user.lastname, user.   avatar, medic_data.medic_membership_number, medic_data_speciality.speciality_id, medic_data.user_id as medic from user 
+            sql = `SELECT medic_city.province_id, medic_city.city_id, user.name, user.lastname, user.avatar, user.email, medic_data.medic_price, medic_data.medic_membership_number, medic_data_speciality.speciality_id, medic_data.user_id as medic from user 
             join medic_data on user.user_id = medic_data.user_id 
             join medic_data_speciality on user.user_id = medic_data_speciality.user_id
             join medic_city on medic_city.user_id = medic_data.user_id
-            WHERE medic_city.province_id = ${province_id} and medic_city.city_id = ${city_id} and medic_data_speciality.speciality_id = ${speciality_id} and user.is_deleted = 0 and medic_data.medic_enabled = 1 and medic_data.medic_is_on_vacation = 0 and user.name like '${name}%'`;
+            WHERE medic_city.province_id = ${province_id} and medic_city.city_id = ${city_id} and medic_data_speciality.speciality_id = ${speciality_id} and user.is_deleted = 0 and medic_data.medic_enabled = 1 and medic_data.medic_is_on_vacation = 0 and user.name like '${name}%' and medic_data.medic_price <> 0`;
 
         }
 

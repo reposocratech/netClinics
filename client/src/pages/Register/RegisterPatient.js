@@ -19,9 +19,11 @@ const initialPatientValue = {
 }
 
 export const RegisterPatient = () => {
+
   const [registerPatient, setRegisterPatient] = useState(initialPatientValue);
   const [message1, setMessage1] = useState(false);
   const [message2, setMessage2] = useState(false);
+  const [errorEmail, setErrorEmail] = useState("");
 
   const [listProvinces, setListProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState();
@@ -58,6 +60,8 @@ export const RegisterPatient = () => {
   const navigate = useNavigate();
 
   const handleChange = (event) => {
+      setErrorEmail("");
+      setMessage2(false);
       const {name, value} = event.target;
       setRegisterPatient({...registerPatient, [name]:value});
   }
@@ -75,9 +79,15 @@ export const RegisterPatient = () => {
               navigate('/');
           })
           .catch((error) => {
-              setMessage1(false);
-              setMessage2(true);
-              console.log(error);
+              if(error.response.data.error.code === 'ER_DUP_ENTRY'){
+                setErrorEmail("errorMail");
+                setMessage2(true);
+              }
+              else{
+                console.log(error);
+                setMessage1(false);
+               
+              }
           })
       }
   }
@@ -101,6 +111,7 @@ export const RegisterPatient = () => {
         navigate={navigate}
         message1={message1}
         message2={message2}
+        errorEmail={errorEmail}
       />
     </div>
   )

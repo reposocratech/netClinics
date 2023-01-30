@@ -13,6 +13,8 @@ export const EditUser = () => {
   const [editUser, setEditUser] = useState();
   const [file, setFile] = useState();
 
+  const [errorEmail, setErrorEmail] = useState("");
+
   const navigate = useNavigate();
 
   const [listProvinces, setListProvinces] = useState([]);
@@ -37,18 +39,18 @@ export const EditUser = () => {
         });
 
       axios
-       .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
-         .then((res) => {
-         console.log(res.data);
+      .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
+      .then((res) => {
          setListCities(res.data);
-       })
-       .catch((error) => {
+      })
+      .catch((error) => {
           console.log(error);
-        });
+      });
 
   }, [user]);
 
   const handleChange = (e) => {
+    setErrorEmail("");
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
@@ -61,7 +63,6 @@ export const EditUser = () => {
 
     newFormData.append("file", image);
     newFormData.append("register", JSON.stringify(editUser));
-    console.log("lo que hay en el editUser", editUser);
 
     axios
       .put(
@@ -73,7 +74,14 @@ export const EditUser = () => {
         setResetPage(!resetPage);
         navigate("/myProfile");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if(err.response.data.code === 'ER_DUP_ENTRY'){
+          setErrorEmail("errorMail");
+        }
+        else{
+          console.log(err);
+        }
+      });
   };
 
   const getCity = (selectedProvince) => {
@@ -132,6 +140,8 @@ export const EditUser = () => {
             getCity={getCity}
             onSelectFile={onSelectFile}
             preview={preview}
+            errorEmail={errorEmail}
+            setErrorEmail={setErrorEmail}
           />
         </Row>
       </Container>

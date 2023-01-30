@@ -51,12 +51,6 @@ export const Login = () => {
                 saveLocalStorageNetClinics(token);
                 const {type} = jwtDecode(token).user;
                 setIsLogged(true);
-    
-                /*
-                :type === 1 ?
-                navigate('/admin', {replace:true}):
-                navigate('/', {replace:true})
-                */
                 
                 navigate('/', {replace:true});
 
@@ -77,7 +71,6 @@ export const Login = () => {
         login={login}
         setLogin={setLogin}
         errorMessage={errorMessage}
-        // setErrorMessage={setErrorMessage}
         errorEmail={errorEmail}
         errorPassword={errorPassword}
         navigate={navigate}

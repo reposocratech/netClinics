@@ -56,6 +56,21 @@
 
     }
 
+    .errorMail{
+      input {
+        background-color: #ef5350 !important;
+        color: white !important;
+      }
+
+      input:focus {
+          box-shadow: 0 0 0 0.1rem rgb(255 255 255 / 90%) !important;
+      }
+
+      input::placeholder{
+          color: white !important;
+      }
+    }
+
     .defineButton {
       appearance: none;
       background-color: rgba($color: #1C2869, $alpha: 1.0);

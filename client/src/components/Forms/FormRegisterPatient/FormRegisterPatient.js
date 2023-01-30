@@ -6,7 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import './FormRegisterPatient.scss';
 
-export const FormRegisterPatient = ({registerPatient, handleChange, getCity, handleCities, listCities, listProvinces, onSubmit, navigate, message1, message2}) => {
+export const FormRegisterPatient = ({registerPatient, handleChange, getCity, handleCities, listCities, listProvinces, onSubmit, navigate, message1, message2, errorEmail}) => {
   return (
     <div className='bgColorFormRegister pb-5'>
     <Container>
@@ -148,9 +148,9 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </div>
               </InputGroup>
 
-              <InputGroup className='mb-3'>
+              <InputGroup className={`mb-3 ${errorEmail && errorEmail}`}>
 
-                <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-envelope"></i></InputGroup.Text>
+                <InputGroup.Text id="basic-addon1" className="inputRegister"><i className="fa-solid fa-envelope"></i></InputGroup.Text>
 
                 <Form.Control
                 placeholder="Escribe tu Email"
@@ -185,7 +185,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
 
               <div className='mb-2'>
                 {message1 && <p>Introduce correctamente todos los datos</p>}
-                {message2 && <p>Ya existe una cuenta con este email</p>}
+                {message2 && <p className='text-center text-danger'>Ya existe una cuenta con este email</p>}
               </div>
             </div>
 
