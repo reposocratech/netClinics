@@ -196,7 +196,9 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
                 :
                 <h4 className='text-center text-danger'>{message}</h4>
             }
+            {appointmentCommentary.length >= 250 &&
             <h4 className='text-center text-danger'>{message}</h4>
+            }
         </Modal.Body>
         <Modal.Footer>
           <button className='defineButtonModalAvailabilityMedicCancel' onClick={()=>setHandleShowAvailability({open:false, medic:null})}>
