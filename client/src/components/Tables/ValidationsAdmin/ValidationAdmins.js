@@ -30,6 +30,7 @@ export const ValidationAdmins = ({medics, navigate, enable}) => {
                     <TableCell className="viewProf" align="center"
                     onClick={()=>navigate(`/medicProfile/${medic.user_id}`)}>
                       <img
+                        alt={medic.name}
                         className="imageMedic"
                         src={`assets/images/user/${medic.avatar}`}
                       />

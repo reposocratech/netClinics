@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
-import './myDatesPatient.scss';
 import axios from 'axios';
+import Avatar from '@mui/material/Avatar';
+import './myDatesPatient.scss';
 
 export const UserPendingAppointments = () => {
   
@@ -26,7 +27,7 @@ export const UserPendingAppointments = () => {
           setListMedics(res.data);
       })
       .catch((err) => console.log(err));
-  }, [user]);
+    }, [user]);
 
   const findMedicName = (id_medic) => {
     return listMedics?.find((el) => {
@@ -53,6 +54,7 @@ export const UserPendingAppointments = () => {
           <Table sx={{ minWidth: 390 }}>
             <TableHead>
               <TableRow>
+                <TableCell align="center">Foto Perfil</TableCell>
                 <TableCell align="center">Profesional</TableCell>
                 <TableCell align="center">Fecha</TableCell>
                 <TableCell align="center">Hora</TableCell>
@@ -63,6 +65,14 @@ export const UserPendingAppointments = () => {
               {appointmentData?.map((appointment,i)=>{
                 return(
                 <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+
+                  <TableCell align="center">
+                  <Avatar
+                      alt={findMedicName(appointment.user_medic_id)?.name}
+                      src={`/assets/images/user/${findMedicName(appointment.user_medic_id)?.avatar}`}
+                      sx={{ width: 56, height: 56 }}
+                    />
+                  </TableCell>
 
                   <TableCell align="center">
                   {findMedicName(appointment.user_medic_id)?.name} {findMedicName(appointment.user_medic_id)?.lastname}

@@ -26,7 +26,7 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
     //segun la fecha seleccionada guardo el valor en pickerDateSelected
     //Ej. '2023-01-27'
     const datePickerChange = (e) => {
-        setPickerDateSelected(e.target.value);
+        setPickerDateSelected(e.target.value);   
     }
     
     //useEffect con la dependencia pickerDateSelected 
