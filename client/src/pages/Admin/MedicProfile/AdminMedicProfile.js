@@ -195,14 +195,14 @@ export const AdminMedicProfile = () => {
           </Col>
         </Row>
         <div className="d-flex justify-content-center">
-          <Button className="m-1" onClick={() => navigate(-1)}>Volver</Button>
+          <button className="deffineButton m-1" onClick={() => navigate(-1)}>Volver</button>
           {(dataUser.medic_enabled === 0 && dataUser.is_deleted === 0) && (
-              <Button
-              className="m-1"
+              <button
+              className="buttonEnabledUser m-1"
                 onClick={() => enable(dataUser.user_id, dataUser.medic_enabled)}
-              >
+              ><div className="pointEnable"></div>
                 Habilitar
-              </Button>
+              </button>
           )}
         </div>
       </Container>

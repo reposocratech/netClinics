@@ -1,32 +1,31 @@
-import axios from "axios";
-import { useContext, useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { NetClinicsContext } from "../../../context/NetClinicsProvider";
+import axios from "axios";
 
+import './styleAdminPatientProfile.scss';
 
 export const AdminPatientProfile = () => {
-
-    const { user_id } = useParams();
-    const navigate = useNavigate();
-   const [user, setUser] = useState()
+  const { user_id } = useParams();
+  const navigate = useNavigate();
+  const [user, setUser] = useState()
 
     useEffect(() => {
-       
-        axios
-          .get(`http://localhost:4000/admin/patientProfile/${user_id}`)
-          .then((res) => {
-            setUser(res.data[0]);
-            console.log("lo que trae el res.data", res.data[0]);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }, []);
+      axios
+        .get(`http://localhost:4000/admin/patientProfile/${user_id}`)
+        .then((res) => {
+          setUser(res.data[0]);
+          console.log("lo que trae el res.data", res.data[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
+
   return (
     <div className="bgPatientProfile d-flex justify-content-center align-items-center">
       <Container className="whiteBoxPatientProfile">
-        <Row className="rowPatientProfile d-flex align-items-center mb-4">
+        <Row className="rowPatientProfile d-flex align-items-center">
           <Col
             xs={12}
             sm={12}
@@ -54,6 +53,7 @@ export const AdminPatientProfile = () => {
               </div>
             )}
           </Col>
+
           <Col
             xs={12}
             sm={12}
@@ -69,8 +69,9 @@ export const AdminPatientProfile = () => {
             </div>
           </Col>
         </Row>
-        <div className="d-flex justify-content-center mb-2">
-          <Button onClick={()=>navigate(-1)}>Volver</Button>
+
+        <div className="d-flex justify-content-center mb-4">
+          <button className="deffineButton" onClick={()=>navigate(-1)}>Volver</button>
         </div>
       </Container>
     </div>

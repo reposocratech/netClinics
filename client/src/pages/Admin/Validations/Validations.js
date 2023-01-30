@@ -5,9 +5,9 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
+import { ValidationAdmins } from "../../../components/Tables/ValidationsAdmin/ValidationAdmins";
 
 import "./styleValidations.scss";
-import { ValidationAdmins } from "../../../components/Tables/ValidationsAdmin/ValidationAdmins";
 
 export const Validations = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);

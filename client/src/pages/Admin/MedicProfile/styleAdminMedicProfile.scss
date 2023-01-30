@@ -60,4 +60,39 @@
       }
     }
   }
+
+  .deffineButton {
+    appearance: none;
+    background-color: rgba($color: #1C2869, $alpha: 1.0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 400;
+    font-size: 1rem;
+    font-family: 'Rubik', sans-serif;
+    width: 5rem;
+    padding: 0.3rem;
+  }
+
+  .deffineButton:hover {
+      background-color: #293a9a;
+  }
+
+  .buttonEnabledUser {
+    background-color:  rgba(89, 220, 53, 0.14);
+    color: rgb(9, 255, 0);
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .pointEnable {
+        height: 10px;
+        width: 10px;
+        background-color: rgb(9, 255, 0);
+        border-radius: 50%;
+    }
+  }
 }
