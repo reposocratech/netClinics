@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
-import axios from "axios";
-import "./myDatesMedic.scss";
-import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
 import { useNavigate } from "react-router";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import axios from "axios";
+
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
+import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+
+import "./myDatesMedic.scss";
 
 export const MedicFollowingAppointments = () => {
   const [appointmentData, setAppointmentData] = useState([]);
@@ -77,15 +71,14 @@ export const MedicFollowingAppointments = () => {
 
   return (
     <div className="bgAppointmentHistory p-2">
-      {appointmentData?.length !== 0 ? (
-        <Container
-          fluid
-          className="whiteBoxAppointmentHistory d-flex justify-content-center my-5"
-        >
-          <Row>
-            <div>
-              <Col>
-                <InputGroup>
+      {appointmentData?.length !== 0 ? 
+        <Container cclassName="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
+
+          {/* Buscador por filtro */}
+          <Row className='contSearcher d-flex justify-content-center p-3'>
+            <div className='searcher align-items-center justify-content-center d-flex gap-2'>
+              <Col xs={12} sm={12} md={8} lg={8}>
+                <InputGroup className='textSearcher'>
                   <InputGroup.Text id="basic-addon1">
                     <i className="fa-solid fa-user-doctor"></i>
                   </InputGroup.Text>
@@ -101,19 +94,22 @@ export const MedicFollowingAppointments = () => {
                   />
                 </InputGroup>
               </Col>
-              <Col>
-                <div>
-                  <Button onClick={onSubmit}>
+
+              <Col xs={12} sm={12} md={4} lg={4}>
+                <div className='contButton d-flex gap-3'>
+                  <button className='deffineButton' onClick={onSubmit}>
                     Buscar
-                  </Button>
-                  <Button onClick={cleanSubmit}>
+                  </button>
+                  <button className='deffineButton' onClick={cleanSubmit}>
                     Limpiar
-                  </Button>
+                  </button>
                 </div>
               </Col>
             </div>
           </Row>
-          <TableContainer component={Paper} className="tableAppointmentHistory">
+
+          {/* Tabla Próximas Citas */}
+          <TableContainer component={Paper} className="tableMyDates mt-4">
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
@@ -124,6 +120,7 @@ export const MedicFollowingAppointments = () => {
                 </TableRow>
               </TableHead>
 
+              {/* Datos Tabla */}
               <TableBody>
                 {appointmentData?.map((appointment, i) => {
                   return (
@@ -132,8 +129,8 @@ export const MedicFollowingAppointments = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="center">
+                        <strong>{findPatientName(appointment.user_patient_id)?.lastname}, </strong>
                         {findPatientName(appointment.user_patient_id)?.name}{" "}
-                        {findPatientName(appointment.user_patient_id)?.lastname}
                       </TableCell>
 
                       <TableCell align="center">
@@ -146,7 +143,7 @@ export const MedicFollowingAppointments = () => {
 
                       <TableCell align="center">
                         {appointment.address}, {appointment.city_name} ({" "}
-                        {appointment.province_name} ) -{" "}
+                        {appointment.province_name} ) - {" "}
                         {appointment.postal_code}
                       </TableCell>
                     </TableRow>
@@ -155,18 +152,14 @@ export const MedicFollowingAppointments = () => {
               </TableBody>
             </Table>
           </TableContainer>
-        </Container>
-      ) : (
-        <Container
-          fluid
-          className="withoutAppointments d-flex justify-content-center my-5"
-        >
+        </Container> 
+
+        : 
+
+        <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes histórico de citas</h3>
-          <Button className="defineButton" onClick={cleanSubmit}>
-            Volver
-          </Button>
         </Container>
-      )}
+      }
     </div>
   );
 };

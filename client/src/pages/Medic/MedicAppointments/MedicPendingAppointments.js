@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Container, Row, Col } from "react-bootstrap";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
-import axios from 'axios'
-import './myDatesMedic.scss'
 import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
+import axios from 'axios'
+
+import { Container, Row, Col } from "react-bootstrap";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+
+import './myDatesMedic.scss'
 
 export const MedicPendingAppointments = () => {
     const [appointmentData, setAppointmentData] = useState();
@@ -80,90 +85,101 @@ export const MedicPendingAppointments = () => {
   return (
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ?
-      <Container fluid className="whiteBoxAppointmentHistory d-flex justify-content-center my-5">
-        <Row>
-            <div>
-              <Col>
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <i className="fa-solid fa-user-doctor"></i>
-                  </InputGroup.Text>
-                  <Form.Control
-                    placeholder="dd/mm/aaaa"
-                    name="searchDate"
-                    type="date"
-                    autoComplete="off"
-                    aria-label="text"
-                    aria-describedby="basic-addon1"
-                    value={searchDate}
-                    onChange={handlerSearch}
-                  />
-                </InputGroup>
-              </Col>
-              <Col>
-                <div>
-                  <Button onClick={onSubmit}>
-                    Buscar
-                  </Button>
-                  <Button onClick={cleanSubmit}>
-                    Limpiar
-                  </Button>
-                </div>
-              </Col>
-            </div>
-          </Row>
-        <TableContainer component={Paper} className="tableAppointmentHistory">
-          <Table sx={{ minWidth: 390 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Paciente</TableCell>
-                <TableCell align="center">Fecha</TableCell>
-                <TableCell align="center">Hora</TableCell>
-                <TableCell align="center">Dirección</TableCell>
-                <TableCell align="center">Petición</TableCell>
+        <Container className="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
 
-              </TableRow>
-            </TableHead>
+          {/* Buscador por filtro */}
+          <Row className='contSearcher d-flex justify-content-center p-3'>
+              <div className='searcher align-items-center justify-content-center d-flex gap-2'>
+                <Col xs={12} sm={12} md={8} lg={8}>
+                  <InputGroup className='textSearcher'>
+                    <InputGroup.Text id="basic-addon1">
+                      <CalendarMonthRoundedIcon></CalendarMonthRoundedIcon>
+                    </InputGroup.Text>
+                    <Form.Control
+                      placeholder="dd/mm/aaaa"
+                      name="searchDate"
+                      type="date"
+                      autoComplete="off"
+                      aria-label="text"
+                      aria-describedby="basic-addon1"
+                      value={searchDate}
+                      onChange={handlerSearch}
+                    />
+                  </InputGroup>
+                </Col>
 
-            <TableBody>
-              {appointmentData?.map((appointment,i)=>{
-                return(
-                <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <div className='contButton d-flex gap-3'>
+                    <button className='deffineButton' onClick={onSubmit}>
+                      Buscar
+                    </button>
+                    <button className='deffineButton' onClick={cleanSubmit}>
+                      Limpiar
+                    </button>
+                  </div>
+                </Col>
+              </div>
+            </Row>
 
-                  <TableCell align="center">
-                  {findPatientName(appointment.user_patient_id)?.name} {findPatientName(appointment.user_patient_id)?.lastname}
-                  </TableCell>
+          {/* Tabla Citas Pendientes */}
+          <TableContainer component={Paper} className="tableMyDates mt-4">
+            <Table sx={{ minWidth: 390 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Paciente</TableCell>
+                  <TableCell align="center">Fecha</TableCell>
+                  <TableCell align="center">Hora</TableCell>
+                  <TableCell align="center">Dirección</TableCell>
+                  <TableCell align="center">Petición</TableCell>
+                </TableRow>
+              </TableHead>
 
-                  <TableCell align="center">{reverseDate(appointment.appointment_date)}</TableCell>
+              {/* Datos Tabla */}
+              <TableBody>
+                {appointmentData?.map((appointment,i)=>{
+                  return(
+                  <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 
-                  <TableCell align="center">{appointment.appointment_time}</TableCell>
+                    <TableCell align="center">
+                    <strong>{findPatientName(appointment.user_patient_id)?.lastname}, </strong>
+                    {findPatientName(appointment.user_patient_id)?.name}
+                    </TableCell>
 
-                  <TableCell align="center">{appointment.address}, {appointment.city_name} ( {appointment.province_name} ) - {appointment.postal_code}</TableCell>
+                    <TableCell align="center">{reverseDate(appointment.appointment_date)}</TableCell>
 
-                  <TableCell align="center">
-                     <Button
-                        className='m-2'
-                        onClick={()=>acceptAppointment(appointment?.appointment_id)}
-                     >Aceptar</Button>
+                    <TableCell align="center">{appointment.appointment_time}</TableCell>
 
-                     <Button 
-                        onClick={()=>cancelAppointment(appointment?.appointment_id)}
-                     >Cancelar</Button> 
-                  </TableCell>
+                    <TableCell align="center">{appointment.address}, {appointment.city_name} ( {appointment.province_name} ) - {appointment.postal_code}</TableCell>
 
-                </TableRow>)
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-      :
-      <Container fluid className="withoutAppointments d-flex justify-content-center my-5">
-        <h3>Actualmente no tienes histórico de citas</h3>
-        <Button className="defineButton" onClick={cleanSubmit}>
+                    <TableCell align='center'>
+                      <div className='contButton d-flex justify-content-center gap-3'>
+                      <button
+                          className='acceptButton'
+                          onClick={()=>acceptAppointment(appointment?.appointment_id)}
+                      ><DoneRoundedIcon/>Aceptar</button>
+
+                      <button 
+                          className='declinetButton'
+                          onClick={()=>cancelAppointment(appointment?.appointment_id)}
+                      ><ClearRoundedIcon/>Cancelar</button> 
+                      </div>
+                    </TableCell>
+
+                  </TableRow>)
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
+
+        :
+
+        <Container className="withoutAppointments d-flex justify-content-center my-5">
+          <h3>Actualmente no tienes histórico de citas</h3>
+          <button className="deffineButton" onClick={cleanSubmit}>
             Volver
-          </Button>
-      </Container>
+          </button>
+        </Container>
       }
     </div>
   );
