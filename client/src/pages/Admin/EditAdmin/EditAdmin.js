@@ -9,7 +9,7 @@ import "./styleEditAdmin.scss";
 
 export const EditAdmin = () => {
   const { user, setUser, setResetPage, resetPage } =
-  useContext(NetClinicsContext);
+    useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
   const [file, setFile] = useState();
 
@@ -24,6 +24,7 @@ export const EditAdmin = () => {
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
 
+  //Traigo la información del nombre de provincia y ciudad
   useEffect(() => {
     axios
       .get("http://localhost:4000/place/getAllProvince/")
@@ -36,27 +37,29 @@ export const EditAdmin = () => {
       });
 
     axios
-     .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
-       .then((res) => {
-       console.log(res.data);
-       setListCities(res.data);
-     })
-     .catch((error) => {
+      .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
+      .then((res) => {
+        console.log(res.data);
+        setListCities(res.data);
+      })
+      .catch((error) => {
         console.log(error);
       });
+  }, [user]);
 
-}, [user]);
-
-const handleChange = (e) => {
+  //Función para guardar los cambios realizados
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
 
+  //Función para guardar la imagen cambiada
   const handleFile = (e) => {
     console.log(e.target.files);
     setFile(e.target.files[0]);
   };
 
+  //Función para guardar los datos editados
   const onSubmit = (e) => {
     e.preventDefault();
     const newFormData = new FormData();
@@ -77,7 +80,8 @@ const handleChange = (e) => {
       .catch((err) => console.log(err));
   };
 
-    const getCity = (selectedProvince) => {
+  //Función para rescatar el nombre de la ciudad en base a la provincia
+  const getCity = (selectedProvince) => {
     if (selectedProvince) {
       axios
         .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
@@ -93,7 +97,7 @@ const handleChange = (e) => {
 
   //useEffect para que esté pendiente la imagen seleccionada
   useEffect(() => {
-    if(!selectedFile){
+    if (!selectedFile) {
       setPreview(undefined);
       return;
     }
@@ -102,37 +106,34 @@ const handleChange = (e) => {
     setPreview(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
-
-  }, [selectedFile])
-  
+  }, [selectedFile]);
 
   //Conforme se cambie la imagen setea el archivo seleccionado y la imagen
   //que se mandará a base de datos
   const onSelectFile = (e) => {
-    if(!e.target.files || e.target.files.length === 0){
+    if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
     }
 
     setSelectedFile(e.target.files[0]);
     setImage(e.target.files[0]);
-
-  }
+  };
 
   return (
-  <div className="bgEditPatientProfile d-flex justify-content-center align-items-center">
+    <div className="bgEditPatientProfile d-flex justify-content-center align-items-center">
       <Container className="whiteBoxEditPatient my-5">
         <Row className="rowEditPatientProfile d-flex align-items-center">
           <FormEditUser
-             editUser={editUser}
-             handleChange={handleChange}
-             onSubmit={onSubmit}
-             navigate={navigate}
-             listProvinces={listProvinces}
-             listCities={listCities}
-             getCity={getCity}
-             onSelectFile={onSelectFile}
-             preview={preview}
+            editUser={editUser}
+            handleChange={handleChange}
+            onSubmit={onSubmit}
+            navigate={navigate}
+            listProvinces={listProvinces}
+            listCities={listCities}
+            getCity={getCity}
+            onSelectFile={onSelectFile}
+            preview={preview}
           />
         </Row>
       </Container>

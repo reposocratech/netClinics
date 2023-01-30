@@ -1,11 +1,22 @@
-import React from 'react'
+import React from "react";
 import { Container } from "react-bootstrap";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
-export const AllPatiensAdmin = ({patients, navigate, handleEdit}) => {
+export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
   return (
     <div className="bgAllPatients p-2">
-      <Container fluid className="whiteBoxAllPatients d-flex justify-content-center my-5">
+      <Container
+        fluid
+        className="whiteBoxAllPatients d-flex justify-content-center my-5"
+      >
         {patients && (
           <TableContainer component={Paper} className="tableAllPatient">
             <Table sx={{ minWidth: 390 }}>
@@ -46,7 +57,7 @@ export const AllPatiensAdmin = ({patients, navigate, handleEdit}) => {
                         navigate(`/patientProfile/${patient.user_id}`)
                       }
                     >
-                      <strong>{patient.lastname},</strong> {patient.name} 
+                      <strong>{patient.lastname},</strong> {patient.name}
                     </TableCell>
 
                     <TableCell align="center">{patient.phone_number}</TableCell>
@@ -55,6 +66,7 @@ export const AllPatiensAdmin = ({patients, navigate, handleEdit}) => {
 
                     <TableCell align="center" size="small">
                       <div className="d-flex justify-content-center">
+                        {/* Botón para borrado lógico del paciente */}
                         {patient?.is_deleted ? (
                           <button
                             onClick={() =>
@@ -86,7 +98,5 @@ export const AllPatiensAdmin = ({patients, navigate, handleEdit}) => {
         )}
       </Container>
     </div>
-  )
-}
-
-
+  );
+};

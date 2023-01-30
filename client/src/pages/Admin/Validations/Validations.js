@@ -14,6 +14,7 @@ export const Validations = () => {
   const [medics, setMedics] = useState([]);
   const navigate = useNavigate();
 
+  //Traigo todos los médicos pendientes de habilitar
   useEffect(() => {
     axios
       .get("http://localhost:4000/admin/getAllMedicsValidation")
@@ -22,10 +23,12 @@ export const Validations = () => {
       });
   }, [resetPage]);
 
+  //Función para habilitar o deshabilitar un médico
   const enable = (id, is_enable, medic) => {
     console.log(medic);
-
+    //Si el médico no está habilitado lo habilita
     let url = `http://localhost:4000/admin/enableMedic/${id}`;
+    //Si está habilitado lo deshabilita
     if (is_enable === 1) {
       url = `http://localhost:4000/admin/disableMedic/${id}`;
     }
@@ -38,21 +41,27 @@ export const Validations = () => {
       })
       .catch((Err) => console.log(Err));
   };
-
+  //Función para mandar mail cuando se habilita el médico
   const enableMedicEmail = (medic) => {
     axios
-        .post("http://localhost:4000/admin/enableMedicEmail", medic)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-  }
+      .post("http://localhost:4000/admin/enableMedicEmail", medic)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
-      <div className="bgValidation d-flex justify-content-center">
+    <div className="bgValidation d-flex justify-content-center">
       <Container>
         <Row className="">
           <Col>
+            {/* Si medics trae resultado muestra los médicos pendientes
+          de validar, si no, aparece mensaje */}
             {medics.length !== 0 ? (
-              <ValidationAdmins medics={medics} navigate={navigate} enable={enable} />
+              <ValidationAdmins
+                medics={medics}
+                navigate={navigate}
+                enable={enable}
+              />
             ) : (
               <h1 className="text-center p-3 mt-5 whiteBoxValidationText">
                 Actualmente no hay validaciones de médicos pendientes
