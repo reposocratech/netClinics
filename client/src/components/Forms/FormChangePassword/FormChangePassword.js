@@ -1,41 +1,62 @@
 import React from 'react';
-import { Button, Col} from 'react-bootstrap';
+import { Col, Container, Row} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
+
 export const FormChangePassword = ({onSubmit,handleChange,messageError}) => {
   return (
-    <>
-        <Col>
-            <form>
-                <div>
-                    <label>Nueva contraseña:</label>
-                    <InputGroup className=' mb-3'>
-                        <Form.Control
-                            placeholder="Contraseña"
-                            name="password"
-                            onChange={handleChange}
-                        />
-                    </InputGroup>
-                </div>
+    <div className="bgPassword d-flex justify-content-center align-items-center">
+        <Container className="whiteBoxPassword">
+            <Row className='rowPassword d-flex align-items-center m-4'>
+                <Col className='d-flex justify-content-center'>
+                    <Form>
+                        <div>
+                            <label>Nueva contraseña:</label>
+                            <InputGroup className='my-3'>
+                                <InputGroup.Text id="basic-addon1" className='inputRegister'><i class="fa-solid fa-lock"></i></InputGroup.Text>
+                                <Form.Control
+                                    placeholder="Contraseña"
+                                    type="password"
+                                    autoComplete="off"
+                                    aria-label="Contraseña"
+                                    name="password"
+                                    aria-describedby="basic-addon1"
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </InputGroup>
+                        </div>
 
-                <div>
-                    <label>Repita su nueva contraseña:</label>
-                    <InputGroup className='mb-3'>
-                        <Form.Control
-                            placeholder="Repite la contraseña"
-                            name="checkPassword"  
-                            onChange={handleChange}  
-                        />
-                    </InputGroup>
-                </div>
+                        <div>
+                            <label>Repita su nueva contraseña:</label>
+                            <InputGroup className='my-3'>
 
-                <Button className="defineButton m-2" onClick={onSubmit}>
-                    Guardar cambios
-                </Button>
-            </form>
-            <h3>{messageError}</h3>
-        </Col>
-    </>
+                                <InputGroup.Text id="basic-addon1" className='inputRegister'><i class="fa-solid fa-lock"></i></InputGroup.Text>
+                                <Form.Control
+                                    placeholder="Repita la contraseña"
+                                    type="password"
+                                    autoComplete="off"
+                                    aria-label="Contraseña"
+                                    name="checkPassword" 
+                                    aria-describedby="basic-addon1" 
+                                    onChange={handleChange}  
+                                    required
+                                />
+                            </InputGroup>
+                        </div>
+
+                        <div className='d-flex justify-content-center'>
+                            <button className="deffineButton" onClick={onSubmit}>
+                                Guardar cambios
+                            </button>
+                        </div>
+
+                    </Form>
+                    <h3>{messageError}</h3>
+                </Col>
+            </Row>
+        </Container>
+    </div>
   )
 }

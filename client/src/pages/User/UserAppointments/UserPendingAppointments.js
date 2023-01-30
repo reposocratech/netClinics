@@ -3,8 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Card } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import axios from 'axios';
-import './myDatesPatient.scss';
 import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
+import './myDatesPatient.scss';
 
 export const UserPendingAppointments = () => {
   
@@ -71,7 +71,9 @@ export const UserPendingAppointments = () => {
                           <Card.Title>Hora:</Card.Title>
                           <Card.Text>{appointment.appointment_time}</Card.Text>
                           <Card.Title>Estado:</Card.Title>
-                          <Card.Text className='text-warning'>Pendiente de Confirmar</Card.Text>
+                          <Card.Text>
+                            <div className='pendingButton text-center mt-1'><p>PENDIENTE</p></div>
+                          </Card.Text>
                         </div>
                       </div>
                     </div>

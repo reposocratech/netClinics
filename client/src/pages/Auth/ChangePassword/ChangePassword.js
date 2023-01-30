@@ -6,6 +6,8 @@ import { FormChangePassword } from '../../../components/Forms/FormChangePassword
 import { removeLocalStorage } from '../../../Utils/localStorage/localStorageNetClinics';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 
+import './formChangePassword.scss';
+
 export const ChangePassword = () => {
   const { user, setUser, setIsLogged} = useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
@@ -39,17 +41,13 @@ export const ChangePassword = () => {
 
   return (
     <div>
-        <Container>
-            <Row>
-                <FormChangePassword
-                    editUser={editUser}
-                    handleChange={handleChange}
-                    onSubmit={onSubmit}
-                    navigate={navigate}
-                    messageError={messageError}
-                />
-            </Row>
-        </Container>
+      <FormChangePassword
+          editUser={editUser}
+          handleChange={handleChange}
+          onSubmit={onSubmit}
+          navigate={navigate}
+          messageError={messageError}
+      />
     </div>
   )
 }
