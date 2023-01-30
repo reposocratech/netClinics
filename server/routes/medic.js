@@ -89,5 +89,9 @@ router.delete("/cancelPendingAppointment/:appointment_id", medicControllers.canc
 //localhost:4000/medic/acceptPendingAppointment/:appointment_id
 router.put("/acceptPendingAppointment/:appointment_id", medicControllers.acceptPendingAppointment);
 
+//15.- El medico completa una proxima cita 
+//localhost:4000/medic/completeAppointment/:appointment_id
+router.put("/completeAppointment/:appointment_id", medicControllers.completeAppointment);
+
 
 module.exports = router;

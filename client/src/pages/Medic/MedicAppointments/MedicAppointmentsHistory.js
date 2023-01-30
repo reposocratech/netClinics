@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
-import Avatar from '@mui/material/Avatar';
+import Avatar from "@mui/material/Avatar";
 import axios from "axios";
 
 import {
@@ -16,15 +16,17 @@ import {
 import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
-import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
-
+import CalendarMonthTwoToneIcon from "@mui/icons-material/CalendarMonthTwoTone";
+import { MedicAppointmentView } from "./MedicAppointmentView";
 import "./myDatesMedic.scss";
-
 
 export const MedicAppointmentsHistory = () => {
   const [appointmentData, setAppointmentData] = useState([]);
   const { user, resetPage, setResetPage } = useContext(NetClinicsContext);
-
+  const [handleShow, setHandleShow] = useState({
+    open: false,
+    appointment: null,
+  });
 
   useEffect(() => {
     if (!user.user_id) return;
@@ -58,7 +60,11 @@ export const MedicAppointmentsHistory = () => {
       setAppointmentData(appointmentData);
     }
   };
-  
+
+  const openModal = (appointment) => {
+    setHandleShow({ open: true, appointment: appointment });
+  };
+
   return (
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ? (
@@ -69,7 +75,7 @@ export const MedicAppointmentsHistory = () => {
               <Col xs={12} sm={12} md={8} lg={8}>
                 <InputGroup className="textSearcher">
                   <InputGroup.Text id="basic-addon1">
-                    <CalendarMonthTwoToneIcon/>
+                    <CalendarMonthTwoToneIcon />
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="dd/mm/aaaa"
@@ -118,18 +124,25 @@ export const MedicAppointmentsHistory = () => {
                       key={i}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell align="center">
-                        <div className='d-flex align-items-center justify-content-center'>
+                      <TableCell 
+                      align="center"
+                      className="viewProf"
+                      onClick={() => openModal(appointment)}>
+                        <div className="d-flex align-items-center justify-content-center">
                           <Avatar
                             alt="Remy Sharp"
-                            src={`assets/images/user/${appointment.avatar}`} 
+                            src={`assets/images/user/${appointment.avatar}`}
                             sx={{ width: 56, height: 56 }}
                           />
                         </div>
                       </TableCell>
 
-                      <TableCell align="center">
-                      <strong>{appointment.lastname}</strong>, {appointment.name}
+                      <TableCell 
+                      align="center"
+                      className="viewProf"
+                      onClick={() => openModal(appointment)}>
+                        <strong>{appointment.lastname}</strong>,{" "}
+                        {appointment.name}
                       </TableCell>
 
                       <TableCell align="center">
@@ -155,8 +168,12 @@ export const MedicAppointmentsHistory = () => {
           <h3>Actualmente no tienes histórico de citas</h3>
         </Container>
       )}
-
-     
+      {handleShow.open && (
+        <MedicAppointmentView
+          handleShow={handleShow}
+          setHandleShow={setHandleShow}
+        />
+      )}
     </div>
   );
 };
