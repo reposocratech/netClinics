@@ -1,6 +1,7 @@
 const connection = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const generatePasswordRand = require("../../../02-Clases Miriam/10-NodeJS/Proyectos/videogame-collectors/services/generatePassword");
 
 class userControllers {
   //1.-login
@@ -104,7 +105,37 @@ class userControllers {
   //5.-Solicitud reseteo de contraseña
   //localhost:4000/user/resetPassword
   resetPassword = (req, res) => {
-    
+    let {email} = req.body;
+    //realizo la consulta para sacar todos los datos del usuario, segun el correo indicado
+    let sql = `SELECT * FROM user WHERE email = '${email}'`;
+
+    connection.query(sql, (error, resultEmail) => {
+       //si hay resultados, guardo en la variable password una contraseña generada de manera aleatoria
+        if(resultEmail.length != 0){
+            let password = generatePasswordRand(15, "rand");
+            //encripto esa contraseña generada de manera aleatoria
+            bcrypt.hash(password, 10, (error, hash) => {
+              if(error){
+                res.status(400).json({error});
+              }
+              else{
+                //realizo la consulta de actualizacion de contraseña
+                let sql2 = `UPDATE user SET password = '${hash}' WHERE user_id = ${resultEmail[0].user_id}`; 
+            
+                //mando la sentencia sql2 para ejecutarla
+                connection.query(sql2, (error, result) =>{
+                  error
+                  ? res.status(400).json({ error })
+                  : res.status(200).json({result:result, password:password, resultEmail: resultEmail});
+                });
+              }
+          });
+      }
+      else{
+        res.status(400).json({error: "El correo indicado no existe"});
+      }
+    });
+
   }
 
 }

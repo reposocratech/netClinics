@@ -97,46 +97,75 @@ class nodeMailerController {
     };
 
 
-    sendEmailAppointment = (req, res) => {
-      
-      const namePatient = req.body.patient.name;
-      const lastNamePatient = req.body.patient.lastname;
+  sendEmailAppointment = (req, res) => {
+    
+    const namePatient = req.body.patient.name;
+    const lastNamePatient = req.body.patient.lastname;
 
-      const nameMedic = req.body.medic.name;
-      const lastNameMedic = req.body.medic.lastname;
-      const emailMedic = req.body.medic.email;
+    const nameMedic = req.body.medic.name;
+    const lastNameMedic = req.body.medic.lastname;
+    const emailMedic = req.body.medic.email;
 
-      let {date, appointment_time, appointment_commentary} = req.body.appointment;
+    let {date, appointment_time, appointment_commentary} = req.body.appointment;
 
-      date = date.split("-").reverse().join("-");
+    date = date.split("-").reverse().join("-");
 
-      let info = `<h2>¡Hola ${nameMedic} ${lastNameMedic}!</h2>
-      <p>Le informamos que tiene una nueva cita <strong>pendiente de validar</strong></p>
-      <p><strong>Paciente</strong>: ${namePatient} ${lastNamePatient}</p>
-      <p><strong>Fecha Cita</strong>: ${date}</p>
-      <p><strong>Hora</strong>: ${appointment_time}</p>
-      <p><strong>Comentario Cita</strong>: ${appointment_commentary}</p>`;
+    let info = `<h2>¡Hola ${nameMedic} ${lastNameMedic}!</h2>
+    <p>Le informamos que tiene una nueva cita <strong>pendiente de validar</strong></p>
+    <p><strong>Paciente</strong>: ${namePatient} ${lastNamePatient}</p>
+    <p><strong>Fecha Cita</strong>: ${date}</p>
+    <p><strong>Hora</strong>: ${appointment_time}</p>
+    <p><strong>Comentario Cita</strong>: ${appointment_commentary}</p>`;
 
-      let mailto = emailMedic;
+    let mailto = emailMedic;
 
-      const mailmsg = {
-        from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
-        to: mailto,
-        subject: `Nueva Cita para el ${date}`, // Asunto
-        html: info,
-      };
-
-      transporter
-        .sendMail(mailmsg)
-        .then((trans) => {
-          res.status(200).send("Nueva cita pendiente de validar");
-        })
-        .catch((error) => {
-          res.status(500).send("Algo ha salido mal!: " + error);
-        });
+    const mailmsg = {
+      from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
+      to: mailto,
+      subject: `Nueva Cita para el ${date}`, // Asunto
+      html: info,
     };
 
+    transporter
+      .sendMail(mailmsg)
+      .then((trans) => {
+        res.status(200).send("Nueva cita pendiente de validar");
+      })
+      .catch((error) => {
+        res.status(500).send("Algo ha salido mal!: " + error);
+      });
+  };
+
+  sendResetPassword = (req, res) => {
+    const {password} = req.body;
+    const {name, lastname, email} = req.body.user;
+
+    let info = `<h2>¡Hola! ${name} ${lastname}</h2>
+        <p>Hemos generado la siguiente contraseña para tu usuario:</p>
+        <p><strong>${password}</strong></p>
+        <p>Acceda a su perfil y cambie la contraseña por su seguridad</p>`;
+
+    let mailto = email;
+    
+    const mailmsg = {
+      from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
+      to: mailto,
+      subject: `Reinicio de Contraseña: ${password}`, // Asunto
+      html: info,
+    };
+
+    transporter
+      .sendMail(mailmsg)
+      .then((trans) => {
+        console.log(trans);
+      })
+      .catch((error) => {
+        res.status(500).send("Algo ha salido mal!: " + error);
+      });
+    };
+    
 }
+
 
 
 
