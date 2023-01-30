@@ -23,11 +23,14 @@ import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import "./myDatesMedic.scss";
 
 export const MedicFollowingAppointments = () => {
+
   const [appointmentData, setAppointmentData] = useState([]);
-  const [listPatients, setListPatients] = useState([]);
   const { user, resetPage, setResetPage } = useContext(NetClinicsContext);
-  const navigate = useNavigate();
-  const [show, setShow] = useState(false);
+  const [handleShow, setHandleShow] = useState({
+    open: false,
+    appointment: null,
+  });
+
 
   useEffect(() => {
     if (!user.user_id) return;
@@ -64,17 +67,13 @@ export const MedicFollowingAppointments = () => {
     }
   };
 
-  const [handleShow, setHandleShow] = useState({
-    open: false,
-    appointment: null,
-  });
-
   const openModal = (appointment) => {
     setHandleShow({ open: true, appointment: appointment });
   };
 
   return (
     <div className="bgAppointmentHistory p-2">
+
       {appointmentData?.length !== 0 ? (
         <Container className="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
 
@@ -173,17 +172,20 @@ export const MedicFollowingAppointments = () => {
             </Table>
           </TableContainer>
         </Container>
-      ) : (
+      :
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes histórico de citas</h3>
           <button className="deffineButton" onClick={cleanSubmit}>
             Volver
           </button>
         </Container>
-      )}
-      {handleShow.open && <MedicAppointmentView 
-      handleShow={handleShow}
-      setHandleShow={setHandleShow} />}
+      }
+      {handleShow.open && 
+        <MedicAppointmentView 
+          handleShow={handleShow}
+          setHandleShow={setHandleShow} 
+        />
+      }
     </div>
   );
 };
