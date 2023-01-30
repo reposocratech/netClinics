@@ -3,12 +3,20 @@ import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
 import axios from "axios";
 
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead,TableRow } from "@mui/material";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
 import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
-
+import { MedicAppointmentView } from "./MedicAppointmentView";
 import "./myDatesMedic.scss";
 
 export const MedicFollowingAppointments = () => {
@@ -16,6 +24,7 @@ export const MedicFollowingAppointments = () => {
   const [listPatients, setListPatients] = useState([]);
   const { user, resetPage, setResetPage } = useContext(NetClinicsContext);
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (!user.user_id) return;
@@ -27,24 +36,7 @@ export const MedicFollowingAppointments = () => {
         setAppointmentData(res.data);
       })
       .catch((err) => console.log(err));
-
-    axios
-      .get(`http://localhost:4000/medic/getPatientsName`)
-      .then((res) => {
-        setListPatients(res.data);
-      })
-      .catch((err) => console.log(err));
   }, [resetPage]);
-
-  const findPatientName = (id_patient) => {
-    return listPatients?.find((el) => {
-      if (el.user_id === id_patient) {
-        return `${el.name} ${el.lastname}`;
-      }
-    });
-  };
-
-  console.log(appointmentData);
 
   const [searchDate, setSearchDate] = useState("");
 
@@ -69,16 +61,24 @@ export const MedicFollowingAppointments = () => {
     }
   };
 
+  const [handleShow, setHandleShow] = useState({
+    open: false,
+    appointment: null,
+  });
+
+  const openModal = (appointment) => {
+    setHandleShow({ open: true, appointment: appointment });
+  };
+
   return (
     <div className="bgAppointmentHistory p-2">
-      {appointmentData?.length !== 0 ? 
+      {appointmentData?.length !== 0 ? (
         <Container cclassName="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
-
           {/* Buscador por filtro */}
-          <Row className='contSearcher d-flex justify-content-center p-3'>
-            <div className='searcher align-items-center justify-content-center d-flex gap-2'>
+          <Row className="contSearcher d-flex justify-content-center p-3">
+            <div className="searcher align-items-center justify-content-center d-flex gap-2">
               <Col xs={12} sm={12} md={8} lg={8}>
-                <InputGroup className='textSearcher'>
+                <InputGroup className="textSearcher">
                   <InputGroup.Text id="basic-addon1">
                     <i className="fa-solid fa-user-doctor"></i>
                   </InputGroup.Text>
@@ -96,11 +96,11 @@ export const MedicFollowingAppointments = () => {
               </Col>
 
               <Col xs={12} sm={12} md={4} lg={4}>
-                <div className='contButton d-flex gap-3'>
-                  <button className='deffineButton' onClick={onSubmit}>
+                <div className="contButton d-flex gap-3">
+                  <button className="deffineButton" onClick={onSubmit}>
                     Buscar
                   </button>
-                  <button className='deffineButton' onClick={cleanSubmit}>
+                  <button className="deffineButton" onClick={cleanSubmit}>
                     Limpiar
                   </button>
                 </div>
@@ -113,6 +113,7 @@ export const MedicFollowingAppointments = () => {
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
+                  <TableCell align="center"></TableCell>
                   <TableCell align="center">Paciente</TableCell>
                   <TableCell align="center">Fecha</TableCell>
                   <TableCell align="center">Hora</TableCell>
@@ -128,9 +129,20 @@ export const MedicFollowingAppointments = () => {
                       key={i}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell align="center">
-                        <strong>{findPatientName(appointment.user_patient_id)?.lastname}, </strong>
-                        {findPatientName(appointment.user_patient_id)?.name}{" "}
+                      <TableCell
+                        className="viewProf"
+                        align="center"
+                        onClick={() => openModal(appointment)}
+                      >
+                        <img src={`assets/images/user/${appointment.avatar}`} />
+                      </TableCell>
+
+                      <TableCell 
+                      align="center" 
+                      className="viewProf"
+                      onClick={() => openModal(appointment)}>
+                        <strong>{appointment.lastname}</strong>,{" "}
+                        {appointment.name}
                       </TableCell>
 
                       <TableCell align="center">
@@ -143,7 +155,7 @@ export const MedicFollowingAppointments = () => {
 
                       <TableCell align="center">
                         {appointment.address}, {appointment.city_name} ({" "}
-                        {appointment.province_name} ) - {" "}
+                        {appointment.province_name} ) -{" "}
                         {appointment.postal_code}
                       </TableCell>
                     </TableRow>
@@ -152,14 +164,18 @@ export const MedicFollowingAppointments = () => {
               </TableBody>
             </Table>
           </TableContainer>
-        </Container> 
-
-        : 
-
+        </Container>
+      ) : (
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes histórico de citas</h3>
+          <button className="deffineButton" onClick={cleanSubmit}>
+            Volver
+          </button>
         </Container>
-      }
+      )}
+      {handleShow.open && <MedicAppointmentView 
+      handleShow={handleShow}
+      setHandleShow={setHandleShow} />}
     </div>
   );
 };

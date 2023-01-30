@@ -275,8 +275,10 @@ class medicControllers {
   //5.- Trae todas las citas realizadas de un medico
   //localhost:4000/medic/getAppointmentHistory/:user_id
   getAppointmentHistory = (req, res) => {
-    let { user_id } = req.params;
-    let sql = `SELECT * FROM appointment where user_medic_id = ${user_id} and is_completed = 1`;
+
+    let {user_id} = req.params;
+    let sql = `SELECT appointment.*, user.address, user.name, user.lastname, user.avatar, user.phone_number, user.postal_code, user.address, city.city_name, province.province_name FROM appointment JOIN user ON appointment.user_patient_id = user.user_id  JOIN province ON province.province_id = user.province_id JOIN city ON city.city_id = user.city_id AND city.province_id = province.province_id WHERE appointment.user_medic_id = ${user_id} and  is_completed = 1 group by appointment.appointment_id`;
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
     });
@@ -285,8 +287,10 @@ class medicControllers {
   //6.- Trae todas las citas pendientes de confirmar de un medico
   //localhost:4000/medic/getPendingAppointments/:user_id
   getPendingAppointments = (req, res) => {
-    let { user_id } = req.params;
-    let sql = `SELECT appointment.*, user.postal_code, user.address, city.city_name, province.province_name FROM appointment
+
+    let {user_id} = req.params;
+    let sql = `SELECT appointment.*, user.name, user.lastname, user.avatar, user.phone_number,user.postal_code, user.address, city.city_name, province.province_name FROM appointment
+
     JOIN user ON appointment.user_patient_id = user.user_id 
     JOIN province ON province.province_id = user.province_id
     JOIN city ON city.city_id = user.city_id AND city.province_id = province.province_id
@@ -299,8 +303,10 @@ class medicControllers {
   //7.- Trae todas las citas proximas (solo confirmadas) de un medico
   //localhost:4000/medic/getConfirmedAppointments/:user_id
   getConfirmedAppointments = (req, res) => {
-    let { user_id } = req.params;
-    let sql = `SELECT appointment.*, user.postal_code, user.address, city.city_name, province.province_name FROM appointment
+
+    let {user_id} = req.params;
+    let sql = `SELECT appointment.*, user.name, user.lastname, user.avatar, user.phone_number, user.postal_code, user.address, city.city_name, province.province_name FROM appointment
+
     JOIN user ON appointment.user_patient_id = user.user_id 
     JOIN province ON province.province_id = user.province_id
     JOIN city ON city.city_id = user.city_id AND city.province_id = province.province_id
