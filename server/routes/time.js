@@ -12,6 +12,4 @@ router.get("/getAllDays", timeControllers.getAllDays);
 //localhost:4000/time/getAllHours
 router.get("/getAllHours", timeControllers.getAllHours);
 
-
-
 module.exports = router;

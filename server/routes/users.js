@@ -9,7 +9,6 @@ var router = express.Router();
 //localhost:4000/user/login
 router.post("/login", userControllers.login);
 
-
 //-----------------------------------------------------
 //2.-Borrado lógico de un usuario
 //localhost:4000/user/deleteUser/:user_id      
@@ -25,6 +24,9 @@ router.get("/oneUser/:user_id", userControllers.selectOneUser);
 //localhost:4000/user/changeUserPassword/:user_id      
 router.put("/changeUserPassword/:user_id", userControllers.changeUserPassword);
 
-
+//-----------------------------------------------------
+//5.-Solicitud reseteo de contraseña
+//localhost:4000/user/resetPassword
+router.put("/resetPassword", userControllers.resetPassword);
 
 module.exports = router;
