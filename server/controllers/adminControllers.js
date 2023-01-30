@@ -8,9 +8,9 @@ class adminControllers {
     let sql =
       "SELECT user.*, medic_data.*, province_name, city.city_name FROM user LEFT JOIN medic_data ON user.user_id = medic_data.user_id  LEFT JOIN title ON user.user_id = title.user_id JOIN province ON user.province_id = province.province_id JOIN city ON user.city_id = city.city_id AND province.province_id = city.province_id WHERE user.type = 2 GROUP BY user.user_id ORDER BY user.lastname";
 
-      connection.query(sql, (error, result) => {
-        error ? res.status(400).json({ error }) : res.status(200).json(result);
-      });
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    });
   };
 
   // 2.- Trae los datos de todos los pacientes con ciudad y provincia
@@ -48,7 +48,6 @@ class adminControllers {
     });
   };
 
-
   //5.-Desactiva un médico
   //localhost:4000/admin/disableMedic/:user_id
   disableMedic = (req, res) => {
@@ -67,9 +66,9 @@ class adminControllers {
     let sql =
       "SELECT user.*, medic_data.*, province_name, city.city_name FROM user LEFT JOIN medic_data ON user.user_id = medic_data.user_id  LEFT JOIN title ON user.user_id = title.user_id JOIN province ON user.province_id = province.province_id JOIN city ON user.city_id = city.city_id AND province.province_id = city.province_id WHERE user.type = 2 AND medic_data.medic_enabled = 0 AND user.is_deleted = 0  GROUP BY user.user_id ORDER BY user.lastname";
 
-      connection.query(sql, (error, result) => {
-        error ? res.status(400).json({ error }) : res.status(200).json(result);
-      });
+    connection.query(sql, (error, result) => {
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
+    });
   };
 
   //7.- Pone un médico en estado disponible
@@ -195,7 +194,7 @@ class adminControllers {
   //10.- Trae la información de un paciente
   //localhost:4000/admin/patientProfile/:user_id
   getPatientProfile = (req, res) => {
-     const user_id  = req.params.user_id;
+    const user_id = req.params.user_id;
 
     let sql = `SELECT user.*, province.province_name, city.city_name FROM user, province, city WHERE user.city_id = city.city_id AND user.province_id = province.province_id AND province.province_id = city.province_id AND user.user_id = ${user_id}`;
 

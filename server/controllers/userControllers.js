@@ -26,9 +26,9 @@ class userControllers {
 
         //comparamos las contraseñas
         bcrypt.compare(password, hash, (error, response) => {
-          if (error){
+          if (error) {
             console.log(error);
-          };
+          }
           //si las contraseñas coinciden
           if (response === true) {
             const token = jwt.sign(
@@ -60,33 +60,31 @@ class userControllers {
   deleteUser = (req, res) => {
     let user_id = req.params.user_id;
     let sql = `UPDATE user SET is_deleted = 1 WHERE user_id = ${user_id}`;
-    
+
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
-    }); 
-
+    });
   };
 
   //-----------------------------------------------------
   //3.-Trae información de un usuario
-  //localhost:4000/user/oneUser/:user_id      
+  //localhost:4000/user/oneUser/:user_id
   selectOneUser = (req, res) => {
-    let {user_id} = req.params;
+    let { user_id } = req.params;
 
     let sql = `SELECT * FROM user WHERE user_id = ${user_id}`;
 
     connection.query(sql, (error, result) => {
-      error ? res.status(400).json({error}) : res.status(200).json(result);
+      error ? res.status(400).json({ error }) : res.status(200).json(result);
     });
-
   };
 
   //-----------------------------------------------------
   //4.-Cambio de contraseña en cualquier tipo de usuario
-  //localhost:4000/user/changeUserPassword/:user_id       
+  //localhost:4000/user/changeUserPassword/:user_id
   changeUserPassword = (req, res) => {
-    let {user_id} = req.params;
-    let {password} = req.body;
+    let { user_id } = req.params;
+    let { password } = req.body;
 
     let saltRounds = 8;
     bcrypt.genSalt(saltRounds, function (err, saltRounds) {
@@ -101,6 +99,14 @@ class userControllers {
       });
     });
   };
+
+  //-----------------------------------------------------
+  //5.-Solicitud reseteo de contraseña
+  //localhost:4000/user/resetPassword
+  resetPassword = (req, res) => {
+    
+  }
+
 }
 
 module.exports = new userControllers();

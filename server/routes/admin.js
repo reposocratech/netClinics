@@ -50,5 +50,4 @@ router.get("/medicProfile/:user_id", adminControllers.getMedicProfile);
 //localhost:4000/admin/patientProfile/:user_id
 router.get("/patientProfile/:user_id", adminControllers.getPatientProfile);
 
-
 module.exports = router;
