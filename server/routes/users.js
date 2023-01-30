@@ -1,6 +1,7 @@
 var express = require('express');
 const userControllers = require("../controllers/userControllers");
 var router = express.Router();
+const nodeMailerController = require("../services/nodeMailer");
 // const verify = require("../middleware/verify");
 
 
@@ -28,5 +29,9 @@ router.put("/changeUserPassword/:user_id", userControllers.changeUserPassword);
 //5.-Solicitud reseteo de contraseña
 //localhost:4000/user/resetPassword
 router.put("/resetPassword", userControllers.resetPassword);
+
+//5.1.-Envio de email con nueva contraseña
+//localhost:4000/user/sendEmailResetPassword
+router.post("/sendEmailResetPassword", nodeMailerController.sendResetPassword);
 
 module.exports = router;
