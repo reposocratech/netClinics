@@ -162,8 +162,8 @@ CREATE TABLE appointment(
 	REFERENCES daily_hours(daily_hours_id)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-
+-- Insertar usuario admin la clave es 1234 --
+INSERT INTO user (name, lastname, type, email, password, city_id, province_id) VALUES ('admin', 'admin', 1, 'admin@netclinics.es', '$2b$08$mY7ZLxBxq65NDdJeRKjP..48rWDoDMOMqK5gdwa/pYjVsOzMTcS8O', 67, 29);
 
 
 
