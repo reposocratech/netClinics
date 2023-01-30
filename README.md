@@ -6,7 +6,6 @@ Este proyecto es una aplicación web realizada por [equipo Socratech](#contacto)
 * [Tecnologías utilizadas](#tecnologías-utilizadas)
 * [Capturas de la aplicación](#capturas-de-la-apliación)
 * [Instalación y configuración](#instalación-y-configuración)
-* [Agradecimientos](#agradecimientos)
 * [Contacto](#contacto)
 
 ## Información General
@@ -55,11 +54,6 @@ Esto instalará las dependencias necesarias en el cliente.
 <br/>
 9 - La aplicación web se ejecutará entonces en el navegador.
 <br/>
-
-## Agradecimientos
-- Este proyecto ha sido realizado como parte del Bootcamp Fullstack Web Developer en [Socratech](https://socratech.es/).
-- Agradecimientos a los profesores Carlos Yañez, Miriam Segura y Santigo Peña por su ayuda y dedicación.
-- Agradecimientos a la empresa NetClinics por confiar en nosotros
 
 ## Contacto
 Este proyecto ha sido realizado por un equipo de 4 desarrolladores compuesto por:
