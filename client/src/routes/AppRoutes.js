@@ -11,6 +11,7 @@ import { AdminPatientProfile } from '../pages/Admin/PatientProfile/AdminPatientP
 import { Validations } from '../pages/Admin/Validations/Validations';
 import { ChangePassword } from '../pages/Auth/ChangePassword/ChangePassword';
 import { Login } from '../pages/Auth/Login/Login';
+import { ResetPassword } from '../pages/Auth/ResetPassword/ResetPassword';
 import { Error } from '../pages/Error/Error';
 import { HomeAdmin } from '../pages/Home/HomeAdmin';
 import { HomeMedic } from '../pages/Home/HomeMedic';
@@ -59,6 +60,11 @@ export const AppRoutes = () => {
                     <Route
                       path='/registerMedic'
                       element={<RegisterMedic/>}
+                    />
+
+                    <Route
+                      path='/resetPassword'
+                      element={<ResetPassword/>}
                     />
 
                   </>
@@ -161,7 +167,7 @@ export const AppRoutes = () => {
                   </>
                 }
 
-                {/* Ruta para error */}
+                  {/* Ruta para error */}
                
                   <Route
                     path='*'
