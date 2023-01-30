@@ -55,10 +55,6 @@
                     object-position: center;
                 }
             }
-    
-            .viewProf {
-                cursor: pointer;
-            }
 
             .acceptButton {
                 background-color:  rgba(89, 220, 53, 0.14);
@@ -97,5 +93,9 @@
 
     .deffineButton:hover {
         background-color: #293a9a;
+    }
+
+    .viewProf {
+        cursor: pointer;
     }
 }
