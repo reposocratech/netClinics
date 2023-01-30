@@ -10,16 +10,20 @@ export const AllPatients = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const navigate = useNavigate();
 
+  //Realizo una busqueda que me trae todos los pacientes
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllPatients").then((res) => {
       setPatients(res.data);
     });
   }, [resetPage]);
 
+  //Función para borrado lógico del paciente
   const handleEdit = (id, is_deleted) => {
+    //Si el paciente está activo realiza el borrado lógico
     let url = `http://localhost:4000/user/deleteUser/${id}`;
 
     if (is_deleted === 1) {
+      //Si al paciente se le ha realizado borrado lógico lo vuelve a activar
       url = `http://localhost:4000/admin/enableUser/${id}`;
     }
 
@@ -33,6 +37,8 @@ export const AllPatients = () => {
 
   return (
     <div>
+      {/*Si patients trae datos se muestra la tabla con todos los pacientes, 
+      si no trae datos aparece mensaje */}
       {patients.length !== 0 ? (
         <AllPatiensAdmin
           patients={patients}

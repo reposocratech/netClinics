@@ -21,11 +21,11 @@ export const AdminMedicProfile = () => {
 
   const navigate = useNavigate();
 
+  //Traigo todos los datos de un médico en concreto
   useEffect(() => {
     axios
       .get(`http://localhost:4000/admin/medicProfile/${user_id}`)
       .then((res) => {
-        console.log(res);
         setDataUser(res.data.user[0]);
         setDataTitles(res.data.titles);
         setDataSpecialities(res.data.specialities);
@@ -35,6 +35,7 @@ export const AdminMedicProfile = () => {
       });
   }, []);
 
+  //Traigo nombre de provincia y ciudad de un médico concreto
   useEffect(() => {
     axios
       .get(`http://localhost:4000/place/getPlaceOneUser/${user_id}`)
@@ -46,6 +47,7 @@ export const AdminMedicProfile = () => {
       });
   }, []);
 
+  //Traigo nombre de provincia y ciudad donde realiza servicio un médico
   useEffect(() => {
     axios
       .get(`http://localhost:4000/medic/providerServices/${user_id}`)
@@ -57,6 +59,7 @@ export const AdminMedicProfile = () => {
       });
   }, []);
 
+  //Función para habilitar un médico
   const enable = (id, is_enable) => {
     let url = `http://localhost:4000/admin/enableMedic/${id}`;
     axios
@@ -72,6 +75,7 @@ export const AdminMedicProfile = () => {
         <Row className="p-3">
           <Col sm="12" md="4">
             <h2>Nº de Colegiado</h2>
+            {/*Mapeo los datos de luser para mostrarlos en su perfil */}
             <p>{dataUser?.medic_membership_number}</p>
           </Col>
           <Col sm="12" md="4" className="text-center">
@@ -86,8 +90,7 @@ export const AdminMedicProfile = () => {
               <strong className="lastname">{dataUser?.lastname}</strong>
             </h2>
           </Col>
-          <Col sm="12" md="4" className="d-flex justify-content-end">
-          </Col>
+          <Col sm="12" md="4" className="d-flex justify-content-end"></Col>
         </Row>
         <Row className="ms-2 me-2 mb-3">
           <Col sm="12" md="12" className="section">
@@ -194,15 +197,20 @@ export const AdminMedicProfile = () => {
             </Table>
           </Col>
         </Row>
+        {/*Botón de volver a la vista con todos los médicos, si el médico
+        no está habilitado aparece el botón de habilitar */}
         <div className="d-flex justify-content-center">
-          <button className="deffineButton m-1" onClick={() => navigate(-1)}>Volver</button>
-          {(dataUser.medic_enabled === 0 && dataUser.is_deleted === 0) && (
-              <button
+          <button className="deffineButton m-1" onClick={() => navigate(-1)}>
+            Volver
+          </button>
+          {dataUser.medic_enabled === 0 && dataUser.is_deleted === 0 && (
+            <button
               className="buttonEnabledUser m-1"
-                onClick={() => enable(dataUser.user_id, dataUser.medic_enabled)}
-              ><div className="pointEnable"></div>
-                Habilitar
-              </button>
+              onClick={() => enable(dataUser.user_id, dataUser.medic_enabled)}
+            >
+              <div className="pointEnable"></div>
+              Habilitar
+            </button>
           )}
         </div>
       </Container>
