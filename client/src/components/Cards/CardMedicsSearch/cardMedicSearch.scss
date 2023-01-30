@@ -35,10 +35,29 @@
     border: none;
     border-radius: 50px;
     font-weight: 600;
+    font-size: .8rem;
+    font-family: 'Rubik', sans-serif;
+    width: 10rem;
+    padding: 0.3rem;
+    cursor: pointer;
+}
+
+.buttonCancel {
+    appearance: none;
+    background-color: rgba($color: #e81b1b, $alpha: 1.0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
     font-size: 1rem;
     font-family: 'Rubik', sans-serif;
     width: 10rem;
     padding: 0.3rem;
+    cursor: pointer;
+}
+
+.buttonCancel:hover{
+    background-color: rgba($color: #bf2525, $alpha: 1.0);
 }
 
 .defineButton:hover {

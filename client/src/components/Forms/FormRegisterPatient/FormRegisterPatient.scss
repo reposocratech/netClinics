@@ -50,6 +50,21 @@
             border-radius: 10px 0 0 10px !important;
         }
 
+        .errorMail{
+            input {
+                background-color: #ef5350;
+                color: white;
+            }
+
+            input:focus {
+                box-shadow: 0 0 0 0.1rem rgb(255 255 255 / 90%);
+            }
+
+            input::placeholder{
+                color: white;
+            }
+        }
+
         .inputFile{
             padding: 1rem;
             border: 4px dashed #1c2869bb;

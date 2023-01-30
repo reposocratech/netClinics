@@ -32,6 +32,8 @@ export const EditMedic = () => {
   const [dataSpecialities, setDataSpecialities] = useState([]);
   const [providerServices, setProviderServices] = useState([]);
 
+  const [errorEmail, setErrorEmail] = useState("");
+
   const [listCities, setListCities] = useState([]);
   const [listProvinces, setListProvinces] = useState([]);
 
@@ -180,6 +182,7 @@ export const EditMedic = () => {
 
   //handleChange usuario
   const handleChange = (e) => {
+    setErrorEmail("");
     const {name, value} = e.target;
     setDataUser({...dataUser, [name]: value});
   };
@@ -199,7 +202,12 @@ export const EditMedic = () => {
         navigate('/myProfile');
       })
       .catch((error) => {
-        console.log(error);
+        if(error.response.data.code === 'ER_DUP_ENTRY'){
+          setErrorEmail("errorMail");
+        }
+        else{
+          console.log(error);
+        }
       });
 
   }
@@ -386,9 +394,9 @@ export const EditMedic = () => {
               />
             </InputGroup>
           </Col>
-          <Col xs="12" md="6">
+          <Col className={`${errorEmail && errorEmail}`} xs="12" md="6">
             <label>Email:</label>
-            <InputGroup className='mb-3'>
+            <InputGroup className="mb-3">
               <Form.Control
               placeholder='Introduce Correo Electronico'
               name='email'

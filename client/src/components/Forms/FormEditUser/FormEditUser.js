@@ -13,7 +13,9 @@ export const FormEditUser = ({
   listCities,
   getCity,
   onSelectFile,
-  preview
+  preview,
+  errorEmail,
+  setErrorEmail
 }) => {
 
 
@@ -80,15 +82,20 @@ export const FormEditUser = ({
 
             <div className="contEditPatient d-flex flex-row align-items-center">
               <label className="me-2">Email:</label>
-              <InputGroup className='inputPatient mb-3'>
+              <InputGroup className={`inputPatient ${errorEmail && errorEmail} mb-3`}>
                 <Form.Control
+                  autoComplete="off"
                   placeholder="Email"
                   name="email"
                   value={editUser?.email}
                   onChange={handleChange}
                 />
               </InputGroup>
+              
             </div>
+            
+            {errorEmail && <div><h4 className="text-danger">El email ya existe en nuestra BD</h4></div>}
+            
 
             <div className="contEditPatient d-flex flex-row align-items-center">
               <label className="me-2">Teléfono:</label>
