@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { reverseDate } from "../../../Utils/reverseDatePicker/reverseDatePicker";
-import Avatar from "@mui/material/Avatar";
 import axios from "axios";
 
 import {
@@ -16,6 +15,7 @@ import {
 import { Col, Container, Row } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import Avatar from "@mui/material/Avatar";
 import CalendarMonthTwoToneIcon from "@mui/icons-material/CalendarMonthTwoTone";
 import { MedicAppointmentView } from "./MedicAppointmentView";
 import "./myDatesMedic.scss";
