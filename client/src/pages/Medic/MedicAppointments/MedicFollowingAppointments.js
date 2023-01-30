@@ -74,7 +74,7 @@ export const MedicFollowingAppointments = () => {
   return (
     <div className="bgAppointmentHistory p-2">
 
-      {appointmentData?.length !== 0 ? (
+      {appointmentData?.length !== 0 ? 
         <Container className="whiteBoxPendingAppointment d-flex flex-column justify-content-center align-items-center my-5">
 
           {/* Buscador por filtro */}
@@ -137,11 +137,14 @@ export const MedicFollowingAppointments = () => {
                         align="center"
                         onClick={() => openModal(appointment)}
                       >
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={`assets/images/user/${appointment.avatar}`} 
-                          sx={{ width: 56, height: 56 }}
-                        />
+                        <div className='d-flex align-items-center justify-content-center'>
+                          <Avatar
+                            alt="Remy Sharp"
+                            src={`assets/images/user/${appointment.avatar}`} 
+                            sx={{ width: 56, height: 56 }}
+                          />
+                        </div>
+                        
                       </TableCell>
 
                       <TableCell 
@@ -174,7 +177,7 @@ export const MedicFollowingAppointments = () => {
         </Container>
       :
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
-          <h3>Actualmente no tienes histórico de citas</h3>
+          <h3>No hay próximas citas</h3>
           <button className="deffineButton" onClick={cleanSubmit}>
             Volver
           </button>
