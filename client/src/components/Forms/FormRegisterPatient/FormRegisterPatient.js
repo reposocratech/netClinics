@@ -24,7 +24,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
 
             {/* Logo Netclinics */}
             <div className='titleFormRegisterPatient text-center mb-4'>
-              <img className='logoRegisterForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+              <img alt="logo-netclinics" className='logoRegisterForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
             </div>
 
             {/* Container Formulario */}
@@ -184,7 +184,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
               </InputGroup>
 
               <div className='mb-2'>
-                {message1 && <p>Introduce correctamente todos los datos</p>}
+                {message1 && <p className='text-center text-danger'>Introduce correctamente todos los datos</p>}
                 {message2 && <p className='text-center text-danger'>Ya existe una cuenta con este email</p>}
               </div>
             </div>

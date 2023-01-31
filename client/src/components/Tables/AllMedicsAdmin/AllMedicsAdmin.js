@@ -148,6 +148,7 @@ export const AllMedicsAdmin = ({
                       onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
                     >
                       <img
+                        alt={medic?.name}
                         className="imageMedic"
                         src={`assets/images/user/${medic.avatar}`}
                       />
@@ -184,7 +185,7 @@ export const AllMedicsAdmin = ({
                         {!medic?.medic_enabled ? (
                           <button
                             onClick={() =>
-                              enable(medic.user_id, medic.medic_enabled)
+                              enable(medic.user_id, medic.medic_enabled, medic)
                             }
                             className="buttonEnabledUser"
                           >
@@ -194,7 +195,7 @@ export const AllMedicsAdmin = ({
                         ) : (
                           <button
                             onClick={() =>
-                              enable(medic.user_id, medic.medic_enabled)
+                              enable(medic.user_id, medic.medic_enabled, medic)
                             }
                             className="buttonDisabledUser"
                           >

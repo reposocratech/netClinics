@@ -26,9 +26,7 @@ export const RegisterPatient = () => {
   const [errorEmail, setErrorEmail] = useState("");
 
   const [listProvinces, setListProvinces] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState();
   const [listCities, setListCities] = useState([]);
-  const [selectedCitie, setSelectedCitie] = useState();
 
   useEffect(() => {
     axios
@@ -66,8 +64,18 @@ export const RegisterPatient = () => {
       setRegisterPatient({...registerPatient, [name]:value});
   }
 
-  const onSubmit = (event) => {
-      if(!emailValidator(registerPatient.email) || !registerPatient.password){
+  const onSubmit = () => {
+      if(
+          !emailValidator(registerPatient.email) 
+          || !registerPatient.password.trim("")
+          || !registerPatient.name.trim("")
+          || !registerPatient.lastname.trim("")
+          || !registerPatient.address.trim("")
+          || !registerPatient.dni.trim("")
+          || !registerPatient.province_id
+          || !registerPatient.city_id
+          
+        ){ 
           setMessage1(true)
           setMessage2(false)
       }

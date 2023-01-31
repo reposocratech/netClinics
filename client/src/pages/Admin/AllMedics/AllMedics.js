@@ -12,7 +12,6 @@ export const AllMedics = () => {
   //se requiera
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const navigate = useNavigate();
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export const AllMedics = () => {
   };
 
   //Función para habilitar o deshabilitar un médico
-  const enable = (id, is_enable) => {
+  const enable = (id, is_enable, medic) => {
     //Si el médico no está habilitado para habilitarlo
     let url = `http://localhost:4000/admin/enableMedic/${id}`;
     //Si el médico está habilitado y hay que deshabilitarlo
@@ -50,10 +49,20 @@ export const AllMedics = () => {
     axios
       .put(url)
       .then((res) => {
+        enableMedicEmail(medic);
         setResetPage(!resetPage);
       })
       .catch((Err) => console.log(Err));
   };
+
+   //Función para mandar mail cuando se habilita/deshabilita el médico
+   const enableMedicEmail = (medic) => {
+    axios
+      .post("http://localhost:4000/admin/enableMedicEmail", medic)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   //Constante creada para guardar los diferentes resultados del filtrado de datos
   const [searchComplete, setSearchComplete] = useState({
     searchName: "",
