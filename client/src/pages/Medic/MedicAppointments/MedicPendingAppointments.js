@@ -40,7 +40,7 @@ export const MedicPendingAppointments = () => {
         setAppointmentData(res.data);
       })
       .catch((err) => console.log(err));
-  }, [resetPage]);
+  }, [resetPage, user]);
 
   const cancelAppointment = (id_appointment) => {
     axios

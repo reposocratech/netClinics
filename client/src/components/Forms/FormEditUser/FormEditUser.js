@@ -172,7 +172,7 @@ export const FormEditUser = ({
               <label className="me-2">Codigo postal:</label>
               <InputGroup className='inputPatient mb-3'>
                 <Form.Control
-                  placeholder="telefono"
+                  placeholder="Código Postal"
                   name="postal_code"
                   value={editUser?.postal_code}
                   onChange={handleChange}

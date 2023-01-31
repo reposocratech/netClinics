@@ -28,13 +28,11 @@ export const UserFollowingAppointments = () => {
             setListMedics(res.data);
         })
         .catch((err) => console.log(err));
-    }, [])
+    }, [user])
 
     const findMedicName = (id_medic) => {
       return listMedics?.find((el)=> {
-         if(el.user_id === id_medic){
-             return `${el.name} ${el.lastname}`
-         }
+        return el.user_id === id_medic && el
      });
     }
 

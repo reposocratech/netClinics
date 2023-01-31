@@ -36,7 +36,7 @@ export const MedicAppointmentsHistory = () => {
         setAppointmentData(res.data);
       })
       .catch((err) => console.log(err));
-  }, [resetPage]);
+  }, [resetPage, user]);
 
   const [searchDate, setSearchDate] = useState("");
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -20,7 +20,7 @@ export const Error = () => {
                     <Col>
                         <div className='containerError text-center'>
                             <div className='titleFormLogin text-center mb-4'>
-                                <img className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+                                <img alt='logo-netclinics' className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
                             </div>
                             <h2 className='text-danger'>Error 404!</h2>
                             <h4>Lo sentimos la dirección indicada no es correcta</h4>
