@@ -70,14 +70,17 @@ class nodeMailerController {
   };
 
   sendAvailabilityMedic = (req, res) => {
-    const { name, lastname, email} = req.body;
+    const { name, lastname, email, medic_enable} = req.body;
 
     let info = `<h2>¡Hola ${name} ${lastname}!</h2>
         <p><strong>¡Enhorabuena!</strong> su perfil profesional ha sido validado por el administrador</p>
         <p>Desde este momento ya formas parte de nuestra comunidad NetClinics, recuerda tener actualizado tu perfil y tu disponibilidad horaria semanal</p>
         <p>Los usuarios ya pueden solicitar cita contigo, cuando se solicite un cita recibirás un email con los datos de la cita, dicha cita tendrás que confirmarla en tu panel de "citas pendiente de confirmación"</p>`;
-
-    let mailto = email;
+if(medic_enable){
+  info = `<h2>¡Hola ${name} ${lastname}!</h2>
+  <p>Actualmente su perfil ha sido deshabilitado por parte del administrador. Para más información por favor contacte con el administrador. </p>`
+}console.log("prueba de cuando se deshabilita", info);
+    /*let mailto = email;
 
     const mailmsg = {
       from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
@@ -93,7 +96,7 @@ class nodeMailerController {
       })
       .catch((error) => {
         res.status(500).send("Algo ha salido mal!: " + error);
-      });
+      });*/
     };
 
 
