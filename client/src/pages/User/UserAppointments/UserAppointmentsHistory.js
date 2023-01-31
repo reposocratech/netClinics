@@ -28,7 +28,7 @@ export const UserAppointmentsHistory = () => {
   });
 
   useEffect(() => {
-    if (!user.user_id) return;
+    if (!user.user_id) return
     axios
       .get(
         `http://localhost:4000/patient/getAppointmentHistory/${user.user_id}`

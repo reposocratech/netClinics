@@ -21,7 +21,7 @@ const UserAppointmentView = ({handleShow, setHandleShow, findMedicName }) => {
           />
         </div>
         <p><strong>Profesional</strong>: {findMedicName(user_medic_id)?.lastname},{" "}{findMedicName(user_medic_id)?.name}</p>
-        <p><strong>Dia de la cita</strong>:  {appointment_date}</p>
+        <p><strong>Dia de la cita</strong>:  {reverseDate(appointment_date)}</p>
         <p><strong>Hora de la cita</strong>: {appointment_time}</p>
         <p><strong>Comentario</strong>: {appointment_commentary}</p>
       </Modal.Body>

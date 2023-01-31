@@ -3,7 +3,7 @@ import axios from "axios";
 import { FormEditUser } from "../../../components/Forms/FormEditUser/FormEditUser";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 import "./styleEditUser.scss";
 
@@ -11,17 +11,12 @@ export const EditUser = () => {
   const { user, setUser, setResetPage, resetPage } =
   useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
-  const [file, setFile] = useState();
-
   const [errorEmail, setErrorEmail] = useState("");
 
   const navigate = useNavigate();
 
   const [listProvinces, setListProvinces] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState();
   const [listCities, setListCities] = useState([]);
-  const [selectedCitie, setSelectedCitie] = useState();
-
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
@@ -110,7 +105,7 @@ export const EditUser = () => {
 
     return () => URL.revokeObjectURL(objectUrl);
 
-  }, [selectedFile])
+  }, [selectedFile]);
   
 
   //Conforme se cambie la imagen setea el archivo seleccionado y la imagen

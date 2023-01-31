@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SearchAppointment } from '../../../components/Appointment/SearchAppointment';
 import { FormSearchMedic } from '../../../components/Forms/FormSearchMedic/FormSearchMedic';
@@ -18,7 +18,7 @@ export const Searcher = () => {
     name: null,
   });
 
-  const [medicsSearched, setMedicsSearched] = useState([])    
+  const [medicsSearched, setMedicsSearched] = useState([]);    
   const navigate = useNavigate();
   const [messageError, setMessageError] = useState("");
   
@@ -80,7 +80,7 @@ export const Searcher = () => {
         .catch((error) => {
         console.log(error);
         });
-    }, [])
+    }, []);
       
 
     const getCity = (selectedProvince) => {
