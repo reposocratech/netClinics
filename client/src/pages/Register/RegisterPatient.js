@@ -66,8 +66,18 @@ export const RegisterPatient = () => {
       setRegisterPatient({...registerPatient, [name]:value});
   }
 
-  const onSubmit = (event) => {
-      if(!emailValidator(registerPatient.email) || !registerPatient.password){
+  const onSubmit = () => {
+      if(
+          !emailValidator(registerPatient.email) 
+          || !registerPatient.password.trim("")
+          || !registerPatient.name.trim("")
+          || !registerPatient.lastname.trim("")
+          || !registerPatient.address.trim("")
+          || !registerPatient.dni.trim("")
+          || !registerPatient.province_id
+          || !registerPatient.city_id
+          
+        ){ 
           setMessage1(true)
           setMessage2(false)
       }
