@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
+import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
 import axios from "axios";
 
 import "./myDatesPatient.scss";
@@ -56,8 +57,8 @@ export const UserAppointmentsHistory = () => {
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="center"></TableCell>
                   <TableCell align="center">Profesional</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
                   <TableCell align="center">Fecha</TableCell>
                   <TableCell align="center">Hora</TableCell>
                 </TableRow>
@@ -90,7 +91,7 @@ export const UserAppointmentsHistory = () => {
                       </TableCell>
 
                       <TableCell align="center">
-                        {appointment.appointment_date}
+                        {reverseDate(appointment.appointment_date)}
                       </TableCell>
 
                       <TableCell align="center">

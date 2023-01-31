@@ -59,7 +59,7 @@ export const FormLogin = ({handleChange, onSubmit, login, navigate, errorPasswor
                         
                     
                         <div className='text-center'>
-                            <button className="defineButton" onClick={onSubmit}>
+                            <button className="deffineButton" onClick={onSubmit}>
                                 Login
                             </button>
                         </div>
@@ -75,7 +75,7 @@ export const FormLogin = ({handleChange, onSubmit, login, navigate, errorPasswor
                     </div>
                     
                     <div className='text-center'>
-                        <button className="defineButton" onClick={()=> navigate('/registerPatient')}>
+                        <button className="deffineButton" onClick={()=> navigate('/registerPatient')}>
                             Regístrate
                         </button>
                     </div>

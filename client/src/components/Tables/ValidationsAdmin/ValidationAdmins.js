@@ -24,8 +24,8 @@ export const ValidationAdmins = ({ medics, navigate, enable }) => {
             <Table sx={{ minWidth: 650 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center"></TableCell>
-                  <TableCell align="center">Profesional a validar</TableCell>
+                  <TableCell align="center">Profesional</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
                   <TableCell align="center">Nº Colegiado</TableCell>
                   <TableCell align="center">Provincia</TableCell>
                   <TableCell align="center">Ciudad</TableCell>
@@ -70,27 +70,29 @@ export const ValidationAdmins = ({ medics, navigate, enable }) => {
 
                     <TableCell align="center">
                       {/* Botón para habilitar o deshabilitar el médico */}
-                      {!medic?.medic_enabled ? (
-                        <button
-                          onClick={() =>
-                            enable(medic.user_id, medic.medic_enabled, medic)
-                          }
-                          className="buttonEnabledUser"
-                        >
-                          <div className="pointEnable"></div>
-                          Habilitar
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() =>
-                            enable(medic.user_id, medic.medic_enabled, medic)
-                          }
-                          className="buttonDisabledUser"
-                        >
-                          <div className="pointDisabled"></div>
-                          Deshabilitar
-                        </button>
-                      )}
+                      <div className="d-flex justify-content-center">
+                        {!medic?.medic_enabled ? (
+                          <button
+                            onClick={() =>
+                              enable(medic.user_id, medic.medic_enabled, medic)
+                            }
+                            className="buttonEnabledUser"
+                          >
+                            <div className="pointEnable"></div>
+                            Habilitar
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() =>
+                              enable(medic.user_id, medic.medic_enabled, medic)
+                            }
+                            className="buttonDisabledUser"
+                          >
+                            <div className="pointDisabled"></div>
+                            Deshabilitar
+                          </button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -34,6 +34,13 @@ export const HomeAdmin = () => {
                 icon={'/assets/icons/task_black_24dp.svg'}
                 cardTitle={"Validaciones"}
               />
+
+              <CardHome
+                go={"/adminUtils"}
+                navigate={navigate}
+                icon={'/assets/icons/add_circle_outline_black_24dp.svg'}
+                cardTitle={"Añadir especialidad"}
+              />
           </Row>
       </Container>
     </div>
