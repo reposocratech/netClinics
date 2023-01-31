@@ -105,6 +105,7 @@ class patientControllers {
     province_id = parseInt(province_id);
     city_id = parseInt(city_id);
     postal_code = isNaN(parseInt(postal_code)) ? 0 : parseInt(postal_code);
+    phone_number = isNaN(parseInt(phone_number)) ? "" : parseInt(phone_number);
 
     let img = avatar;
 
