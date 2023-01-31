@@ -6,9 +6,6 @@ import Col from "react-bootstrap/esm/Col";
 import Table from "react-bootstrap/Table";
 import { useNavigate, useParams } from "react-router-dom";
 import FilePresentRoundedIcon from "@mui/icons-material/FilePresentRounded";
-
-import { Button } from "react-bootstrap";
-
 import "./styleAdminMedicProfile.scss";
 
 export const AdminMedicProfile = () => {
