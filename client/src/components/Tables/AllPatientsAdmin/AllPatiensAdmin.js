@@ -46,6 +46,7 @@ export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
                       }
                     >
                       <img
+                        alt={patient?.name}
                         className="imagePatient"
                         src={`assets/images/user/${patient.avatar}`}
                       />
