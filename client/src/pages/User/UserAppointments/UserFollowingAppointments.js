@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import { NetClinicsContext } from '../../../context/NetClinicsProvider';
 import axios from 'axios';
 import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
-
+import UserAppointmentView from "./UserAppointmentView";
 import './myDatesPatient.scss';
 
 export const UserFollowingAppointments = () => {
@@ -12,6 +12,10 @@ export const UserFollowingAppointments = () => {
     const [appointmentData, setAppointmentData] = useState();
     const [listMedics, setListMedics] = useState([]);
     const { user } = useContext(NetClinicsContext);
+    const [handleShow, setHandleShow] = useState({
+      open: false,
+      appointment: null,
+    });
 
     useEffect(() => {
       if(!user.user_id) return
@@ -38,7 +42,9 @@ export const UserFollowingAppointments = () => {
      });
     }
 
-    console.log(appointmentData);
+    const openModal = (appointment) => {
+      setHandleShow({ open: true, appointment: appointment });
+    };
 
   return (
     <div className="bgAppointmentHistory p-2">
@@ -57,7 +63,9 @@ export const UserFollowingAppointments = () => {
                             <div className='acceptButton text-center mt-1'><p>CONFIRMADA</p></div>
                           </div>
                         </div>
-                        <div className='cardImgMedic text-center p-3'>
+                        <div 
+                        className='cardImgMedic text-center p-3 viewProf'
+                        onClick={() => openModal(appointment)}>
                           <img alt={findMedicName(appointment.user_medic_id)?.name} className='imgMedic' src={`/assets/images/user/${findMedicName(appointment.user_medic_id)?.avatar}`}/>
                         </div>
                       </div>
@@ -81,6 +89,13 @@ export const UserFollowingAppointments = () => {
           <h3>Actualmente no tienes citas confirmadas</h3>
           </Container>
         }
+         {handleShow.open && (
+        <UserAppointmentView
+          handleShow={handleShow}
+          setHandleShow={setHandleShow}
+          findMedicName={findMedicName}
+        />
+      )}
       </div>
     </div>
   );
