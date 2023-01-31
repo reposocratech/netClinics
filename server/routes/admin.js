@@ -52,6 +52,10 @@ router.get("/patientProfile/:user_id", adminControllers.getPatientProfile);
 
 //11./Crea una nueva especialidad
   //localhost:4000/admin/createSpeciality
-  router.post("/createSpeciality", adminControllers.createSpeciality)
+  router.post("/createSpeciality", adminControllers.createSpeciality);
+
+//12.-Trae todas las especialidades
+//localhost:4000/admin/getAllSpeciality
+router.get("/getAllSpeciality", adminControllers.getAllSpeciality);
 
 module.exports = router;
