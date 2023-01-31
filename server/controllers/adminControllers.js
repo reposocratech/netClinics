@@ -202,6 +202,27 @@ class adminControllers {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
     });
   };
+
+  //11./Crea una nueva especialidad
+  //localhost:4000/admin/createSpeciality
+  createSpeciality = (req, res) => {
+    let speciality_name = req.body;
+
+    let sql = `INSERT INTO speciality 
+        (speciality_name) 
+        VALUES ('${speciality_name}')`;
+        connection.query(sql, (error, result) => {
+          error ? res.status(400).json({ error }) : res.status(200).json(result);
+        });
+      };
+
+    //12.-Trae todas las especialidades
+    getAllSpeciality = (req, res) => {
+      let sql = "SELECT * FROM speciality";
+      connection.query(sql, (error, result) => {
+        error ? res.status(400).json({ error }) : res.status(200).json(result);
+      });
+    };
 }
 
 module.exports = new adminControllers();
