@@ -206,17 +206,18 @@ class adminControllers {
   //11./Crea una nueva especialidad
   //localhost:4000/admin/createSpeciality
   createSpeciality = (req, res) => {
-    let speciality_name = req.body;
-
+    let {specialityName} = req.body;
+console.log(req.body.specialityName);
     let sql = `INSERT INTO speciality 
         (speciality_name) 
-        VALUES ('${speciality_name}')`;
+        VALUES ('${specialityName}')`;
         connection.query(sql, (error, result) => {
           error ? res.status(400).json({ error }) : res.status(200).json(result);
         });
       };
 
     //12.-Trae todas las especialidades
+     //localhost:4000/admin/getAllSpeciality
     getAllSpeciality = (req, res) => {
       let sql = "SELECT * FROM speciality";
       connection.query(sql, (error, result) => {

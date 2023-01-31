@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { NavBarNetClinics } from '../components/NavBar/NavBarNetClinics';
 import { NetClinicsContext } from '../context/NetClinicsProvider';
 import { AdminProfile } from '../pages/Admin/AdminProfile/AdminProfile';
+import { AdminUtils } from '../pages/Admin/AdminUtils/AdminUtils';
 import { AllMedics } from '../pages/Admin/AllMedics/AllMedics';
 import { AllPatients } from '../pages/Admin/AllPatients/AllPatients';
 import { EditAdmin } from '../pages/Admin/EditAdmin/EditAdmin';
@@ -221,6 +222,10 @@ export const AppRoutes = () => {
                     <Route
                     path='/changePassword'
                     element={<ChangePassword/>}
+                    /> {/* Ruta acceder a las utilidades del admin*/}
+                    <Route
+                    path='/adminUtils'
+                    element={<AdminUtils/>}
                     />
                   </>
                 }
