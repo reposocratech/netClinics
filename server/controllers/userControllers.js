@@ -1,7 +1,7 @@
 const connection = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const generatePasswordRand = require("../../../02-Clases Miriam/10-NodeJS/Proyectos/videogame-collectors/services/generatePassword");
+const generatePasswordRand = require("../utils/generatePassword");
 
 class userControllers {
   //1.-login
