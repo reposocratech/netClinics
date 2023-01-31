@@ -7,7 +7,6 @@ import Row from 'react-bootstrap/esm/Row';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
@@ -17,7 +16,7 @@ export const ResetPassword = () => {
 
     const [email, setEmail] = useState("");
     const [messageError, setMessageError] = useState("");
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -37,8 +36,7 @@ export const ResetPassword = () => {
 
                 setOpen(true);
                 sendEmailResetPassword(data);
-                navigate("/");
-
+                setEmail("");
             })
             .catch((error) => {
                 setMessageError(error.response.data.error);  
@@ -63,10 +61,6 @@ export const ResetPassword = () => {
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
     });
-
-    // const handleClick = () => {
-    //     setOpen(true);
-    // };
     
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -81,20 +75,17 @@ export const ResetPassword = () => {
   return (
     <Container fluid className='bgColorFormLogin d-flex align-items-center justify-content-center'>
         <Row>
+            {!open &&
             <Col xs={12} sm={12} md={12} lg={12} className='d-flex align-items-center justify-content-center'>
                 <div className='whiteBoxFormLogin d-flex flex-column'>
-
-                
                     {/* Logo Netclinics */}
                     <div className='titleFormLogin text-center mb-4'>
-                        <img className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+                        <img alt="logo-netclinics" className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
                     </div>
                     {/* Container Formulario */}
                     <div className='d-flex flex-column align-items-center mb-3'>
                         <InputGroup className="">
-
                             <InputGroup.Text id="basic-addon1" className='inputFormLogin'><i className="fa-solid fa-envelope"></i></InputGroup.Text>
-                            
                             <Form.Control
                             placeholder="Escribe tu Email"
                             name="email"
@@ -118,15 +109,30 @@ export const ResetPassword = () => {
                         </button>
                     </div>
 
-                    <Stack spacing={2} sx={{ width: '100%' }}>
-                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                            Esta acción ha sido realizada con éxito. Revise su mail.
-                            </Alert>
-                        </Snackbar>
-                    </Stack>
                 </div>
             </Col>
+            }
+            {open &&
+                <Col xs={12} sm={12} md={12} lg={12} className='d-flex align-items-center justify-content-center'>
+                    <div>
+                        <Stack spacing={2} sx={{ width: '100%' }}>
+                            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                                    Hemos restablecido su contraseña, acceda a su bandeja de entrada.
+                                </Alert>
+                            </Snackbar>
+                        </Stack>
+                    </div>
+                    <div className='whiteBoxFormLogin d-flex flex-column align-items-center'>
+                        <div className='titleFormLogin text-center mb-4'>
+                            <img alt="logo-netclinics" className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+                        </div>
+                        <button className='deffineButton' onClick={()=>navigate("/")}>
+                            Ir a Login
+                        </button>
+                    </div>
+                </Col>
+            }
         </Row>
     </Container>
   )
