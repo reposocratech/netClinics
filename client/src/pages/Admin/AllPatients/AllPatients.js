@@ -4,6 +4,7 @@ import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router";
 import "./styleAllPatiens.scss";
 import { AllPatiensAdmin } from "../../../components/Tables/AllPatientsAdmin/AllPatiensAdmin";
+import { Container, Col, Row } from "react-bootstrap";
 
 export const AllPatients = () => {
   const [patients, setPatients] = useState([]);
@@ -36,21 +37,29 @@ export const AllPatients = () => {
   };
 
   return (
-    <div>
+    <div className="bgAllPatients d-flex justify-content-center">
       {/*Si patients trae datos se muestra la tabla con todos los pacientes, 
       si no trae datos aparece mensaje */}
-      {patients?.length !== 0 && 
-        <AllPatiensAdmin
-          patients={patients}
-          navigate={navigate}
-          handleEdit={handleEdit}
-        />
-      }
-      {!patients?.length &&
-        <h1 className="mt-5 text-center">
-          Actualmente no hay pacientes registrados
-        </h1>
-      }
+      <Container>
+        {patients?.length !== 0 ? (
+          <AllPatiensAdmin
+            patients={patients}
+            navigate={navigate}
+            handleEdit={handleEdit}
+          />
+
+        ) : (
+          <Row className="msg d-flex justify-content-center p-3 mt-5">
+            <Col>
+              <div className="text-center">
+                <h1 className="mb-3">
+                  Actualmente no hay pacientes registrados
+                </h1>
+              </div>
+            </Col>
+          </Row>
+        )}
+      </Container>
     </div>
   );
 };
