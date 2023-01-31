@@ -57,7 +57,7 @@ export const AdminUtils = () => {
         {/* Campo para añadir una nueva especialidad */}
         <Row className="contAdminUtils d-flex justify-content-center p-3">
           <div className="adminUtils align-items-center justify-content-center d-flex gap-2">
-            <Col xs={12} sm={12} md={10} lg={10}>
+            <Col xs={8} sm={8} md={10} lg={10}>
               <InputGroup>
                 <InputGroup.Text><i className="fa-solid fa-user-doctor"></i></InputGroup.Text>
                   <Form.Control
@@ -74,7 +74,7 @@ export const AdminUtils = () => {
               </InputGroup>
             </Col>
 
-            <Col xs={12} sm={12} md={2} lg={2}>
+            <Col xs={2} sm={2} md={2} lg={2}>
               <div className=''>
                 <button className='defineButton' onClick={onSubmit}>Guardar</button>
               </div>
@@ -94,7 +94,7 @@ export const AdminUtils = () => {
             </TableHead>
 
             {/* Datos Tabla Especialidades */}
-            <TableBody>
+            <TableBody className='text-center'>
                 {listSpeciality?.map((speciality) => (
                 <TableRow key={speciality.speciality_id}>
                   <TableCell align="center">{speciality.speciality_name}</TableCell>
