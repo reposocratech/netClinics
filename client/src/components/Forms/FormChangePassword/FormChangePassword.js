@@ -12,6 +12,7 @@ export const FormChangePassword = ({onSubmit,handleChange,messageError}) => {
                 <Col className='d-flex justify-content-center'>
                     <Form>
                         <div>
+                            <h3 className='mb-4'>Cambio de contraseña</h3>
                             <label>Nueva contraseña:</label>
                             <InputGroup className='my-3'>
                                 <InputGroup.Text id="basic-addon1" className='inputRegister'><i class="fa-solid fa-lock"></i></InputGroup.Text>

@@ -1,0 +1,73 @@
+.bgAdminUtils {
+    background-color: rgba($color: #009EE3, $alpha: 1.0);
+    color: rgba($color: #1C2869, $alpha: 1.0);
+    min-height: 100vh;
+    font-family: 'Rubik', sans-serif;
+
+    .whiteBoxAdminUtils {
+        .contAdminUtils {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            width: 50%;
+
+            .adminUtils {
+                width: 100%;
+
+                input {
+                    color: #1C2869;
+                    font-family: 'Rubik', sans-serif;
+                }
+        
+                input:focus{
+                    box-shadow: 0 0 0 0.1rem rgb(28 40 105);
+                }
+        
+                .inputRegister {
+                    width: 2.5rem;
+                }
+        
+                .iconSelect {
+                    border-radius: 10px 0 0 10px !important;
+                }
+        
+                .inputFile{
+                    padding: 1rem;
+                    border: 4px dashed #1c2869bb;
+                    border-radius: 20px;
+                }
+    
+                .fa-solid {
+                    color:#1C2869;
+                }
+                
+                .defineButton {
+                    appearance: none;
+                    background-color: rgba($color: #1C2869, $alpha: 1.0);
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    font-weight: 400;
+                    font-size: 1rem;
+                    font-family: 'Rubik', sans-serif;
+                    width: 5rem;
+                    padding: 0.3rem;
+                }
+        
+                .defineButton:hover {
+                    background-color: #293a9a;
+                }
+            }
+    
+        
+        }
+        .title {
+            color: #1C2869;
+        }
+
+        .MuiTableCell-root {
+            font-family: 'Rubik', sans-serif !important;
+            color: #1C2869 !important;
+        }
+    }
+}
