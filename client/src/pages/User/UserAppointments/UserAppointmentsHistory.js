@@ -15,12 +15,17 @@ import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker'
 import axios from "axios";
 
 import "./myDatesPatient.scss";
+import UserAppointmentView from "./UserAppointmentView";
 
 export const UserAppointmentsHistory = () => {
   
   const [appointmentData, setAppointmentData] = useState([]);
   const [listMedics, setListMedics] = useState([]);
   const { user } = useContext(NetClinicsContext);
+  const [handleShow, setHandleShow] = useState({
+    open: false,
+    appointment: null,
+  });
 
   useEffect(() => {
     if (!user.user_id) return;
@@ -47,6 +52,10 @@ export const UserAppointmentsHistory = () => {
     });
   };
 
+  const openModal = (appointment) => {
+    setHandleShow({ open: true, appointment: appointment });
+  };
+
   return (
     <div className="bgAppointmentHistory p-2">
       {appointmentData?.length !== 0 ? (
@@ -70,7 +79,9 @@ export const UserAppointmentsHistory = () => {
                       key={i}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell>
+                      <TableCell
+                      className="viewProf"
+                      onClick={() => openModal(appointment)}>
                         <div className="d-flex align-items-center justify-content-center">
                           <Avatar
                             alt="Remy Sharp"
@@ -82,7 +93,10 @@ export const UserAppointmentsHistory = () => {
                         </div>
                       </TableCell>
 
-                      <TableCell align="center">
+                      <TableCell 
+                      align="center"
+                      className="viewProf"
+                      onClick={() => openModal(appointment)}>
                         <strong>
                           {findMedicName(appointment.user_medic_id)?.lastname},{" "}
                         </strong>
@@ -107,6 +121,13 @@ export const UserAppointmentsHistory = () => {
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes histórico de citas</h3>
         </Container>
+      )}
+      {handleShow.open && (
+        <UserAppointmentView
+          handleShow={handleShow}
+          setHandleShow={setHandleShow}
+          findMedicName={findMedicName}
+        />
       )}
     </div>
   );
