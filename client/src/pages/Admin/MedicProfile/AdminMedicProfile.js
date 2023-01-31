@@ -31,7 +31,7 @@ export const AdminMedicProfile = () => {
         console.log(error);
       });
   }, [user_id]);
-
+  
   //Traigo nombre de provincia y ciudad de un médico concreto
   useEffect(() => {
     axios
