@@ -24,7 +24,6 @@ class appointmentControllers {
     }
 
     connection.query(sql, (error, result) => {
-      if (error) throw error;
       error ? res.status(400).json({ error }) : res.status(200).json(result);
     });
   };
