@@ -24,7 +24,7 @@ export const FormRegisterPatient = ({registerPatient, handleChange, getCity, han
 
             {/* Logo Netclinics */}
             <div className='titleFormRegisterPatient text-center mb-4'>
-              <img className='logoRegisterForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+              <img alt="logo-netclinics" className='logoRegisterForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
             </div>
 
             {/* Container Formulario */}
