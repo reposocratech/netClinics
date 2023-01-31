@@ -20,6 +20,7 @@ export const FormRegisterPatient = ({
   errorEmail,
 }) => {
   return (
+<<<<<<< HEAD
     <div className="bgColorFormRegister pb-5">
       <Container>
         <Row>
@@ -41,6 +42,42 @@ export const FormRegisterPatient = ({
                   alt = "Logo NetClinics"
                   className="logoRegisterForm"
                   src="/assets/images/logo/Logo-NetClinics2-02.png"
+=======
+    <div className='bgColorFormRegister pb-5'>
+    <Container>
+      <Row>
+        <Col className='d-flex align-items-center justify-content-end my-3'>
+          <button className='borderButton' onClick={() => navigate('/registerMedic')}>
+          ¿Eres Fisio?
+          Regístrate aquí
+          </button>
+        </Col>
+      </Row>
+      <Row>
+        <Col className='d-flex align-items-center justify-content-center'>
+          <div className='whiteBoxFormRegister'>
+
+            {/* Logo Netclinics */}
+            <div className='titleFormRegisterPatient text-center mb-4'>
+              <img alt="logo-netclinics" className='logoRegisterForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+            </div>
+
+            {/* Container Formulario */}
+            <div className='d-flex flex-column'>
+
+              <InputGroup className='mb-3'>
+               <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-user"></i></InputGroup.Text>
+                <Form.Control
+                placeholder='Escribe tu Nombre'
+                name='name'
+                type='text'
+                autoComplete='off'
+                aria-label='Nombre'
+                aria-describedby="basic-addon1"
+                value={registerPatient.name}
+                onChange={handleChange}
+                required
+>>>>>>> 2888e79a99bc869cf868c9196660eb3a340424c5
                 />
               </div>
 

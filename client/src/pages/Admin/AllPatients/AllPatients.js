@@ -6,6 +6,8 @@ import "./styleAllPatiens.scss";
 import { AllPatiensAdmin } from "../../../components/Tables/AllPatientsAdmin/AllPatiensAdmin";
 import { Container, Col, Row } from "react-bootstrap";
 
+import './styleAllPatiens.scss'
+
 export const AllPatients = () => {
   const [patients, setPatients] = useState([]);
   const { resetPage, setResetPage } = useContext(NetClinicsContext);

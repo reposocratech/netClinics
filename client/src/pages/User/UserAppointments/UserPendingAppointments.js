@@ -41,16 +41,6 @@ export const UserPendingAppointments = () => {
     });
   };
 
-  //Cancelar Cita por parte del paciente
-  //  const cancelAppointment = (id_appointment) => {
-  //   axios
-  //     .delete(`http://localhost:4000/patient/cancelPendingAppointment/${id_appointment}`)
-  //     .then((res)=>{
-  //         setResetPage(!resetPage);
-  //     })
-  //     .catch((err) => console.log(err));
-  //  };
-  //----------------------------------------------------------------------------
 
   const openModal = (appointment) => {
     setHandleShow({ open: true, appointment: appointment });

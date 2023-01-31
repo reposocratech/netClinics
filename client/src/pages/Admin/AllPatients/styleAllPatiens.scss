@@ -66,4 +66,27 @@
             }
         }
     }
+
+    .msg{
+        background-color: white;
+        border-radius: 30px;
+        box-shadow: rgba(86, 72, 72, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        .defineButton {
+            appearance: none;
+            background-color: rgba($color: #1C2869, $alpha: 1.0);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 400;
+            font-size: 1rem;
+            font-family: 'Rubik', sans-serif;
+            width: 5rem;
+            padding: 0.3rem;
+        }
+
+        .defineButton:hover {
+            background-color: #293a9a;
+        }
+    }
 }

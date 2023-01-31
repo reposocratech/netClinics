@@ -32,13 +32,13 @@ export const UserFollowingAppointments = () => {
             setListMedics(res.data);
         })
         .catch((err) => console.log(err));
-    }, [user])
+    }, [user]);
 
     const findMedicName = (id_medic) => {
       return listMedics?.find((el)=> {
         return el.user_id === id_medic && el
      });
-    }
+    };
 
     const openModal = (appointment) => {
       setHandleShow({ open: true, appointment: appointment });

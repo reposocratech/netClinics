@@ -31,7 +31,7 @@ export const UserProfile = () => {
   const handleChangeToggle = () => {
     setToggleOn(refToggle.current.checked);  
     navigate("/editProfile");
-  }
+  };
 
   return (
     <div className="bgPatientProfile d-flex justify-content-center align-items-center">
@@ -54,7 +54,7 @@ export const UserProfile = () => {
             {user && (
               <div className="informationPatientProfile">
                 <h2>Datos personales</h2>
-                <hr />
+                <hr/>
                 <h4>
                   {user?.name} {user.lastname}
                 </h4>
@@ -63,7 +63,7 @@ export const UserProfile = () => {
                 <h4>{user?.phone_number}</h4>
                 <br />
                 <h2>Dirección</h2>
-                <hr />
+                <hr/>
                 <h4>{user?.address}</h4>
                 <h4>{provinceCity?.city_name}, {provinceCity?.province_name} ({user?.postal_code})</h4>
               </div>
