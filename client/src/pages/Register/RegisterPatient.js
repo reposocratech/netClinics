@@ -26,9 +26,7 @@ export const RegisterPatient = () => {
   const [errorEmail, setErrorEmail] = useState("");
 
   const [listProvinces, setListProvinces] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState();
   const [listCities, setListCities] = useState([]);
-  const [selectedCitie, setSelectedCitie] = useState();
 
   useEffect(() => {
     axios

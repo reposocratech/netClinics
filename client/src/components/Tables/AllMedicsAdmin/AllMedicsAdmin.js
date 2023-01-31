@@ -148,6 +148,7 @@ export const AllMedicsAdmin = ({
                       onClick={() => navigate(`/medicProfile/${medic.user_id}`)}
                     >
                       <img
+                        alt={medic?.name}
                         className="imageMedic"
                         src={`assets/images/user/${medic.avatar}`}
                       />
