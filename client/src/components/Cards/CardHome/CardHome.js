@@ -10,7 +10,7 @@ export const CardHome = ({navigate, icon, cardTitle, go}) => {
           <h2>{cardTitle}</h2>
         </div>
         <div className='icon'>
-          <img src={icon}/>
+          <img alt='icono' src={icon}/>
         </div>
       </div>
     </Col>

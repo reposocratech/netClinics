@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -20,7 +20,7 @@ export const AdminPatientProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user_id]);
 
   return (
     <div className="bgPatientProfile d-flex justify-content-center align-items-center">
@@ -64,6 +64,7 @@ export const AdminPatientProfile = () => {
           >
             <div className="imagePatientProfile">
               <img
+                alt={user?.name}
                 className="imagePatient"
                 src={`/assets/images/user/${user?.avatar}`}
               />

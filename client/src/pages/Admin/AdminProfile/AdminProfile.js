@@ -11,7 +11,6 @@ export const AdminProfile = () => {
   const navigate = useNavigate();
   const { user } = useContext(NetClinicsContext);
   const [provinceCity, setProvinceCity] = useState();
-  const [toggleOn, setToggleOn] = useState(false);
 
   // Realizo una busqueda para traer el nombre de la provincia y ciudad de un
   // usuario concreto
@@ -31,8 +30,8 @@ export const AdminProfile = () => {
   // Botón para abrir o cerrar el editar perfil
   const refToggle = useRef(null);
 
+  //Cuando pincho sobre el toggle realizo un navigate hacia edición de perfil
   const handleChangeToggle = () => {
-    setToggleOn(refToggle.current.checked);
     navigate("/editProfile");
   };
 
@@ -92,6 +91,7 @@ export const AdminProfile = () => {
           >
             <div className="imagePatientProfile">
               <img
+                alt={user?.name}
                 className="imagePatient"
                 src={`assets/images/user/${user?.avatar}`}
               />

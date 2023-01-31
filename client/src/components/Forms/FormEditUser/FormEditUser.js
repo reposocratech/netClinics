@@ -14,7 +14,6 @@ export const FormEditUser = ({
   onSelectFile,
   preview,
   errorEmail,
-  setErrorEmail,
 }) => {
   return (
     <>

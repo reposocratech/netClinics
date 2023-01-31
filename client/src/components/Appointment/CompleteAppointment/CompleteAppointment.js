@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router';
 import { reverseDate } from '../../../Utils/reverseDatePicker/reverseDatePicker';
 
 export const CompleteAppointment = ({showToast}) => {
-
-    const navigate = useNavigate();
+  //Componente que muestra mensaje de cita realizada con todos sus datos
+  const navigate = useNavigate();
 
   return (
     <div className='bgSearcher pb-5'>

@@ -31,7 +31,7 @@ export const AdminMedicProfile = () => {
         console.log(error);
       });
   }, [user_id]);
-  
+
   //Traigo nombre de provincia y ciudad de un médico concreto
   useEffect(() => {
     axios
@@ -70,12 +70,8 @@ export const AdminMedicProfile = () => {
 
   //Función para mandar mail cuando se habilita/deshabilita el médico
   const enableMedicEmail = (medic) => {
-    axios
-      .post("http://localhost:4000/admin/enableMedicEmail", medic)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    axios.post("http://localhost:4000/admin/enableMedicEmail", medic);
   };
-
 
   return (
     <div className="profile-medic-background py-3 pb-3 pe-1 ps-1 d-flex align-items-center justify-content-center">
@@ -215,7 +211,9 @@ export const AdminMedicProfile = () => {
           {dataUser.medic_enabled === 0 && dataUser.is_deleted === 0 && (
             <button
               className="buttonEnabledUser m-1"
-              onClick={() => enable(dataUser.user_id, dataUser.medic_enabled, dataUser)}
+              onClick={() =>
+                enable(dataUser.user_id, dataUser.medic_enabled, dataUser)
+              }
             >
               <div className="pointEnable"></div>
               Habilitar

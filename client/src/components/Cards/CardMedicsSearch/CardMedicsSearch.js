@@ -14,6 +14,8 @@ export const CardMedicsSearch = ({
   
   const [listSpecialities, setListSpecialities] = useState([]);
 
+  //Estado con objeto para abrir componente de cita completada
+  //le paso la cita, nombre del médico y apellidos
   const [showToast, setShowToast] = useState({
     open: false,
     appointment: null,
@@ -21,11 +23,15 @@ export const CardMedicsSearch = ({
     medicLastName: null,
   });
 
+  //Creo un estado con un objeto, propiedades open (para la modal) y médico
+  //le añadire un medico con la función correspondiente cuando pinche
+  //sobre un médico
   const [handleShowAvailability, setHandleShowAvailability] = useState({
     open: false,
     medic: null,
   });
 
+  //useEffect para traer todas las especialidades y setearlas en su estado
   useEffect(() => {
     axios
       .get(`http://localhost:4000/speciality/getAllSpecialities`)
@@ -36,19 +42,25 @@ export const CardMedicsSearch = ({
         console.log(error);
       });
   }, []);
+  //----------------------------------------------------------------------------
 
+  //Función para reccorer lista de especialidades y traer el nombre
+  //Le paso como parámetro el id de la especialidad
   const findSpeciality = (id_speciality) => {
     return listSpecialities?.find((el) => {
-      if (el.speciality_id === id_speciality) {
-        return el.speciality_name;
-      }
+      return el.speciality_id === id_speciality && el
     })?.speciality_name;
   };
+  //----------------------------------------------------------------------------
 
+  //Función para abrir modal y pasarle al objeto handleShowAvailability el médico
+  //sobre el que he pinchado
   const handleShowAvailabilityMedic = (medic) => {
     setHandleShowAvailability({ open: true, medic: medic });
   };
+  //----------------------------------------------------------------------------
 
+  //Función para cancelar busqueda
   const cancelSearch = () => {
     setMedicsSearched([]);
     setSearch({
@@ -58,6 +70,7 @@ export const CardMedicsSearch = ({
       name: null,
     });
   };
+  //----------------------------------------------------------------------------
 
   return (
     <>

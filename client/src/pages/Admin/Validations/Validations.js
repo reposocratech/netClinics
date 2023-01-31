@@ -25,7 +25,6 @@ export const Validations = () => {
 
   //Función para habilitar o deshabilitar un médico
   const enable = (id, is_enable, medic) => {
-
     //Si el médico no está habilitado lo habilita
     let url = `http://localhost:4000/admin/enableMedic/${id}`;
     //Si está habilitado lo deshabilita
@@ -45,9 +44,7 @@ export const Validations = () => {
   //Función para mandar mail cuando se habilita/deshabilita el médico
   const enableMedicEmail = (medic) => {
     axios
-      .post("http://localhost:4000/admin/enableMedicEmail", medic)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .post("http://localhost:4000/admin/enableMedicEmail", medic);
   };
 
   return (

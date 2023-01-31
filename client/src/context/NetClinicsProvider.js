@@ -13,19 +13,20 @@ export const NetClinicsProvider = (props) => {
     const [isLogged, setIsLogged] = useState(false);
 
     useEffect(() => {
-        //pedir id al localStorage y realizar petición a la bbddd
-        if(token){
-            const {user_id} = jwtDecode(token).user;
-            setIsLogged(true);
-            axios
-            .get(`http://localhost:4000/user/oneUser/${user_id}`)
-            .then((res) => {
-                setUser(res.data[0]);
-            })
-            .catch((error) => {console.log(error);})
-        }
-       
-    }, [isLogged, resetPage])
+      //pedir id al localStorage y realizar petición a la bbddd
+      if (token) {
+        const { user_id } = jwtDecode(token).user;
+        setIsLogged(true);
+        axios
+          .get(`http://localhost:4000/user/oneUser/${user_id}`)
+          .then((res) => {
+            setUser(res.data[0]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }, [isLogged, resetPage, token]);
 
   return (
    <div>
