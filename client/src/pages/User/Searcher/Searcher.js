@@ -28,6 +28,8 @@ export const Searcher = () => {
       const { name, value } = e.target;
       setSearch({ ...search, [name]: value });
     };
+
+    
     
     const onSubmit = () => {
       
@@ -47,7 +49,7 @@ export const Searcher = () => {
           .catch((err) => console.log(err));
       }
       else{
-        if(search.city_id === null || search.city_id === "Indique una ciudad" && search.province_id === null || search.province_id === "Indique una provincia"){
+        if(search.city_id === null || search.city_id === "Indique una ciudad" || search.province_id === null || search.province_id === "Indique una provincia"){
           setMessageError("Debes introducir Provincia y Ciudad");
         }
         else if(search.speciality_id === null || search.speciality_id === "Indique una especialidad"){
@@ -82,21 +84,42 @@ export const Searcher = () => {
       
 
     const getCity = (selectedProvince) => {
-        
-        if(selectedProvince){
+        setListCities([]);
+
+        setSearch({
+          province_id: null,
+          city_id: null,
+          speciality_id: search.speciality_id,
+          name: null,
+        });
+
+       
+        if(!isNaN(selectedProvince)){
             axios
             .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
             .then((res) => {
               setMessageError("");
               setListCities(res.data);
-              setSearch({ ...search, province_id: selectedProvince })
+              setSearch({
+                province_id: selectedProvince,
+                city_id: null,
+                speciality_id: search.speciality_id,
+                name: null,
+              });
             })
             .catch((error) => {
               console.log(error);
             })
-          }
+        }
+        else{
+          setSearch({
+            province_id: null,
+            city_id: null,
+            speciality_id: search.speciality_id,
+            name: null,
+          });
+        }
     };
-
     
   return (
     <div>

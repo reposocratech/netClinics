@@ -29,7 +29,7 @@ export const FormSearchMedic = ({
                   <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-city"></i></InputGroup.Text>
                     <Form.Select className='selectPatient' name='province_id'
                       onChange={(e)=>getCity(e.target.value)}>
-                      <option>Indique una provincia</option>
+                      <option value="Indique una provincia">Indique una provincia</option>
                       {listProvinces?.map((province) => {
                         return (
                             <option key={province.province_id} value={province.province_id}>{province.province_name}</option>    
@@ -44,7 +44,7 @@ export const FormSearchMedic = ({
                 <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-location-pin"></i></InputGroup.Text>
                     <Form.Select className='selectPatient' name='city_id'
                     onChange={handleChange}>
-                      <option>Indique una ciudad</option>
+                      <option value={"Indique una ciudad"}>Indique una ciudad</option>
                       {listCities?.map((city) => {
                         return (
                             <option key={city.city_id} value={city.city_id}>{city.city_name}</option>    

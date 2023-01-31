@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import { CardHome } from '../../components/Cards/CardHome/CardHome';
@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../components/Cards/CardHome/CardHome.scss'
 
 export const HomeAdmin = () => {
-  const [icon, setIcon] = useState("");
-  const [cardTitle, setCardTitle] = useState("");
+
   const navigate = useNavigate();
 
   return (

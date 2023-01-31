@@ -16,7 +16,7 @@ export const FormLogin = ({handleChange, onSubmit, login, navigate, errorPasswor
                 <div className='whiteBoxFormLogin d-flex flex-column'> 
                     {/* Logo Netclinics */}
                     <div className='titleFormLogin text-center mb-4'>
-                        <img className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+                        <img alt="logo-netclinics" className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
                     </div>
 
                     {/* Container Formulario */}
