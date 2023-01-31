@@ -28,9 +28,11 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
     //segun la fecha seleccionada guardo el valor en pickerDateSelected
     //Ej. '2023-01-27'
     const datePickerChange = (e) => {
-        setPickerDateSelected(e.target.value);   
+        setPickerDateSelected(e.target.value);
+        setListAvailability([]);
+        setIdSelectHour("Seleccione Hora");
     }
-    
+
     //useEffect con la dependencia pickerDateSelected 
     //Segun la fecha seleccionada saco el dia (1-7) de la semana que corresponda
     useEffect(() => {
@@ -95,7 +97,7 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
     //Reservo cita
     const onSubmit = () => {
 
-        if(listAvailability.length !== 0 && appointmentCommentary.length <= 250){
+        if(!isNaN(idSelectHour)){
             //Compruebo si el médico tiene disponibilidad
             const addAppointment = {
                 medic_id: handleShowAvailability.medic.medic,
@@ -140,8 +142,14 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
                 console.log(err);
             });
         }
+        if(listAvailability.length === 0){
+            setMessage("No puedes reservar cita");
+        }
+        if(isNaN(idSelectHour)){
+            setMessage("Debes seleccionar una fecha, por favor")
+        }
         else{
-            setMessage("El comentario debe tener una longitud de 250 caracteres");
+            setMessage("El comentario de la cita no puede ser superior a 250 caracteres")
         }
 
     }
@@ -175,7 +183,7 @@ export const SearchAvailabilityMedicAppointment = ({handleShowAvailability, setH
                 <>
                 <InputGroup className='mb-3'>
                     <Form.Select onChange={selectHour}>
-                        <option>Seleccione Hora</option>
+                        <option value="Seleccione Hora">Seleccione Hora</option>
                         {listAvailability?.map((el) => {
                             return <option key={el.daily_hours_id} value={el.daily_hours_id}>{findHour(el.daily_hours_id)}</option>
                         })}
