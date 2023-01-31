@@ -99,16 +99,17 @@ class adminControllers {
   //localhost:4000/admin/medicProfile/:user_id
   getMedicProfile = (req, res) => {
     const user_id = req.params.user_id;
+
     let sql = `SELECT * FROM user 
     LEFT JOIN  medic_data ON user.user_id = medic_data.user_id 
     LEFT JOIN title ON user.user_id = title.user_id 
     LEFT JOIN medic_data_speciality ON user.user_id = medic_data_speciality.user_id 
     LEFT JOIN speciality ON medic_data_speciality.speciality_id = speciality.speciality_id 
     WHERE user.user_id=${user_id}`;
-
+    
     connection.query(sql, (error, result) => {
       if (error) {
-        res.status(400).json(error);
+        res.status(400).json({error});
       } else {
         let finalResult = {};
 
