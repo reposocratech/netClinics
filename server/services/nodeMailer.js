@@ -71,12 +71,15 @@ class nodeMailerController {
 
   //Función para enviar correo cuando se habilita o deshabilita un médico
   sendAvailabilityMedic = (req, res) => {
+
     const { name, lastname, email, medic_enabled} = req.body;
+
 
     let info = `<h2>¡Hola ${name} ${lastname}!</h2>
         <p><strong>¡Enhorabuena!</strong> su perfil profesional ha sido validado por el administrador</p>
         <p>Desde este momento ya formas parte de nuestra comunidad NetClinics, recuerda tener actualizado tu perfil y tu disponibilidad horaria semanal</p>
         <p>Los usuarios ya pueden solicitar cita contigo, cuando se solicite un cita recibirás un email con los datos de la cita, dicha cita tendrás que confirmarla en tu panel de "citas pendiente de confirmación"</p>`;
+
 
     if(medic_enabled){
       info = `<h2>¡Hola ${name} ${lastname}!</h2>
@@ -84,6 +87,7 @@ class nodeMailerController {
     }
 
     let mailto = email;
+
 
     console.log("mensaje", info);
 
@@ -102,7 +106,9 @@ class nodeMailerController {
       })
       .catch((error) => {
         res.status(500).send("Algo ha salido mal!: " + error);
+
       });
+
 
     };
     
