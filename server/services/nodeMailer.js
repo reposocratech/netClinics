@@ -78,12 +78,14 @@ class nodeMailerController {
         <p>Desde este momento ya formas parte de nuestra comunidad NetClinics, recuerda tener actualizado tu perfil y tu disponibilidad horaria semanal</p>
         <p>Los usuarios ya pueden solicitar cita contigo, cuando se solicite un cita recibirás un email con los datos de la cita, dicha cita tendrás que confirmarla en tu panel de "citas pendiente de confirmación"</p>`;
 
+
     if (medic_enabled) {
       info = `<h2>¡Hola ${name} ${lastname}!</h2>
         <p>Le informamos que su perfil ha sido deshabilitado, por favor pongase en conctacto con nosotros</p>`;
     }
 
     let mailto = email;
+
 
     console.log("mensaje", info);
 
@@ -101,8 +103,10 @@ class nodeMailerController {
       })
       .catch((error) => {
         res.status(500).send("Algo ha salido mal!: " + error);
+
       });
   };
+
 
   //Envío de email cuando se crea una cita, el email lo recibe el médico
   sendEmailAppointment = (req, res) => {
