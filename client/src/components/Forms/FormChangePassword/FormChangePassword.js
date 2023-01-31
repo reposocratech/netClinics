@@ -9,6 +9,8 @@ export const FormChangePassword = ({
   messageError,
 }) => {
     
+  //Formulario de cambio de contraseña
+  
   return (
     <div className="bgPassword d-flex justify-content-center align-items-center">
       <Container className="whiteBoxPassword">

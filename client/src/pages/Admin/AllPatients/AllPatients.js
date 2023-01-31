@@ -6,36 +6,36 @@ import "./styleAllPatiens.scss";
 import { AllPatiensAdmin } from "../../../components/Tables/AllPatientsAdmin/AllPatiensAdmin";
 import { Container, Col, Row } from "react-bootstrap";
 
-import './styleAllPatiens.scss'
+import "./styleAllPatiens.scss";
 
 export const AllPatients = () => {
   const [patients, setPatients] = useState([]);
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const navigate = useNavigate();
 
-    //Realizo una busqueda que me trae todos los pacientes
-    useEffect(() => {
-      axios.get("http://localhost:4000/admin/getAllPatients").then((res) => {
-        setPatients(res.data);
-      });
-    }, [resetPage]);
+  //Realizo una busqueda que me trae todos los pacientes
+  useEffect(() => {
+    axios.get("http://localhost:4000/admin/getAllPatients").then((res) => {
+      setPatients(res.data);
+    });
+  }, [resetPage]);
 
-    //Función para borrado lógico del paciente
-    const handleEdit = (id, is_deleted) => {
+  //Función para borrado lógico del paciente
+  const handleEdit = (id, is_deleted) => {
     //Si el paciente está activo realiza el borrado lógico
-      let url = `http://localhost:4000/user/deleteUser/${id}`;
+    let url = `http://localhost:4000/user/deleteUser/${id}`;
 
-      if (is_deleted === 1) {
-        //Si al paciente se le ha realizado borrado lógico lo vuelve a activar
-        url = `http://localhost:4000/admin/enableUser/${id}`;
-      }
+    if (is_deleted === 1) {
+      //Si al paciente se le ha realizado borrado lógico lo vuelve a activar
+      url = `http://localhost:4000/admin/enableUser/${id}`;
+    }
 
-      axios
-        .put(url)
-        .then((res) => {
-          setResetPage(!resetPage);
-        })
-        .catch((Err) => console.log(Err));
+    axios
+      .put(url)
+      .then((res) => {
+        setResetPage(!resetPage);
+      })
+      .catch((Err) => console.log(Err));
   };
 
   return (
@@ -43,14 +43,13 @@ export const AllPatients = () => {
       {/*Si patients trae datos se muestra la tabla con todos los pacientes, 
       si no trae datos aparece mensaje */}
       <Container>
-        {patients?.length !== 0 ? (
+        {patients?.length !== 0 ? 
           <AllPatiensAdmin
             patients={patients}
             navigate={navigate}
             handleEdit={handleEdit}
           />
-
-        ) : (
+        :
           <Row className="msg d-flex justify-content-center p-3 mt-5">
             <Col>
               <div className="text-center">
@@ -60,7 +59,7 @@ export const AllPatients = () => {
               </div>
             </Col>
           </Row>
-        )}
+        }
       </Container>
     </div>
   );

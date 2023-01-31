@@ -283,6 +283,7 @@ export const FormRegisterMedic = ({
                   <input
                     className="mb-2"
                     type="file"
+                    accept="application/pdf"
                     name="file"
                     multiple={true}
                     onChange={handleFiles}

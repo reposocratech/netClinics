@@ -7,8 +7,10 @@ import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import PictureAsPdfRoundedIcon from "@mui/icons-material/PictureAsPdfRounded";
+import { maxDatePicker } from '../../../Utils/maxDatePicker/maxDatePicker';
 import axios from "axios";
 
+//Formulario de edición de títulos
 export const FormEditTitlesMedic = ({
   title,
   editTitle,
@@ -44,25 +46,6 @@ export const FormEditTitlesMedic = ({
         console.log(error);
       });
   };
-
-  const date = new Date();
-
-  let maxDatePicker = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
-  if (date.getMonth() < 10 && date.getDate() < 10) {
-    maxDatePicker = `${date.getFullYear()}-0${
-      date.getMonth() + 1
-    }-0${date.getDate()}`;
-  } else if (date.getMonth() < 10 && date.getDate() > 10) {
-    maxDatePicker = `${date.getFullYear()}-0${
-      date.getMonth() + 1
-    }-${date.getDate()}`;
-  } else if (date.getMonth() > 10 && date.getDate() < 10) {
-    maxDatePicker = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-0${date.getDate()}`;
-  }
 
   return (
     <Modal show={editTitle.open} onHide={() => setEditTitle({ open: false })}>
@@ -108,7 +91,7 @@ export const FormEditTitlesMedic = ({
           </InputGroup.Text>
           <Form.Control
             name="start_date"
-            max={maxDatePicker}
+            max={maxDatePicker()}
             type="date"
             autoComplete="off"
             aria-label="text"
@@ -140,6 +123,7 @@ export const FormEditTitlesMedic = ({
           </InputGroup.Text>
           <Form.Control
             type="file"
+            accept="application/pdf"
             autoComplete="off"
             aria-label="text"
             aria-describedby="basic-addon1"

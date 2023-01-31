@@ -3,7 +3,7 @@ import axios from "axios";
 import { FormEditUser } from "../../../components/Forms/FormEditUser/FormEditUser";
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 import "./styleEditAdmin.scss";
 
@@ -11,14 +11,11 @@ export const EditAdmin = () => {
   const { user, setUser, setResetPage, resetPage } =
     useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
-  const [file, setFile] = useState();
 
   const navigate = useNavigate();
 
   const [listProvinces, setListProvinces] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState();
   const [listCities, setListCities] = useState([]);
-  const [selectedCitie, setSelectedCitie] = useState();
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
@@ -53,11 +50,6 @@ export const EditAdmin = () => {
     setEditUser({ ...editUser, [name]: value });
   };
 
-  //Función para guardar la imagen cambiada
-  const handleFile = (e) => {
-    console.log(e.target.files);
-    setFile(e.target.files[0]);
-  };
 
   //Función para guardar los datos editados
   const onSubmit = (e) => {

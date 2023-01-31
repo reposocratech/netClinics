@@ -58,9 +58,7 @@ export const AllMedics = () => {
    //Función para mandar mail cuando se habilita/deshabilita el médico
    const enableMedicEmail = (medic) => {
     axios
-      .post("http://localhost:4000/admin/enableMedicEmail", medic)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .post("http://localhost:4000/admin/enableMedicEmail", medic);
   };
 
   //Constante creada para guardar los diferentes resultados del filtrado de datos
@@ -393,7 +391,7 @@ export const AllMedics = () => {
       {/*Si results trae datos se muestra la tabla con todos los médicos que
       se ajusten a la busqueda, si no, aparece un mensaje */}
       <Container>
-        {results?.length !== 0 ? (
+        {results?.length !== 0 ?
           <AllMedicsAdmin
             navigate={navigate}
             enable={enable}
@@ -404,7 +402,7 @@ export const AllMedics = () => {
             cleanSubmit={cleanSubmit}
             onSubmit={onSubmit}
           />
-        ) : (
+         : 
           <Row className="msg d-flex justify-content-center p-3 mt-5">
             <Col>
               <div className="text-center">
@@ -419,7 +417,7 @@ export const AllMedics = () => {
               </div>
             </Col>
           </Row>
-        )}
+        }
       </Container>
     </div>
   );

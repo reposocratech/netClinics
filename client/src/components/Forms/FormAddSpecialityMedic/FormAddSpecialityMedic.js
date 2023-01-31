@@ -13,9 +13,11 @@ export const FormAddSpecialityMedic = ({
   resetPage,
   setResetPage,
   showSpecialities,
-  handleCloseSpecialities,
-  handleShowSpecialities,
+  handleCloseSpecialities
 }) => {
+
+  //Modal para añadir especialidad al médico
+
   const [specialities, setSpecialities] = useState([]);
   const [addSpeciality, setAddSpeciality] = useState(initialValue);
   const [messageError, setMessageError] = useState("");
@@ -37,9 +39,12 @@ export const FormAddSpecialityMedic = ({
     setMessageError("");
   };
 
+  //Función para hacer submit
   const onSubmit = () => {
+    //Parseamos la especialidad a númerico
     const speciality_id = parseInt(addSpeciality.speciality_id);
 
+    //Si la especialidad no es númerica significa que no hemos agregado especialidad
     if (!isNaN(speciality_id)) {
       setMessageError("");
       axios
@@ -55,6 +60,8 @@ export const FormAddSpecialityMedic = ({
             console.log(err);
           }
         });
+    //Si no hemos seleccionado especialidad e intentamos submit saldrá el carte
+    //de este else
     } else {
       setMessageError("¡Tienes que indicar una especialidad!");
     }
