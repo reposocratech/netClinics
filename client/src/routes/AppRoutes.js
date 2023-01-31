@@ -168,7 +168,7 @@ export const AppRoutes = () => {
                 }
 
                   {/* Ruta para error */}
-               
+                  
                   <Route
                     path='*'
                     element={<Error/>}

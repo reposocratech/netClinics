@@ -128,8 +128,8 @@ export const MedicFollowingAppointments = () => {
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="center"></TableCell>
                   <TableCell align="center">Paciente</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
                   <TableCell align="center">Fecha</TableCell>
                   <TableCell align="center">Hora</TableCell>
                   <TableCell align="center">Dirección</TableCell>

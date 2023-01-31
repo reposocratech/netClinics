@@ -1,0 +1,28 @@
+.bgColorError {
+    background-color: rgba($color: #009EE3, $alpha: 1.0);
+    color: rgba($color: #1C2869, $alpha: 1.0);
+    min-height: 100vh;
+    font-family: 'Rubik', sans-serif;
+
+    .containerError {
+        background-color: rgba(255, 255, 255, 0.825);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        box-sizing: border-box;
+        border-radius: 30px;
+        padding: 4rem;
+
+        h2{
+            font-weight: 800;
+            font-size: 4rem;
+        }
+        
+        .titleFormLogin{
+
+            .logoLoginForm{
+                width: clamp(3rem, 200px, 300px);
+            }  
+        }
+    
+    }
+
+}
