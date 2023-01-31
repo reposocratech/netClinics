@@ -45,14 +45,14 @@ export const RegisterMedic = () => {
     const onSubmit = () => {
       if(
           !emailValidator(registerMedic.email) 
-          || !registerMedic.password 
+          || !registerMedic.password.trim("")
           || !registerMedic.name.trim("")
           || !registerMedic.lastname.trim("")
           || !registerMedic.address.trim("")
-          || !registerMedic.phone_number.trim("")
           || !registerMedic.postal_code.trim("")
           || !registerMedic.province_id
           || !registerMedic.city_id
+          || !registerMedic.dni.trim("")
           || !registerMedic.medic_membership_number.trim("")
           || !registerMedic.speciality_id
           
