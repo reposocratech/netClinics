@@ -5,7 +5,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { NetClinicsContext } from '../../context/NetClinicsProvider';
-import Button from 'react-bootstrap/Button';
 import { removeLocalStorage } from '../../Utils/localStorage/localStorageNetClinics';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
@@ -62,6 +61,7 @@ export const NavBarNetClinics = () => {
             <Nav.Link as={Link} to="allPatients">Pacientes</Nav.Link>
             <Nav.Link as={Link} to="/allMedics">Profesionales</Nav.Link>
             <Nav.Link as={Link} to="/validations">Validaciones</Nav.Link>
+            <Nav.Link as={Link} to="/adminUtils">Añadir Especialidad</Nav.Link>
           </>
           }
 

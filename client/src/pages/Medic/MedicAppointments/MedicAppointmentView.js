@@ -25,10 +25,7 @@ export const MedicAppointmentView = ({handleShow, setHandleShow }) => {
           />
         </div>
         <p><strong>Paciente</strong>: {name} {lastname}</p>
-        <p><strong>Dirección</strong>: {address}</p>
-        <p><strong>Ciudad</strong>: {city_name}</p>
-        <p><strong>Provincia</strong>: {province_name}</p>
-        <p><strong>Código Postal</strong>: {postal_code}</p>
+        <p><strong>Dirección</strong>: {address}, {city_name}, ({province_name}) - {postal_code}</p>
         <p><strong>Teléfono de Contacto</strong>: {phone_number}</p>
         <p><strong>Dia de la cita</strong>: {reverseDate(appointment_date)}</p>
         <p><strong>Hora de la cita</strong>: {appointment_time}</p>

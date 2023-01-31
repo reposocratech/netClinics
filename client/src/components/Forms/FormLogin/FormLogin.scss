@@ -60,20 +60,37 @@
             color: white;
         }
 
-        .defineButton {
+        .deffineButton {
             appearance: none;
             background-color: rgba($color: #1C2869, $alpha: 1.0);
             color: white;
             border: none;
             border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.4rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+            font-family: 'Rubik', sans-serif;
+            width: 8rem;
+            padding: 0.3rem;
+        }
+
+        .deffineButton:hover {
+            background-color: #293a9a;
+        }
+
+        .deffineButton2 {
+            appearance: none;
+            background-color: rgba($color: #1C2869, $alpha: 1.0);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
             font-family: 'Rubik', sans-serif;
             width: 15rem;
             padding: 0.3rem;
         }
 
-        .defineButton:hover {
+        .deffineButton2:hover {
             background-color: #293a9a;
         }
 

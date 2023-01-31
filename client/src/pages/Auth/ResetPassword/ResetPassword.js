@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router';
+
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 
 export const ResetPassword = () => {
 
     const [email, setEmail] = useState("");
     const [messageError, setMessageError] = useState("");
+    const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -28,6 +35,7 @@ export const ResetPassword = () => {
                     user: res.data.resultEmail[0],
                 }
 
+                setOpen(true);
                 sendEmailResetPassword(data);
                 navigate("/");
 
@@ -52,20 +60,38 @@ export const ResetPassword = () => {
         });
     };
 
+    const Alert = React.forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+
+    // const handleClick = () => {
+    //     setOpen(true);
+    // };
+    
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+    
+        setOpen(false);
+    };
+
+
+
   return (
     <Container fluid className='bgColorFormLogin d-flex align-items-center justify-content-center'>
         <Row>
-            <Col className='d-flex align-items-center justify-content-center'>
+            <Col xs={12} sm={12} md={12} lg={12} className='d-flex align-items-center justify-content-center'>
                 <div className='whiteBoxFormLogin d-flex flex-column'>
 
                 
                     {/* Logo Netclinics */}
                     <div className='titleFormLogin text-center mb-4'>
-                            <img className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
+                        <img className='logoLoginForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
                     </div>
                     {/* Container Formulario */}
                     <div className='d-flex flex-column align-items-center mb-3'>
-                        <InputGroup className="mb-3">
+                        <InputGroup className="">
 
                             <InputGroup.Text id="basic-addon1" className='inputFormLogin'><i className="fa-solid fa-envelope"></i></InputGroup.Text>
                             
@@ -82,14 +108,23 @@ export const ResetPassword = () => {
                         </InputGroup>
                         <h4 className='text-center text-danger'>{messageError}</h4>
                     </div>
-                    <div className='text-center'>
-                        <button onClick={onSubmit}>
+                    <div className='d-flex flex-column align-items-center gap-3'>
+                        <button className='deffineButton2' onClick={onSubmit}>
                             Recuperar Contraseña
                         </button>
-                        <button onClick={()=>navigate("/")}>
-                            Ir al Login
+                        <hr className='lineFormLogin'/>
+                        <button className='deffineButton' onClick={()=>navigate("/")}>
+                            Ir a Login
                         </button>
                     </div>
+
+                    <Stack spacing={2} sx={{ width: '100%' }}>
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                            Esta acción ha sido realizada con éxito. Revise su mail.
+                            </Alert>
+                        </Snackbar>
+                    </Stack>
                 </div>
             </Col>
         </Row>

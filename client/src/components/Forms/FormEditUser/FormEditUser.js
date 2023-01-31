@@ -60,7 +60,7 @@ export const FormEditUser = ({
               <label className="me-2">Nombre:</label>
               <InputGroup className='inputPatient mb-3'>
                 <Form.Control
-                  placeholder="Name"
+                  placeholder="Nombre"
                   name="name"
                   value={editUser?.name}
                   onChange={handleChange}
@@ -101,7 +101,7 @@ export const FormEditUser = ({
               <label className="me-2">Teléfono:</label>
               <InputGroup className='inputPatient mb-3'>
                 <Form.Control
-                  placeholder="telefono"
+                  placeholder="Teléfono"
                   name="phone_number"
                   value={editUser?.phone_number}
                   onChange={handleChange}
@@ -117,7 +117,7 @@ export const FormEditUser = ({
               <label className="me-2">Dirección:</label>
               <InputGroup className='inputPatient mb-3'>
                 <Form.Control
-                  placeholder="direccion"
+                  placeholder="Dirección"
                   name="address"
                   value={editUser?.address}
                   onChange={handleChange}
@@ -172,7 +172,7 @@ export const FormEditUser = ({
               <label className="me-2">Codigo postal:</label>
               <InputGroup className='inputPatient mb-3'>
                 <Form.Control
-                  placeholder="telefono"
+                  placeholder="Código Postal"
                   name="postal_code"
                   value={editUser?.postal_code}
                   onChange={handleChange}
