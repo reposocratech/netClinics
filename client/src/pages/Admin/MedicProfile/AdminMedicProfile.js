@@ -30,7 +30,7 @@ export const AdminMedicProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user_id]);
 
   //Traigo nombre de provincia y ciudad de un médico concreto
   useEffect(() => {
@@ -42,7 +42,7 @@ export const AdminMedicProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user_id]);
 
   //Traigo nombre de provincia y ciudad donde realiza servicio un médico
   useEffect(() => {
@@ -54,18 +54,29 @@ export const AdminMedicProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user_id]);
 
   //Función para habilitar un médico
-  const enable = (id, is_enable) => {
+  const enable = (id, is_enable, medic) => {
     let url = `http://localhost:4000/admin/enableMedic/${id}`;
     axios
       .put(url)
       .then((res) => {
+        enableMedicEmail(medic);
         navigate(-1);
       })
       .catch((Err) => console.log(Err));
   };
+
+  //Función para mandar mail cuando se habilita/deshabilita el médico
+  const enableMedicEmail = (medic) => {
+    axios
+      .post("http://localhost:4000/admin/enableMedicEmail", medic)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+
   return (
     <div className="profile-medic-background py-3 pb-3 pe-1 ps-1 d-flex align-items-center justify-content-center">
       <Container className="aboutme-profile pb-3">
@@ -78,6 +89,7 @@ export const AdminMedicProfile = () => {
           <Col sm="12" md="4" className="text-center">
             <div className="containerAvatarPerfil">
               <img
+                alt={dataUser?.name}
                 className="avatarPefil"
                 src={`/assets/images/user/${dataUser?.avatar}`}
               />
@@ -203,7 +215,7 @@ export const AdminMedicProfile = () => {
           {dataUser.medic_enabled === 0 && dataUser.is_deleted === 0 && (
             <button
               className="buttonEnabledUser m-1"
-              onClick={() => enable(dataUser.user_id, dataUser.medic_enabled)}
+              onClick={() => enable(dataUser.user_id, dataUser.medic_enabled, dataUser)}
             >
               <div className="pointEnable"></div>
               Habilitar
