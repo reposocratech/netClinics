@@ -60,6 +60,11 @@ export const UserPendingAppointments = () => {
                   return(
                     <div key={i} className='d-flex flex-column justify-content-center cardMedic p-3 mb-3'>
                       <div style={{ width: '16rem' }}>
+                        <div className='d-flex justify-content-end'>
+                          <div>
+                            <div className='pendingButton text-center mt-1'><p>PENDIENTE</p></div>
+                          </div>
+                        </div>
                         <div className='cardImgMedic text-center p-3'>
                           <img alt={findMedicName(appointment.user_medic_id)?.name} className='imgMedic' src={`/assets/images/user/${findMedicName(appointment.user_medic_id)?.avatar}`}/>
                         </div>
@@ -71,10 +76,6 @@ export const UserPendingAppointments = () => {
                           <Card.Text>{reverseDate(appointment.appointment_date)}</Card.Text>
                           <Card.Title>Hora:</Card.Title>
                           <Card.Text>{appointment.appointment_time}</Card.Text>
-                          <Card.Title>Estado:</Card.Title>
-                          <Card.Text>
-                            <div className='pendingButton text-center mt-1'><p>PENDIENTE</p></div>
-                          </Card.Text>
                         </div>
                       </div>
                     </div>

@@ -15,7 +15,7 @@ export const FormSearchMedic = ({
 
   return (
     <div className='bgSearcher'>
-      <Container>
+      <Container fluid>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12} className='d-flex align-items-center justify-content-center'>
             <div className="whiteBoxSearcher d-flex flex-column align-items-center p-5 mt-5">
@@ -23,7 +23,7 @@ export const FormSearchMedic = ({
                 <h2 className='mb-5'>Reservar cita</h2>
               </div>
 
-              <div className='d-flex flex-column'>
+              <div className='containerInputsSearcher d-flex flex-column'>
                 <InputGroup className='mb-3'>
                   <div className='d-flex w-100'>
                   <InputGroup.Text id="basic-addon1" className='inputRegister iconSelect'><i className="fa-solid fa-city"></i></InputGroup.Text>

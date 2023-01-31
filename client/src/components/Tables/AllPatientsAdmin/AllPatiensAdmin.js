@@ -23,8 +23,8 @@ export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
             <Table sx={{ minWidth: 390 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">Foto Perfil</TableCell>
                   <TableCell align="center">Paciente</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
                   <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Email</TableCell>
                   <TableCell align="center">Estado</TableCell>
