@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
+  
   return (
     <div className="bgAllPatients p-2">
       <Container
@@ -27,7 +28,7 @@ export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
                   <TableCell align="center">Nombre</TableCell>
                   <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Email</TableCell>
-                  <TableCell align="center">Estado</TableCell>
+                  <TableCell align="center">Borrar usuario</TableCell>
                 </TableRow>
               </TableHead>
 
@@ -77,7 +78,7 @@ export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
                             className="buttonEnabledUser"
                           >
                             <div className="pointEnable"></div>
-                            Habilitar
+                            Activar
                           </button>
                         ) : (
                           <button
@@ -87,7 +88,7 @@ export const AllPatiensAdmin = ({ patients, navigate, handleEdit }) => {
                             className="buttonDisabledUser"
                           >
                             <div className="pointDisabled"></div>
-                            Deshabilitar
+                            Eliminar
                           </button>
                         )}
                       </div>
