@@ -9,30 +9,37 @@ import "./formChangePassword.scss";
 
 export const ChangePassword = () => {
   const { user, setUser, setIsLogged } = useContext(NetClinicsContext);
-  const [editUser, setEditUser] = useState();
+  const [editUser, setEditUser] = useState({ password: "", checkPassword: "" });
   const [messageError, setMessageError] = useState("");
   const navigate = useNavigate();
+
   const handleChange = (e) => {
+    setMessageError("");
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     //checkeo si la nueva contraseña es la misma en ambos campos
     if (editUser.password === editUser.checkPassword) {
-      axios
-        .put(
-          `http://localhost:4000/user/changeUserPassword/${user.user_id}`,
-          editUser
-        )
-        .then((res) => {
-          //cierro sesion habiendo cambiado contraseña y redirijo a login
-          setIsLogged(false);
-          setUser({});
-          removeLocalStorage();
-          navigate("/");
-        })
-        .catch((err) => console.log(err));
+      if (editUser.password !== "") {
+        axios
+          .put(
+            `http://localhost:4000/user/changeUserPassword/${user.user_id}`,
+            editUser
+          )
+          .then((res) => {
+            //cierro sesion habiendo cambiado contraseña y redirijo a login
+            setIsLogged(false);
+            setUser({});
+            removeLocalStorage();
+            navigate("/");
+          })
+          .catch((err) => console.log(err));
+      } else {
+        setMessageError("Debes introducir datos");
+      }
     } else {
       setMessageError("Las contraseñas introducidas son distintas");
     }
