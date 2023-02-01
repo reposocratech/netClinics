@@ -1,4 +1,7 @@
 const connection = require("../config/db");
+const { dateNow } = require("../utils/dateNow");
+const { hourNow } = require("../utils/hourNow");
+
 class appointmentControllers {
   //1.Traer informacion de la busqueda de medicos
   //localhost:4000/appointment/getInfoAvailableMedic
@@ -31,10 +34,28 @@ class appointmentControllers {
   //2.-Trae disponibilidad de un médico
   //localhost:4000/appointment/:medic_id/:day_id/:date
   availabilityMedic = (req, res) => {
+
     let { medic_id, day_id, date } = req.params;
 
-    let sql = `SELECT * FROM availability 
+    //Traigo la hora del sistema y le sumo una hora mas
+    const hour = new Date().getHours()+1;
+    
+    //Traigo la fecha del sistema
+    const dateNowString = dateNow();
+
+    //LLamo a la funcion hora actual, le paso la hora del sistema+1 y devuelvo un ID de hora
+    const hourId = hourNow(hour);
+
+    let sql = "";
+
+    if(date == dateNowString){
+      sql = `SELECT * FROM availability 
+      WHERE NOT EXISTS (SELECT * FROM appointment WHERE availability.day_id = appointment.day_id AND availability.daily_hours_id = appointment.daily_hours_id AND appointment.appointment_date = '${date}') AND availability.user_id = ${medic_id} AND availability.day_id = ${day_id} AND daily_hours_id > ${hourId}`;
+    }
+    else{
+      sql = `SELECT * FROM availability 
         WHERE NOT EXISTS (SELECT * FROM appointment WHERE availability.day_id = appointment.day_id AND availability.daily_hours_id = appointment.daily_hours_id AND appointment.appointment_date = '${date}') AND availability.user_id = ${medic_id} AND availability.day_id = ${day_id}`;
+    }
 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);
