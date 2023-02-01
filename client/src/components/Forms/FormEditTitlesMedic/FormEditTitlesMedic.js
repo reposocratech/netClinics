@@ -63,7 +63,7 @@ export const FormEditTitlesMedic = ({
             autoComplete="off"
             aria-label="text"
             aria-describedby="basic-addon1"
-            value={editTitleForm?.text}
+            value={editTitleForm?.text === "" || editTitleForm?.text === "null" ? "" : editTitleForm?.text}
             onChange={handleChange}
             required
           />
@@ -79,7 +79,7 @@ export const FormEditTitlesMedic = ({
             autoComplete="off"
             aria-label="text"
             aria-describedby="basic-addon1"
-            value={editTitleForm?.university}
+            value={editTitleForm?.university === "" || editTitleForm?.university === "null" ? "" : editTitleForm?.university}
             onChange={handleChange}
             required
           />

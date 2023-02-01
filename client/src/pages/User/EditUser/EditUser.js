@@ -8,8 +8,7 @@ import { Container, Row } from "react-bootstrap";
 import "./styleEditUser.scss";
 
 export const EditUser = () => {
-  const { user, setUser, setResetPage, resetPage } =
-  useContext(NetClinicsContext);
+  const { user, setUser, setResetPage, resetPage } = useContext(NetClinicsContext);
   const [editUser, setEditUser] = useState();
   const [errorEmail, setErrorEmail] = useState("");
 
@@ -50,7 +49,9 @@ export const EditUser = () => {
     setEditUser({ ...editUser, [name]: value });
   };
 
-
+  useEffect(() => {
+    setResetPage(!resetPage);
+  }, [])
 
   const onSubmit = (e) => {
     e.preventDefault();
