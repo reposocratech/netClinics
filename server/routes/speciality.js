@@ -21,5 +21,14 @@ router.post("/:user_id", specialityControllers.addSpeciality);
 //localhost:4000/speciality/:speciality_id/:user_id
 router.delete("/:speciality_id/:user_id", specialityControllers.deleteSpeciality);
 
+//-----------------------------------------------------
+//5.Borrar una especialidad administrador
+//localhost:4000/speciality/:speciality_id
+router.delete("/:speciality_id", specialityControllers.deleteSpecialityAdmin);
+
+//-----------------------------------------------------
+//6.Editar una especialidad administrador
+//localhost:4000/speciality/:speciality_id
+router.put("/:speciality_id", specialityControllers.editSpecialityAdmin);
 
 module.exports = router;
