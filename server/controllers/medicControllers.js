@@ -56,8 +56,8 @@ class medicControllers {
               let id_user = result.insertId;
 
               //inserto en la tabla medic_data
-              let sql2 = `INSERT INTO medic_data (user_id, medic_membership_number) 
-              VALUES (${id_user}, '${medic_membership_number}')`;
+              let sql2 = `INSERT INTO medic_data (user_id, medic_membership_number, medic_price) 
+              VALUES (${id_user}, '${medic_membership_number}', 50)`;
 
               connection.query(sql2, (err, result) => {
                 if (err) {

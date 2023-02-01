@@ -78,9 +78,10 @@ export const AdminMedicProfile = () => {
       <Container className="aboutme-profile pb-3">
         <Row className="p-3">
           <Col sm="12" md="4">
-            <h2>Nº de Colegiado</h2>
-            {/*Mapeo los datos de luser para mostrarlos en su perfil */}
-            <p>{dataUser?.medic_membership_number}</p>
+              <h4>Nº de Colegiado</h4>
+              <p>{dataUser?.medic_membership_number}</p>
+              <h4>Precio Consulta:</h4>
+              <p>{dataUser?.medic_price} €</p>
           </Col>
           <Col sm="12" md="4" className="text-center">
             <div className="containerAvatarPerfil">
@@ -105,7 +106,7 @@ export const AdminMedicProfile = () => {
           </Col>
         </Row>
         <Row className="ms-2 me-2 d-flex flex-row justify-content-between gap-3">
-          <Col sm="12" md="12" lg="3" className="section">
+          <Col sm="12" md="12" lg="5" className="section">
             <h4>Datos Personales</h4>
             <hr className="separador mb-3" />
             <label className="campos">Nombre:</label>
@@ -150,12 +151,6 @@ export const AdminMedicProfile = () => {
                 );
               })}
             </ul>
-          </Col>
-          <Col sm="12" md="12" lg="2" className="section">
-            <h4>Tarifa Servicio</h4>
-            <hr className="separador mb-3" />
-            <label className="campos">Precio:</label>
-            <p>{dataUser?.medic_price} €</p>
           </Col>
         </Row>
         <Row className="ms-2 me-2 my-3 mb-3">

@@ -20,13 +20,31 @@ import { FormAddProviderServiceMedic } from "../../../components/Forms/FormAddPr
 import { emailValidator } from "../../../Utils/checkEmail/checkEmail";
 import "./editMedicProfile.scss";
 
+const initialValue = {
+  address: "",
+  avatar: "",
+  city_id: "", 
+  dni: "",
+  email: "",
+  lastname: "",   
+  medic_description: "",
+  medic_is_on_vacation: "",
+  medic_membership_number: "", 
+  medic_price: "",
+  name: "",
+  phone_number: "",
+  postal_code: "",
+  province_id: "",
+  user_id: "",
+}
+
 
 export const EditMedic = () => {
   const navigate = useNavigate();
 
-  const { token, user, setResetPage, resetPage } =
-    useContext(NetClinicsContext);
-  const [dataUser, setDataUser] = useState({});
+  const { token, user, setResetPage, resetPage } = useContext(NetClinicsContext);
+
+  const [dataUser, setDataUser] = useState(initialValue);
   const [dataTitles, setDataTitles] = useState([]);
   const [dataSpecialities, setDataSpecialities] = useState([]);
   const [providerServices, setProviderServices] = useState([]);
@@ -180,7 +198,6 @@ export const EditMedic = () => {
   };
   //----------------------------------------------------------------------------
 
-  console.log(dataUser);
 
   //Submit modificar cambios usuario
   const onSubmit = () => {
@@ -370,7 +387,7 @@ export const EditMedic = () => {
                 <Form.Control
                   as="textarea"
                   name="medic_description"
-                  value={dataUser?.medic_description === "null" ? "" : dataUser?.medic_description}
+                  value={dataUser?.medic_description === "null" || dataUser?.medic_description === undefined ? "" : dataUser?.medic_description}
                   onChange={handleChange}
                   placeholder="Sobre mí"
                   style={{ height: "100px" }}
@@ -458,10 +475,10 @@ export const EditMedic = () => {
                   name="province_id"
                   aria-label="Default select example"
                 >
-                  {listProvinces?.map((province) => {
+                  {listProvinces?.map((province, i) => {
                     return (
                       <option
-                        key={province?.province_id}
+                        key={i}
                         value={province?.province_id}
                       >
                         {province?.province_name}
@@ -481,9 +498,9 @@ export const EditMedic = () => {
                   onChange={handleChange}
                   aria-label="Default select example"
                 >
-                  {listCities?.map((city) => {
+                  {listCities?.map((city, i) => {
                     return (
-                      <option key={city?.city_id} value={city?.city_id}>
+                      <option key={i} value={city?.city_id}>
                         {city?.city_name}
                       </option>
                     );
@@ -539,16 +556,7 @@ export const EditMedic = () => {
             </Col>
             <Col xs="12" md="6">
               <label>Nº Colegiado:</label>
-              <InputGroup className="mb-3">
-                <Form.Control
-                  disabled
-                  name="medic_membership_number"
-                  type="text"
-                  aria-label="medic_membership_number"
-                  aria-describedby="basic-addon1"
-                  value={dataUser?.medic_membership_number}
-                />
-              </InputGroup>
+              <p>{dataUser?.medic_membership_number}</p>
             </Col>
           </Row>
           <Row>
@@ -584,18 +592,17 @@ export const EditMedic = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {dataTitles?.map((title) => {
+                  {dataTitles?.map((title, i) => {
                     return (
-                      <>
-                        <tr key={title.document}>
+                        <tr key={i}>
                           <td>
-                            {title?.text === "" || title?.text === null
+                            {title?.text === "" || title?.text === null || title?.text === "null"
                               ? "Nombre del título"
                               : title?.text}
                           </td>
                           <td>
                             {title?.university === "" ||
-                            title?.university === null
+                            title?.university === null || title?.university === "null"
                               ? "Nombre Universidad / Colegio"
                               : title?.university}
                           </td>
@@ -639,17 +646,6 @@ export const EditMedic = () => {
                             </button>
                           </td>
                         </tr>
-
-                        {editTitle.open && (
-                          <FormEditTitlesMedic
-                            editTitle={editTitle}
-                            setEditTitle={setEditTitle}
-                            title={editTitle.title}
-                            setResetPage={setResetPage}
-                            resetPage={resetPage}
-                          />
-                        )}
-                      </>
                     );
                   })}
                 </tbody>
@@ -682,9 +678,9 @@ export const EditMedic = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataSpecialities.map((el) => {
+                      {dataSpecialities.map((el, i) => {
                         return (
-                          <tr key={el.speciality_name}>
+                          <tr key={i}>
                             <td>{el.speciality_name}</td>
                             <td className="text-center">
                               <button
@@ -815,6 +811,15 @@ export const EditMedic = () => {
           handleCloseProviderService={handleCloseProviderService}
           handleShowProviderService={handleShowProviderService}
           listProvinces={listProvinces}
+        />
+      )}
+      {editTitle.open && (
+        <FormEditTitlesMedic
+          editTitle={editTitle}
+          setEditTitle={setEditTitle}
+          title={editTitle.title}
+          setResetPage={setResetPage}
+          resetPage={resetPage}
         />
       )}
     </>

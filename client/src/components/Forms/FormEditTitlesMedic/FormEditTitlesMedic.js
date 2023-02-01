@@ -32,7 +32,6 @@ export const FormEditTitlesMedic = ({
 
   const onSubmit = () => {
     const newFormData = new FormData();
-    console.log("este es el file", file);
     newFormData.append("file", file);
     newFormData.append("editTitle", JSON.stringify(editTitleForm));
 

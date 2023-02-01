@@ -99,10 +99,10 @@ export const FormAddProviderServiceMedic = ({
             aria-label="Default select example"
           >
             <option>Seleccione Provincia</option>
-            {listProvinces?.map((province) => {
+            {listProvinces?.map((province,i) => {
               return (
                 <option
-                  key={province?.province_id}
+                  key={i*8000}
                   value={province?.province_id}
                 >
                   {province?.province_name}
@@ -118,9 +118,9 @@ export const FormAddProviderServiceMedic = ({
             aria-label="Default select example"
           >
             <option>Seleccione Ciudad</option>
-            {listCities?.map((city) => {
+            {listCities?.map((city, i) => {
               return (
-                <option key={city?.city_id} value={city?.city_id}>
+                <option key={i*7000} value={city?.city_id}>
                   {city?.city_name}
                 </option>
               );

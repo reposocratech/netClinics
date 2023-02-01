@@ -23,7 +23,7 @@ export const ChangePassword = () => {
     e.preventDefault();
     //checkeo si la nueva contraseña es la misma en ambos campos
     if (editUser.password === editUser.checkPassword) {
-      if (editUser.password !== "") {
+      if (editUser.password !== "" && editUser.password.trim("") !== "") {
         axios
           .put(
             `http://localhost:4000/user/changeUserPassword/${user.user_id}`,
