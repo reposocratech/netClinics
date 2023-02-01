@@ -38,25 +38,6 @@ export const FormRegisterPatient = ({
             <div className='titleFormRegisterPatient text-center mb-4'>
               <img alt="logo-netclinics" className='logoRegisterForm' src='/assets/images/logo/Logo-NetClinics2-02.png'/>
             </div>
-
-            {/* Container Formulario */}
-            <div className='d-flex flex-column'>
-
-              <InputGroup className='mb-3'>
-               <InputGroup.Text id="basic-addon1" className='inputRegister'><i className="fa-solid fa-user"></i></InputGroup.Text>
-                <Form.Control
-                placeholder='Escribe tu Nombre'
-                name='name'
-                type='text'
-                autoComplete='off'
-                aria-label='Nombre'
-                aria-describedby="basic-addon1"
-                value={registerPatient.name}
-                onChange={handleChange}
-                required
-                />
-              </InputGroup>
-            </div>
               
               {/* Container Formulario */}
               <div className="d-flex flex-column">

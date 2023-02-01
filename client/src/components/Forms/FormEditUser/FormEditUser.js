@@ -210,7 +210,7 @@ export const FormEditUser = ({
               <Form.Control
                 placeholder="Código Postal"
                 name="postal_code"
-                value={editUser?.postal_code}
+                value={editUser?.postal_code === 0 ? "" : editUser?.postal_code}
                 onChange={handleChange}
               />
             </InputGroup>

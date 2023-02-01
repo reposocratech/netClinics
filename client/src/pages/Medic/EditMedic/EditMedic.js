@@ -343,7 +343,7 @@ export const EditMedic = () => {
                 <Form.Control
                   as="textarea"
                   name="medic_description"
-                  value={dataUser?.medic_description}
+                  value={dataUser?.medic_description === "null" ? "" : dataUser?.medic_description}
                   onChange={handleChange}
                   placeholder="Sobre mí"
                   style={{ height: "100px" }}

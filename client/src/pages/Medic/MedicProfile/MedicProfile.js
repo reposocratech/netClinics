@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NetClinicsContext } from '../../../context/NetClinicsProvider'
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -38,7 +38,7 @@ export const MedicProfile = () => {
         .catch((error) => {
             console.log(error);
         })
-    }, [user]);
+    }, [user, token]);
 
     //traigo el nombre de la ciudad y provincia del usuario logueado
     useEffect(() => {
@@ -81,7 +81,7 @@ export const MedicProfile = () => {
                 </Col>
                 <Col sm="12" md="4" className='text-center'>
                     <div className='containerAvatarPerfil'>
-                        <img className="avatarPefil" src={`/assets/images/user/${dataUser?.avatar}`}/>
+                        <img alt={dataUser?.name} className="avatarPefil" src={`/assets/images/user/${dataUser?.avatar}`}/>
                     </div>
                     <h2 className='my-4'><strong className="name">{dataUser?.name}</strong> <strong className="lastname">{dataUser?.lastname}</strong></h2>
                 </Col>
@@ -100,7 +100,7 @@ export const MedicProfile = () => {
                 <Col sm="12" md="12" className='section'>
                     <h4>Sobre mí</h4>
                     <hr className='separador'/>
-                    <p>{dataUser?.medic_description}</p>
+                    <p>{dataUser?.medic_description === "null" ? "" : dataUser?.medic_description}</p>
                 </Col>
             </Row>
             <Row className='ms-2 me-2 d-flex flex-row justify-content-between gap-3'>
