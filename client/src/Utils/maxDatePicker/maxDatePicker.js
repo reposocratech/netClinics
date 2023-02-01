@@ -1,6 +1,6 @@
 export const maxDatePicker = () => {
     const date = new Date();
-    const day = parseInt(new Date().getDate()) + 1;
+    const day = parseInt(new Date().getDate());
 
     let maxDatePicker = `${date.getFullYear()}-${date.getMonth()+1}-${day}`;
 
