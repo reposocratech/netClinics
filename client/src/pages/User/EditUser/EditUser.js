@@ -54,6 +54,7 @@ export const EditUser = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     const newFormData = new FormData();
 
     newFormData.append("file", image);

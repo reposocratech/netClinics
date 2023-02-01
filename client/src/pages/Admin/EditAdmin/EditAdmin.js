@@ -36,7 +36,6 @@ export const EditAdmin = () => {
     axios
       .get(`http://localhost:4000/place/getAllCity/${user?.province_id}`)
       .then((res) => {
-        console.log(res.data);
         setListCities(res.data);
       })
       .catch((error) => {
@@ -50,15 +49,15 @@ export const EditAdmin = () => {
     setEditUser({ ...editUser, [name]: value });
   };
 
-
   //Función para guardar los datos editados
   const onSubmit = (e) => {
     e.preventDefault();
+
     const newFormData = new FormData();
 
     newFormData.append("file", image);
     newFormData.append("register", JSON.stringify(editUser));
-    console.log("lo que hay en el editUser", editUser);
+  
     axios
       .put(
         `http://localhost:4000/patient/editPatient/${user.user_id}`,

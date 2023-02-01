@@ -20,7 +20,6 @@ export const AdminProfile = () => {
       .get(`http://localhost:4000/place/getPlaceOneUser/${user.user_id}`)
       .then((res) => {
         setProvinceCity(res.data[0]);
-        console.log(res.data[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -68,13 +67,13 @@ export const AdminProfile = () => {
                   mostrar los datos necesarios en su perfil */}
                   {user?.name} {user.lastname}
                 </h4>
-                <h4>D.N.I: {user?.dni}</h4>
+                <h4>D.N.I: {user?.dni === "null" ? "" : user?.dni}</h4>
                 <h4>{user?.email}</h4>
                 <h4>{user?.phone_number}</h4>
                 <br />
                 <h2>Dirección</h2>
                 <hr />
-                <h4>{user?.address}</h4>
+                <h4>{user?.address === "null" ? "" : user?.address}</h4>
                 <h4>
                   {provinceCity?.city_name}, {provinceCity?.province_name} (
                   {user?.postal_code})
