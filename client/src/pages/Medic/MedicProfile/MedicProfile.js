@@ -149,7 +149,7 @@ export const MedicProfile = () => {
                 </Col>
                 
             </Row>
-            <Row className='ms-2 me-2 my-3 mb-3'>
+            <Row className='hiddenIphone ms-2 me-2 my-3 mb-3'>
                 <Col sm="12" md="12" className='section'>
                     <h4>Datos Académicos</h4>
                     <hr className='separador'/>
@@ -166,11 +166,36 @@ export const MedicProfile = () => {
                         <tbody>
                             {dataTitles?.map((title, i) => {
                             return  (
-                                <tr key={title?.text}>
+                                <tr key={i}>
                                     <td>{title?.text === "" || title?.text === "null" || title?.text === null ? "" : title?.text}</td>
                                     <td>{title?.university === "" || title?.university === "null" || title?.university === null ? "" : title?.university}</td>
                                     <td>{title?.start_date === "" || title?.start_date === "null" || title?.start_date === null ? "Sin Fecha" : title?.start_date}</td>
                                     <td>{title?.end_date === "" ||  title?.end_date === "null" || title?.end_date === null ? "Sin Fecha" : title?.end_date}</td>
+                                    <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
+                                </tr>
+                            )
+                            })}
+                        </tbody>
+                    </Table>                    
+                </Col>
+            </Row>
+            {/* SOLO IPHONE (MOVILES) */}
+            <Row className='iphoneTable ms-2 me-2 my-3 mb-3'>
+                <Col sm="12" md="12" className='section'>
+                    <h4>Datos Académicos</h4>
+                    <hr className='separador'/>
+                    <Table className='my-2 text-center my-3' striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Estudios</th>
+                                <th>Descargar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dataTitles?.map((title, i) => {
+                            return  (
+                                <tr key={i}>
+                                    <td>{title?.text === "" || title?.text === "null" || title?.text === null ? "" : title?.text}</td>
                                     <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
                                 </tr>
                             )

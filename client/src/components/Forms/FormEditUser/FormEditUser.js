@@ -164,7 +164,7 @@ export const FormEditUser = ({
               <Form.Control
                 placeholder="Dirección"
                 name="address"
-                value={editUser?.address}
+                value={editUser?.address === "null" ? "" : editUser?.address}
                 onChange={handleChange}
               />
             </InputGroup>

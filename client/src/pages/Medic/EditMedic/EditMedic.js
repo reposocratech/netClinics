@@ -575,7 +575,7 @@ export const EditMedic = () => {
           </Row>
 
           {/* Titulos */}
-          <Row className="ms-2 me-2 my-3 mb-3">
+          <Row className="ms-2 me-2 my-3 mb-3 hiddenIphone">
             <Col sm="12" md="12" className="mb-3 fondos_Sections">
               <h4>Datos Académicos & Profesionales</h4>
               <hr className="separador" />
@@ -630,6 +630,62 @@ export const EditMedic = () => {
                             >
                               <FilePresentRoundedIcon />
                             </button>
+                          </td>
+                          <td>
+                            <button onClick={() => editTitleMedic(title)}>
+                              <EditRoundedIcon />
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              onClick={() =>
+                                deleteTitle(title?.title_id, title?.text)
+                              }
+                            >
+                              <DeleteForeverRoundedIcon />
+                            </button>
+                          </td>
+                        </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </Col>
+            {/* Boton para añadir datos académicos */}
+            <Col
+              sm="12"
+              md="12"
+              className="d-flex align-items-center justify-content-center gap-3"
+            >
+              <Button className="defineButton" onClick={handleShow}>
+                Añadir Datos Académicos
+              </Button>
+            </Col>
+          </Row>
+
+          {/* SOLO IPHONE (MOVILES) */}
+
+           {/* Titulos */}
+           <Row className="ms-2 me-2 my-3 mb-3 iphoneTable">
+            <Col sm="12" md="12" className="mb-3 fondos_Sections">
+              <h4>Datos Académicos & Profesionales</h4>
+              <hr className="separador" />
+              <Table className="my-2 text-center my-3" striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Estudios</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataTitles?.map((title, i) => {
+                    return (
+                        <tr key={i}>
+                          <td>
+                            {title?.text === "" || title?.text === null || title?.text === "null"
+                              ? "Nombre del título"
+                              : title?.text}
                           </td>
                           <td>
                             <button onClick={() => editTitleMedic(title)}>

@@ -120,7 +120,7 @@ export const AdminUtils = () => {
         }
         {/* Muestro todas las especialides actuales */}
         {listSpeciality && (
-          <TableContainer sx={{width: 'auto', padding: '1rem'}} component={Paper} className="mt-4">
+          <TableContainer sx={{width: 'auto', padding: '1rem'}} component={Paper} className="my-4">
           <h3 className="title text-center my-3">Especialidades</h3>
           <Table sx={{ maxWidth: 390 }}>
             <TableHead>

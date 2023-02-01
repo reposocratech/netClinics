@@ -4,6 +4,9 @@
   min-height: 100vh;
   font-family: 'Rubik', sans-serif;
 
+  .iphoneTable{
+    display: none;
+  }
 
   .aboutme-editprofile-medic{
     background-color: rgb(238, 238, 238);
@@ -170,5 +173,25 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+  }
+}
+
+@media screen and (max-width: 507px){
+  .backgroundEditProfileMedic{
+      .hiddenIphone{
+          display: none;
+      }
+      .iphoneTable{
+          display: block;
+      }
+      .aboutme-editprofile-medic{
+        .defineButtonDanger {
+          font-size: 1rem;
+        }
+
+        .defineButton {
+          font-size: 0.8rem;
+        }
+      }
   }
 }
