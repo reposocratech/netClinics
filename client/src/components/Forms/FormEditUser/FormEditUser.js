@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Col, Button } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 
 export const FormEditUser = ({
   editUser,
@@ -15,6 +16,10 @@ export const FormEditUser = ({
   preview,
   errorEmail,
 }) => {
+
+  const { user } =
+  useContext(NetClinicsContext);
+
   return (
     <>
       <Col
@@ -71,7 +76,7 @@ export const FormEditUser = ({
             )}
           </div>
           <h2 className="my-3">
-            {editUser?.name} {editUser?.lastname}
+            {user?.name} {user?.lastname}
           </h2>
         </div>
       </Col>

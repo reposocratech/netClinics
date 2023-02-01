@@ -44,8 +44,7 @@ export const RegisterMedic = () => {
 
     const onSubmit = () => {
       if(
-          !emailValidator(registerMedic.email) 
-          || !registerMedic.password.trim("")
+          !registerMedic.password.trim("")
           || !registerMedic.name.trim("")
           || !registerMedic.lastname.trim("")
           || !registerMedic.address.trim("")
@@ -61,6 +60,9 @@ export const RegisterMedic = () => {
       }
       else if(documents.length < 2){
         setMessage("Tienes que adjuntar el documento de Colegiado y Titulo Universitario")
+      }
+      else if(!emailValidator(registerMedic.email)){
+        setMessage("El email introducido no es correcto");
       }
       else{
           setMessage("");

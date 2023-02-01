@@ -56,13 +56,14 @@ export const FormChangePassword = ({
                 </InputGroup>
               </div>
 
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center mb-3">
                 <button className="deffineButton" onClick={onSubmit}>
                   Guardar cambios
                 </button>
               </div>
+              <p className="text-center text-danger"><strong>{messageError}</strong></p>
             </Form>
-            <h3>{messageError}</h3>
+           
           </Col>
         </Row>
       </Container>

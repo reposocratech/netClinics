@@ -17,8 +17,9 @@ import { FormAddTitlesMedic } from "../../../components/Forms/FormAddTitlesMedic
 import { FormEditTitlesMedic } from "../../../components/Forms/FormEditTitlesMedic/FormEditTitlesMedic";
 import { FormAddSpecialityMedic } from "../../../components/Forms/FormAddSpecialityMedic/FormAddSpecialityMedic";
 import { FormAddProviderServiceMedic } from "../../../components/Forms/FormAddProviderServiceMedic/FormAddProviderServiceMedic";
-
+import { emailValidator } from "../../../Utils/checkEmail/checkEmail";
 import "./editMedicProfile.scss";
+
 
 export const EditMedic = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const EditMedic = () => {
   const [providerServices, setProviderServices] = useState([]);
 
   const [errorEmail, setErrorEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [listCities, setListCities] = useState([]);
   const [listProvinces, setListProvinces] = useState([]);
@@ -178,28 +180,53 @@ export const EditMedic = () => {
   };
   //----------------------------------------------------------------------------
 
+  console.log(dataUser);
+
   //Submit modificar cambios usuario
   const onSubmit = () => {
-    const newFormData = new FormData();
-    newFormData.append("file", image);
-    newFormData.append("editMedic", JSON.stringify(dataUser));
 
-    axios
-      .put(
-        `http://localhost:4000/medic/editMedic/${dataUser?.user_id}`,
-        newFormData
-      )
-      .then((res) => {
-        setResetPage(!resetPage);
-        navigate("/myProfile");
-      })
-      .catch((error) => {
-        if (error.response.data.code === "ER_DUP_ENTRY") {
-          setErrorEmail("errorMail");
-        } else {
-          console.log(error);
+      const newFormData = new FormData();
+      newFormData.append("file", image);
+      newFormData.append("editMedic", JSON.stringify(dataUser));
+    
+      if(dataUser.name !== "" && dataUser.lastname !== "" && dataUser.phone_number !== "" && dataUser.email !== "" && dataUser.postal_code !== ""){
+        if(emailValidator(dataUser.email)){
+          if(!isNaN(parseInt(dataUser.phone_number))){
+            if(!isNaN(parseInt(dataUser.postal_code))){
+              axios
+              .put(
+                `http://localhost:4000/medic/editMedic/${dataUser?.user_id}`,
+                newFormData
+              )
+              .then((res) => {
+                setResetPage(!resetPage);
+                navigate("/myProfile");
+              })
+              .catch((error) => {
+                if (error.response.data.code === "ER_DUP_ENTRY") {
+                  setErrorEmail("errorMail");
+                } else {
+                  console.log(error);
+                }
+              });
+            }
+            else{
+              setErrorMessage("El Código Postal no es correcto");
+            }
+          }
+          else{
+            setErrorMessage("El Teléfono no es correcto");
+          }
         }
-      });
+        else{
+          setErrorMessage("El email introducido no es válido");
+        }
+      }
+      else{
+        setErrorMessage("Hay campos que no pueden quedar vacíos");
+
+      }
+      
   };
   //----------------------------------------------------------------------------
 
@@ -481,6 +508,13 @@ export const EditMedic = () => {
               </InputGroup>
             </Col>
           </Row>
+          {errorMessage &&
+            <Row>
+              <Col>
+                <h4 className="text-center">{errorMessage}</h4>
+              </Col>
+            </Row>
+          }
           {/* Datos Profesionales */}
           <Row className="fondos_Sections ms-2 me-2 mb-3">
             <Col xs="12 mb-3">
