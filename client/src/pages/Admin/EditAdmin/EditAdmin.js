@@ -49,6 +49,10 @@ export const EditAdmin = () => {
     setEditUser({ ...editUser, [name]: value });
   };
 
+  useEffect(() => {
+    setResetPage(!resetPage);
+  }, []);
+
   //Función para guardar los datos editados
   const onSubmit = (e) => {
     e.preventDefault();

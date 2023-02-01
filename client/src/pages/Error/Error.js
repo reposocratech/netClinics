@@ -7,7 +7,7 @@ import "./error404.scss";
 export const Error = () => {
   const [isLoading, setIsLoading] = useState(true);
 
-  setTimeout(() => setIsLoading(false), 30);
+  setTimeout(() => setIsLoading(false), 300);
 
   return (
     <div>

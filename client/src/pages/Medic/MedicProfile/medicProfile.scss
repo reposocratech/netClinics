@@ -4,6 +4,10 @@
     min-height: 100vh;
     font-family: 'Rubik', sans-serif;
 
+    .iphoneTable{
+        display: none;
+    }
+
     .aboutme-profile{
         background-color: rgb(238, 238, 238);
         border-radius: 20px;
@@ -63,6 +67,18 @@
 
     }  
 
+
+
 }
 
+@media screen and (max-width: 507px){
+    .profile-medic-background{
+        .hiddenIphone{
+            display: none;
+        }
+        .iphoneTable{
+            display: block;
+        }
+    }
+}
 

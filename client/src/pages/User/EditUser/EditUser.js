@@ -51,7 +51,7 @@ export const EditUser = () => {
 
   useEffect(() => {
     setResetPage(!resetPage);
-  }, [])
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();

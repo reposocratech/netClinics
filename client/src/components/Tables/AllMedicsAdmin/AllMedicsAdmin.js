@@ -116,7 +116,7 @@ export const AllMedicsAdmin = ({
 
         {/* Tabla Profesionales Registrados */}
         {results && (
-          <TableContainer component={Paper} className="tableAllMedics mt-4">
+          <TableContainer component={Paper} className="tableAllMedics my-4">
             <h3 className="title text-center my-3">Profesionales</h3>
             <Table sx={{ minWidth: 390 }} aria-label="customized table">
               <TableHead>
