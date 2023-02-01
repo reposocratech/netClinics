@@ -5,6 +5,12 @@
     font-family: 'Rubik', sans-serif;
 
     .whiteBoxAdminUtils {
+
+        .accionButton{
+            border: none;
+            background-color: transparent;
+        }
+
         .contAdminUtils {
             background-color: white;
             border-radius: 10px;
@@ -57,8 +63,9 @@
                 .defineButton:hover {
                     background-color: #293a9a;
                 }
+
+                
             }
-    
         
         }
         .title {
