@@ -22,7 +22,7 @@ export const FormChangePassword = ({
                 <label>Nueva contraseña:</label>
                 <InputGroup className="my-3">
                   <InputGroup.Text id="basic-addon1" className="inputRegister">
-                    <i class="fa-solid fa-lock"></i>
+                    <i className="fa-solid fa-lock"></i>
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Contraseña"
@@ -41,7 +41,7 @@ export const FormChangePassword = ({
                 <label>Repita su nueva contraseña:</label>
                 <InputGroup className="my-3">
                   <InputGroup.Text id="basic-addon1" className="inputRegister">
-                    <i class="fa-solid fa-lock"></i>
+                    <i className="fa-solid fa-lock"></i>
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Repita la contraseña"

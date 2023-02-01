@@ -167,7 +167,7 @@ export const MedicProfile = () => {
                             {dataTitles?.map((title, i) => {
                             return  (
                                 <tr key={title?.text}>
-                                    <td>{title?.text}</td>
+                                    <td>{title?.text === "" || title?.text === "null" || title?.text === null ? "" : title?.text}</td>
                                     <td>{title?.university === "" || title?.university === "null" || title?.university === null ? "" : title?.university}</td>
                                     <td>{title?.start_date === "" || title?.start_date === "null" || title?.start_date === null ? "Sin Fecha" : title?.start_date}</td>
                                     <td>{title?.end_date === "" ||  title?.end_date === "null" || title?.end_date === null ? "Sin Fecha" : title?.end_date}</td>
