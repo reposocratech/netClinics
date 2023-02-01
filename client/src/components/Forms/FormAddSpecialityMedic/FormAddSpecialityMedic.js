@@ -79,9 +79,9 @@ export const FormAddSpecialityMedic = ({
           aria-label="Default select example"
         >
           <option>Seleccione Especialidad</option>
-          {specialities?.map((el) => {
+          {specialities?.map((el, i) => {
             return (
-              <option key={el.speciality_id} value={el.speciality_id}>
+              <option key={i*6000} value={el.speciality_id}>
                 {el.speciality_name}
               </option>
             );

@@ -11,7 +11,6 @@ export const UserProfile = () => {
   const navigate = useNavigate();
   const { user } = useContext(NetClinicsContext);
   const [provinceCity, setProvinceCity] = useState();
-  const [toggleOn, setToggleOn] = useState(false);
 
   useEffect(() => {
     if(!user.user_id) return
@@ -19,7 +18,6 @@ export const UserProfile = () => {
       .get(`http://localhost:4000/place/getPlaceOneUser/${user.user_id}`)
       .then((res) => {
         setProvinceCity(res.data[0]);
-        console.log(res.data[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -29,7 +27,6 @@ export const UserProfile = () => {
   const refToggle = useRef(null);
 
   const handleChangeToggle = () => {
-    setToggleOn(refToggle.current.checked);  
     navigate("/editProfile");
   };
 
@@ -72,6 +69,7 @@ export const UserProfile = () => {
           <Col xs={12} sm={12} md={6} lg={6} className='colPatientProfile d-flex flex-row justify-content-center'>
             <div className="imagePatientProfile">
               <img
+                alt={user?.name}
                 className="imagePatient"
                 src={`assets/images/user/${user?.avatar}`}
               />

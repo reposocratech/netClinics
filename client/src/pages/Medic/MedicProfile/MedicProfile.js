@@ -76,8 +76,10 @@ export const MedicProfile = () => {
         <Container className="aboutme-profile pb-3">
             <Row className='p-3'>
                 <Col sm="12" md="4">
-                    <h2>Nº de Colegiado</h2>
+                    <h4>Nº de Colegiado</h4>
                     <p>{dataUser?.medic_membership_number}</p>
+                    <h4>Precio Consulta:</h4>
+                    <p>{dataUser?.medic_price} €</p>
                 </Col>
                 <Col sm="12" md="4" className='text-center'>
                     <div className='containerAvatarPerfil'>
@@ -104,7 +106,7 @@ export const MedicProfile = () => {
                 </Col>
             </Row>
             <Row className='ms-2 me-2 d-flex flex-row justify-content-between gap-3'>
-                <Col sm="12" md="12" lg="3" className='section'>
+                <Col sm="12" md="12" lg="5" className='section'>
                     <h4>Datos Personales</h4>
                     <hr className='separador mb-3'/>
                     <label className='campos'>Nombre:</label>
@@ -145,12 +147,7 @@ export const MedicProfile = () => {
                         })}
                     </ul>
                 </Col>
-                <Col sm="12" md="12" lg="2" className='section'>
-                    <h4>Tarifa Servicio</h4>
-                    <hr className='separador mb-3'/>
-                    <label className='campos'>Precio:</label>
-                    <p>{dataUser?.medic_price} €</p>
-                </Col>
+                
             </Row>
             <Row className='ms-2 me-2 my-3 mb-3'>
                 <Col sm="12" md="12" className='section'>
@@ -166,12 +163,12 @@ export const MedicProfile = () => {
                                 <th>Descargar</th>
                             </tr>
                         </thead>
-                        <tbody style={{cursor: 'pointer'}} >
-                            {dataTitles?.map((title) => {
+                        <tbody>
+                            {dataTitles?.map((title, i) => {
                             return  (
-                                <tr key={title.document}>
+                                <tr key={title?.text}>
                                     <td>{title?.text}</td>
-                                    <td>{title?.university}</td>
+                                    <td>{title?.university === "" || title?.university === "null" || title?.university === null ? "" : title?.university}</td>
                                     <td>{title?.start_date === "" || title?.start_date === "null" || title?.start_date === null ? "Sin Fecha" : title?.start_date}</td>
                                     <td>{title?.end_date === "" ||  title?.end_date === "null" || title?.end_date === null ? "Sin Fecha" : title?.end_date}</td>
                                     <td><button onClick={()=>window.open(`/assets/docs/titles/${title.document}`)}><FilePresentRoundedIcon/></button></td>
