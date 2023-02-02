@@ -41,7 +41,6 @@ export const RegisterPatient = () => {
 
   
   const getCity = (selectedProvince) => {
-    console.log(selectedProvince);
     if(selectedProvince){
        axios
         .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
@@ -83,7 +82,6 @@ export const RegisterPatient = () => {
           axios
           .post("http://localhost:4000/patient/createPatient", registerPatient)
           .then((res) => {
-              console.log(res);
               navigate('/');
           })
           .catch((error) => {

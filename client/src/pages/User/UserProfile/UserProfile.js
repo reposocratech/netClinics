@@ -47,30 +47,26 @@ export const UserProfile = () => {
           </Col>
         </Row>
         <Row className="rowPatientProfile d-flex align-items-center mb-4">
-          <Col xs={12} sm={12} md={6} lg={6} className='colPatientProfile d-flex flex-row justify-content-center'>
-            {user && (
-              <div className="informationPatientProfile">
-                <h2>Datos personales</h2>
+          <Col xs={12} sm={12} md={6} lg={6} className='colPatientProfile d-flex flex-column justify-content-center'>
+                <h3>Datos personales</h3>
                 <hr/>
-                <h4>
+                <h6>
                   {user?.name} {user.lastname}
-                </h4>
-                <h4>D.N.I: {user?.dni}</h4>
-                <h4>{user?.email}</h4>
-                <h4>{user?.phone_number}</h4>
+                </h6>
+                <h6>D.N.I: {user?.dni === "null" ? "" : user?.dni}</h6>
+                <h6>{user?.email}</h6>
+                <h6>{user?.phone_number}</h6>
                 <br />
-                <h2>Dirección</h2>
+                <h3>Dirección</h3>
                 <hr/>
-                <h4>{user?.address}</h4>
-                <h4>{provinceCity?.city_name}, {provinceCity?.province_name} ({user?.postal_code})</h4>
-              </div>
-            )}
+                <h6>{user?.address === "null" ? "" : user?.address}</h6>
+                <h6>{provinceCity?.city_name}, {provinceCity?.province_name} ({user?.postal_code})</h6>
           </Col>
           <Col xs={12} sm={12} md={6} lg={6} className='colPatientProfile d-flex flex-row justify-content-center'>
             <div className="imagePatientProfile">
               <img
                 alt={user?.name}
-                className="imagePatient"
+                className="imagePatient mb-4"
                 src={`assets/images/user/${user?.avatar}`}
               />
             </div>

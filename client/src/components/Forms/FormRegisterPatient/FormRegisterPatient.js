@@ -214,7 +214,7 @@ export const FormRegisterPatient = ({
 
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1" className="inputRegister">
-                    <i class="fa-solid fa-lock"></i>
+                    <i className="fa-solid fa-lock"></i>
                   </InputGroup.Text>
 
                   <Form.Control

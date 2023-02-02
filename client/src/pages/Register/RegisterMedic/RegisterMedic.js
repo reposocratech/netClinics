@@ -145,7 +145,7 @@ export const RegisterMedic = () => {
       }, []);
 
     const getCity = (selectedProvince) => {
-        console.log(selectedProvince);
+        setListCities([]);
         if(selectedProvince){
            axios
             .get(`http://localhost:4000/place/getAllCity/${selectedProvince}`)
