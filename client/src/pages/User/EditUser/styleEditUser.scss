@@ -71,46 +71,32 @@
             box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
             }
 
-            .avatar-upload .avatar-preview > div {
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            }
+            .colEditUser{
+                width: 100%;
 
-            .contEditPatient{
-                width: 95%;
-
-                input {
-                    background-color: #EDEDED;
-                    border-radius: 50px;
-                    border: none;
-                    color: rgb(18, 18, 18);
-                    font-family: 'Rubik', sans-serif;
-                    padding-left: 1rem;
+                .avatar-upload .avatar-preview > div {
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
                 }
-                
+    
+                input {
+                    color: #1C2869;
+                    font-family: 'Rubik', sans-serif;
+                }
+        
                 input:focus{
                     box-shadow: 0 0 0 0.1rem rgb(28 40 105);
                 }
-    
-                .inputPatient{
-                    width: 100%;
+        
+                .iconSelect {
+                    border-radius: 10px 0 0 10px !important;
                 }
-    
-                .selectPatient {
-                    background-color: #EDEDED;
-                    border-radius: 50px;
-                    border: none;
-                    color: rgb(18, 18, 18);
-                    text-align: center;
-                    height: 2rem;
-                    width: 100%;
-                }
-
-                .errorMail {
+        
+                .errorMail{
                     input {
                         background-color: #ef5350;
                         color: white;
@@ -124,7 +110,31 @@
                         color: white;
                     }
                 }
+        
+                .inputFile{
+                    padding: 1rem;
+                    border: 4px dashed #1c2869bb;
+                    border-radius: 20px;
+                }
+        
+                .fa-solid {
+                    color:#1C2869;
+                }
+                
+                .selectPatient {
+                    border-left: none;
+                    border-radius: 0 10px 10px 0;
+                    color: #1C2869;
+                    height: 2.2rem;
+                    width: 100%;
+                    font-family: 'Rubik', sans-serif;
+                }
+        
+                .selectPatient:focus {
+                    box-shadow: 0 0 0 0.1rem rgb(28 40 105);
+                }
             }
+
 
             .defineButton {
                 appearance: none;
