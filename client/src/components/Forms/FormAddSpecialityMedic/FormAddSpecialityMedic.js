@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
@@ -90,12 +89,12 @@ export const FormAddSpecialityMedic = ({
         <h4 className="my-4 text-center text-danger">{messageError}</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseSpecialities}>
+        <button className="defineButtonModalAvailabilityMedicCancel" onClick={handleCloseSpecialities}>
           Cancelar
-        </Button>
-        <Button variant="primary" onClick={onSubmit}>
-          Añadir Especialidad
-        </Button>
+        </button>
+        <button className="defineButtonModalAvailabilityMedicSubmit" onClick={onSubmit}>
+          Añadir
+        </button>
       </Modal.Footer>
     </Modal>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -130,12 +129,12 @@ export const FormAddProviderServiceMedic = ({
         <h4 className="text-center text-danger">{messageError}</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseProviderService}>
+        <button className="defineButtonModalAvailabilityMedicCancel" onClick={handleCloseProviderService}>
           Cancelar
-        </Button>
-        <Button variant="primary" onClick={onSubmit}>
+        </button>
+        <button className="defineButtonModalAvailabilityMedicSubmit" onClick={onSubmit}>
           Añadir Servicio
-        </Button>
+        </button>
       </Modal.Footer>
     </Modal>
   );

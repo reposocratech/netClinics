@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
@@ -156,12 +155,12 @@ export const FormAddTitlesMedic = ({
         <h4 className="text-center text-danger">{messageError}</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="cancelButton" variant="secondary" onClick={handleClose}>
+        <button className="defineButtonModalAvailabilityMedicCancel" onClick={handleClose}>
           Cancelar
-        </Button>
-        <Button className="saveButton" variant="primary" onClick={onSubmit}>
-          Añadir Datos Académicos
-        </Button>
+        </button>
+        <button className="defineButtonModalAvailabilityMedicSubmit" onClick={onSubmit}>
+          Añadir
+        </button>
       </Modal.Footer>
     </Modal>
   );
