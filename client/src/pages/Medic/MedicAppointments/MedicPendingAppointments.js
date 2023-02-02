@@ -84,6 +84,7 @@ export const MedicPendingAppointments = () => {
   };
 
   const onSubmit = () => {
+    setIsSearch(true);
     if (searchDate !== "") {
       setAppointmentData(
         appointmentData.filter((appointment) => {
