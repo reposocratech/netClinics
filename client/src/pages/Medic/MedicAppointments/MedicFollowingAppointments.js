@@ -21,6 +21,7 @@ import { MedicAppointmentView } from "./MedicAppointmentView";
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 
 import "./myDatesMedic.scss";
+import { useNavigate } from "react-router";
 
 export const MedicFollowingAppointments = () => {
 
@@ -30,7 +31,8 @@ export const MedicFollowingAppointments = () => {
     open: false,
     appointment: null,
   });
-
+  const [isSearch, setIsSearch] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user.user_id) return;
@@ -201,9 +203,15 @@ export const MedicFollowingAppointments = () => {
       :
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>No hay próximas citas</h3>
+          {isSearch ?
           <button className="deffineButton" onClick={cleanSubmit}>
             Volver
           </button>
+          :
+          <button className="deffineButton" onClick={()=> navigate("/")}>
+            Inicio
+          </button>
+          }
         </Container>
       }
       {handleShow.open && 

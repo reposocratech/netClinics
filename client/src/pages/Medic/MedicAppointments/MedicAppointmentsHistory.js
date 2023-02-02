@@ -18,6 +18,7 @@ import Form from "react-bootstrap/Form";
 import Avatar from "@mui/material/Avatar";
 import CalendarMonthTwoToneIcon from "@mui/icons-material/CalendarMonthTwoTone";
 import { MedicAppointmentView } from "./MedicAppointmentView";
+import { useNavigate } from 'react-router-dom'
 import "./myDatesMedic.scss";
 
 export const MedicAppointmentsHistory = () => {
@@ -27,6 +28,8 @@ export const MedicAppointmentsHistory = () => {
     open: false,
     appointment: null,
   });
+  const [isSearch, setIsSearch] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user.user_id) return;
@@ -50,6 +53,7 @@ export const MedicAppointmentsHistory = () => {
   };
 
   const onSubmit = () => {
+    setIsSearch(true);
     if (searchDate !== "") {
       setAppointmentData(
         appointmentData.filter((appointment) => {
@@ -167,9 +171,15 @@ export const MedicAppointmentsHistory = () => {
       ) : (
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes histórico de citas</h3>
+          {isSearch ?
           <button className="deffineButton" onClick={cleanSubmit}>
             Volver
           </button>
+          :
+          <button className="deffineButton" onClick={()=> navigate("/")}>
+            Inicio
+          </button>
+          }
         </Container>
       )}
       {handleShow.open && (

@@ -4,7 +4,7 @@ import { FormEditUser } from "../../../components/Forms/FormEditUser/FormEditUse
 import { NetClinicsContext } from "../../../context/NetClinicsProvider";
 import { useNavigate } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
-
+import { emailValidator } from "../../../Utils/checkEmail/checkEmail";
 import "./styleEditAdmin.scss";
 
 export const EditAdmin = () => {
@@ -20,6 +20,8 @@ export const EditAdmin = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
+  const [errorEmail, setErrorEmail] = useState("");
+  const [messageErrorEmail, setMessageErrorEmail] = useState("");
 
   //Traigo la información del nombre de provincia y ciudad
   useEffect(() => {
@@ -45,6 +47,8 @@ export const EditAdmin = () => {
 
   //Función para guardar los cambios realizados
   const handleChange = (e) => {
+    setErrorEmail("");
+    setMessageErrorEmail("");
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
@@ -57,22 +61,35 @@ export const EditAdmin = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const newFormData = new FormData();
+    if(emailValidator(editUser.email)){
 
-    newFormData.append("file", image);
-    newFormData.append("register", JSON.stringify(editUser));
-  
-    axios
-      .put(
-        `http://localhost:4000/patient/editPatient/${user.user_id}`,
-        newFormData
-      )
-      .then((res) => {
-        setUser(editUser);
-        setResetPage(!resetPage);
-        navigate("/myProfile");
-      })
-      .catch((err) => console.log(err));
+      const newFormData = new FormData();
+
+      newFormData.append("file", image);
+      newFormData.append("register", JSON.stringify(editUser));
+
+      axios
+        .put(
+          `http://localhost:4000/patient/editPatient/${user.user_id}`,
+          newFormData
+        )
+        .then((res) => {
+          setUser(editUser);
+          setResetPage(!resetPage);
+          navigate("/myProfile");
+        })
+        .catch((err) => {
+          if(err.response.data.code === 'ER_DUP_ENTRY'){
+            setErrorEmail("errorMail");
+          }
+          else{
+            console.log(err);
+          }
+        });
+    }
+    else{
+      setMessageErrorEmail("Introduce un email correcto")
+    } 
   };
 
   //Función para rescatar el nombre de la ciudad en base a la provincia
@@ -129,6 +146,9 @@ export const EditAdmin = () => {
             getCity={getCity}
             onSelectFile={onSelectFile}
             preview={preview}
+            errorEmail={errorEmail}
+            setErrorEmail={setErrorEmail}
+            messageErrorEmail={messageErrorEmail}
           />
         </Row>
       </Container>

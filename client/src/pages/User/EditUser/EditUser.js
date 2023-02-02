@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 
 import "./styleEditUser.scss";
+import { emailValidator } from "../../../Utils/checkEmail/checkEmail";
 
 export const EditUser = () => {
   const { user, setUser, setResetPage, resetPage } = useContext(NetClinicsContext);
@@ -19,6 +20,7 @@ export const EditUser = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
+  const [messageErrorEmail, setMessageErrorEmail] = useState("");
 
 
   useEffect(() => {
@@ -45,6 +47,7 @@ export const EditUser = () => {
 
   const handleChange = (e) => {
     setErrorEmail("");
+    setMessageErrorEmail("");
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
@@ -56,29 +59,35 @@ export const EditUser = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const newFormData = new FormData();
+    if(emailValidator(editUser.email)){
 
-    newFormData.append("file", image);
-    newFormData.append("register", JSON.stringify(editUser));
+      const newFormData = new FormData();
 
-    axios
-      .put(
-        `http://localhost:4000/patient/editPatient/${user.user_id}`,
-        newFormData
-      )
-      .then((res) => {
-        setUser(editUser);
-        setResetPage(!resetPage);
-        navigate("/myProfile");
-      })
-      .catch((err) => {
-        if(err.response.data.code === 'ER_DUP_ENTRY'){
-          setErrorEmail("errorMail");
-        }
-        else{
-          console.log(err);
-        }
-      });
+      newFormData.append("file", image);
+      newFormData.append("register", JSON.stringify(editUser));
+
+      axios
+        .put(
+          `http://localhost:4000/patient/editPatient/${user.user_id}`,
+          newFormData
+        )
+        .then((res) => {
+          setUser(editUser);
+          setResetPage(!resetPage);
+          navigate("/myProfile");
+        })
+        .catch((err) => {
+          if(err.response.data.code === 'ER_DUP_ENTRY'){
+            setErrorEmail("errorMail");
+          }
+          else{
+            console.log(err);
+          }
+        });
+    }
+    else{
+      setMessageErrorEmail("Introduce un email correcto")
+    } 
   };
 
   const getCity = (selectedProvince) => {
@@ -139,6 +148,7 @@ export const EditUser = () => {
             preview={preview}
             errorEmail={errorEmail}
             setErrorEmail={setErrorEmail}
+            messageErrorEmail={messageErrorEmail}
           />
         </Row>
       </Container>
