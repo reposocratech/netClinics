@@ -15,6 +15,7 @@ export const FormEditUser = ({
   onSelectFile,
   preview,
   errorEmail,
+  messageErrorEmail
 }) => {
 
   const { user } =
@@ -129,9 +130,10 @@ export const FormEditUser = ({
             {errorEmail && (
               <div>
                 <h4 className="text-danger">El email ya existe en nuestra BD</h4>
+               
               </div>
             )}
-
+            {messageErrorEmail && <h4 className="text-danger">{messageErrorEmail}</h4>}
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon1" className="inputRegister">
                 <i className="fa-solid fa-map-location"></i>

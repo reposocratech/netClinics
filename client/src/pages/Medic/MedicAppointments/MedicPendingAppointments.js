@@ -23,11 +23,15 @@ import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import "./myDatesMedic.scss";
 
 import { MedicAppointmentView } from "./MedicAppointmentView";
+import { useNavigate } from "react-router";
 
 export const MedicPendingAppointments = () => {
   
   const [appointmentData, setAppointmentData] = useState();
   const { user, resetPage, setResetPage } = useContext(NetClinicsContext);
+
+  const [isSearch, setIsSearch] = useState(false);
+  const navigate = useNavigate();
 
   const [handleShow, setHandleShow] = useState({
     open: false,
@@ -238,9 +242,15 @@ export const MedicPendingAppointments = () => {
       ) : (
         <Container className="withoutAppointments d-flex flex-column justify-content-center align-items-center my-5">
           <h3>Actualmente no tienes citas pendiente de confirmar</h3>
+          {isSearch ?
           <button className="deffineButton" onClick={cleanSubmit}>
             Volver
           </button>
+          :
+          <button className="deffineButton" onClick={()=> navigate("/")}>
+            Inicio
+          </button>
+          }
         </Container>
       )}
        {handleShow.open && 

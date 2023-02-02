@@ -83,7 +83,7 @@ class nodeMailerController {
 
     if (medic_enabled) {
       info = `<h2>¡Hola ${name} ${lastname}!</h2>
-        <p>Le informamos que su perfil ha sido deshabilitado, por favor pongase en conctacto con nosotros</p>`;
+        <p>Le informamos que su perfil ha sido deshabilitado, por favor pongase en contacto con nosotros</p>`;
     }
 
     let mailto = email;

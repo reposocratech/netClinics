@@ -12,7 +12,9 @@ export const AllMedics = () => {
   //se requiera
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
   const navigate = useNavigate();
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState();
+
+  const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:4000/admin/getAllMedics").then((res) => {
@@ -411,9 +413,15 @@ export const AllMedics = () => {
                 </h1>
                 {/*Botón para limpiar la busqueda y volver a la pantalla
                 de busqueda anterior */}
+                {isSearch ?
                 <Button className="defineButton" onClick={cleanSubmit}>
                   Volver
                 </Button>
+                :
+                <Button className="defineButton" onClick={()=>navigate("/")}>
+                  Inicio
+                </Button>
+                }
               </div>
             </Col>
           </Row>

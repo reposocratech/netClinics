@@ -11,7 +11,7 @@ import "./styleValidations.scss";
 
 export const Validations = () => {
   const { resetPage, setResetPage } = useContext(NetClinicsContext);
-  const [medics, setMedics] = useState([]);
+  const [medics, setMedics] = useState();
   const navigate = useNavigate();
 
   //Traigo todos los médicos pendientes de habilitar
@@ -54,7 +54,7 @@ export const Validations = () => {
           <Col>
             {/* Si medics trae resultado muestra los médicos pendientes
           de validar, si no, aparece mensaje */}
-            {medics.length !== 0 ? (
+            {medics?.length !== 0 ? (
               <ValidationAdmins
                 medics={medics}
                 navigate={navigate}
