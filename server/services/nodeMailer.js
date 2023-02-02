@@ -23,7 +23,8 @@ class nodeMailerController {
         una vez validemos la documentación podrás aparecer en 
         las búsqueda de nuestros usuarios y empezar a recibir citas</p>
         <p><strong>Recuerda, desde este momento, puedes acceder a tu perfil, editarlo para ir añadiendo zonas donde prestaras servicios, tus especialidades, tarifa de precios, titulos, etc...</strong></p>
-        <p>Cuando su perfil esté validado mandaremos un nuevo email para que estés informado de todo el proceso</p>`;
+        <p>Cuando su perfil esté validado mandaremos un nuevo email para que estés informado de todo el proceso</p>
+        <p>Att. NetClinics</p>`;
 
     const mailmsg = {
       from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
@@ -76,7 +77,8 @@ class nodeMailerController {
     let info = `<h2>¡Hola ${name} ${lastname}!</h2>
         <p><strong>¡Enhorabuena!</strong> su perfil profesional ha sido validado por el administrador</p>
         <p>Desde este momento ya formas parte de nuestra comunidad NetClinics, recuerda tener actualizado tu perfil y tu disponibilidad horaria semanal</p>
-        <p>Los usuarios ya pueden solicitar cita contigo, cuando se solicite un cita recibirás un email con los datos de la cita, dicha cita tendrás que confirmarla en tu panel de "citas pendiente de confirmación"</p>`;
+        <p>Los usuarios ya pueden solicitar cita contigo, cuando se solicite un cita recibirás un email con los datos de la cita, dicha cita tendrás que confirmarla en tu panel de "citas pendiente de confirmación"</p>
+        <p>Att. NetClinics</p>`;
 
 
     if (medic_enabled) {
@@ -127,7 +129,8 @@ class nodeMailerController {
     <p><strong>Paciente</strong>: ${namePatient} ${lastNamePatient}</p>
     <p><strong>Fecha Cita</strong>: ${date}</p>
     <p><strong>Hora</strong>: ${appointment_time}</p>
-    <p><strong>Comentario Cita</strong>: ${appointment_commentary}</p>`;
+    <p><strong>Comentario Cita</strong>: ${appointment_commentary}</p>
+    <p>Att. NetClinics</p>`;
 
     let mailto = emailMedic;
 
@@ -156,7 +159,8 @@ class nodeMailerController {
     let info = `<h2>¡Hola! ${name} ${lastname}</h2>
         <p>Hemos generado la siguiente contraseña para tu usuario:</p>
         <p><strong>${password}</strong></p>
-        <p>Acceda a su perfil y cambie la contraseña por su seguridad</p>`;
+        <p>Acceda a su perfil y cambie la contraseña por su seguridad</p>
+        <p>Att. NetClinics</p>`;
 
     let mailto = email;
 
@@ -176,6 +180,73 @@ class nodeMailerController {
         res.status(500).send("Algo ha salido mal!: " + error);
       });
   };
+
+  //Envia email al cliente cuando se acepta la cita
+  acceptAppointment = (req, res) => {
+
+    let {appointment_date, appointment_time, email, name, lastname, address, postal_code, city_name, province_name, appointment_commentary} = req.body.appointment;
+    const nameMedic = req.body.user.name;
+    const lastNameMedic = req.body.user.lastname;
+
+    appointment_date = appointment_date.split("-").reverse().join("-");
+
+    let info = `<h2>¡Hola! ${name} ${lastname}</h2>
+        <p>¡Enhorabuena! su cita con ${nameMedic} ${lastNameMedic} ha sido aceptada:</p>
+        <p>Le recordamos los datos de su cita:</p>
+        <p><strong>Fecha de la cita:</strong> ${appointment_date}</p>
+        <p><strong>Hora:</strong> ${appointment_time}</p>
+        <p><strong>Dirección:</strong> ${address} ${city_name} (${province_name}) - ${postal_code}</p>
+        <p><strong>Comentario:</strong> ${appointment_commentary}</p>
+        <p>Att. NetClinics</p>`;
+    
+    let mailto = email;
+
+    const mailmsg = {
+      from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
+      to: mailto,
+      subject: `Cita confirmada con ${nameMedic} ${lastNameMedic}`, // Asunto
+      html: info,
+    };
+
+    transporter
+      .sendMail(mailmsg)
+      .then((trans) => {
+      })
+      .catch((error) => {
+        res.status(500).send("Algo ha salido mal!: " + error);
+      });
+  }
+
+  //Envía email al cliente cuando se cancele la cita
+  cancelAppointment = (req, res) => {
+    let {appointment_date, appointment_time, email, name, lastname} = req.body.appointment;
+    const nameMedic = req.body.user.name;
+    const lastNameMedic = req.body.user.lastname;
+
+    appointment_date = appointment_date.split("-").reverse().join("-");
+
+    let info = `<h2>¡Hola! ${name} ${lastname}</h2>
+        <p>La cita con ${nameMedic} ${lastNameMedic} no puede ser atendida para el <strong>${appointment_date}</strong> de <strong>${appointment_time}</strong>.</p>
+        <p>Consulte de nuevo en nuestro buscador un profesional que se ajuste a sus necesidades</p>
+        <p>Att. NetClinics</p>`;
+    
+    let mailto = email;
+
+    const mailmsg = {
+      from: '"NetClinics" <netclinicsmvp@gmail.com>', // Remitente
+      to: mailto,
+      subject: `Cita cancelada con ${nameMedic} ${lastNameMedic}`, // Asunto
+      html: info,
+    };
+
+    transporter
+      .sendMail(mailmsg)
+      .then((trans) => {
+      })
+      .catch((error) => {
+        res.status(500).send("Algo ha salido mal!: " + error);
+      });
+  }
 }
 
 module.exports = new nodeMailerController();
