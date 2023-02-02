@@ -43,13 +43,14 @@ export const AllPatients = () => {
       {/*Si patients trae datos se muestra la tabla con todos los pacientes, 
       si no trae datos aparece mensaje */}
       <Container>
-        {patients?.length !== 0 ? 
+        {patients?.length !== 0 && 
           <AllPatiensAdmin
             patients={patients}
             navigate={navigate}
             handleEdit={handleEdit}
           />
-        :
+        }
+        {patients?.length === 0 &&
           <Row className="msg d-flex justify-content-center p-3 mt-5">
             <Col>
               <div className="text-center">
