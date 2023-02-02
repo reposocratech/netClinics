@@ -90,63 +90,89 @@ export const FormEditUser = ({
         lg={6}
         className="d-flex justify-content-center align-items-center"
       >
-        <form encType="multipart/form" className="d-flex flex-column">
-          <div className="contEditPatient d-flex flex-row align-items-center">
-            <label className="me-2">Nombre:</label>
-            <InputGroup className="inputPatient mb-3">
+        <form encType="multipart/form" className="colEditUser d-flex flex-column">
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon1" className="inputRegister">
+                <i className="fa-solid fa-user"></i>
+              </InputGroup.Text>
               <Form.Control
-                placeholder="Nombre"
+                placeholder="Edita nombre"
                 name="name"
+                type="text"
+                autoComplete="off"
+                aria-label="Nombre"
+                aria-describedby="basic-addon1"
                 value={editUser?.name}
                 onChange={handleChange}
               />
             </InputGroup>
-          </div>
 
-          <div className="contEditPatient d-flex flex-row align-items-center">
-            <label className="me-2">Apellidos:</label>
-            <InputGroup className="inputPatient mb-3">
-              <Form.Control
-                placeholder="Apellidos"
-                name="lastname"
-                value={editUser?.lastname}
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </div>
-
-          <div className="contEditPatient d-flex flex-row align-items-center">
-            <label className="me-2">Email:</label>
-            <InputGroup
-              className={`inputPatient ${errorEmail && errorEmail} mb-3`}
+            <InputGroup className={`inputPatient ${errorEmail && errorEmail} mb-3`}
             >
+              <InputGroup.Text id="basic-addon1" className="inputRegister">
+                <i className="fa-solid fa-envelope"></i>
+              </InputGroup.Text>
+
               <Form.Control
-                autoComplete="off"
-                placeholder="Email"
+                placeholder="Edita email"
                 name="email"
+                type="email"
+                autoComplete="off"
+                aria-label="Email"
                 value={editUser?.email}
                 onChange={handleChange}
+                aria-describedby="basic-addon1"
+                required
               />
             </InputGroup>
-          </div>
 
-          {errorEmail && (
-            <div>
-              <h4 className="text-danger">El email ya existe en nuestra BD</h4>
-            </div>
-          )}
+            {errorEmail && (
+              <div>
+                <h4 className="text-danger">El email ya existe en nuestra BD</h4>
+              </div>
+            )}
 
-          <div className="contEditPatient d-flex flex-row align-items-center">
-            <label className="me-2">Teléfono:</label>
-            <InputGroup className="inputPatient mb-3">
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon1" className="inputRegister">
+                <i className="fa-solid fa-map-location"></i>
+              </InputGroup.Text>
               <Form.Control
-                placeholder="Teléfono"
-                name="phone_number"
-                value={editUser?.phone_number}
+                placeholder="Edita dirección"
+                name="address"
+                type="text"
+                autoComplete="off"
+                aria-label="Dirección"
+                aria-describedby="basic-addon1"
+                value={editUser?.address === "null" ? "" : editUser?.address}
                 onChange={handleChange}
               />
             </InputGroup>
-          </div>
+
+          <InputGroup className="mb-3">
+              <div className="d-flex w-100">
+                <InputGroup.Text
+                  id="basic-addon1"
+                  className="inputRegister iconSelect"
+                >
+                  <i className="fa-solid fa-city"></i>
+                </InputGroup.Text>
+                <Form.Select
+                  className="selectPatient"
+                  value={editUser?.city_id}
+                  name="city_id"
+                  onChange={handleChange}
+                >
+                  <option>Edita ciudad</option>
+                  {listCities?.map((city) => {
+                    return (
+                      <option key={city?.city_id} value={city?.city_id}>
+                        {city?.city_name}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+              </div>
+            </InputGroup>
         </form>
       </Col>
 
@@ -157,69 +183,85 @@ export const FormEditUser = ({
         lg={6}
         className="d-flex justify-content-center align-items-center"
       >
-        <form encType="multipart/form" className="d-flex flex-column">
-          <div className="contEditPatient d-flex flex-row align-items-center">
-            <label className="me-2">Dirección:</label>
-            <InputGroup className="inputPatient mb-3">
+        <form encType="multipart/form" className="colEditUser d-flex flex-column">
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon1" className="inputRegister">
+                <i className="fa-solid fa-user"></i>
+              </InputGroup.Text>
               <Form.Control
-                placeholder="Dirección"
-                name="address"
-                value={editUser?.address === "null" ? "" : editUser?.address}
+                placeholder="Edita apellido"
+                name="lastname"
+                type="text"
+                autoComplete="off"
+                aria-label="Apellido"
+                aria-describedby="basic-addon1"
+                value={editUser?.lastname}
                 onChange={handleChange}
+                required
               />
             </InputGroup>
-          </div>
-
-          <div className="contEditPatient d-flex flex-row align-items-end mb-3">
-            <label className="me-2">Provincia:</label>
-            <select
-              className="selectPatient"
-              name="province_id"
-              value={editUser?.province_id}
-              onChange={(e) => getCity(e.target.value)}
-            >
-              {listProvinces?.map((province) => {
-                return (
-                  <option
-                    key={province?.province_id}
-                    value={province?.province_id}
-                  >
-                    {province?.province_name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
-          <div className="contEditPatient d-flex flex-row align-items-end mb-3">
-            <label className="me-2">Ciudad:</label>
-            <select
-              className="selectPatient"
-              value={editUser?.city_id}
-              name="city_id"
-              onChange={handleChange}
-            >
-              {listCities?.map((city) => {
-                return (
-                  <option key={city?.city_id} value={city?.city_id}>
-                    {city?.city_name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
-          <div className="contEditPatient d-flex flex-row align-items-center">
-            <label className="me-2">Codigo postal:</label>
-            <InputGroup className="inputPatient mb-3">
+          
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon1" className="inputRegister">
+                <i className="fa-solid fa-phone"></i>
+              </InputGroup.Text>
               <Form.Control
-                placeholder="Código Postal"
+                placeholder="Introduce tu Nº de Teléfono"
+                name="phone_number"
+                type="text"
+                autoComplete="off"
+                aria-label="Nº de Teléfono"
+                aria-describedby="basic-addon1"
+                value={editUser?.phone_number}
+                onChange={handleChange}
+                required
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <div className="d-flex w-100">
+                <InputGroup.Text
+                  id="basic-addon1"
+                  className="inputRegister iconSelect"
+                >
+                  <i className="fa-solid fa-city"></i>
+                </InputGroup.Text>
+                <Form.Select
+                  className="selectPatient"
+                  name="province_id"
+                  value={editUser?.province_id}
+                  onChange={(e) => getCity(e.target.value)}
+                >
+                  <option>Edita provincia</option>
+                  {listProvinces?.map((province) => {
+                    return (
+                      <option
+                        key={province?.province_id}
+                        value={province?.province_id}
+                      >
+                        {province?.province_name}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+              </div>
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon1" className="inputRegister">
+                <i className="fa-solid fa-location-pin"></i>
+              </InputGroup.Text>
+              <Form.Control
+                placeholder="Edita Código Postal"
                 name="postal_code"
+                type="text"
+                autoComplete="off"
+                aria-label="Código Postal"
+                aria-describedby="basic-addon1"
                 value={editUser?.postal_code === 0 ? "" : editUser?.postal_code}
                 onChange={handleChange}
               />
             </InputGroup>
-          </div>
         </form>
       </Col>
 
