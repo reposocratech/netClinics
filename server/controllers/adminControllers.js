@@ -105,7 +105,7 @@ class adminControllers {
     LEFT JOIN title ON user.user_id = title.user_id 
     LEFT JOIN medic_data_speciality ON user.user_id = medic_data_speciality.user_id 
     LEFT JOIN speciality ON medic_data_speciality.speciality_id = speciality.speciality_id 
-    WHERE user.user_id=${user_id}`;
+    WHERE user.user_id=${user_id} and user.type = 2`;
     
     connection.query(sql, (error, result) => {
       if (error) {
@@ -197,7 +197,7 @@ class adminControllers {
   getPatientProfile = (req, res) => {
     const user_id = req.params.user_id;
 
-    let sql = `SELECT user.*, province.province_name, city.city_name FROM user, province, city WHERE user.city_id = city.city_id AND user.province_id = province.province_id AND province.province_id = city.province_id AND user.user_id = ${user_id}`;
+    let sql = `SELECT user.*, province.province_name, city.city_name FROM user, province, city WHERE user.city_id = city.city_id AND user.province_id = province.province_id AND province.province_id = city.province_id AND user.user_id = ${user_id} user.type = 3`;
 
     connection.query(sql, (error, result) => {
       error ? res.status(400).json({ error }) : res.status(200).json(result);

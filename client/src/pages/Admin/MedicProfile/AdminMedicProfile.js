@@ -102,7 +102,7 @@ export const AdminMedicProfile = () => {
           <Col sm="12" md="12" className="section">
             <h4>Sobre mí</h4>
             <hr className="separador" />
-            <p>{dataUser?.medic_description}</p>
+            <p>{dataUser?.medic_description === "" || dataUser?.medic_description === "null" || dataUser?.medic_description === null ? "" : dataUser?.medic_description}</p>
           </Col>
         </Row>
         <Row className="ms-2 me-2 d-flex flex-row justify-content-between gap-3">
@@ -171,15 +171,15 @@ export const AdminMedicProfile = () => {
                 {dataTitles?.map((title) => {
                   return (
                     <tr key={title.document}>
-                      <td>{title?.text}</td>
-                      <td>{title?.university}</td>
+                      <td>{title?.text === "" || title?.text === "null" || title?.text === null ? "" : title?.text}</td>
+                      <td>{title?.university === "" || title?.university === "null" || title?.university === null ? "" : title?.university}</td>
                       <td>
-                        {title?.start_date === ""
+                        {title?.start_date === "" || title?.start_date === "null" || title?.start_date === null
                           ? "Sin Fecha"
                           : title?.start_date}
                       </td>
                       <td>
-                        {title?.end_date === "" ? "Sin Fecha" : title?.end_date}
+                        {title?.end_date === "" || title?.end_date === "null" || title?.end_date === null ? "Sin Fecha" : title?.end_date}
                       </td>
                       <td>
                         <button
