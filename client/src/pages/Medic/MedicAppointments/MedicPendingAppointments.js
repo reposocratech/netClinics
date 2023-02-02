@@ -25,8 +25,10 @@ import "./myDatesMedic.scss";
 import { MedicAppointmentView } from "./MedicAppointmentView";
 
 export const MedicPendingAppointments = () => {
+  
   const [appointmentData, setAppointmentData] = useState();
   const { user, resetPage, setResetPage } = useContext(NetClinicsContext);
+
   const [handleShow, setHandleShow] = useState({
     open: false,
     appointment: null,
@@ -42,27 +44,30 @@ export const MedicPendingAppointments = () => {
       .catch((err) => console.log(err));
   }, [resetPage, user]);
 
-  const cancelAppointment = (id_appointment) => {
+  const cancelAppointment = (appointment) => {
     axios
       .delete(
-        `http://localhost:4000/medic/cancelPendingAppointment/${id_appointment}`
+        `http://localhost:4000/medic/cancelPendingAppointment/${appointment.appointment_id}`
       )
       .then((res) => {
+        cancelAppointmentEmail(appointment)
         setResetPage(!resetPage);
       })
       .catch((err) => console.log(err));
   };
 
-  const acceptAppointment = (id_appointment) => {
+  const acceptAppointment = (appointment) => {
     axios
       .put(
-        `http://localhost:4000/medic/acceptPendingAppointment/${id_appointment}`
+        `http://localhost:4000/medic/acceptPendingAppointment/${appointment.appointment_id}`
       )
       .then((res) => {
+        acceptAppointmentEmail(appointment);
         setResetPage(!resetPage);
       })
       .catch((err) => console.log(err));
   };
+
   const [searchDate, setSearchDate] = useState("");
 
   const handlerSearch = (e) => {
@@ -89,6 +94,19 @@ export const MedicPendingAppointments = () => {
   const openModal = (appointment) => {
     setHandleShow({ open: true, appointment: appointment });
   };
+
+
+  //Envío de email cuando se acepta la cita, lo recibe el cliente
+  const acceptAppointmentEmail = (appointment) => {
+    axios
+    .post("http://localhost:4000/medic/acceptAppointment", {appointment, user});
+  }
+
+  //Envío de email cuando se cancela la cita, lo recibe el cliente
+  const cancelAppointmentEmail = (appointment) => {
+    axios
+    .post("http://localhost:4000/medic/cancelAppointment", {appointment, user});
+  }
 
   return (
     <div className="bgAppointmentHistory p-2">
@@ -192,7 +210,7 @@ export const MedicPendingAppointments = () => {
                           <button
                             className="acceptButton"
                             onClick={() =>
-                              acceptAppointment(appointment?.appointment_id)
+                              acceptAppointment(appointment)
                             }
                           >
                             <DoneRoundedIcon />
@@ -202,7 +220,7 @@ export const MedicPendingAppointments = () => {
                           <button
                             className="declinetButton"
                             onClick={() =>
-                              cancelAppointment(appointment?.appointment_id)
+                              cancelAppointment(appointment)
                             }
                           >
                             <ClearRoundedIcon />

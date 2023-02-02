@@ -290,7 +290,7 @@ class medicControllers {
   getPendingAppointments = (req, res) => {
 
     let {user_id} = req.params;
-    let sql = `SELECT appointment.*, user.name, user.lastname, user.avatar, user.phone_number,user.postal_code, user.address, city.city_name, province.province_name FROM appointment
+    let sql = `SELECT appointment.*, user.email, user.name, user.lastname, user.avatar, user.phone_number,user.postal_code, user.address, city.city_name, province.province_name FROM appointment
 
     JOIN user ON appointment.user_patient_id = user.user_id 
     JOIN province ON province.province_id = user.province_id

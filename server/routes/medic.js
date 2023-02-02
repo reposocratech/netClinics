@@ -49,6 +49,14 @@ router.get("/getAppointmentHistory/:user_id", medicControllers.getAppointmentHis
 //localhost:4000/medic/getPendingAppointments/:user_id 
 router.get("/getPendingAppointments/:user_id", medicControllers.getPendingAppointments);
 
+//6.1 - Envia email al cliente cuando se acepta la cita
+//localhost:4000/medic/acceptAppointment
+router.post("/acceptAppointment", nodeMailerController.acceptAppointment);
+
+//6.2 - Envia email al cliente cuando se cancela la cita
+//localhost:4000/medic/cancelAppointment
+router.post("/cancelAppointment", nodeMailerController.cancelAppointment);
+
 //------------------------------------------------------
 //7.- Trae todas las citas proximas (solo confirmadas) de un medico
 //localhost:4000/medic/getConfirmedAppointments/:user_id 
