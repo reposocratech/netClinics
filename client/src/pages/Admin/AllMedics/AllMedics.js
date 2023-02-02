@@ -91,6 +91,7 @@ export const AllMedics = () => {
 
   //Función para realizar el filtrado según los datos introducidos
   const onSubmit = () => {
+    setIsSearch(true);
     //Se realizan las diferentes combinaciones de busqueda que hay
     if (
       searchComplete.searchlastName !== "" &&

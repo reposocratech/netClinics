@@ -156,10 +156,10 @@ export const FormAddTitlesMedic = ({
         <h4 className="text-center text-danger">{messageError}</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button className="cancelButton" variant="secondary" onClick={handleClose}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={onSubmit}>
+        <Button className="saveButton" variant="primary" onClick={onSubmit}>
           Añadir Datos Académicos
         </Button>
       </Modal.Footer>
