@@ -38,19 +38,19 @@ export const AdminPatientProfile = () => {
               <div className="informationPatientProfile">
                 <h2>Datos personales</h2>
                 <hr />
-                <h4>
+                <h6>
                   {user?.name} {user?.lastname}
-                </h4>
-                <h4>D.N.I: {user?.dni}</h4>
-                <h4>{user?.email}</h4>
-                <h4>{user?.phone_number}</h4>
+                </h6>
+                <h6>D.N.I: {user?.dni}</h6>
+                <h6>{user?.email}</h6>
+                <h6>{user?.phone_number}</h6>
                 <br />
                 <h2>Dirección</h2>
                 <hr />
-                <h4>{user?.address}</h4>
-                <h4>
+                <h6>{user?.address}</h6>
+                <h6>
                   {user?.city_name}, {user?.province_name} ({user?.postal_code})
-                </h4>
+                </h6>
               </div>
             )}
           </Col>
