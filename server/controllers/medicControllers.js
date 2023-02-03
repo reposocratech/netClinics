@@ -320,6 +320,7 @@ class medicControllers {
   //8.- Agregar disponibilidad, horas y dias semana a un médico
   //localhost:4000/medic/availabilities
   addAvailability = (req, res) => {
+    //Recojo el user_id del token
     const token = req.headers.authorization.split(" ")[1];
     const {
       user: { user_id },
