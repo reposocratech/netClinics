@@ -4,7 +4,7 @@ Este proyecto es una aplicación web realizada por [equipo Socratech](#contacto)
 ## Tabla de Contenidos
 * [Información General](#informacion-general)
 * [Tecnologías utilizadas](#tecnologías-utilizadas)
-* [Capturas de la aplicación](#capturas-de-la-aplicacion)
+* [Capturas de la aplicación](#capturas-de-la-aplicación)
 * [Instalación y configuración](#instalación-y-configuración)
 * [Contacto](#contacto)
 
