@@ -110,10 +110,10 @@ class medicControllers {
     } = jwt.decode(token);
 
     let sql = `SELECT * FROM user 
-    left join medic_data on user.user_id = medic_data.user_id 
-    left join title on user.user_id = title.user_id 
-    left join medic_data_speciality on user.user_id = medic_data_speciality.user_id 
-    left join speciality on medic_data_speciality.speciality_id = speciality.speciality_id 
+    LEFT JOIN medic_data ON user.user_id = medic_data.user_id 
+    LEFT JOIN title ON user.user_id = title.user_id 
+    LEFT JOIN medic_data_speciality ON user.user_id = medic_data_speciality.user_id 
+    LEFT JOIN speciality ON medic_data_speciality.speciality_id = speciality.speciality_id 
     WHERE user.user_id=${user_id}`;
 
     connection.query(sql, (error, result) => {

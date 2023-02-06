@@ -25,7 +25,19 @@ Este proyecto es una aplicación web realizada por [equipo Socratech](#contacto)
 [  Librerías:  Multer  |  Bcrypt  |  Nodemon  |  Nodemailer  |  JsonWebToken | JWT-Decode | React-Router-DOM | Axios | MUI]
 
 ## Capturas de la aplicación
-**Pdte añadir capturas de pantalla de la aplicacion
+Vista Login (Inicio):
+<br/>
+![Vista Login (Inicio)](https://github.com/reposocratech/netClinics/blob/main/screenshots/1-Login.png)
+<br/>
+<br/>
+Registro Paciente:
+<br/>
+![Registro Paciente](https://github.com/reposocratech/netClinics/blob/main/screenshots/2-Registro-Paciente.png)
+<br/>
+<br/>
+Registro Fisioterapeuta:
+<br/>
+![Registro Fisioterapeuta](https://github.com/reposocratech/netClinics/blob/main/screenshots/3-Registro-M%C3%A9dico.png)
 
 ## Instalación y configuración
 
