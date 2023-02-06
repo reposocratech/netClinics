@@ -52,7 +52,7 @@ Home Fisioterapeuta:
 <br/>
 Home Paciente:
 <br/>
-![Home Paciente](https://github.com/reposocratech/netClinics/blob/main/screenshots/3-Registro-M%C3%A9dico.png)
+![Home Paciente](https://github.com/reposocratech/netClinics/blob/main/screenshots/6-Home-Paciente.png)
 
 ## Instalación y configuración
 
