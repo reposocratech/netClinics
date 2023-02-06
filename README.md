@@ -38,6 +38,21 @@ Registro Paciente:
 Registro Fisioterapeuta:
 <br/>
 ![Registro Fisioterapeuta](https://github.com/reposocratech/netClinics/blob/main/screenshots/3-Registro-M%C3%A9dico.png)
+<br/>
+<br/>
+Home Administrador:
+<br/>
+![Home Administrador](https://github.com/reposocratech/netClinics/blob/main/screenshots/4-Home-Admin.png)
+<br/>
+<br/>
+Home Fisioterapeuta:
+<br/>
+![Home Fisioterapeuta](https://github.com/reposocratech/netClinics/blob/main/screenshots/5-Home-Medico.png)
+<br/>
+<br/>
+Home Paciente:
+<br/>
+![Home Paciente](https://github.com/reposocratech/netClinics/blob/main/screenshots/3-Registro-M%C3%A9dico.png)
 
 ## Instalación y configuración
 
